@@ -1,6 +1,6 @@
-package org.goafabric.personservice.persistence;
+package org.goafabric.core.persistence;
 
-import org.goafabric.personservice.persistence.domain.PersonBo;
+import org.goafabric.core.persistence.domain.PersonBo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

@@ -1,4 +1,4 @@
-package org.goafabric.personservice.controller.dto;
+package org.goafabric.core.controller.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;

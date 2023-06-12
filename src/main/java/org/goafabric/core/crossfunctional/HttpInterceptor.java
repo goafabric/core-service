@@ -1,4 +1,4 @@
-package org.goafabric.personservice.crossfunctional;
+package org.goafabric.core.crossfunctional;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

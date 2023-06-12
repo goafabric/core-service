@@ -1,8 +1,8 @@
-package org.goafabric.personservice.logic;
+package org.goafabric.core.logic;
 
-import org.goafabric.personservice.controller.dto.Person;
-import org.goafabric.personservice.crossfunctional.DurationLog;
-import org.goafabric.personservice.persistence.PersonRepository;
+import org.goafabric.core.controller.dto.Person;
+import org.goafabric.core.persistence.PersonRepository;
+import org.goafabric.core.crossfunctional.DurationLog;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,4 +1,4 @@
-package org.goafabric.personservice;
+package org.goafabric.core;
 
 import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
