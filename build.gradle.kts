@@ -49,9 +49,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-aop")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 
-	//adapter
-	implementation("io.github.resilience4j:resilience4j-spring-boot3")
-
 	//code generation
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")

@@ -1,15 +1,11 @@
 package org.goafabric.core;
 
-import org.springframework.aot.hint.MemberCategory;
-import org.springframework.aot.hint.RuntimeHints;
-import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ImportRuntimeHints;
 
 
 /**
@@ -18,7 +14,6 @@ import org.springframework.context.annotation.ImportRuntimeHints;
 
 @SpringBootApplication
 @RegisterReflectionForBinding(org.postgresql.util.PGobject.class)
-@ImportRuntimeHints(Application.ApplicationRuntimeHints.class)
 public class Application {
 
     public static void main(String[] args){
@@ -32,11 +27,4 @@ public class Application {
         };
     }
 
-    static class ApplicationRuntimeHints implements RuntimeHintsRegistrar {
-        @Override
-        public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-            hints.reflection().registerType(io.github.resilience4j.spring6.circuitbreaker.configure.CircuitBreakerAspect.class,
-                    builder -> builder.withMembers(MemberCategory.INVOKE_DECLARED_METHODS));
-        }
-    }
 }
