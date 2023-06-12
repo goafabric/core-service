@@ -1,0 +1,163 @@
+version: "3.7"
+
+services:
+  application:
+    container_name: ${_Values_root_name}-application
+    image:  ${_Values_image_repository}${_Values_image_native}:${_Values_image_tag}
+    restart: 'no'
+    ports:
+      - "${_Values_service_port}:${_Values_service_port}"
+    entrypoint: ${_Values_resources_entrypoint}
+
+    healthcheck:
+      test: "curl -f http://localhost:${_Values_service_port}/actuator/health || exit 1"
+      disable: ${_Values_health_check_disabled} #disabled for native images because of no curl
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+    volumes:
+      - tmp:/tmp
+      - applogs:/usr/share/logs
+    networks:
+      - ${_Values_root_name}-net
+    environment:
+      #application
+      TZ: Europe/Berlin
+      server.port: "${_Values_service_port}"
+      server.tomcat.threads.max: "20"
+      server.forward-headers-strategy: FRAMEWORK
+
+      #monitoring
+      management.endpoint.health.show-details: always
+      management.endpoints.web.exposure.include: "health,heapdump,circuitbreakers,prometheus"
+
+      #zipkin/jaeger
+      spring.application.name: "core-service"
+      management.zipkin.tracing.endpoint: "http://host.docker.internal:9411/api/v2/spans"
+      management.tracing.sampling.probability: "1.0"
+      management.tracing.enabled: "true"
+      logging.level.zipkin2.reporter: "ERROR"
+
+      #persistence
+      spring.datasource.url: "jdbc:postgresql://postgres:5432/person"
+      spring.datasource.hikari.maximum-pool-size: "10"
+      spring.datasource.hikari.connection-timeout: "10000"
+
+      database.provisioning.goals: "-import-demo-data"
+
+      #adapter
+      #adapter.calleeservice.url: "http://host.docker.internal:50900"
+      adapter.calleeservice.url: "lb://callee-service"
+      adapter.calleeservice.timeout: "10000"
+
+      #oidc
+      security.authentication.enabled: "true"
+      spring.security.oauth2.frontend-uri: "http://127.0.0.1:30200/oidc"
+      spring.security.oauth2.base-uri: "http://auth-server:30200/oidc"
+
+      #secrets
+      spring.security.oauth2.client-id: "oauth2-proxy"
+      spring.security.oauth2.client-secret: "none"
+
+      spring.datasource.username: "core-service"
+      spring.datasource.password: "core-service"
+
+      adapter.calleeservice.user: "YWRtaW4="
+      adapter.calleeservice.password: "YWRtaW4="
+
+      #log levels
+      logging.level.root: "WARN"
+      logging.level.org.goafabric: "INFO"
+      logging.level.org.springframework: "INFO"
+      logging.level.org.flywaydb.core: "INFO"
+      logging.level.org.hibernate.SQL:
+
+      #consul
+      spring.cloud.consul.enabled: "true"
+      spring.cloud.consul.host: "consul"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      consul:
+        condition: service_started
+
+  postgres:
+    container_name: ${_Values_root_name}-postgres
+    image: postgres:15.3
+    restart: 'no'
+    ports:
+      - 50810:5432
+    environment:
+      TZ: "Europe/Berlin"
+      POSTGRES_DB: "person"
+
+      #secrets
+      POSTGRES_USER: "core-service"
+      POSTGRES_PASSWORD: "core-service"
+
+    command: postgres -c 'shared_buffers=64MB' -c 'max_connections=30' -c 'shared_preload_libraries=pg_stat_statements'
+
+    healthcheck:
+      test: "sh -c pg_isready"
+      interval: 1s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - ${_Values_root_name}-net
+
+  auth-server:
+    container_name: ${_Values_root_name}-auth-server
+    image: goafabric/spring-auth-server-native${_Values_server_arch}:1.0.2
+    restart: 'no'
+    ports:
+      - "30200:30200"
+    command: [ "-Xmx32m" ]
+    environment:
+      #application
+      server.forward-headers-strategy: FRAMEWORK
+
+      #auth
+      spring.security.authorization.base-uri: "/oidc"
+      spring.security.authorization.clients: "oauth2-proxy:none"
+      spring.security.authorization.users: "user1:user1,user2:user2,user3:user3,user4:user4"
+    networks:
+      - ${_Values_root_name}-net
+
+  consul:
+    container_name: consul
+    image: consul:1.15.2
+    restart: 'no'
+    ports:
+      - "8500:8500"
+      - "8600:8600"
+    command: agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
+    networks:
+      - ${_Values_root_name}-net
+
+  jaeger:
+    container_name: jaeger
+    image:  jaegertracing/all-in-one:1.42.0
+    restart: 'no'
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+      - "9411:9411"
+    environment:
+      - TZ=Europe/Berlin
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    networks:
+      - ${_Values_root_name}-net
+
+volumes:
+    tmp:
+    applogs:
+    pgdata:
+    kcdata:
+
+networks:
+  core-service-net:
+    driver: bridge
