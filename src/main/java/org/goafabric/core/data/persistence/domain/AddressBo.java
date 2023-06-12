@@ -1,4 +1,4 @@
-package org.goafabric.core.persistence.domain;
+package org.goafabric.core.data.persistence.domain;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.TenantId;

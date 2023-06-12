@@ -1,8 +1,8 @@
-package org.goafabric.core.controller;
+package org.goafabric.core.data.controller;
 
 import jakarta.validation.Valid;
-import org.goafabric.core.controller.dto.Person;
-import org.goafabric.core.logic.PersonLogic;
+import org.goafabric.core.data.controller.dto.Person;
+import org.goafabric.core.data.logic.PersonLogic;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 

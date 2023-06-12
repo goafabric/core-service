@@ -1,4 +1,4 @@
-package org.goafabric.core.controller.dto;
+package org.goafabric.core.data.controller.dto;
 
 public record Address (
         String id,

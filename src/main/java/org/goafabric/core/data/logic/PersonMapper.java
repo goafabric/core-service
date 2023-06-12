@@ -1,7 +1,7 @@
-package org.goafabric.core.logic;
+package org.goafabric.core.data.logic;
 
-import org.goafabric.core.controller.dto.Person;
-import org.goafabric.core.persistence.domain.PersonBo;
+import org.goafabric.core.data.controller.dto.Person;
+import org.goafabric.core.data.persistence.domain.PersonBo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
