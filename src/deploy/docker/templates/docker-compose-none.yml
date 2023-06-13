@@ -1,4 +1,0 @@
-services:
-  application:
-    environment:
-      none: none
