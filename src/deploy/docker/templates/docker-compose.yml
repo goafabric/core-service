@@ -40,7 +40,7 @@ services:
       logging.level.zipkin2.reporter: "ERROR"
 
       #persistence
-      spring.datasource.url: "jdbc:postgresql://postgres:5432/person"
+      spring.datasource.url: "jdbc:postgresql://postgres:5432/core"
       spring.datasource.hikari.maximum-pool-size: "10"
       spring.datasource.hikari.connection-timeout: "10000"
 
@@ -83,6 +83,68 @@ services:
       consul:
         condition: service_started
 
+
+  catalog-service:
+    container_name: catalog-service
+    image:  goafabric/catalog-service-native${_Values_server_arch}:1.0.0-SNAPSHOT
+    restart: 'no'
+    ports:
+      - "50600:50600"
+#    entrypoint: ${_Values_resources_entrypoint}
+
+    healthcheck:
+      test: "curl -f http://localhost:50600/actuator/health || exit 1"
+      disable: true #disabled for native images because of no curl
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+    volumes:
+      - tmp_catalog:/tmp
+      - applogs_catalog:/usr/share/logs
+    networks:
+      - ${_Values_root_name}-net
+    environment:
+      #application
+      TZ: Europe/Berlin
+      server.port: "50600"
+      server.tomcat.threads.max: "20"
+      server.forward-headers-strategy: FRAMEWORK
+
+      #security
+      security.authentication.enabled: "false"
+
+      #monitoring
+      management.endpoint.health.show-details: always
+      management.endpoints.web.exposure.include: "health,heapdump,circuitbreakers,prometheus"
+
+      #zipkin/jaeger
+      spring.application.name: "catalog-service"
+      management.zipkin.tracing.endpoint: "http://host.docker.internal:9411/api/v2/spans"
+      management.tracing.sampling.probability: "1.0"
+      management.tracing.enabled: "true"
+      logging.level.zipkin2.reporter: "ERROR"
+
+      #persistence
+      spring.datasource.url: "jdbc:postgresql://postgres:5432/core"
+      spring.datasource.hikari.maximum-pool-size: "10"
+      spring.datasource.hikari.connection-timeout: "10000"
+
+      database.provisioning.goals: "-import-catalog-data"
+
+      #secrets
+      spring.datasource.username: "core-service"
+      spring.datasource.password: "core-service"
+
+      #log levels
+      logging.level.root: "WARN"
+      logging.level.org.goafabric: "INFO"
+      logging.level.org.springframework: "INFO"
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+
   postgres:
     container_name: ${_Values_root_name}-postgres
     image: postgres:15.3
@@ -91,7 +153,7 @@ services:
       - 50810:5432
     environment:
       TZ: "Europe/Berlin"
-      POSTGRES_DB: "person"
+      POSTGRES_DB: "core"
 
       #secrets
       POSTGRES_USER: "core-service"
@@ -155,6 +217,8 @@ services:
 volumes:
     tmp:
     applogs:
+    tmp_catalog:
+    applogs_catalog:
     pgdata:
     kcdata:
 
