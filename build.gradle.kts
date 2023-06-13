@@ -61,7 +61,7 @@ dependencies {
 	implementation("org.flywaydb:flyway-core")
 
 	//cloud
-	implementation("org.springframework.cloud:spring-cloud-starter-consul-all:4.0.2")
+	//implementation("org.springframework.cloud:spring-cloud-starter-consul-all:4.0.2")
 	//implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer:4.0.2")
 
 	//test
