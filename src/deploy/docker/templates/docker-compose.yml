@@ -34,7 +34,7 @@ services:
 
       #zipkin/jaeger
       spring.application.name: "core-service"
-      management.zipkin.tracing.endpoint: "http://host.docker.internal:9411/api/v2/spans"
+      management.zipkin.tracing.endpoint: "http://jaeger:9411/api/v2/spans"
       management.tracing.sampling.probability: "1.0"
       management.tracing.enabled: "true"
       logging.level.zipkin2.reporter: "ERROR"
@@ -43,13 +43,7 @@ services:
       spring.datasource.url: "jdbc:postgresql://postgres:5432/core"
       spring.datasource.hikari.maximum-pool-size: "10"
       spring.datasource.hikari.connection-timeout: "10000"
-
       database.provisioning.goals: "-import-demo-data"
-
-      #adapter
-      #adapter.calleeservice.url: "http://host.docker.internal:50900"
-      adapter.calleeservice.url: "lb://callee-service"
-      adapter.calleeservice.timeout: "10000"
 
       #oidc
       security.authentication.enabled: "true"
@@ -62,9 +56,6 @@ services:
 
       spring.datasource.username: "core-service"
       spring.datasource.password: "core-service"
-
-      adapter.calleeservice.user: "YWRtaW4="
-      adapter.calleeservice.password: "YWRtaW4="
 
       #log levels
       logging.level.root: "WARN"
@@ -119,7 +110,7 @@ services:
 
       #zipkin/jaeger
       spring.application.name: "catalog-service"
-      management.zipkin.tracing.endpoint: "http://host.docker.internal:9411/api/v2/spans"
+      management.zipkin.tracing.endpoint: "http://jaeger:9411/api/v2/spans"
       management.tracing.sampling.probability: "1.0"
       management.tracing.enabled: "true"
       logging.level.zipkin2.reporter: "ERROR"
