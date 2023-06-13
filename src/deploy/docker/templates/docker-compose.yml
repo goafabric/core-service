@@ -80,7 +80,7 @@ services:
     restart: 'no'
     ports:
       - "50600:50600"
-#    entrypoint: ${_Values_resources_entrypoint}
+    entrypoint: "/workspace/org.goafabric.catalogservice.Application -Xmx32m"
 
     healthcheck:
       test: "curl -f http://localhost:50600/actuator/health || exit 1"
