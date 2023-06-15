@@ -2,6 +2,7 @@ package org.goafabric.core.data.persistence.extensions;
 
 import org.goafabric.core.data.controller.dto.Address;
 import org.goafabric.core.data.controller.dto.Patient;
+import org.goafabric.core.data.controller.dto.types.AdressUse;
 import org.goafabric.core.data.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class Provisioning {
+public class DatabaseProvisioning {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Value("${database.provisioning.goals:}")
@@ -68,7 +69,7 @@ public class Provisioning {
     }
 
     private List<Address> createAddress(String street) {
-        return Collections.singletonList(new Address(null, "Evergreen Terrace", "Springfield " + HttpInterceptor.getTenantId()));
+        return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(),"Evergreen Terrace", "Springfield " + HttpInterceptor.getTenantId()));
     }
 
 }

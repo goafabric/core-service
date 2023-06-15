@@ -11,6 +11,8 @@ public class AddressBo  {
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
+    public String use;
+
     @TenantId
     public String orgunitId;
 

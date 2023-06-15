@@ -25,8 +25,9 @@ create table address
 
     orgunit_id varchar(36),
 
-	street varchar(255) NULL,
-	city varchar(255) NULL,
+    use varchar(255),
+	street varchar(255),
+	city varchar(255),
 	version bigint default 0
 );
 

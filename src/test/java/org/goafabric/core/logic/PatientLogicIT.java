@@ -2,6 +2,7 @@ package org.goafabric.core.logic;
 
 import org.goafabric.core.data.controller.dto.Address;
 import org.goafabric.core.data.controller.dto.Patient;
+import org.goafabric.core.data.controller.dto.types.AdressUse;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.persistence.PatientRepository;
 import org.junit.jupiter.api.Test;
@@ -73,8 +74,7 @@ class PatientLogicIT {
     }
 
     private List<Address> createAddress(String street) {
-        return Collections.singletonList(new Address(null,
-                street, "Springfield"));
+        return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(), street, "Springfield"));
     }
 
 }
