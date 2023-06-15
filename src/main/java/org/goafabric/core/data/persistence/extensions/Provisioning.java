@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,13 +56,13 @@ public class Provisioning {
     }
 
     private void insertData() {
-        patientLogic.save(new Patient(null, "Homer", "Simpson"
+        patientLogic.save(new Patient(null, "Homer", "Simpson", "male", LocalDate.of(2020, 1, 8)
                         , createAddress("Evergreen Terrace 1")));
 
-        patientLogic.save(new Patient(null, "Bart", "Simpson"
+        patientLogic.save(new Patient(null, "Bart", "Simpson", "male", LocalDate.of(2020, 1, 8)
                 , createAddress("Everblue Terrace 1")));
 
-        patientLogic.save(new Patient(null, "Monty", "Burns"
+        patientLogic.save(new Patient(null, "Monty", "Burns", "male", LocalDate.of(2020, 1, 8)
                 , createAddress("Monty Mansion")));
 
     }

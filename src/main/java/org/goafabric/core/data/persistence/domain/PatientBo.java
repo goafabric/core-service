@@ -3,6 +3,8 @@ package org.goafabric.core.data.persistence.domain;
 import jakarta.persistence.*;
 import org.hibernate.annotations.TenantId;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "patient")
 public class PatientBo {
@@ -16,6 +18,10 @@ public class PatientBo {
     public String givenName;
 
     public String familyName;
+
+    public String gender;
+
+    public LocalDate birthDate;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")

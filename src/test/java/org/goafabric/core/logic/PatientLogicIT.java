@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -62,6 +63,7 @@ class PatientLogicIT {
             new Patient("null",
                     "Homer",
                     "Simpson",
+                     "male", LocalDate.of(2020, 1, 8),
                     createAddress("Evergreen Terrace")
         ));
 
