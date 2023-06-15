@@ -1,12 +1,8 @@
 package org.goafabric.core.data.crossfunctional;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
@@ -15,6 +11,7 @@ public class HttpInterceptor implements WebMvcConfigurer {
     private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
     private static final ThreadLocal<String> userName = new ThreadLocal<>();
 
+    /*
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new HandlerInterceptor() {
@@ -33,8 +30,13 @@ public class HttpInterceptor implements WebMvcConfigurer {
         });
     }
 
+     */
+
 
     public static String getTenantId() {
+        if (tenantId.get() != null) {
+            return tenantId.get();
+        }
         var auth = SecurityContextHolder.getContext().getAuthentication();
         return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId() : "0";
     }
@@ -42,6 +44,10 @@ public class HttpInterceptor implements WebMvcConfigurer {
     public static String getUserName() {
         return userName.get() != null ? userName.get()
                 : SecurityContextHolder.getContext().getAuthentication() != null ? SecurityContextHolder.getContext().getAuthentication().getName() : "";
+    }
+
+    public static void setTenantId(String tenantId) {
+        HttpInterceptor.tenantId.set(tenantId);
     }
 
     public static String getCompanyId() {
