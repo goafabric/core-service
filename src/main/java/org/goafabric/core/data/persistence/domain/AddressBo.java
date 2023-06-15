@@ -12,7 +12,7 @@ public class AddressBo  {
     public String id;
 
     @TenantId
-    public String companyId;
+    public String orgunitId;
 
     public String street;
     public String city;

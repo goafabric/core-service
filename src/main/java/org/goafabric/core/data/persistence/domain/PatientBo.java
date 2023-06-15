@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.TenantId;
 
 @Entity
-@Table(name = "person")
+@Table(name = "patient")
 public class PatientBo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
     @TenantId
-    public String companyId;
+    public String orgunitId;
 
     public String firstName;
 
