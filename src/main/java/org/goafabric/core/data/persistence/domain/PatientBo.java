@@ -13,9 +13,9 @@ public class PatientBo {
     @TenantId
     public String orgunitId;
 
-    public String firstName;
+    public String givenName;
 
-    public String lastName;
+    public String familyName;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")

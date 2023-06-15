@@ -7,8 +7,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface PatientRepository extends JpaRepository<PatientBo, String> {
-    List<PatientBo> findByFirstName(String firstName);
+    List<PatientBo> findByGivenName(String givenName);
 
-    List<PatientBo> findByLastName(@Param("lastName") String lastName);
+    List<PatientBo> findByFamilyName(@Param("familyName") String familyName);
 }
 

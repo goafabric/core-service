@@ -30,8 +30,8 @@ class PatientLogicIT {
         final Patient patient
                 = patientLogic.getById(patients.get(0).id());
         assertThat(patient).isNotNull();
-        assertThat(patient.firstName()).isEqualTo(patients.get(0).firstName());
-        assertThat(patient.lastName()).isEqualTo(patients.get(0).lastName());
+        assertThat(patient.givenName()).isEqualTo(patients.get(0).givenName());
+        assertThat(patient.familyName()).isEqualTo(patients.get(0).familyName());
     }
 
     @Test
@@ -42,18 +42,18 @@ class PatientLogicIT {
     }
 
     @Test
-    public void findByFirstName() {
-        List<Patient> patients = patientLogic.findByFirstName("Monty");
+    public void findBygivenName() {
+        List<Patient> patients = patientLogic.findByGivenName("Monty");
         assertThat(patients).isNotNull().hasSize(1);
-        assertThat(patients.get(0).firstName()).isEqualTo("Monty");
-        assertThat(patients.get(0).lastName()).isEqualTo("Burns");
+        assertThat(patients.get(0).givenName()).isEqualTo("Monty");
+        assertThat(patients.get(0).familyName()).isEqualTo("Burns");
     }
 
     @Test
-    public void findByLastName() {
-        List<Patient> patients = patientLogic.findByLastName("Simpson");
+    public void findByfamilyName() {
+        List<Patient> patients = patientLogic.findByFamilyName("Simpson");
         assertThat(patients).isNotNull().hasSize(2);
-        assertThat(patients.get(0).lastName()).isEqualTo("Simpson");
+        assertThat(patients.get(0).familyName()).isEqualTo("Simpson");
     }
 
     @Test

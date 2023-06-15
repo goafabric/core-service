@@ -27,14 +27,14 @@ public class PersonController {
         return patientLogic.findAll();
     }
 
-    @GetMapping("findByFirstName")
-    public List<Patient> findByFirstName(@RequestParam("firstName") String firstName) {
-        return patientLogic.findByFirstName(firstName);
+    @GetMapping("findByGivenName")
+    public List<Patient> findByGivenName(@RequestParam("givenName") String givenName) {
+        return patientLogic.findByGivenName(givenName);
     }
 
-    @GetMapping("findByLastName")
-    public List<Patient> findByLastName(@RequestParam("lastName") String lastName) {
-        return patientLogic.findByLastName(lastName);
+    @GetMapping("findByFamilyName")
+    public List<Patient> findByFamilyName(@RequestParam("familyName") String familyName) {
+        return patientLogic.findByFamilyName(familyName);
     }
 
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)

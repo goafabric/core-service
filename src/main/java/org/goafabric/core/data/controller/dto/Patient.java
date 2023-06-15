@@ -8,7 +8,7 @@ import java.util.List;
 
 public record Patient(
     @Null String id,
-    @NotNull @Size(min = 3, max = 255) String firstName,
-    @NotNull @Size(min = 3, max = 255) String lastName,
+    @NotNull @Size(min = 3, max = 255) String givenName,
+    @NotNull @Size(min = 3, max = 255) String familyName,
     List<Address> address
 ) {}

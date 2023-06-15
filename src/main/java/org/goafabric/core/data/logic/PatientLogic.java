@@ -31,14 +31,14 @@ public class PatientLogic {
                 patientRepository.findAll());
     }
 
-    public List<Patient> findByFirstName(String firstName) {
+    public List<Patient> findByGivenName(String givenName) {
         return patientMapper.map(
-                patientRepository.findByFirstName(firstName));
+                patientRepository.findByGivenName(givenName));
     }
 
-    public List<Patient> findByLastName(String lastName) {
+    public List<Patient> findByFamilyName(String familyName) {
         return patientMapper.map(
-                patientRepository.findByLastName(lastName));
+                patientRepository.findByFamilyName(familyName));
     }
 
     public Patient save(Patient patient) {
