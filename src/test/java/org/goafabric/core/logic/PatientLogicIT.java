@@ -1,6 +1,7 @@
 package org.goafabric.core.logic;
 
 import org.goafabric.core.data.controller.dto.Patient;
+import org.goafabric.core.data.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.persistence.PatientRepository;
 import org.junit.jupiter.api.Test;
@@ -34,8 +35,10 @@ class PatientLogicIT {
 
     @Test
     public void findAll() {
+        HttpInterceptor.setTenantId("0");
         assertThat(patientLogic.findAll()).isNotNull().hasSize(3);
 
+        HttpInterceptor.setTenantId("5");
         assertThat(patientLogic.findAll()).isNotNull().hasSize(3);
     }
 
