@@ -119,8 +119,11 @@ services:
       - "16686:16686"
       - "14268:14268"
       - "9411:9411"
+      - "4317:4317"
+      - "4318:4318"
     environment:
       - TZ=Europe/Berlin
+      - COLLECTOR_OTLP_ENABLED=true
       - COLLECTOR_ZIPKIN_HOST_PORT=:9411
     networks:
       - ${_Values_root_name}-net
