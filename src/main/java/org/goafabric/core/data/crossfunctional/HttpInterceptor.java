@@ -33,21 +33,19 @@ public class HttpInterceptor implements WebMvcConfigurer {
      */
 
 
+    public static void setTenantId(String tenantId) {
+        HttpInterceptor.tenantId.set(tenantId);
+    }
+
     public static String getTenantId() {
-        if (tenantId.get() != null) {
-            return tenantId.get();
-        }
         var auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId() : "0";
+        return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId()
+                : tenantId.get() != null ? tenantId.get() : "0";
     }
 
     public static String getUserName() {
         return userName.get() != null ? userName.get()
                 : SecurityContextHolder.getContext().getAuthentication() != null ? SecurityContextHolder.getContext().getAuthentication().getName() : "";
-    }
-
-    public static void setTenantId(String tenantId) {
-        HttpInterceptor.tenantId.set(tenantId);
     }
 
     public static String getCompanyId() {

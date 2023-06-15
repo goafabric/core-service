@@ -12,6 +12,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
+import java.util.List;
+
 @Component
 public class Provisioning {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -63,8 +66,8 @@ public class Provisioning {
 
     }
 
-    private Address createAddress(String street) {
-        return new Address(null, "street", "Springfield " + HttpInterceptor.getTenantId());
+    private List<Address> createAddress(String street) {
+        return Collections.singletonList(new Address(null, "Evergreen Terrace", "Springfield " + HttpInterceptor.getTenantId()));
     }
 
 }

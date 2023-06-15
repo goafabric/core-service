@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -69,9 +70,9 @@ class PersonLogicIT {
         personRepository.deleteById(person.id());
     }
 
-    private Address createAddress(String street) {
-        return new Address(null,
-                street, "Springfield");
+    private List<Address> createAddress(String street) {
+        return Collections.singletonList(new Address(null,
+                street, "Springfield"));
     }
 
 }
