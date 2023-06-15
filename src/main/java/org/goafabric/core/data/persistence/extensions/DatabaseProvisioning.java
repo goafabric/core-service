@@ -1,8 +1,10 @@
 package org.goafabric.core.data.persistence.extensions;
 
 import org.goafabric.core.data.controller.dto.Address;
+import org.goafabric.core.data.controller.dto.ContactPoint;
 import org.goafabric.core.data.controller.dto.Patient;
 import org.goafabric.core.data.controller.dto.types.AdressUse;
+import org.goafabric.core.data.controller.dto.types.ContactPointSystem;
 import org.goafabric.core.data.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.slf4j.Logger;
@@ -57,19 +59,39 @@ public class DatabaseProvisioning {
     }
 
     private void insertData() {
-        patientLogic.save(new Patient(null, "Homer", "Simpson", "male", LocalDate.of(2020, 1, 8)
-                        , createAddress("Evergreen Terrace 1")));
+        patientLogic.save(
+                createPatient("Homer", "Simpson",
+                        createAddress("Evergreen Terrace 1"),
+                        createContactPoint())
+        );
 
-        patientLogic.save(new Patient(null, "Bart", "Simpson", "male", LocalDate.of(2020, 1, 8)
-                , createAddress("Everblue Terrace 1")));
+        patientLogic.save(
+                createPatient("Bart", "Simpson",
+                        createAddress("Everblue Terrace 1"),
+                        createContactPoint())
+        );
 
-        patientLogic.save(new Patient(null, "Monty", "Burns", "male", LocalDate.of(2020, 1, 8)
-                , createAddress("Monty Mansion")));
+        patientLogic.save(
+                createPatient("Monty", "Burns",
+                        createAddress("Monty Mansion"),
+                        createContactPoint())
+        );
 
+
+    }
+
+    private Patient createPatient(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {
+        return new Patient(null, givenName, familyName, "male", LocalDate.of(2020, 1, 8),
+                addresses, contactPoints
+        );
     }
 
     private List<Address> createAddress(String street) {
         return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(),"Evergreen Terrace", "Springfield " + HttpInterceptor.getTenantId()));
+    }
+
+    private List<ContactPoint> createContactPoint() {
+        return Collections.singletonList(new ContactPoint(null, AdressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), "5555-44444"));
     }
 
 }

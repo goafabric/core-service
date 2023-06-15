@@ -15,5 +15,6 @@ public record Patient(
     @NotNull String gender,
     @NotNull LocalDate birthDate,
     
-    List<Address> address
+    List<Address> address,
+    List<ContactPoint> contactPoint
 ) {}

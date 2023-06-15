@@ -27,6 +27,10 @@ public class PatientBo {
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     public AddressBo address;
 
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "contact_point_id", referencedColumnName = "id")
+    public ContactPointBo contactPoint;
+
     @Version //optimistic locking
     public Long version;
 

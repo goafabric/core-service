@@ -12,6 +12,8 @@ create table patient
 	birth_date date,
 
     address_id varchar(36) NOT NULL,
+    contact_point_id varchar(36) NOT NULL,
+
     version bigint default 0
 );
 

@@ -1,9 +1,12 @@
 package org.goafabric.core.data.controller.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 public record Address (
         String id,
-        String use,
-        String street,
-        String city
+
+        @NotNull String use,
+        @NotNull String street,
+        @NotNull String city
 ) {}
 

@@ -2,19 +2,16 @@ package org.goafabric.core.data.persistence.domain;
 
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name="address")
-public class AddressBo  {
+@Table(name="contact_point")
+public class ContactPointBo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
     public String use;
+    public String system;
 
-    public String street;
-    public String city;
-
-    @Version //optimistic locking
-    public Long version;
+    @Column(name = "c_value")
+    public String value;
 }
