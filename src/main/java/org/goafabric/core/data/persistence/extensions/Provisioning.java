@@ -1,9 +1,9 @@
 package org.goafabric.core.data.persistence.extensions;
 
 import org.goafabric.core.data.controller.dto.Address;
-import org.goafabric.core.data.controller.dto.Person;
+import org.goafabric.core.data.controller.dto.Patient;
 import org.goafabric.core.data.crossfunctional.HttpInterceptor;
-import org.goafabric.core.data.logic.PersonLogic;
+import org.goafabric.core.data.logic.PatientLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class Provisioning {
     private String goals;
 
     @Autowired
-    private PersonLogic personLogic;
+    private PatientLogic patientLogic;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -46,7 +46,7 @@ public class Provisioning {
 
     private void importDemoData() {
         HttpInterceptor.setTenantId("0");
-        if (personLogic.findAll().isEmpty()) {
+        if (patientLogic.findAll().isEmpty()) {
             HttpInterceptor.setTenantId("0");
             insertData();
             HttpInterceptor.setTenantId("5");
@@ -55,13 +55,13 @@ public class Provisioning {
     }
 
     private void insertData() {
-        personLogic.save(new Person(null, "Homer", "Simpson"
+        patientLogic.save(new Patient(null, "Homer", "Simpson"
                         , createAddress("Evergreen Terrace 1")));
 
-        personLogic.save(new Person(null, "Bart", "Simpson"
+        patientLogic.save(new Patient(null, "Bart", "Simpson"
                 , createAddress("Everblue Terrace 1")));
 
-        personLogic.save(new Person(null, "Monty", "Burns"
+        patientLogic.save(new Patient(null, "Monty", "Burns"
                 , createAddress("Monty Mansion")));
 
     }

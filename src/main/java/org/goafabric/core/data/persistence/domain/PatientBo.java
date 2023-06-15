@@ -5,7 +5,7 @@ import org.hibernate.annotations.TenantId;
 
 @Entity
 @Table(name = "person")
-public class PersonBo {
+public class PatientBo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;

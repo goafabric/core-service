@@ -1,9 +1,9 @@
 package org.goafabric.core.data.logic;
 
 import org.goafabric.core.data.controller.dto.Address;
-import org.goafabric.core.data.controller.dto.Person;
+import org.goafabric.core.data.controller.dto.Patient;
 import org.goafabric.core.data.persistence.domain.AddressBo;
-import org.goafabric.core.data.persistence.domain.PersonBo;
+import org.goafabric.core.data.persistence.domain.PatientBo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -12,12 +12,12 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface PersonMapper {
-    Person map(PersonBo value);
+public interface PatientMapper {
+    Patient map(PatientBo value);
 
-    PersonBo map(Person value);
+    PatientBo map(Patient value);
 
-    List<Person> map(List<PersonBo> value);
+    List<Patient> map(List<PatientBo> value);
 
     default List<Address> mapAdresses(AddressBo value) { return Collections.singletonList(map(value)); }
     Address map(AddressBo value);

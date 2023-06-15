@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
-public record Person (
+public record Patient(
     @Null String id,
     @NotNull @Size(min = 3, max = 255) String firstName,
     @NotNull @Size(min = 3, max = 255) String lastName,
