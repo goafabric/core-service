@@ -53,14 +53,16 @@ public class SecurityConfiguration {
                 .clientId(clientId)
                 .clientSecret(clientSecret)
                 .scope("openid")
+                .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
+
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .userNameAttributeName(userNameAttribute)
-                .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
                 .authorizationUri(frontendUri + fix + "/auth")
                 .tokenUri(baseUri + fix + "/token")
                 .userInfoUri(baseUri + fix + "/userinfo")
                 .jwkSetUri(baseUri + fix + "/certs")
                 .build();
+        //return ClientRegistrations.fromOidcIssuerLocation(baseUri + fix).registrationId(tenantId).clientId(clientId).clientSecret(clientSecret).scope("openid").redirectUri("{baseUrl}/login/oauth2/code/{registrationId}").build();
     }
 
 
