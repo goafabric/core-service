@@ -26,7 +26,7 @@ management.tracing.enabled: "true"
 logging.level.zipkin2.reporter: "ERROR"
 
 #oidc
-security.authentication.enabled: false
+security.authentication.enabled: true
 
 spring:
   security:
@@ -78,6 +78,8 @@ resilience4j.circuitbreaker:
 
 
 #logging
+logging.pattern.level: "%5p tenantId=%X{tenantId:-}" #"%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] tenantId=%X{tenantId:-}"
+
 logging.level.root: "WARN"
 logging.level.org.springframework: "INFO"
 
