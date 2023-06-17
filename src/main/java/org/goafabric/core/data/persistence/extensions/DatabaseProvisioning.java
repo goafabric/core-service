@@ -94,4 +94,14 @@ public class DatabaseProvisioning {
         return Collections.singletonList(new ContactPoint(null, AdressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), "5555-44444"));
     }
 
+    /*
+    private static void setTenantId(String tenantId) {
+        SecurityContextHolder.getContext().setAuthentication(
+                new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "");}}, "name")
+                        , new ArrayList<>(), tenantId));
+    }
+
+     */
+
+
 }
