@@ -1,5 +1,6 @@
 package org.goafabric.core;
 
+import io.micrometer.observation.ObservationPredicate;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -27,4 +28,8 @@ public class Application {
         };
     }
 
+    @Bean
+    ObservationPredicate disableHttpServerObservationsFromName() {
+        return (name, context) -> !name.startsWith("spring.security.");
+    }
 }

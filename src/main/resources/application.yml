@@ -26,7 +26,7 @@ management.tracing.enabled: "true"
 logging.level.zipkin2.reporter: "ERROR"
 
 #oidc
-security.authentication.enabled: false
+security.authentication.enabled: true
 
 spring:
   security:
