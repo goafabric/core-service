@@ -59,19 +59,17 @@ public class SecurityConfiguration {
         }
 
         private ClientRegistration buildClientRegistration(String tenantId) {
-            var fix = prefix.replaceAll("\\{tenantId}", tenantId);
             return ClientRegistration.withRegistrationId(tenantId)
                     .clientId(clientId)
                     .clientSecret(clientSecret)
                     .scope("openid")
                     .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
-
                     .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                     .userNameAttributeName(userNameAttribute)
-                    .authorizationUri(frontendUri + fix + "/auth")
-                    .tokenUri(baseUri + fix + "/token")
-                    .userInfoUri(baseUri + fix + "/userinfo")
-                    .jwkSetUri(baseUri + fix + "/certs")
+                    .authorizationUri(frontendUri.replaceAll("\\{tenantId}", tenantId))
+                    .tokenUri(baseUri.replaceAll("\\{tenantId}", tenantId) + "/token")
+                    .userInfoUri(baseUri.replaceAll("\\{tenantId}", tenantId) + "/userinfo")
+                    .jwkSetUri(baseUri.replaceAll("\\{tenantId}", tenantId) + "/certs")
                     .build();
         }
     }

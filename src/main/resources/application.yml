@@ -31,9 +31,10 @@ security.authentication.enabled: false
 spring:
   security:
     oauth2:
-      base-uri: http://127.0.0.1:30200/oidc
-      frontend-uri: http://127.0.0.1:30200/oidc
-      prefix: "" # "/realms/tenant-{tenantId}/protocol/openid-connect"
+#      base-uri: "http://127.0.0.1:30200/oidc"
+#      frontend-uri: "http://127.0.0.1:30200/oidc/auth"
+      base-uri: http://localhost:30200/oidc/realms/tenant-{tenantId}/protocol/openid-connect
+      frontend-uri: http://localhost:30200/oidc/realms/tenant-{tenantId}/protocol/openid-connect/auth
 
       client-id: "oauth2-proxy"
       client-secret: "none"
