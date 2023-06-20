@@ -1,4 +1,4 @@
-package org.goafabric.core.data.crossfunctional;
+package org.goafabric.core.crossfunctional;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

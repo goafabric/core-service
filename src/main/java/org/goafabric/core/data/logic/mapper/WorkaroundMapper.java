@@ -1,4 +1,4 @@
-package org.goafabric.core.data.logic;
+package org.goafabric.core.data.logic.mapper;
 
 import org.goafabric.core.data.controller.dto.Address;
 import org.goafabric.core.data.controller.dto.ContactPoint;

@@ -1,4 +1,4 @@
-package org.goafabric.core.data.logic;
+package org.goafabric.core.data.logic.mapper;
 
 import org.goafabric.core.data.controller.dto.Practitioner;
 import org.goafabric.core.data.persistence.domain.PractitionerBo;

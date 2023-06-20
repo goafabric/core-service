@@ -1,7 +1,7 @@
 package org.goafabric.core.logic;
 
 import org.goafabric.core.data.controller.dto.Patient;
-import org.goafabric.core.data.crossfunctional.HttpInterceptor;
+import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.persistence.PatientRepository;
 import org.junit.jupiter.api.BeforeAll;

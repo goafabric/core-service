@@ -1,4 +1,4 @@
-package org.goafabric.core.data.crossfunctional;
+package org.goafabric.core.crossfunctional;
 
 
 import java.lang.annotation.ElementType;

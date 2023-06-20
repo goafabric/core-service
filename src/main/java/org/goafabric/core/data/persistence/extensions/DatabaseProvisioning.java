@@ -5,7 +5,7 @@ import org.goafabric.core.data.controller.dto.ContactPoint;
 import org.goafabric.core.data.controller.dto.Patient;
 import org.goafabric.core.data.controller.dto.types.AdressUse;
 import org.goafabric.core.data.controller.dto.types.ContactPointSystem;
-import org.goafabric.core.data.crossfunctional.HttpInterceptor;
+import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
