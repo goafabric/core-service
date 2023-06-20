@@ -5,7 +5,7 @@ services:
     restart: 'no'
     ports:
       - "50600:50600"
-    entrypoint: "/workspace/org.goafabric.catalogservice.Application -Xmx32m"
+    command: "Xmx32m"
 
     healthcheck:
       test: "curl -f http://localhost:50600/actuator/health || exit 1"
