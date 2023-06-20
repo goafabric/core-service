@@ -34,12 +34,12 @@ public class PractitionerLogic {
 
     public List<Practitioner> findByGivenName(String givenName) {
         return practitionerMapper.map(
-                practitionerRepository.findByGivenName(givenName));
+                practitionerRepository.findByGivenNameStartsWithIgnoreCase(givenName));
     }
 
     public List<Practitioner> findByFamilyName(String familyName) {
         return practitionerMapper.map(
-                practitionerRepository.findByFamilyName(familyName));
+                practitionerRepository.findByFamilyNameStartsWithIgnoreCase(familyName));
     }
 
     public Practitioner save(Practitioner practitioner) {

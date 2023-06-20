@@ -53,6 +53,7 @@ dependencies {
 	//code generation
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")
+	implementation("net.datafaker:datafaker:1.8.1") { exclude("org.yaml", "snakeyaml") }
 
 	//persistence
 	implementation("org.springframework.boot:spring-boot-starter-validation")
@@ -66,6 +67,7 @@ dependencies {
 	//implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer:4.0.2")
 
 	//test
+	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 

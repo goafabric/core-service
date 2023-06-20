@@ -1,12 +1,15 @@
 package org.goafabric.core.data.persistence.extensions;
 
+import net.datafaker.Faker;
 import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.controller.dto.Address;
 import org.goafabric.core.data.controller.dto.ContactPoint;
 import org.goafabric.core.data.controller.dto.Patient;
 import org.goafabric.core.data.controller.dto.types.AdressUse;
 import org.goafabric.core.data.controller.dto.types.ContactPointSystem;
+import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
+import org.goafabric.core.data.logic.PractitionerLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +26,32 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Component
 public class DemoDataPrivisioning {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Value("${database.provisioning.goals:}")
-    private String goals;
+    String goals;
 
-    @Autowired
-    private PatientLogic patientLogic;
+    @Value("${demo-data.size}")
+    Integer demoDataSize;
+
+    private final PatientLogic patientLogic;
+
+    private final PractitionerLogic practitionerLogic;
+
+    private final OrganizationLogic organizationLogic;
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    public DemoDataPrivisioning(PatientLogic patientLogic, PractitionerLogic practitionerLogic, OrganizationLogic organizationLogic) {
+        this.patientLogic = patientLogic;
+        this.practitionerLogic = practitionerLogic;
+        this.organizationLogic = organizationLogic;
+    }
 
     //@Override
     public void run(String... args) {
@@ -64,24 +80,19 @@ public class DemoDataPrivisioning {
     }
 
     private void insertData() {
-        patientLogic.save(
-                createPatient("Homer", "Simpson",
-                        createAddress("Evergreen Terrace 1"),
-                        createContactPoint())
-        );
+        createPatients();
+    }
 
-        patientLogic.save(
-                createPatient("Bart", "Simpson",
-                        createAddress("Everblue Terrace 1"),
-                        createContactPoint())
-        );
+    private void createPatients() {
+        Faker faker = new Faker();
 
-        patientLogic.save(
-                createPatient("Monty", "Burns",
-                        createAddress("Monty Mansion"),
-                        createContactPoint())
+        IntStream.range(0, demoDataSize).forEach(i ->
+            patientLogic.save(
+                    createPatient(faker.name().firstName(), faker.name().lastName(),
+                            createAddress(faker.simpsons().location()),
+                            createContactPoint())
+            )
         );
-
 
     }
 
@@ -92,7 +103,7 @@ public class DemoDataPrivisioning {
     }
 
     public static List<Address> createAddress(String street) {
-        return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(),"Evergreen Terrace", "Springfield " + HttpInterceptor.getTenantId()));
+        return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()));
     }
 
     public static List<ContactPoint> createContactPoint() {
