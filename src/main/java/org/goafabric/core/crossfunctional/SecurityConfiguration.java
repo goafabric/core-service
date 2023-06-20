@@ -1,5 +1,6 @@
 package org.goafabric.core.crossfunctional;
 
+import io.micrometer.observation.ObservationPredicate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -72,6 +73,11 @@ public class SecurityConfiguration {
                     .jwkSetUri(baseUri.replaceAll("\\{tenantId}", tenantId) + "/certs")
                     .build();
         }
+    }
+
+    @Bean
+    ObservationPredicate disableHttpServerObservationsFromName() {
+        return (name, context) -> !name.startsWith("spring.security.");
     }
 
 }

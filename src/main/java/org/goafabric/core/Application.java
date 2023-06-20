@@ -1,12 +1,14 @@
 package org.goafabric.core;
 
-import io.micrometer.observation.ObservationPredicate;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportRuntimeHints;
 
 
 /**
@@ -15,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @RegisterReflectionForBinding(org.postgresql.util.PGobject.class)
+@ImportRuntimeHints(Application.applicationRuntimeHints.class)
 public class Application {
 
     public static void main(String[] args){
@@ -28,8 +31,11 @@ public class Application {
         };
     }
 
-    @Bean
-    ObservationPredicate disableHttpServerObservationsFromName() {
-        return (name, context) -> !name.startsWith("spring.security.");
+
+    static class applicationRuntimeHints implements RuntimeHintsRegistrar {
+        @Override
+        public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+            hints.resources().registerPattern("en/*.yml"); //needed for stupid faker
+        }
     }
 }
