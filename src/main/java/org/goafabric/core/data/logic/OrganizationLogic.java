@@ -37,6 +37,10 @@ public class OrganizationLogic {
                 organizationRepository.findByName(name));
     }
 
+    public Organization save(Organization organization) {
+        return organizationMapper.map(organizationRepository.save(
+                organizationMapper.map(organization)));
+    }
 
 
 }

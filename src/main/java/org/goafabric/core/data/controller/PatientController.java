@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(value = "/persons", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/patients", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
-public class PersonController {
+public class PatientController {
     private final PatientLogic patientLogic;
 
-    public PersonController(PatientLogic patientLogic) {
+    public PatientController(PatientLogic patientLogic) {
         this.patientLogic = patientLogic;
     }
 

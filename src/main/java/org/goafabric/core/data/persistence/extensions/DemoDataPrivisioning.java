@@ -2,10 +2,7 @@ package org.goafabric.core.data.persistence.extensions;
 
 import net.datafaker.Faker;
 import org.goafabric.core.crossfunctional.HttpInterceptor;
-import org.goafabric.core.data.controller.dto.Address;
-import org.goafabric.core.data.controller.dto.ContactPoint;
-import org.goafabric.core.data.controller.dto.Patient;
-import org.goafabric.core.data.controller.dto.Practitioner;
+import org.goafabric.core.data.controller.dto.*;
 import org.goafabric.core.data.controller.dto.types.AdressUse;
 import org.goafabric.core.data.controller.dto.types.ContactPointSystem;
 import org.goafabric.core.data.logic.OrganizationLogic;
@@ -83,6 +80,7 @@ public class DemoDataPrivisioning {
     private void insertData() {
         createPatients();
         createPractitioners();
+        createOrganizations();
     }
 
     private void createPatients() {
@@ -100,19 +98,38 @@ public class DemoDataPrivisioning {
         practitionerLogic.save(
                 createPractitioner("Dr Julius", "Hibbert",
                         createAddress("Commonstreet 345"),
-                        createContactPoint("555-520"))
+                        createContactPoint("555-520")
+                )
         );
 
         practitionerLogic.save(
                 createPractitioner("Dr Marvin", "Monroe",
                         createAddress("Psychstreet 104"),
-                        createContactPoint("555-525"))
+                        createContactPoint("555-525")
+                )
         );
 
         practitionerLogic.save(
                 createPractitioner("Dr Nick", "Riveria",
                         createAddress("Nickstreet 221"),
-                        createContactPoint("555-501"))
+                        createContactPoint("555-501")
+                )
+        );
+    }
+
+    private void createOrganizations() {
+        organizationLogic.save(
+                createOrganization("Practice Dr Hibbert",
+                        createAddress("Hibbertstreet 4"),
+                        createContactPoint("555-501")
+                )
+        );
+
+        organizationLogic.save(
+                createOrganization("Practice Dr Nick",
+                        createAddress("Nickstreet 54"),
+                        createContactPoint("555-501")
+                )
         );
     }
 
@@ -126,6 +143,10 @@ public class DemoDataPrivisioning {
         return new Practitioner(null, givenName, familyName, "male", LocalDate.of(2020, 1, 8),
                 addresses, contactPoints
         );
+    }
+
+    public static Organization createOrganization(String name, List<Address> addresses, List<ContactPoint> contactPoints) {
+        return new Organization(null, name, addresses, contactPoints);
     }
 
     public static List<Address> createAddress(String street) {
