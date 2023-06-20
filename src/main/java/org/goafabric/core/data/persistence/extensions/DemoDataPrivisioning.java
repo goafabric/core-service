@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-public class DatabaseProvisioning {
+public class DemoDataPrivisioning {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Value("${database.provisioning.goals:}")
