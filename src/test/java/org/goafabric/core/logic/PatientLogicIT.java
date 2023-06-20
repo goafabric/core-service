@@ -1,7 +1,6 @@
 package org.goafabric.core.logic;
 
 import org.goafabric.core.data.controller.dto.Patient;
-import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.persistence.PatientRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -9,7 +8,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,7 +36,7 @@ class PatientLogicIT {
 
     @Test
     public void findById() {
-        HttpInterceptor.setTenantId("0");
+        setTenantId("0");
 
         List<Patient> patients = patientLogic.findAll();
         assertThat(patients).isNotNull().hasSize(3);
@@ -49,10 +53,10 @@ class PatientLogicIT {
 
     @Test
     public void findAll() {
-        HttpInterceptor.setTenantId("0");
+        setTenantId("0");
         assertThat(patientLogic.findAll()).isNotNull().hasSize(3);
 
-        HttpInterceptor.setTenantId("5");
+        setTenantId("5");
         assertThat(patientLogic.findAll()).isNotNull().hasSize(3);
     }
 
@@ -73,9 +77,9 @@ class PatientLogicIT {
 
 
     private void insertData() {
-        HttpInterceptor.setTenantId("0");
+        setTenantId("0");
         createPatients();
-        HttpInterceptor.setTenantId("5");
+        setTenantId("5");
         createPatients();
     }
 
@@ -99,7 +103,17 @@ class PatientLogicIT {
         );
     }
 
+    /*
+    private void setTenantId(String tenantId) {
+        HttpInterceptor.setTenantId("0");
+    }
 
+     */
 
+    private static void setTenantId(String tenantId) {
+        SecurityContextHolder.getContext().setAuthentication(
+                new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "");}}, "name")
+                        , new ArrayList<>(), tenantId));
+    }
 
 }

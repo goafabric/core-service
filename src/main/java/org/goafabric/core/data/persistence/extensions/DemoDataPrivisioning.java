@@ -1,11 +1,11 @@
 package org.goafabric.core.data.persistence.extensions;
 
+import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.controller.dto.Address;
 import org.goafabric.core.data.controller.dto.ContactPoint;
 import org.goafabric.core.data.controller.dto.Patient;
 import org.goafabric.core.data.controller.dto.types.AdressUse;
 import org.goafabric.core.data.controller.dto.types.ContactPointSystem;
-import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +13,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 @Component
@@ -49,11 +54,11 @@ public class DemoDataPrivisioning {
     }
 
     private void importDemoData() {
-        HttpInterceptor.setTenantId("0");
+        setTenantId("0");
         if (patientLogic.findAll().isEmpty()) {
-            HttpInterceptor.setTenantId("0");
+            setTenantId("0");
             insertData();
-            HttpInterceptor.setTenantId("5");
+            setTenantId("5");
             insertData();
         }
     }
@@ -95,13 +100,15 @@ public class DemoDataPrivisioning {
     }
 
     /*
+    private void setTenantId(String tenantId) {
+        HttpInterceptor.setTenantId("0");
+    }
+     */
+
     private static void setTenantId(String tenantId) {
         SecurityContextHolder.getContext().setAuthentication(
                 new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "");}}, "name")
                         , new ArrayList<>(), tenantId));
     }
-
-     */
-
 
 }
