@@ -80,17 +80,17 @@ public class DatabaseProvisioning {
 
     }
 
-    private Patient createPatient(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {
+    public static Patient createPatient(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {
         return new Patient(null, givenName, familyName, "male", LocalDate.of(2020, 1, 8),
                 addresses, contactPoints
         );
     }
 
-    private List<Address> createAddress(String street) {
+    public static List<Address> createAddress(String street) {
         return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(),"Evergreen Terrace", "Springfield " + HttpInterceptor.getTenantId()));
     }
 
-    private List<ContactPoint> createContactPoint() {
+    public static List<ContactPoint> createContactPoint() {
         return Collections.singletonList(new ContactPoint(null, AdressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), "5555-44444"));
     }
 

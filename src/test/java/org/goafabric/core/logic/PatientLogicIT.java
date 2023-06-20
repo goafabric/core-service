@@ -4,16 +4,20 @@ import org.goafabric.core.data.controller.dto.Patient;
 import org.goafabric.core.data.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.persistence.PatientRepository;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.goafabric.core.data.persistence.extensions.DatabaseProvisioning.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PatientLogicIT {
     @Autowired
     private PatientLogic patientLogic;
@@ -21,8 +25,15 @@ class PatientLogicIT {
     @Autowired
     private PatientRepository patientRepository;
 
+    @BeforeAll
+    public void init() {
+        insertData();
+    }
+
     @Test
     public void findById() {
+        HttpInterceptor.setTenantId("0");
+
         List<Patient> patients = patientLogic.findAll();
         assertThat(patients).isNotNull().hasSize(3);
 
@@ -31,6 +42,9 @@ class PatientLogicIT {
         assertThat(patient).isNotNull();
         assertThat(patient.givenName()).isEqualTo(patients.get(0).givenName());
         assertThat(patient.familyName()).isEqualTo(patients.get(0).familyName());
+
+        assertThat(patient.contactPoint()).isNotNull().hasSize(1);
+        assertThat(patient.address()).isNotNull().hasSize(1);
     }
 
     @Test
@@ -57,15 +71,35 @@ class PatientLogicIT {
         assertThat(patients.get(0).familyName()).isEqualTo("Simpson");
     }
 
-    /*
-    @Test
-    void save() {
-        List<Patient> patients = patientLogic.findByFamilyName("Simpson");
-        assertThat(patients).isNotNull().hasSize(2);
 
-        var patient = patientLogic.save(patients.get(0));
-        assertThat(patient).isNotNull();
+    private void insertData() {
+        HttpInterceptor.setTenantId("0");
+        createPatients();
+        HttpInterceptor.setTenantId("5");
+        createPatients();
     }
-     */
+
+    private void createPatients() {
+        patientLogic.save(
+                createPatient("Homer", "Simpson",
+                        createAddress("Evergreen Terrace 1"),
+                        createContactPoint())
+        );
+
+        patientLogic.save(
+                createPatient("Bart", "Simpson",
+                        createAddress("Everblue Terrace 1"),
+                        createContactPoint())
+        );
+
+        patientLogic.save(
+                createPatient("Monty", "Burns",
+                        createAddress("Monty Mansion"),
+                        createContactPoint())
+        );
+    }
+
+
+
 
 }
