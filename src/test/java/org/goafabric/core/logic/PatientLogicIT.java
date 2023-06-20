@@ -87,19 +87,19 @@ class PatientLogicIT {
         patientLogic.save(
                 createPatient("Homer", "Simpson",
                         createAddress("Evergreen Terrace 1"),
-                        createContactPoint())
+                        createContactPoint("555-444"))
         );
 
         patientLogic.save(
                 createPatient("Bart", "Simpson",
                         createAddress("Everblue Terrace 1"),
-                        createContactPoint())
+                        createContactPoint("555-444"))
         );
 
         patientLogic.save(
                 createPatient("Monty", "Burns",
                         createAddress("Monty Mansion"),
-                        createContactPoint())
+                        createContactPoint("555-444"))
         );
     }
 

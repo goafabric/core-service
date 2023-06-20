@@ -5,6 +5,7 @@ import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.controller.dto.Address;
 import org.goafabric.core.data.controller.dto.ContactPoint;
 import org.goafabric.core.data.controller.dto.Patient;
+import org.goafabric.core.data.controller.dto.Practitioner;
 import org.goafabric.core.data.controller.dto.types.AdressUse;
 import org.goafabric.core.data.controller.dto.types.ContactPointSystem;
 import org.goafabric.core.data.logic.OrganizationLogic;
@@ -81,19 +82,38 @@ public class DemoDataPrivisioning {
 
     private void insertData() {
         createPatients();
+        createPractitioners();
     }
 
     private void createPatients() {
         Faker faker = new Faker();
-
         IntStream.range(0, demoDataSize).forEach(i ->
             patientLogic.save(
                     createPatient(faker.name().firstName(), faker.name().lastName(),
                             createAddress(faker.simpsons().location()),
-                            createContactPoint())
+                            createContactPoint("555-520"))
             )
         );
+    }
 
+    private void createPractitioners() {
+        practitionerLogic.save(
+                createPractitioner("Dr Julius", "Hibbert",
+                        createAddress("Commonstreet 345"),
+                        createContactPoint("555-520"))
+        );
+
+        practitionerLogic.save(
+                createPractitioner("Dr Marvin", "Monroe",
+                        createAddress("Psychstreet 104"),
+                        createContactPoint("555-525"))
+        );
+
+        practitionerLogic.save(
+                createPractitioner("Dr Nick", "Riveria",
+                        createAddress("Nickstreet 221"),
+                        createContactPoint("555-501"))
+        );
     }
 
     public static Patient createPatient(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {
@@ -102,12 +122,18 @@ public class DemoDataPrivisioning {
         );
     }
 
+    public static Practitioner createPractitioner(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {
+        return new Practitioner(null, givenName, familyName, "male", LocalDate.of(2020, 1, 8),
+                addresses, contactPoints
+        );
+    }
+
     public static List<Address> createAddress(String street) {
         return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()));
     }
 
-    public static List<ContactPoint> createContactPoint() {
-        return Collections.singletonList(new ContactPoint(null, AdressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), "5555-44444"));
+    public static List<ContactPoint> createContactPoint(String phone) {
+        return Collections.singletonList(new ContactPoint(null, AdressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
     }
 
     /*
