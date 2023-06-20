@@ -43,7 +43,7 @@ public class SecurityConfiguration {
                     .exceptionHandling(exception ->
                             exception.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/tlogin.html")));
         } else {
-            http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
+            http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).csrf(csrf -> csrf.disable());
         }
         return http.build();
     }
