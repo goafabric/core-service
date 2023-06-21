@@ -59,15 +59,9 @@ services:
       logging.level.org.flywaydb.core: "INFO"
       logging.level.org.hibernate.SQL:
 
-      #consul
-      spring.cloud.consul.enabled: "true"
-      spring.cloud.consul.host: "consul"
-
     depends_on:
       postgres:
         condition: service_healthy
-      consul:
-        condition: service_started
 
   postgres:
     container_name: ${_Values_root_name}-postgres
@@ -95,17 +89,6 @@ services:
     networks:
       - ${_Values_root_name}-net
 
-  consul:
-    container_name: consul
-    image: consul:1.15.2
-    restart: 'no'
-    ports:
-      - "8500:8500"
-      - "8600:8600"
-    command: agent -server -ui -node=server-1 -bootstrap-expect=1 -client=0.0.0.0
-    networks:
-      - ${_Values_root_name}-net
-
   jaeger:
     container_name: jaeger
     image:  jaegertracing/all-in-one:1.42.0
@@ -122,6 +105,20 @@ services:
       - COLLECTOR_ZIPKIN_HOST_PORT=:9411
     networks:
       - ${_Values_root_name}-net
+
+  nginx:
+    container_name: ${_Values_root_name}-nginx
+    image: nginx:1.22.1
+    restart: 'no'
+    ports:
+      - 8080:80
+    networks:
+      - ${_Values_root_name}-net
+    volumes:
+      - ./nginx/nginx${_Values_nginx_oidc}.conf:/etc/nginx/nginx.conf
+    depends_on:
+      application:
+        condition: service_started
 
 volumes:
     tmp:
