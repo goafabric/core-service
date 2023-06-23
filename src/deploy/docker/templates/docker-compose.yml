@@ -35,7 +35,7 @@ services:
       #zipkin/jaeger
       spring.application.name: person-service
       management.tracing.sampling.probability: "1.0"
-      logging.level.io.opentelemetry.exporter: "ERROR"
+      logging.level.io.opentelemetry: "OFF"
       management.otlp.tracing.endpoint: "http://host.docker.internal:4318/v1/traces"
 
       #persistence
