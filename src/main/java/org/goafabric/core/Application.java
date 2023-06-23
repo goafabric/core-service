@@ -16,7 +16,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
  */
 
 @SpringBootApplication
-@RegisterReflectionForBinding(org.postgresql.util.PGobject.class)
+@RegisterReflectionForBinding({org.hibernate.binder.internal.TenantIdBinder.class, org.hibernate.generator.internal.TenantIdGeneration.class})
 @ImportRuntimeHints(Application.applicationRuntimeHints.class)
 public class Application {
 
