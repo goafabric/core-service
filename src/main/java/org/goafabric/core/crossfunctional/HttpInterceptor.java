@@ -15,8 +15,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class HttpInterceptor implements WebMvcConfigurer {
-    private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new HandlerInterceptor() {
@@ -28,7 +26,6 @@ public class HttpInterceptor implements WebMvcConfigurer {
 
             @Override
             public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-                tenantId.remove();
                 MDC.remove("tenantId");
             }
 
@@ -43,23 +40,17 @@ public class HttpInterceptor implements WebMvcConfigurer {
         });
     }
 
-    /*
-    public static void setTenantId(String tenantId) {
-        HttpInterceptor.tenantId.set(tenantId);
-    }
-     */
-
     public static String getTenantId() {
         var auth = SecurityContextHolder.getContext().getAuthentication();
         return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId()
-                : tenantId.get() != null ? tenantId.get() : "0";
+               : "0";
     }
 
     public static String getUserName() {
         return SecurityContextHolder.getContext().getAuthentication() != null ? SecurityContextHolder.getContext().getAuthentication().getName() : "";
     }
 
-    public static String getCompanyId() {
+    public static String getOrgunitId() {
         return "1";
     }
 

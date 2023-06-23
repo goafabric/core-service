@@ -165,7 +165,7 @@ public class DemoDataPrivisioning {
 
     private static void setTenantId(String tenantId) {
         SecurityContextHolder.getContext().setAuthentication(
-                new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "");}}, "name")
+                new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name")
                         , new ArrayList<>(), tenantId));
     }
 
