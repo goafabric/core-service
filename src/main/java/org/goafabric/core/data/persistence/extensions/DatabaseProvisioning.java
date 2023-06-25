@@ -66,8 +66,8 @@ public class DatabaseProvisioning implements CommandLineRunner {
 
     private void importDemoData() {
         Arrays.asList(tenants.split(",")).forEach(tenant -> {
+            setTenantId(tenant);
             if (applicationContext.getBean(PatientLogic.class).findAll().isEmpty()) {
-                setTenantId(tenant);
                 insertData();
             }
         });
