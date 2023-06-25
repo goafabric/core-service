@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -27,7 +28,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @Component
-public class DemoDataPrivisioning {
+public class DemoDataPrivisioning implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Value("${database.provisioning.goals:}")
@@ -45,15 +46,20 @@ public class DemoDataPrivisioning {
     @Autowired
     private ApplicationContext applicationContext;
 
+    @Autowired
+    private Runnable schemaCreator;
+
     public DemoDataPrivisioning(PatientLogic patientLogic, PractitionerLogic practitionerLogic, OrganizationLogic organizationLogic) {
         this.patientLogic = patientLogic;
         this.practitionerLogic = practitionerLogic;
         this.organizationLogic = organizationLogic;
     }
 
-    //@Override
+    @Override
     public void run(String... args) {
         if ((args.length > 0) && ("-check-integrity".equals(args[0]))) { return; }
+
+        schemaCreator.run();
 
         if (goals.contains("-import-demo-data")) {
             log.info("Importing demo data ...");

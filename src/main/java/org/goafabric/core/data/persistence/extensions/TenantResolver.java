@@ -8,7 +8,6 @@ import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
 import org.springframework.context.annotation.Bean;
@@ -97,7 +96,7 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
 
     @Override
     public <T> T unwrap(Class<T> unwrapType) {
-        return null;
+        throw new IllegalStateException("unwrap not supported");
     }
 
     /** Flyway configuration to create database schemas **/
@@ -108,11 +107,10 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
     }
 
     @Bean
-    public CommandLineRunner schemas(Flyway flyway,
+    public Runnable schemaCreator(Flyway flyway,
                                      @Value("${multi-tenancy.migration.enabled}") Boolean enabled,
-                                     @Value("${multi-tenancy.tenants}") String tenants,
-                                     DemoDataPrivisioning demoDataPrivisioning) {
-        return args -> {
+                                     @Value("${multi-tenancy.tenants}") String tenants) {
+        return () -> {
             if (enabled) {
                 Arrays.asList(tenants.split(",")).forEach(schema -> {
                             Flyway.configure()
@@ -125,7 +123,6 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
                         }
                 );
             }
-            demoDataPrivisioning.run();
         };
     }
 
