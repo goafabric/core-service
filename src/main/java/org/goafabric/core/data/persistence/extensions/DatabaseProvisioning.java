@@ -10,7 +10,6 @@ import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,17 +27,24 @@ import java.util.stream.IntStream;
 public class DatabaseProvisioning implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${database.provisioning.goals:}") private String goals;
+    private final String goals;
 
-    @Value("${demo-data.size}") private Integer demoDataSize;
+    private final Integer demoDataSize;
 
-    @Value("${multi-tenancy.tenants}") String tenants;
+    private final String tenants;
 
-    @Autowired
-    private ApplicationContext applicationContext;
+    private final ApplicationContext applicationContext;
 
-    @Autowired
-    private Runnable schemaCreator;
+    private final Runnable schemaCreator;
+
+    public DatabaseProvisioning(@Value("${database.provisioning.goals:}")String goals, @Value("${demo-data.size}") Integer demoDataSize, @Value("${multi-tenancy.tenants}") String tenants,
+                                ApplicationContext applicationContext, Runnable schemaCreator) {
+        this.goals = goals;
+        this.demoDataSize = demoDataSize;
+        this.tenants = tenants;
+        this.applicationContext = applicationContext;
+        this.schemaCreator = schemaCreator;
+    }
 
     @Override
     public void run(String... args) {
