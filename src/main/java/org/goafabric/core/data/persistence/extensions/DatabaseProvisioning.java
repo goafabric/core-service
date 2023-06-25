@@ -21,39 +21,24 @@ import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.IntStream;
 
 @Component
 public class DatabaseProvisioning implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    @Value("${database.provisioning.goals:}")
-    String goals;
+    @Value("${database.provisioning.goals:}") private String goals;
 
-    @Value("${demo-data.size}")
-    Integer demoDataSize;
+    @Value("${demo-data.size}") private Integer demoDataSize;
 
-    private final PatientLogic patientLogic;
-
-    private final PractitionerLogic practitionerLogic;
-
-    private final OrganizationLogic organizationLogic;
+    @Value("${multi-tenancy.tenants}") String tenants;
 
     @Autowired
     private ApplicationContext applicationContext;
 
     @Autowired
     private Runnable schemaCreator;
-
-    public DatabaseProvisioning(PatientLogic patientLogic, PractitionerLogic practitionerLogic, OrganizationLogic organizationLogic) {
-        this.patientLogic = patientLogic;
-        this.practitionerLogic = practitionerLogic;
-        this.organizationLogic = organizationLogic;
-    }
 
     @Override
     public void run(String... args) {
@@ -74,13 +59,12 @@ public class DatabaseProvisioning implements CommandLineRunner {
     }
 
     private void importDemoData() {
-        setTenantId("0");
-        if (patientLogic.findAll().isEmpty()) {
-            setTenantId("0");
-            insertData();
-            setTenantId("5");
-            insertData();
-        }
+        Arrays.asList(tenants.split(",")).forEach(tenant -> {
+            if (applicationContext.getBean(PatientLogic.class).findAll().isEmpty()) {
+                setTenantId(tenant);
+                insertData();
+            }
+        });
     }
 
     private void insertData() {
@@ -92,7 +76,7 @@ public class DatabaseProvisioning implements CommandLineRunner {
     private void createPatients() {
         Faker faker = new Faker();
         IntStream.range(0, demoDataSize).forEach(i ->
-            patientLogic.save(
+            applicationContext.getBean(PatientLogic.class).save(
                     createPatient(faker.name().firstName(), faker.name().lastName(),
                             createAddress(faker.simpsons().location()),
                             createContactPoint("555-520"))
@@ -101,21 +85,21 @@ public class DatabaseProvisioning implements CommandLineRunner {
     }
 
     private void createPractitioners() {
-        practitionerLogic.save(
+        applicationContext.getBean(PractitionerLogic.class).save(
                 createPractitioner("Dr Julius", "Hibbert",
                         createAddress("Commonstreet 345"),
                         createContactPoint("555-520")
                 )
         );
 
-        practitionerLogic.save(
+        applicationContext.getBean(PractitionerLogic.class).save(
                 createPractitioner("Dr Marvin", "Monroe",
                         createAddress("Psychstreet 104"),
                         createContactPoint("555-525")
                 )
         );
 
-        practitionerLogic.save(
+        applicationContext.getBean(PractitionerLogic.class).save(
                 createPractitioner("Dr Nick", "Riveria",
                         createAddress("Nickstreet 221"),
                         createContactPoint("555-501")
@@ -124,14 +108,14 @@ public class DatabaseProvisioning implements CommandLineRunner {
     }
 
     private void createOrganizations() {
-        organizationLogic.save(
+        applicationContext.getBean(OrganizationLogic.class).save(
                 createOrganization("Practice Dr Hibbert",
                         createAddress("Hibbertstreet 4"),
                         createContactPoint("555-501")
                 )
         );
 
-        organizationLogic.save(
+        applicationContext.getBean(OrganizationLogic.class).save(
                 createOrganization("Practice Dr Nick",
                         createAddress("Nickstreet 54"),
                         createContactPoint("555-501")

@@ -25,12 +25,12 @@ public class SchemaCreatorConfig {
                                   @Value("${multi-tenancy.schema-prefix:_}") String schemaPrefix) {
         return () -> {
             if (enabled) {
-                Arrays.asList(tenants.split(",")).forEach(schema -> {
+                Arrays.asList(tenants.split(",")).forEach(tenant -> {
                             Flyway.configure()
                                     .configuration(flyway.getConfiguration())
-                                    .schemas(schemaPrefix + schema)
-                                    .defaultSchema(schemaPrefix + schema)
-                                    .placeholders(Map.of("tenantId", schema))
+                                    .schemas(schemaPrefix + tenant)
+                                    .defaultSchema(schemaPrefix + tenant)
+                                    .placeholders(Map.of("tenantId", tenant))
                                     .load()
                                     .migrate();
                         }
