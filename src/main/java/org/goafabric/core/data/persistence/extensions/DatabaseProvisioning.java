@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 @Component
-public class DemoDataPrivisioning implements CommandLineRunner {
+public class DatabaseProvisioning implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Value("${database.provisioning.goals:}")
@@ -49,7 +49,7 @@ public class DemoDataPrivisioning implements CommandLineRunner {
     @Autowired
     private Runnable schemaCreator;
 
-    public DemoDataPrivisioning(PatientLogic patientLogic, PractitionerLogic practitionerLogic, OrganizationLogic organizationLogic) {
+    public DatabaseProvisioning(PatientLogic patientLogic, PractitionerLogic practitionerLogic, OrganizationLogic organizationLogic) {
         this.patientLogic = patientLogic;
         this.practitionerLogic = practitionerLogic;
         this.organizationLogic = organizationLogic;

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.goafabric.core.data.persistence.extensions.DemoDataPrivisioning.*;
+import static org.goafabric.core.data.persistence.extensions.DatabaseProvisioning.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
