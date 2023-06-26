@@ -2,6 +2,7 @@ package org.goafabric.core.files.importexport.logic;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.goafabric.core.data.controller.dto.Organization;
 import org.goafabric.core.data.controller.dto.Patient;
 import org.goafabric.core.data.controller.dto.Practitioner;
@@ -43,19 +44,19 @@ public class ImportLogic {
     }
 
     private void importOrganizations(String path) throws IOException {
-        var organizations = new ObjectMapper().readValue(new File(path + "/organization.json"), new TypeReference<List<Organization>>() {});
+        var organizations = new ObjectMapper().registerModule(new JavaTimeModule()).readValue(new File(path + "/organization.json"), new TypeReference<List<Organization>>() {});
         //organizationLogic.deleteAll();
         organizations.forEach(organizationLogic::save);
     }
 
     private void importPractitioners(String path) throws IOException {
-        var practitioners = new ObjectMapper().readValue(new File(path + "/practitioner.json"), new TypeReference<List<Practitioner>>() {});
+        var practitioners = new ObjectMapper().registerModule(new JavaTimeModule()).readValue(new File(path + "/practitioner.json"), new TypeReference<List<Practitioner>>() {});
         //practitionerLogic.deleteAll();
         practitioners.forEach(practitionerLogic::save);
     }
 
     private void importPatients(String path) throws IOException {
-        var patients = new ObjectMapper().readValue(new File(path + "/patient.json"), new TypeReference<List<Patient>>() {});
+        var patients = new ObjectMapper().registerModule(new JavaTimeModule()).readValue(new File(path + "/patient.json"), new TypeReference<List<Patient>>() {});
         //patientLogic.deleteAll();
         patients.forEach(patientLogic::save);
     }

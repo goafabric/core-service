@@ -1,6 +1,7 @@
 package org.goafabric.core.files.importexport.logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
@@ -39,19 +40,20 @@ public class ExportLogic {
     private void exportPatient(String path) throws IOException {
         var patients = patientLogic.findAll();
         Files.writeString(Paths.get(path + "/patient.json"),
-                new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(patients));
+                new ObjectMapper().registerModule(new JavaTimeModule()).registerModule(new JavaTimeModule()).writerWithDefaultPrettyPrinter().writeValueAsString(patients));
     }
 
     private void exportPractitioners(String path) throws IOException {
+        new ObjectMapper().registerModule(new JavaTimeModule()).registerModule(new JavaTimeModule());
         var practitioners = practitionerLogic.findAll();
         Files.writeString(Paths.get(path + "/practitioner.json"),
-                new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(practitioners));
+                new ObjectMapper().registerModule(new JavaTimeModule()).writerWithDefaultPrettyPrinter().writeValueAsString(practitioners));
     }
 
     private void exportOrganizations(String path) throws IOException {
         var organizations = organizationLogic.findAll();
         Files.writeString(Paths.get(path + "/organization.json"),
-                new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(organizations));
+                new ObjectMapper().registerModule(new JavaTimeModule()).writerWithDefaultPrettyPrinter().writeValueAsString(organizations));
     }
 
 }
