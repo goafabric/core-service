@@ -93,6 +93,7 @@ jib {
 
 tasks.register("dockerImageNative") { group = "build"; dependsOn("bootBuildImage") }
 tasks.named<BootBuildImage>("bootBuildImage") {
+	dependsOn("vaadinBuildFrontend")
 	val nativeImageName = "${dockerRegistry}/${project.name}-native" + (if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else "") + ":${project.version}"
 	builder.set(nativeBuilder)
 	imageName.set(nativeImageName)
