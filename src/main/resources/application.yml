@@ -76,4 +76,8 @@ logging.level.org.hibernate.SQL: "INFO"
 spring.mustache.check-template-location: false
 vaadin.whitelisted-packages: com.vaadin,org.vaadin,dev.hilla
 vaadin.url-mapping: "/frontend/*"
+
 frontend.catalog-service.uri: "http://localhost:50600"
+monitoring.view.tracing.url: "http://localhost:16686/search"
+monitoring.view.loki.url: "http://localhost:3000/explore"
+monitoring.view.s3.url: "http://localhost:9101/browser/objects"

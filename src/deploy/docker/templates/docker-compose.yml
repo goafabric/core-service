@@ -48,7 +48,7 @@ services:
       frontend.catalog-service.uri: "http://catalog-service:50600"
 
       #sec
-      security.authentication.enabled: "false"
+      security.authentication.enabled: "true"
 
       #s3
       spring.cloud.aws.s3.endpoint: "http://s3minio:9000"

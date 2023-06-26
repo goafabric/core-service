@@ -21,6 +21,7 @@ import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.ui.appointments.AppointmentView;
 import org.goafabric.core.ui.catalogs.CatalogView;
 import org.goafabric.core.ui.files.FilesView;
+import org.goafabric.core.ui.monitoring.MonitoringView;
 import org.goafabric.core.ui.patient.PatientMainView;
 import org.goafabric.core.ui.practice.PracticeView;
 import org.springframework.beans.factory.annotation.Value;
@@ -60,7 +61,8 @@ public class MainView extends AppLayout {
                 new HorizontalLayout(new Icon(VaadinIcon.HOSPITAL), new RouterLink("Practice", PracticeView.class)),
                 new HorizontalLayout(new Icon(VaadinIcon.BOOK), new RouterLink("Catalogs", CatalogView.class)),
                 new HorizontalLayout(new Icon(VaadinIcon.CALENDAR_USER), new RouterLink("Appointments", AppointmentView.class)),
-                new HorizontalLayout(new Icon(VaadinIcon.ARCHIVE), new RouterLink("Files", FilesView.class))
+                new HorizontalLayout(new Icon(VaadinIcon.ARCHIVE), new RouterLink("Files", FilesView.class)),
+                new HorizontalLayout(new Icon(VaadinIcon.CHART), new RouterLink("Monitoring", MonitoringView.class))
         ));
     }
 
