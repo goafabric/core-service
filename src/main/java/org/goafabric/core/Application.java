@@ -18,6 +18,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
 
 @SpringBootApplication(exclude = AwsAutoConfiguration.class)
 @ImportRuntimeHints(Application.applicationRuntimeHints.class)
+@RegisterReflectionForBinding({org.hibernate.binder.internal.TenantIdBinder.class, org.hibernate.generator.internal.TenantIdGeneration.class})
 public class Application {
 
     public static void main(String[] args){
@@ -31,7 +32,6 @@ public class Application {
         };
     }
 
-    @RegisterReflectionForBinding({org.hibernate.binder.internal.TenantIdBinder.class, org.hibernate.generator.internal.TenantIdGeneration.class})
     static class applicationRuntimeHints implements RuntimeHintsRegistrar {
         @Override
         public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
