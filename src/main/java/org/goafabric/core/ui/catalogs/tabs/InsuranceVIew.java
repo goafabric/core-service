@@ -17,6 +17,6 @@ public class InsuranceVIew extends GridView<Insurance> {
     protected void addColumns(Grid<Insurance> grid) {
         grid.addColumn(Insurance::code).setHeader("ikk");
         grid.addColumn(Insurance::display).setHeader("description");
-        grid.addColumn(Insurance::shortname).setHeader("ref");
+        grid.addColumn(Insurance::shortname).setHeader("short");
     }
 }

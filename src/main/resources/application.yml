@@ -76,3 +76,4 @@ logging.level.org.hibernate.SQL: "INFO"
 spring.mustache.check-template-location: false
 vaadin.whitelisted-packages: com.vaadin,org.vaadin,dev.hilla
 vaadin.url-mapping: "/frontend/*"
+frontend.catalog-service.uri: "http://localhost:50600"
