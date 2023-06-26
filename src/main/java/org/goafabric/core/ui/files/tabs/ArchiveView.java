@@ -12,8 +12,11 @@ import org.goafabric.core.ui.SearchLogic;
 import java.io.IOException;
 
 public class ArchiveView extends GridView<ObjectEntry> {
-    public ArchiveView(SearchLogic<ObjectEntry> logic) {
+    private final ObjectStorageLogic objectStorageLogic;
+
+    public ArchiveView(SearchLogic<ObjectEntry> logic, ObjectStorageLogic objectStorageLogic) {
         super(new Grid<>(ObjectEntry.class), logic);
+        this.objectStorageLogic = objectStorageLogic;
 
         addUpload();
     }
@@ -27,7 +30,7 @@ public class ArchiveView extends GridView<ObjectEntry> {
 
     private void uploadFile(MemoryBuffer memoryBuffer, SucceededEvent event) {
         try {
-            ((ObjectStorageLogic)getLogic()).create(
+            objectStorageLogic.create(
                     new ObjectEntry(event.getFileName(), event.getMIMEType(), event.getContentLength(),
                             memoryBuffer.getInputStream().readAllBytes())
             );

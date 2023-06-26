@@ -25,7 +25,7 @@ public class FilesView extends VerticalLayout {
         tabSheet.setSizeFull();
 
         if (objectStorageLogic != null) {
-            tabSheet.add("Archive", new ArchiveView(objectStorageLogic::search));
+            tabSheet.add("Archive", new ArchiveView(objectStorageLogic::search, objectStorageLogic));
         }
         tabSheet.add("Import & Export", new ImportExportView(importLogic, exportLogic));
 
