@@ -47,6 +47,9 @@ services:
       #frontend
       frontend.catalog-service.uri: "http://catalog-service:50600"
 
+      #sec
+      security.authentication.enabled: "false"
+
       #secrets
       spring.security.oauth2.client-id: "oauth2-proxy"
       spring.security.oauth2.client-secret: "none"
