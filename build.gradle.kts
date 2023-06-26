@@ -16,7 +16,7 @@ plugins {
 	id("org.graalvm.buildtools.native") version "0.9.23"
 	id("com.google.cloud.tools.jib") version "3.3.1"
 
-	id("com.vaadin") version "24.1.1"
+	id("com.vaadin") version "24.0.3"
 }
 
 repositories {
