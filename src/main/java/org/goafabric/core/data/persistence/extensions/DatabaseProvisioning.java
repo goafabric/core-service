@@ -8,6 +8,8 @@ import org.goafabric.core.data.controller.dto.types.ContactPointSystem;
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
+import org.goafabric.core.objectstorage.dto.ObjectEntry;
+import org.goafabric.core.objectstorage.logic.ObjectStorageLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -77,6 +79,7 @@ public class DatabaseProvisioning implements CommandLineRunner {
         createPatients();
         createPractitioners();
         createOrganizations();
+        createArchiveFiles();
     }
 
     private void createPatients() {
@@ -158,6 +161,20 @@ public class DatabaseProvisioning implements CommandLineRunner {
         HttpInterceptor.setTenantId("0");
     }
      */
+
+    @Value("${spring.cloud.aws.s3.enabled}") Boolean s3Enabled;
+    private void createArchiveFiles() {
+        if (s3Enabled) {
+            applicationContext.getBean(ObjectStorageLogic.class).create(
+                    new ObjectEntry("hello_world.txt", "text/plain",
+                            Long.valueOf("hello world".length()), "hello world".getBytes()));
+
+            applicationContext.getBean(ObjectStorageLogic.class).create(
+                    new ObjectEntry("top_secret.txt", "text/plain",
+                            Long.valueOf("top secret".length()), "top secret".getBytes()));
+        }
+    }
+
 
     private static void setTenantId(String tenantId) {
         SecurityContextHolder.getContext().setAuthentication(
