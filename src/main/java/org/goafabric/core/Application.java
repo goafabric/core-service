@@ -1,5 +1,6 @@
 package org.goafabric.core;
 
+import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
@@ -15,7 +16,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
  * Created by amautsch on 26.06.2015.
  */
 
-@SpringBootApplication
+@SpringBootApplication(exclude = AwsAutoConfiguration.class)
 @RegisterReflectionForBinding({org.hibernate.binder.internal.TenantIdBinder.class, org.hibernate.generator.internal.TenantIdGeneration.class})
 @ImportRuntimeHints(Application.applicationRuntimeHints.class)
 public class Application {
