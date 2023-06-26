@@ -7,6 +7,8 @@ import com.vaadin.flow.router.Route;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.ui.MainView;
 
+import java.util.ArrayList;
+
 
 @Route(value = "patient", layout = MainView.class)
 @PageTitle("Patient")
@@ -20,7 +22,8 @@ public class PatientMainView extends VerticalLayout {
         tabSheet.setSizeFull();
 
         tabSheet.add("Patient", new PatientView(patientLogic::findByFamilyName));
-        //tabSheet.add("MRC", new MRCView(patientLogic, diagnosisLogic, chargeItemLogic));
+        tabSheet.add("MRC", new MRCView(patientLogic,
+                search -> new ArrayList<>(), search -> new ArrayList<>()));
 
         add(tabSheet);
     }
