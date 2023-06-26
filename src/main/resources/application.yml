@@ -72,7 +72,7 @@ logging.level.org.goafabric: "INFO"
 logging.level.org.flywaydb.core: "INFO"
 logging.level.org.hibernate.SQL: "INFO"
 
-# consul
-spring.cloud.consul.config.enabled: "false"
-spring.cloud.consul.enabled: "false"
-spring.cloud.bus.enabled: ${spring.cloud.consul.enabled}
+#vaadin
+spring.mustache.check-template-location: false
+vaadin.whitelisted-packages: com.vaadin,org.vaadin,dev.hilla
+vaadin.url-mapping: "/frontend/*"

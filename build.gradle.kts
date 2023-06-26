@@ -1,7 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 group = "org.goafabric"
-version = "1.0.2-SNAPSHOT"
+version = "1.0.2-vaadinSNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 val dockerRegistry = "goafabric"
@@ -15,6 +15,8 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.0"
 	id("org.graalvm.buildtools.native") version "0.9.23"
 	id("com.google.cloud.tools.jib") version "3.3.1"
+
+	id("com.vaadin") version "24.1.1"
 }
 
 repositories {
@@ -64,6 +66,9 @@ dependencies {
 
 	//s3
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1")
+
+	//vaadin
+	implementation("com.vaadin:vaadin-spring-boot-starter:24.0.5")
 
 	//devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
