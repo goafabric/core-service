@@ -33,7 +33,7 @@ services:
       management.endpoints.web.exposure.include: "health,heapdump,circuitbreakers,prometheus"
 
       #zipkin/jaeger
-      spring.application.name: person-service
+      spring.application.name: core-service
       management.tracing.sampling.probability: "1.0"
       logging.level.io.opentelemetry: "OFF"
       management.otlp.tracing.endpoint: "http://host.docker.internal:4318/v1/traces"
