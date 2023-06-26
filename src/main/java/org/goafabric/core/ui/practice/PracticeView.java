@@ -21,7 +21,7 @@ public class PracticeView extends VerticalLayout {
         TabSheet tabSheet = new TabSheet();
         tabSheet.setSizeFull();
 
-        tabSheet.add("Practitioner", new PractitionerView(practitionerLogic::findByGivenName));
+        tabSheet.add("Practitioner", new PractitionerView(practitionerLogic::findByFamilyName));
         tabSheet.add("Organization", new OrganizationView(organizationLogic::findByName));
         //tabSheet.add("Roles", new RolesView(rolesLogic));
 

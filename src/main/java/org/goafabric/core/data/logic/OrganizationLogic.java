@@ -34,7 +34,7 @@ public class OrganizationLogic {
 
     public List<Organization> findByName(String name) {
         return organizationMapper.map(
-                organizationRepository.findByName(name));
+                organizationRepository.findByNameStartsWithIgnoreCase(name));
     }
 
     public Organization save(Organization organization) {
