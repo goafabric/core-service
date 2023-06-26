@@ -1,7 +1,7 @@
 services:
   catalog-service:
     container_name: catalog-service
-    image:  goafabric/catalog-service-native${_Values_server_arch}:1.0.2-SNAPSHOT
+    image:  goafabric/catalog-service-native${_Values_server_arch}:1.0.1-SNAPSHOT
     restart: 'no'
     ports:
       - "50600:50600"
@@ -35,10 +35,9 @@ services:
 
       #zipkin/jaeger
       spring.application.name: "catalog-service"
-      management.zipkin.tracing.endpoint: "http://jaeger:9411/api/v2/spans"
       management.tracing.sampling.probability: "1.0"
-      management.tracing.enabled: "true"
-      logging.level.zipkin2.reporter: "ERROR"
+      logging.level.io.opentelemetry: "OFF"
+      management.otlp.tracing.endpoint: "http://host.docker.internal:4318/v1/traces"
 
       #persistence
       spring.datasource.url: "jdbc:postgresql://postgres:5432/core"

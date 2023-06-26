@@ -1,7 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 group = "org.goafabric"
-version = "1.0.2-SNAPSHOT"
+version = "1.0.2-vaadin-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 val dockerRegistry = "goafabric"
@@ -15,6 +15,8 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.0"
 	id("org.graalvm.buildtools.native") version "0.9.23"
 	id("com.google.cloud.tools.jib") version "3.3.1"
+
+	id("com.vaadin") version "24.0.3"
 }
 
 repositories {
@@ -35,6 +37,7 @@ dependencies {
 dependencies {
 	//web
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
 	//monitoring
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -65,6 +68,9 @@ dependencies {
 	//s3
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1")
 
+	//vaadin
+	implementation("com.vaadin:vaadin-spring-boot-starter:24.0.5")
+
 	//devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
@@ -88,10 +94,11 @@ jib {
 
 tasks.register("dockerImageNative") { group = "build"; dependsOn("bootBuildImage") }
 tasks.named<BootBuildImage>("bootBuildImage") {
+	dependsOn("vaadinBuildFrontend")
 	val nativeImageName = "${dockerRegistry}/${project.name}-native" + (if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else "") + ":${project.version}"
 	builder.set(nativeBuilder)
 	imageName.set(nativeImageName)
-	environment.set(mapOf("BP_NATIVE_IMAGE" to "true", "BP_JVM_VERSION" to "17", "BP_NATIVE_IMAGE_BUILD_ARGUMENTS" to "-J-Xmx5000m"))
+	environment.set(mapOf("BP_NATIVE_IMAGE" to "true", "BP_JVM_VERSION" to "17", "BP_NATIVE_IMAGE_BUILD_ARGUMENTS" to "-J-Xmx5500m"))
 	doLast {
 		exec { commandLine("docker", "run", "--rm", nativeImageName, "-check-integrity") }
 		exec { commandLine("docker", "push", nativeImageName) }

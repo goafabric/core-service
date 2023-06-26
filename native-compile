@@ -1,3 +1,3 @@
 #!/bin/bash
-./gradlew clean nativeCompile
+./gradlew clean vaadinBuildFrontend nativeCompile
 ./build/native/nativeCompile/core-service -Xmx32m
