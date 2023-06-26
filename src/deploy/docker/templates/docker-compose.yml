@@ -50,6 +50,10 @@ services:
       #sec
       security.authentication.enabled: "false"
 
+      #s3
+      spring.cloud.aws.s3.endpoint: "http://s3minio:9000"
+      spring.cloud.aws.s3.enabled: "true"
+
       #secrets
       spring.security.oauth2.client-id: "oauth2-proxy"
       spring.security.oauth2.client-secret: "none"
@@ -94,6 +98,21 @@ services:
     networks:
       - ${_Values_root_name}-net
 
+  s3minio:
+    container_name: s3minio
+    command: server /data --console-address ':9001'
+    image: quay.io/minio/minio:RELEASE.2023-01-25T00-19-54Z
+    restart: 'no'
+    ports:
+      - 9100:9000
+      - 9101:9001
+    volumes:
+      - miniodata:/data
+    networks:
+      - ${_Values_root_name}-net
+    environment:
+      TZ: "Europe/Berlin"
+
   jaeger:
     container_name: jaeger
     image:  jaegertracing/all-in-one:1.42.0
@@ -132,6 +151,7 @@ volumes:
     applogs_catalog:
     pgdata:
     kcdata:
+    miniodata:
 
 networks:
   core-service-net:
