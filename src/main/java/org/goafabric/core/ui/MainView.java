@@ -14,9 +14,11 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.goafabric.core.crossfunctional.HttpInterceptor;
+import org.goafabric.core.ui.appointments.AppointmentView;
 import org.springframework.beans.factory.annotation.Value;
 
 public class MainView extends AppLayout {
@@ -49,19 +51,13 @@ public class MainView extends AppLayout {
     }
 
     private void createDrawer() {
-        /*
         addToDrawer(new VerticalLayout(
-                new HorizontalLayout(new Icon(VaadinIcon.USERS), new RouterLink("Patient", PatientMainView.class)),
-                new HorizontalLayout(new Icon(VaadinIcon.HOSPITAL), new RouterLink("Practice", PracticeView.class)),
-                new HorizontalLayout(new Icon(VaadinIcon.BOOK), new RouterLink("Catalogs", CatalogView.class)),
-                //new HorizontalLayout(new Icon(VaadinIcon.CHAT), new RouterLink("Chat", ChatView.class)),
-                new HorizontalLayout(new Icon(VaadinIcon.CALENDAR_USER), new RouterLink("Appointments", AppointmentView.class)),
-                new HorizontalLayout(new Icon(VaadinIcon.ARCHIVE), new RouterLink("Files", FilesView.class)),
-                monitoringViewEnabled ? new HorizontalLayout(new Icon(VaadinIcon.CHART), new RouterLink("Monitoring", MonitoringView.class))
-                        : new Icon(VaadinIcon.CHART)
+                //new HorizontalLayout(new Icon(VaadinIcon.USERS), new RouterLink("Patient", PatientMainView.class)),
+                //new HorizontalLayout(new Icon(VaadinIcon.HOSPITAL), new RouterLink("Practice", PracticeView.class)),
+                //new HorizontalLayout(new Icon(VaadinIcon.BOOK), new RouterLink("Catalogs", CatalogView.class)),
+                new HorizontalLayout(new Icon(VaadinIcon.CALENDAR_USER), new RouterLink("Appointments", AppointmentView.class))
+                //new HorizontalLayout(new Icon(VaadinIcon.ARCHIVE), new RouterLink("Files", FilesView.class)),
         ));
-
-         */
     }
 
     private Button createDarkToggle() {
