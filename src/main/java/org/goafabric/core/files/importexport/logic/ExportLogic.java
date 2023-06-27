@@ -40,20 +40,26 @@ public class ExportLogic {
     private void exportPatient(String path) throws IOException {
         var patients = patientLogic.findAll();
         Files.writeString(Paths.get(path + "/patient.json"),
-                new ObjectMapper().registerModule(new JavaTimeModule()).registerModule(new JavaTimeModule()).writerWithDefaultPrettyPrinter().writeValueAsString(patients));
+                getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(patients)
+                        .replaceAll("\"id\"", "\"erased\""));
     }
 
     private void exportPractitioners(String path) throws IOException {
         new ObjectMapper().registerModule(new JavaTimeModule()).registerModule(new JavaTimeModule());
         var practitioners = practitionerLogic.findAll();
         Files.writeString(Paths.get(path + "/practitioner.json"),
-                new ObjectMapper().registerModule(new JavaTimeModule()).writerWithDefaultPrettyPrinter().writeValueAsString(practitioners));
+                getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(practitioners)
+                        .replaceAll("\"id\"", "\"erased\""));
     }
 
     private void exportOrganizations(String path) throws IOException {
         var organizations = organizationLogic.findAll();
         Files.writeString(Paths.get(path + "/organization.json"),
-                new ObjectMapper().registerModule(new JavaTimeModule()).writerWithDefaultPrettyPrinter().writeValueAsString(organizations));
+                getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(organizations)
+                        .replaceAll("\"id\"", "\"erased\""));
     }
 
+    private static ObjectMapper getObjectMapper() {
+        return new ObjectMapper().registerModule(new JavaTimeModule());
+    }
 }

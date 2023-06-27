@@ -1,6 +1,7 @@
 package org.goafabric.core.files.importexport.logic;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.goafabric.core.data.controller.dto.Organization;
@@ -44,22 +45,22 @@ public class ImportLogic {
     }
 
     private void importOrganizations(String path) throws IOException {
-        var organizations = new ObjectMapper().registerModule(new JavaTimeModule()).readValue(new File(path + "/organization.json"), new TypeReference<List<Organization>>() {});
-        //organizationLogic.deleteAll();
+        var organizations = getObjectMapper().registerModule(new JavaTimeModule()).readValue(new File(path + "/organization.json"), new TypeReference<List<Organization>>() {});
         organizations.forEach(organizationLogic::save);
     }
 
     private void importPractitioners(String path) throws IOException {
-        var practitioners = new ObjectMapper().registerModule(new JavaTimeModule()).readValue(new File(path + "/practitioner.json"), new TypeReference<List<Practitioner>>() {});
-        //practitionerLogic.deleteAll();
+        var practitioners = getObjectMapper().readValue(new File(path + "/practitioner.json"), new TypeReference<List<Practitioner>>() {});
         practitioners.forEach(practitionerLogic::save);
     }
 
     private void importPatients(String path) throws IOException {
-        var patients = new ObjectMapper().registerModule(new JavaTimeModule()).readValue(new File(path + "/patient.json"), new TypeReference<List<Patient>>() {});
-        //patientLogic.deleteAll();
+        var patients = getObjectMapper().registerModule(new JavaTimeModule()).readValue(new File(path + "/patient.json"), new TypeReference<List<Patient>>() {});
         patients.forEach(patientLogic::save);
     }
 
+    private ObjectMapper getObjectMapper() {
+        return new ObjectMapper().registerModule(new JavaTimeModule()).configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    }
 
 }
