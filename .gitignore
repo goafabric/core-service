@@ -13,5 +13,6 @@
 
 /*.json
 /*.ts
-/frontend/generated
+/frontend
+/node_modules
 /*.ts
