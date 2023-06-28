@@ -44,6 +44,9 @@ services:
       spring.datasource.hikari.connection-timeout: "10000"
       database.provisioning.goals: "-import-demo-data"
 
+      #frontend
+      frontend.catalog-service.uri: "http://catalog-service:50600"
+
       #sec
       security.authentication.enabled: "true"
 

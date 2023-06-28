@@ -71,3 +71,9 @@ logging.level.org.springframework: "INFO"
 logging.level.org.goafabric: "INFO"
 logging.level.org.flywaydb.core: "INFO"
 logging.level.org.hibernate.SQL: "INFO"
+
+#vaadin
+spring.mustache.check-template-location: false
+vaadin.whitelisted-packages: com.vaadin,org.vaadin,dev.hilla
+vaadin.url-mapping: "/frontend/*"
+frontend.catalog-service.uri: "http://localhost:50600"
