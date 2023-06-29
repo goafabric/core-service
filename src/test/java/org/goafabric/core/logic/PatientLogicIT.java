@@ -1,8 +1,8 @@
 package org.goafabric.core.logic;
 
-import org.goafabric.core.data.controller.dto.Patient;
+import org.goafabric.core.data.controller.vo.Patient;
 import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.data.persistence.PatientRepository;
+import org.goafabric.core.data.repository.PatientRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.goafabric.core.data.persistence.extensions.DatabaseProvisioning.*;
+import static org.goafabric.core.data.repository.extensions.DatabaseProvisioning.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

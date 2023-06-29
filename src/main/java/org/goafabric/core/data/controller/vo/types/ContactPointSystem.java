@@ -1,4 +1,4 @@
-package org.goafabric.core.data.controller.dto.types;
+package org.goafabric.core.data.controller.vo.types;
 
 public enum ContactPointSystem {
     /**

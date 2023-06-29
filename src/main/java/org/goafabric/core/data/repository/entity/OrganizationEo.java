@@ -1,35 +1,23 @@
-package org.goafabric.core.data.persistence.domain;
+package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.TenantId;
-
-import java.time.LocalDate;
 
 @Entity
-@Table(name = "patient")
-public class PatientBo {
+@Table(name = "organization")
+public class OrganizationEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
-    @TenantId
-    public String orgunitId;
-
-    public String givenName;
-
-    public String familyName;
-
-    public String gender;
-
-    public LocalDate birthDate;
+    public String name;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
-    public AddressBo address;
+    public AddressEo address;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "contact_point_id", referencedColumnName = "id")
-    public ContactPointBo contactPoint;
+    public ContactPointEo contactPoint;
 
     @Version //optimistic locking
     public Long version;

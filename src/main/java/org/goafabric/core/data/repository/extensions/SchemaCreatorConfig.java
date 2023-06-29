@@ -1,4 +1,4 @@
-package org.goafabric.core.data.persistence.extensions;
+package org.goafabric.core.data.repository.extensions;
 
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Value;

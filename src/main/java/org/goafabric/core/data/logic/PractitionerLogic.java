@@ -1,9 +1,9 @@
 package org.goafabric.core.data.logic;
 
-import org.goafabric.core.data.controller.dto.Practitioner;
+import org.goafabric.core.data.controller.vo.Practitioner;
 import org.goafabric.core.crossfunctional.DurationLog;
 import org.goafabric.core.data.logic.mapper.PractitionerMapper;
-import org.goafabric.core.data.persistence.PractitionerRepository;
+import org.goafabric.core.data.repository.PractitionerRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
