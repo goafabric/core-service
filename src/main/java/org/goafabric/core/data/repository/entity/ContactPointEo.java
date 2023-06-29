@@ -1,10 +1,10 @@
-package org.goafabric.core.data.persistence.domain;
+package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name="contact_point")
-public class ContactPointBo {
+public class ContactPointEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;

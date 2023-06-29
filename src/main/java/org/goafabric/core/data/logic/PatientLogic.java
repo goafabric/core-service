@@ -1,9 +1,9 @@
 package org.goafabric.core.data.logic;
 
-import org.goafabric.core.data.controller.dto.Patient;
+import org.goafabric.core.data.controller.vo.Patient;
 import org.goafabric.core.crossfunctional.DurationLog;
 import org.goafabric.core.data.logic.mapper.PatientMapper;
-import org.goafabric.core.data.persistence.PatientRepository;
+import org.goafabric.core.data.repository.PatientRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

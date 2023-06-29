@@ -1,4 +1,4 @@
-package org.goafabric.core.data.persistence.extensions;
+package org.goafabric.core.data.repository.extensions;
 
 import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.hibernate.cfg.AvailableSettings;

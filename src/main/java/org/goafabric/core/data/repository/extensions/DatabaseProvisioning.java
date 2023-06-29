@@ -1,14 +1,14 @@
-package org.goafabric.core.data.persistence.extensions;
+package org.goafabric.core.data.repository.extensions;
 
 import net.datafaker.Faker;
 import org.goafabric.core.crossfunctional.HttpInterceptor;
-import org.goafabric.core.data.controller.dto.*;
-import org.goafabric.core.data.controller.dto.types.AdressUse;
-import org.goafabric.core.data.controller.dto.types.ContactPointSystem;
+import org.goafabric.core.data.controller.vo.*;
+import org.goafabric.core.data.controller.vo.types.AdressUse;
+import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
-import org.goafabric.core.files.objectstorage.dto.ObjectEntry;
+import org.goafabric.core.files.objectstorage.vo.ObjectEntry;
 import org.goafabric.core.files.objectstorage.logic.ObjectStorageLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

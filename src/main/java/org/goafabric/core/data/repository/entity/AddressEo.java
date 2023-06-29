@@ -1,11 +1,11 @@
-package org.goafabric.core.data.persistence.domain;
+package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
 
 
 @Entity
 @Table(name="address")
-public class AddressBo  {
+public class AddressEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
