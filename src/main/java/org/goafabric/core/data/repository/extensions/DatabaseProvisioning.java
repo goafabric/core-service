@@ -12,6 +12,7 @@ import org.goafabric.core.files.objectstorage.vo.ObjectEntry;
 import org.goafabric.core.files.objectstorage.logic.ObjectStorageLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -161,15 +162,17 @@ public class DatabaseProvisioning implements CommandLineRunner {
         HttpInterceptor.setTenantId("0");
     }
      */
+    @Autowired(required = false)
+    private ObjectStorageLogic objectStorageLogic;
 
     @Value("${spring.cloud.aws.s3.enabled}") Boolean s3Enabled;
     private void createArchiveFiles() {
-        if (s3Enabled) {
-            applicationContext.getBean(ObjectStorageLogic.class).create(
+        if (objectStorageLogic != null) {
+            objectStorageLogic.create(
                     new ObjectEntry("hello_world.txt", "text/plain",
                             Long.valueOf("hello world".length()), "hello world".getBytes()));
 
-            applicationContext.getBean(ObjectStorageLogic.class).create(
+            objectStorageLogic.create(
                     new ObjectEntry("top_secret.txt", "text/plain",
                             Long.valueOf("top secret".length()), "top secret".getBytes()));
         }
