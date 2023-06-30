@@ -2,7 +2,7 @@ package org.goafabric.core.ui.practice.tabs;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;
-import org.goafabric.core.data.controller.dto.Organization;
+import org.goafabric.core.data.controller.vo.Organization;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.SearchLogic;
 

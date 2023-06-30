@@ -4,7 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.upload.SucceededEvent;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
-import org.goafabric.core.files.objectstorage.dto.ObjectEntry;
+import org.goafabric.core.files.objectstorage.vo.ObjectEntry;
 import org.goafabric.core.files.objectstorage.logic.ObjectStorageLogic;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.SearchLogic;

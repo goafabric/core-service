@@ -2,7 +2,7 @@ package org.goafabric.core.ui.patient.tabs;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;
-import org.goafabric.core.data.controller.dto.Patient;
+import org.goafabric.core.data.controller.vo.Patient;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.SearchLogic;
 
