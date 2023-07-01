@@ -1,5 +1,7 @@
 # 1.0.3
-- version upgrade
+- fix for x-forward for native images
+- multi tenancy for s3 storage
+- logout for keycloak
 
 # 1.0.2
 - upgrade to boot 3.1.1
