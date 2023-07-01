@@ -1,5 +1,6 @@
 services:
   catalog-service:
+    profiles: [ "application" ]
     container_name: catalog-service
     image:  goafabric/catalog-service-native${_Values_server_arch}:1.0.1
     restart: 'no'
