@@ -5,8 +5,8 @@ services:
     container_name: ${_Values_root_name}-application
     image:  ${_Values_image_repository}${_Values_image_native}:${_Values_image_tag}
     restart: 'no'
-    ports:
-      - "${_Values_service_port}:${_Values_service_port}"
+#    ports:
+#      - "${_Values_service_port}:${_Values_service_port}"
     entrypoint: ${_Values_resources_entrypoint}
 
     healthcheck:
