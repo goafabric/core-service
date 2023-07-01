@@ -2,7 +2,7 @@ package org.goafabric.core.files.objectstorage.logic;
 
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
 import org.goafabric.core.crossfunctional.DurationLog;
-import org.goafabric.core.files.objectstorage.vo.ObjectEntry;
+import org.goafabric.core.files.objectstorage.controller.vo.ObjectEntry;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
