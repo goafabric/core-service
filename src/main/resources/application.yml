@@ -14,10 +14,6 @@ management:
       exposure:
         include: "health,prometheus,heapdump"
 
-# openapi
-springdoc.swagger-ui.path: /swagger-ui/index.html
-springdoc.enable-native-support: "true"
-
 #tracing
 spring.application.name: person-service
 management.tracing.sampling.probability: "1.0"
@@ -25,7 +21,7 @@ logging.level.io.opentelemetry: "OFF"
 management.otlp.tracing.endpoint: "http://localhost:4318/v1/traces"
 
 #oidc
-security.authentication.enabled: true
+security.authentication.enabled: false
 
 spring:
   security:
