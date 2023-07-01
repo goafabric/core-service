@@ -99,7 +99,7 @@ services:
   s3minio:
     container_name: s3minio
     command: server /data --console-address ':9001'
-    image: quay.io/minio/minio:RELEASE.2023-01-25T00-19-54Z
+    image: quay.io/minio/minio:RELEASE.2023-06-29T05-12-28Z
     restart: 'no'
     ports:
       - 9100:9000
