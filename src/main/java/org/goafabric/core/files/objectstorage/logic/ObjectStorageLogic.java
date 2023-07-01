@@ -10,8 +10,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,6 +45,9 @@ public class ObjectStorageLogic{
     private void createBucketIfNotExists(String bucket) {
         if (s3Client.listBuckets().buckets().stream().noneMatch(b -> b.name().equals(bucket))) {
             s3Client.createBucket(CreateBucketRequest.builder().bucket(bucket).build());
+            s3Client.putBucketVersioning(PutBucketVersioningRequest.builder().bucket(bucket)
+                    .versioningConfiguration(VersioningConfiguration.builder().status(BucketVersioningStatus.ENABLED).build())
+                        .build());
         }
     }
 
