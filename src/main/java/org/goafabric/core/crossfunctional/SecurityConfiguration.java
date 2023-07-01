@@ -13,6 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -21,7 +22,8 @@ public class SecurityConfiguration {
     @Value("${security.authentication.enabled}") private Boolean isAuthenticationEnabled;
 
     @Value("${spring.security.oauth2.base-uri}") private String baseUri;
-    @Value("${spring.security.oauth2.authorization-uri}") private String frontendUri;
+    @Value("${spring.security.oauth2.authorization-uri}") private String authorizationUri;
+    @Value("${spring.security.oauth2.logout-uri:}") private String logoutUri;
     @Value("${spring.security.oauth2.prefix:}") private String prefix;
 
 
@@ -32,13 +34,15 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, TenantClientRegistrationRepository clientRegistrationRepository) throws Exception {
         if (isAuthenticationEnabled) {
+            var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
+            //logoutHandler.setPostLogoutRedirectUri("/tlogin.html");
             http
                     .authorizeHttpRequests(authorize -> authorize
                             .requestMatchers("/" ,"/actuator/**","/tlogin.html").permitAll()
                             .anyRequest().authenticated())
                     .oauth2Login(oauth2 -> oauth2
                             .clientRegistrationRepository(clientRegistrationRepository))
-                    .logout(l -> l.logoutSuccessHandler(new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository)))
+                    .logout(l -> l.logoutSuccessHandler(logoutHandler))
                     .csrf(c -> c.disable())
                     .exceptionHandling(exception ->
                             exception.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/tlogin.html")));
@@ -60,6 +64,9 @@ public class SecurityConfiguration {
         }
 
         private ClientRegistration buildClientRegistration(String tenantId) {
+            var providerDetails = new HashMap<String, Object>();
+            providerDetails.put("end_session_endpoint", !logoutUri.equals("") ? logoutUri.replaceAll("\\{tenantId}", tenantId) : null);
+
             return ClientRegistration.withRegistrationId(tenantId)
                     .clientId(clientId)
                     .clientSecret(clientSecret)
@@ -67,10 +74,11 @@ public class SecurityConfiguration {
                     .redirectUri("{baseUrl}/login/oauth2/code/{registrationId}")
                     .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                     .userNameAttributeName(userNameAttribute)
-                    .authorizationUri(frontendUri.replaceAll("\\{tenantId}", tenantId))
+                    .authorizationUri(authorizationUri.replaceAll("\\{tenantId}", tenantId))
                     .tokenUri(baseUri.replaceAll("\\{tenantId}", tenantId) + "/token")
                     .userInfoUri(baseUri.replaceAll("\\{tenantId}", tenantId) + "/userinfo")
                     .jwkSetUri(baseUri.replaceAll("\\{tenantId}", tenantId) + "/certs")
+                    .providerConfigurationMetadata(providerDetails)
                     .build();
         }
     }
