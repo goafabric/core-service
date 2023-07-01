@@ -8,7 +8,7 @@ import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
-import org.goafabric.core.files.objectstorage.vo.ObjectEntry;
+import org.goafabric.core.files.objectstorage.controller.vo.ObjectEntry;
 import org.goafabric.core.files.objectstorage.logic.ObjectStorageLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
