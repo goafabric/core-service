@@ -35,17 +35,17 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http, TenantClientRegistrationRepository clientRegistrationRepository) throws Exception {
         if (isAuthenticationEnabled) {
             var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
-            //logoutHandler.setPostLogoutRedirectUri("/tlogin.html");
+            //logoutHandler.setPostLogoutRedirectUri("/login.html");
             http
                     .authorizeHttpRequests(authorize -> authorize
-                            .requestMatchers("/" ,"/actuator/**","/tlogin.html").permitAll()
+                            .requestMatchers("/" ,"/actuator/**","/login.html").permitAll()
                             .anyRequest().authenticated())
                     .oauth2Login(oauth2 -> oauth2
                             .clientRegistrationRepository(clientRegistrationRepository))
                     .logout(l -> l.logoutSuccessHandler(logoutHandler))
                     .csrf(c -> c.disable())
                     .exceptionHandling(exception ->
-                            exception.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/tlogin.html")));
+                            exception.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login.html")));
         } else {
             http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).csrf(csrf -> csrf.disable());
         }

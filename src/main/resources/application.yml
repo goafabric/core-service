@@ -25,7 +25,7 @@ logging.level.io.opentelemetry: "OFF"
 management.otlp.tracing.endpoint: "http://localhost:4318/v1/traces"
 
 #oidc
-security.authentication.enabled: false
+security.authentication.enabled: true
 
 spring:
   security:
