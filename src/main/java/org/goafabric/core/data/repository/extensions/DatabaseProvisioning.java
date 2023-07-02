@@ -38,22 +38,17 @@ public class DatabaseProvisioning implements CommandLineRunner {
 
     private final ApplicationContext applicationContext;
 
-    private final Runnable schemaCreator;
-
     public DatabaseProvisioning(@Value("${database.provisioning.goals:}")String goals, @Value("${demo-data.size}") Integer demoDataSize, @Value("${multi-tenancy.tenants}") String tenants,
-                                ApplicationContext applicationContext, Runnable schemaCreator) {
+                                ApplicationContext applicationContext) {
         this.goals = goals;
         this.demoDataSize = demoDataSize;
         this.tenants = tenants;
         this.applicationContext = applicationContext;
-        this.schemaCreator = schemaCreator;
     }
 
     @Override
     public void run(String... args) {
         if ((args.length > 0) && ("-check-integrity".equals(args[0]))) { return; }
-
-        schemaCreator.run();
 
         if (goals.contains("-import-demo-data")) {
             log.info("Importing demo data ...");
