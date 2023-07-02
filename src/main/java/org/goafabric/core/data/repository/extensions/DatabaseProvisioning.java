@@ -160,16 +160,19 @@ public class DatabaseProvisioning implements CommandLineRunner {
     @Autowired(required = false)
     private ObjectStorageLogic objectStorageLogic;
 
-    @Value("${spring.cloud.aws.s3.enabled}") Boolean s3Enabled;
     private void createArchiveFiles() {
-        if (objectStorageLogic != null) {
-            objectStorageLogic.create(
-                    new ObjectEntry("hello_world.txt", "text/plain",
-                            Long.valueOf("hello world".length()), "hello world".getBytes()));
+        try {
+            if (objectStorageLogic != null) {
+                objectStorageLogic.create(
+                        new ObjectEntry("hello_world.txt", "text/plain",
+                                Long.valueOf("hello world".length()), "hello world".getBytes()));
 
-            objectStorageLogic.create(
-                    new ObjectEntry("top_secret.txt", "text/plain",
-                            Long.valueOf("top secret".length()), "top secret".getBytes()));
+                objectStorageLogic.create(
+                        new ObjectEntry("top_secret.txt", "text/plain",
+                                Long.valueOf("top secret".length()), "top secret".getBytes()));
+            }
+        } catch (Exception e) { //to have low coupling it's ok to not have demodate if s3 is not started
+            log.warn("Could not S3 Demo Data: " + e.getMessage());
         }
     }
 
