@@ -17,7 +17,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import org.goafabric.core.crossfunctional.HttpInterceptor;
+import org.goafabric.core.extensions.TenantInterceptor;
 import org.goafabric.core.ui.appointments.AppointmentView;
 import org.goafabric.core.ui.catalogs.CatalogView;
 import org.goafabric.core.ui.files.FilesView;
@@ -84,8 +84,8 @@ public class MainView extends AppLayout {
     private HorizontalLayout createUserIcon() {
         var userButton = new Button(new Icon(VaadinIcon.USER));
         userButton.addClickListener(event -> getUI().get().getPage().open("/core/logout"));
-        return new HorizontalLayout(userButton, new Label(HttpInterceptor.getUserName())
-                , new Button(new Icon(VaadinIcon.HOME)), new Label(HttpInterceptor.getTenantId() + "," + HttpInterceptor.getOrgunitId()));
+        return new HorizontalLayout(userButton, new Label(TenantInterceptor.getUserName())
+                , new Button(new Icon(VaadinIcon.HOME)), new Label(TenantInterceptor.getTenantId() + "," + TenantInterceptor.getOrgunitId()));
     }
 
     @Route(value = "", layout = MainView.class)
