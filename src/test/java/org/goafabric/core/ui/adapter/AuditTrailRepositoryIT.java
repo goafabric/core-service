@@ -15,6 +15,8 @@ class AuditTrailRepositoryIT {
     void findAll() {
         var audits = repository.findAll();
         assertThat(audits).isNotNull();
+
+        assertThat(repository.findByCreatedByStartsWithIgnoreCaseOrModifiedByStartsWithIgnoreCase("import", "import")).isNotNull();
     }
 
 }

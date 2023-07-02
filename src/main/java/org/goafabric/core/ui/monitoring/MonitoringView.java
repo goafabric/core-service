@@ -31,7 +31,8 @@ public class MonitoringView extends VerticalLayout {
         tabSheet.add("Tracing", new TracingView(monitoringViewTracingUrl));
         tabSheet.add("Loki", new LokiView(monitoringViewLokiUrl));
         tabSheet.add("S3", new S3View(monitoringViewS3Url));
-        tabSheet.add("Audit", new AuditTrailView(search -> auditTrailRepository.findAll()));
+        tabSheet.add("Audit", new AuditTrailView(search ->
+                auditTrailRepository.findByCreatedByStartsWithIgnoreCaseOrModifiedByStartsWithIgnoreCase(search, search)));
 
         add(tabSheet);
     }
