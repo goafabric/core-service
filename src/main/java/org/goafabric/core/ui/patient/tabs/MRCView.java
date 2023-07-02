@@ -10,8 +10,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.ui.SearchLogic;
-import org.goafabric.core.ui.adapter.dto.ChargeItem;
-import org.goafabric.core.ui.adapter.dto.Diagnosis;
+import org.goafabric.core.ui.adapter.vo.ChargeItem;
+import org.goafabric.core.ui.adapter.vo.Diagnosis;
 
 import java.util.ArrayList;
 

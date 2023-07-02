@@ -4,7 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.SearchLogic;
-import org.goafabric.core.ui.adapter.dto.Diagnosis;
+import org.goafabric.core.ui.adapter.vo.Diagnosis;
 
 @PageTitle("Diagnosis")
 public class DiagnosisView extends GridView<Diagnosis> {

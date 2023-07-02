@@ -4,7 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.SearchLogic;
-import org.goafabric.core.ui.adapter.dto.ChargeItem;
+import org.goafabric.core.ui.adapter.vo.ChargeItem;
 
 @PageTitle("ChargeItem")
 public class ChargeItemView extends GridView<ChargeItem> {

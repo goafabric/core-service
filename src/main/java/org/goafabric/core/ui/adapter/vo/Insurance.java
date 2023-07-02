@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.adapter.dto;
+package org.goafabric.core.ui.adapter.vo;
 
 public record Insurance (
     String id,
