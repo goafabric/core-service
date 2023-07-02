@@ -1,6 +1,7 @@
 package org.goafabric.core.files.objectstorage.logic;
 
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
+import org.goafabric.core.extensions.AuditLog;
 import org.goafabric.core.extensions.TenantInterceptor;
 import org.goafabric.core.files.objectstorage.controller.vo.ObjectEntry;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +18,7 @@ import java.util.List;
 @Component
 @ConditionalOnProperty(value = "spring.cloud.aws.s3.enabled", havingValue = "true")
 @Import(AwsAutoConfiguration.class)
+@AuditLog
 public class ObjectStorageLogic{
 
     private final S3Client s3Client;
