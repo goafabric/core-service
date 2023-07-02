@@ -1,9 +1,11 @@
 package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
+import org.goafabric.core.data.repository.extensions.AuditListener;
 
 @Entity
 @Table(name = "organization")
+@EntityListeners(AuditListener.class)
 public class OrganizationEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
