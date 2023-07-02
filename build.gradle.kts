@@ -37,7 +37,6 @@ dependencies {
 dependencies {
 	//web
 	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
 
 	//monitoring
 	implementation("org.springframework.boot:spring-boot-starter-actuator")

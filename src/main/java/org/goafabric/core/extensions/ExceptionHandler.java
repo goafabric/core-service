@@ -1,4 +1,4 @@
-package org.goafabric.core.crossfunctional;
+package org.goafabric.core.extensions;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

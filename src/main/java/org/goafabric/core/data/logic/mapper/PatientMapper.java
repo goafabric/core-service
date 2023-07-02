@@ -16,4 +16,6 @@ public interface PatientMapper extends WorkaroundMapper {
 
     List<Patient> map(List<PatientEo> value);
 
+    List<Patient> map(Iterable<PatientEo> value);
+
 }

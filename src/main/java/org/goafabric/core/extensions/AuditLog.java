@@ -1,5 +1,4 @@
-package org.goafabric.core.crossfunctional;
-
+package org.goafabric.core.extensions;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -8,5 +7,5 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-public @interface DurationLog {
+public @interface AuditLog {
 }

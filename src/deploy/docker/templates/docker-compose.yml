@@ -43,7 +43,10 @@ services:
       spring.datasource.url: "jdbc:postgresql://postgres:5432/core"
       spring.datasource.hikari.maximum-pool-size: "10"
       spring.datasource.hikari.connection-timeout: "10000"
-      database.provisioning.goals: "-import-demo-data"
+
+      multi-tenancy.tenants: "0,5"
+      multi-tenancy.schema-prefix: "core_"
+      database.provisioning.goals: "-migrate -import-demo-data"
 
       #frontend
       frontend.catalog-service.uri: "http://catalog-service:50600"
