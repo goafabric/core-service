@@ -8,8 +8,10 @@ import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -107,22 +109,21 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
 
     @Bean
     public ApplicationRunner schemaCreator(Flyway flyway,
-                                           @Value("${multi-tenancy.migration.enabled}") Boolean enabled,
+                                           @Value("${database.provisioning.goals}") String goals,
                                            @Value("${multi-tenancy.tenants}") String tenants,
-                                           @Value("${multi-tenancy.schema-prefix:_}") String schemaPrefix) {
+                                           @Value("${multi-tenancy.schema-prefix:_}") String schemaPrefix,
+                                           ApplicationContext context) {
         return args -> {
-            if (enabled) {
+            if (goals.contains("-migrate")) {
                 Arrays.asList(tenants.split(",")).forEach(tenant -> {
-                            Flyway.configure()
-                                    .configuration(flyway.getConfiguration())
-                                    .schemas(schemaPrefix + tenant)
-                                    .defaultSchema(schemaPrefix + tenant)
+                            Flyway.configure().configuration(flyway.getConfiguration())
+                                    .schemas(schemaPrefix + tenant).defaultSchema(schemaPrefix + tenant)
                                     .placeholders(Map.of("tenantId", tenant))
-                                    .load()
-                                    .migrate();
+                                    .load().migrate();
                         }
                 );
             }
+            if (goals.contains("-terminate") && !goals.contains("-import")) { SpringApplication.exit(context, () -> 0); }
         };
     }
 
