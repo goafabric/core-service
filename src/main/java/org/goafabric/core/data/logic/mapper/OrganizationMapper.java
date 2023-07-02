@@ -16,4 +16,6 @@ public interface OrganizationMapper extends WorkaroundMapper {
 
     List<Organization> map(List<OrganizationEo> value);
 
+    List<Organization> map(Iterable<OrganizationEo> value);
+
 }
