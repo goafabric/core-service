@@ -28,5 +28,6 @@ public class JWTTest {
         //System.out.println(map.get("sub"));
         System.out.println(map.get("iss"));
 
+        //we need tenantId + user, role could be managed by core itself in the first step
     }
 }
