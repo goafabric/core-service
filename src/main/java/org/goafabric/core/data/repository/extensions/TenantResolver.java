@@ -1,7 +1,7 @@
 package org.goafabric.core.data.repository.extensions;
 
 import org.flywaydb.core.Flyway;
-import org.goafabric.core.extensions.TenantInterceptor;
+import org.goafabric.core.crossfunctional.TenantInterceptor;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;

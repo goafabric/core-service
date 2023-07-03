@@ -1,4 +1,4 @@
-package org.goafabric.core.extensions;
+package org.goafabric.core.crossfunctional;
 
 import io.micrometer.observation.ObservationPredicate;
 import org.springframework.beans.factory.annotation.Value;
