@@ -26,11 +26,11 @@ security.authentication.enabled: true
 spring:
   security:
     oauth2:
-#      base-uri: "http://127.0.0.1:30200/oidc"
-#      authorization-uri: "http://127.0.0.1:30200/oidc/auth"
-      base-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect
-      authorization-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/auth
-      logout-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/logout
+      base-uri: "http://127.0.0.1:30200/oidc"
+      authorization-uri: "http://127.0.0.1:30200/oidc/auth"
+#      base-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect
+#      authorization-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/auth
+#      logout-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/logout
   
       client-id: "oauth2-proxy"
       client-secret: "none"

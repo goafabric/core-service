@@ -6,8 +6,7 @@ services:
 
   auth-server:
     container_name: auth-server
-    image: goafabric/spring-auth-server:1.0.2
-#    image: goafabric/spring-auth-server-native${_Values_server_arch}:1.0.2
+    image: goafabric/spring-auth-server-native${_Values_server_arch}:1.0.2
     restart: 'no'
     ports:
       - "30200:8080"
