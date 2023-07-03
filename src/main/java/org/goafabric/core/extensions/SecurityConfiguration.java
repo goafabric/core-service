@@ -35,7 +35,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http, TenantClientRegistrationRepository clientRegistrationRepository) throws Exception {
         if (isAuthenticationEnabled) {
             var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
-            logoutHandler.setPostLogoutRedirectUri("{baseUrl}/login.html");
+            logoutHandler.setPostLogoutRedirectUri("{baseUrl}/login.html"); //yeah that's right, we need baseUrl here, because it's an absolute url and below its a relative url - WTF
             http
                     .authorizeHttpRequests(authorize -> authorize
                             .requestMatchers("/" ,"/actuator/**","/login.html").permitAll()
