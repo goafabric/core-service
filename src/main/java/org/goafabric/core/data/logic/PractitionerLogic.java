@@ -3,14 +3,14 @@ package org.goafabric.core.data.logic;
 import org.goafabric.core.data.controller.vo.Practitioner;
 import org.goafabric.core.data.logic.mapper.PractitionerMapper;
 import org.goafabric.core.data.repository.PractitionerRepository;
-import org.goafabric.core.extensions.AuditLog;
+import org.goafabric.core.extensions.DurationLog;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
-@AuditLog
+@DurationLog
 @Transactional
 public class PractitionerLogic {
     private final PractitionerMapper practitionerMapper;
