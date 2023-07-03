@@ -49,12 +49,10 @@ public class AuditTrailListener implements ApplicationContextAware {
         context = applicationContext;
     }
 
-    /*
     @PostLoad
     public void afterRead(Object object) {
         insertAudit(DbOperation.READ, getId(object), object, object);
     }
-    */
 
     @PostPersist
     public void afterCreate(Object object)  {
@@ -94,8 +92,8 @@ public class AuditTrailListener implements ApplicationContextAware {
                 dbOperation,
                 (dbOperation == DbOperation.CREATE ? TenantInterceptor.getUserName() : null),
                 (dbOperation == DbOperation.CREATE ? date : null),
-                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? TenantInterceptor.getUserName() : null),
-                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? date : null),
+                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE || dbOperation == DbOperation.READ) ? TenantInterceptor.getUserName() : null),
+                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE || dbOperation == DbOperation.READ) ? date : null),
                 (oldObject == null ? null : getJsonValue(oldObject)),
                 (newObject == null ? null : getJsonValue(newObject))
         );
