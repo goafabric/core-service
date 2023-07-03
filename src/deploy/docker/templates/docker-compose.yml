@@ -98,6 +98,38 @@ services:
     networks:
       - ${_Values_root_name}-net
 
+  s3minio:
+    container_name: s3minio
+    command: server /data --console-address ':9001'
+    image: quay.io/minio/minio:RELEASE.2023-06-29T05-12-28Z
+    restart: 'no'
+    ports:
+      - 9100:9000
+      - 9101:9001
+    volumes:
+      - miniodata:/data
+    networks:
+      - ${_Values_root_name}-net
+    environment:
+      TZ: "Europe/Berlin"
+
+  jaeger:
+    container_name: jaeger
+    image:  jaegertracing/all-in-one:1.42.0
+    restart: 'no'
+    ports:
+      - "16686:16686"
+      - "14268:14268"
+      - "9411:9411"
+      - "4317:4317"
+      - "4318:4318"
+    environment:
+      - TZ=Europe/Berlin
+      - COLLECTOR_OTLP_ENABLED=true
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+    networks:
+      - ${_Values_root_name}-net
+
   nginx:
     container_name: ${_Values_root_name}-nginx
     image: nginx:1.22.1
