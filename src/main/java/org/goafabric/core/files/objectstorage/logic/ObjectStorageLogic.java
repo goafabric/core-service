@@ -1,8 +1,8 @@
 package org.goafabric.core.files.objectstorage.logic;
 
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
-import org.goafabric.core.xtensions.DurationLog;
-import org.goafabric.core.xtensions.TenantInterceptor;
+import org.goafabric.core.crossfunctional.DurationLog;
+import org.goafabric.core.crossfunctional.TenantInterceptor;
 import org.goafabric.core.files.objectstorage.controller.vo.ObjectEntry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

@@ -1,4 +1,4 @@
-package org.goafabric.core.xtensions;
+package org.goafabric.core.crossfunctional;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
