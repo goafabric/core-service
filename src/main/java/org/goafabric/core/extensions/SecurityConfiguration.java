@@ -35,7 +35,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http, TenantClientRegistrationRepository clientRegistrationRepository) throws Exception {
         if (isAuthenticationEnabled) {
             var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
-            //logoutHandler.setPostLogoutRedirectUri("/login.html");
+            logoutHandler.setPostLogoutRedirectUri("/login.html");
             http
                     .authorizeHttpRequests(authorize -> authorize
                             .requestMatchers("/" ,"/actuator/**","/login.html").permitAll()
