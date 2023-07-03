@@ -20,8 +20,8 @@ then
     func_compose up -d
 elif [ "${COMMAND}" = "infra" ]
 then
-    PROFILE=infra
     func_compose up -d
+    docker stop core-service-application
 elif [ "${COMMAND}" = "down" ]
 then
     func_compose down
