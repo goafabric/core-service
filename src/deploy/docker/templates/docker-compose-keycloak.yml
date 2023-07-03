@@ -11,8 +11,8 @@ services:
     image:  quay.io/keycloak/keycloak:20.0.2
 
     restart: 'no'
-    ports:
-      - "30200:8080"
+#    ports:
+#      - "30200:8080"
     command: start --import-realm
     healthcheck:
       test: "curl -f http://localhost:8080/oidc/realms/master|| exit 1"
