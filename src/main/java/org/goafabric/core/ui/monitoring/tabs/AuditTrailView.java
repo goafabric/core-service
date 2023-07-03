@@ -15,6 +15,7 @@ public class AuditTrailView extends GridView<AuditEvent> {
 
     @Override
     protected void addColumns(Grid<AuditEvent> grid) {
+        grid.addColumn(a -> a.objectType).setHeader("type");
         grid.addColumn(a -> a.operation).setHeader("operation");
         grid.addColumn(a -> a.createdBy).setHeader("created by");
         grid.addColumn(a -> a.modifiedBy).setHeader("modified by");
