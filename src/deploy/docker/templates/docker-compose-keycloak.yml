@@ -1,8 +1,8 @@
 services:
   application:
     environment:
-      spring.security.oauth2.authorization-uri: "http://localhost:30200/oidc/realms/tenant-{tenantId}/protocol/openid-connect/auth"
-      spring.security.oauth2.logout-uri: "http://localhost:30200/oidc/realms/tenant-{tenantId}/protocol/openid-connect/logout"
+      spring.security.oauth2.authorization-uri: "http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/auth"
+      spring.security.oauth2.logout-uri: "http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/logout"
       spring.security.oauth2.base-uri: "http://keycloak:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect"
       spring.security.oauth2.user-name-attribute: "preferred_username"
 
@@ -30,7 +30,7 @@ services:
       - KC_PROXY=edge
 #      - KC_HOSTNAME_STRICT=false
       - KC_HOSTNAME_STRICT_HTTPS=false
-      - KC_HOSTNAME=localhost:30200
+      - KC_HOSTNAME=localhost:8080
 
       #database
       - KC_DB=postgres
