@@ -3,7 +3,7 @@ package org.goafabric.core.data.logic;
 import org.goafabric.core.data.controller.vo.Organization;
 import org.goafabric.core.data.logic.mapper.OrganizationMapper;
 import org.goafabric.core.data.repository.OrganizationRepository;
-import org.goafabric.core.extensions.DurationLog;
+import org.goafabric.core.xtensions.DurationLog;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

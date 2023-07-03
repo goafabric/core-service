@@ -1,4 +1,4 @@
-package org.goafabric.core.extensions;
+package org.goafabric.core.xtensions;
 
 import io.micrometer.common.KeyValue;
 import jakarta.servlet.http.HttpServletRequest;

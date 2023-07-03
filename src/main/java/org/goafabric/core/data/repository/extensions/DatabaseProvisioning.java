@@ -1,7 +1,7 @@
 package org.goafabric.core.data.repository.extensions;
 
 import net.datafaker.Faker;
-import org.goafabric.core.extensions.TenantInterceptor;
+import org.goafabric.core.xtensions.TenantInterceptor;
 import org.goafabric.core.data.controller.vo.*;
 import org.goafabric.core.data.controller.vo.types.AdressUse;
 import org.goafabric.core.data.controller.vo.types.ContactPointSystem;

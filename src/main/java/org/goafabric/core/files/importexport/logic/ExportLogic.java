@@ -5,7 +5,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
-import org.goafabric.core.extensions.DurationLog;
+import org.goafabric.core.xtensions.DurationLog;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
