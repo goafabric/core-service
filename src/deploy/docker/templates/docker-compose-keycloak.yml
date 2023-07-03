@@ -32,12 +32,14 @@ services:
       - KC_HOSTNAME_STRICT_HTTPS=false
       - KC_HOSTNAME=localhost:8080
 
+      #secrets
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
+
       #database
       - KC_DB=postgres
       - KC_DB_URL=jdbc:postgresql://keycloak-postgres/keycloak
 
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_DB_USERNAME=keycloak
       - KC_DB_PASSWORD=keycloak
 
