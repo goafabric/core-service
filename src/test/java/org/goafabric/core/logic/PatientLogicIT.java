@@ -1,23 +1,16 @@
 package org.goafabric.core.logic;
 
-import org.goafabric.core.data.controller.vo.Patient;
+import org.goafabric.core.crossfunctional.TenantInterceptor;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.repository.PatientRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.goafabric.core.data.repository.extensions.DatabaseProvisioning.*;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.goafabric.core.logic.DataRocker.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -29,91 +22,70 @@ class PatientLogicIT {
     @Autowired
     private PatientRepository patientRepository;
 
-    @BeforeAll
-    public void init() {
-        insertData();
-    }
-
     @Test
-    public void findById() {
+    public void getById() {
         setTenantId("0");
+        var id = create();
+        var patient = patientLogic.getById(id);
 
-        List<Patient> patients = patientLogic.findAll();
-        assertThat(patients).isNotNull().hasSize(3);
-
-        final Patient patient
-                = patientLogic.getById(patients.get(0).id());
         assertThat(patient).isNotNull();
-        assertThat(patient.givenName()).isEqualTo(patients.get(0).givenName());
-        assertThat(patient.familyName()).isEqualTo(patients.get(0).familyName());
+        assertThat(patient.givenName()).isEqualTo("Homer");
+        assertThat(patient.familyName()).isEqualTo("Simpson");
 
-        assertThat(patient.contactPoint()).isNotNull().hasSize(1);
-        assertThat(patient.address()).isNotNull().hasSize(1);
+        assertThat(patient.address()).isNotNull().isNotEmpty();
+        assertThat(patient.address().get(0).city()).isEqualTo("Springfield");
+        assertThat(patient.address().get(0).street()).isEqualTo("Evergreen Terrace 0");
+
+        assertThat(patient.contactPoint()).isNotNull().isNotEmpty();
+
+        delete(id);
+        assertThatThrownBy(() -> patientLogic.getById(id)).isInstanceOf(Exception.class);
     }
 
     @Test
-    public void findAll() {
+    public void findByGivenName() {
         setTenantId("0");
-        assertThat(patientLogic.findAll()).isNotNull().hasSize(3);
+        var id0 = create();
+        assertThat(patientLogic.findByGivenName("Homer")).isNotNull().hasSize(1);
 
         setTenantId("5");
-        assertThat(patientLogic.findAll()).isNotNull().hasSize(3);
+        var id5 = create();
+        assertThat(patientLogic.findByGivenName("Homer")).isNotNull().hasSize(1);
+
+        delete(id0, "0");
+        delete(id5, "5");
     }
 
     @Test
-    public void findBygivenName() {
-        List<Patient> patients = patientLogic.findByGivenName("Monty");
-        assertThat(patients).isNotNull().hasSize(1);
-        assertThat(patients.get(0).givenName()).isEqualTo("Monty");
-        assertThat(patients.get(0).familyName()).isEqualTo("Burns");
-    }
-
-    @Test
-    public void findByfamilyName() {
-        List<Patient> patients = patientLogic.findByFamilyName("Simpson");
-        assertThat(patients).isNotNull().hasSize(2);
-        assertThat(patients.get(0).familyName()).isEqualTo("Simpson");
-    }
-
-
-    private void insertData() {
+    public void findByFamilyName() {
         setTenantId("0");
-        createPatients();
+        var id0 = create();
+        assertThat(patientLogic.findByFamilyName("Simpson")).isNotNull().hasSize(1);
+
         setTenantId("5");
-        createPatients();
+        var id5 = create();
+        assertThat(patientLogic.findByFamilyName("Simpson")).isNotNull().hasSize(1);
+
+        delete(id0, "0");
+        delete(id5, "5");
     }
 
-    private void createPatients() {
-        patientLogic.save(
+
+    private String create() {
+        return patientLogic.save(
                 createPatient("Homer", "Simpson",
-                        createAddress("Evergreen Terrace 1"),
+                        createAddress("Evergreen Terrace " + TenantInterceptor.getTenantId()),
                         createContactPoint("555-444"))
-        );
-
-        patientLogic.save(
-                createPatient("Bart", "Simpson",
-                        createAddress("Everblue Terrace 1"),
-                        createContactPoint("555-444"))
-        );
-
-        patientLogic.save(
-                createPatient("Monty", "Burns",
-                        createAddress("Monty Mansion"),
-                        createContactPoint("555-444"))
-        );
+        ).id();
     }
 
-    /*
-    private void setTenantId(String tenantId) {
-        HttpInterceptor.setTenantId("0");
+    private void delete(String id, String tenantId) {
+        setTenantId(tenantId);
+        delete(id);
     }
 
-     */
-
-    private static void setTenantId(String tenantId) {
-        SecurityContextHolder.getContext().setAuthentication(
-                new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "");}}, "name")
-                        , new ArrayList<>(), tenantId));
+    private void delete(String id) {
+        patientLogic.delete(id);
     }
 
 }

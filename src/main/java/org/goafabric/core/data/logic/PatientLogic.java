@@ -27,10 +27,10 @@ public class PatientLogic {
                 patientRepository.findById(id).get());
     }
 
-    public List<Patient> findAll() {
-        return patientMapper.map(
-                patientRepository.findAll());
+    public void delete(String id) {
+        patientRepository.deleteById(id);
     }
+
 
     public List<Patient> findByGivenName(String givenName) {
         return patientMapper.map(

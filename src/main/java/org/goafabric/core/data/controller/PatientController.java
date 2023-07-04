@@ -22,11 +22,6 @@ public class PatientController {
         return patientLogic.getById(id);
     }
 
-    @GetMapping("findAll")
-    public List<Patient> findAll() {
-        return patientLogic.findAll();
-    }
-
     @GetMapping("findByGivenName")
     public List<Patient> findByGivenName(@RequestParam("givenName") String givenName) {
         return patientLogic.findByGivenName(givenName);

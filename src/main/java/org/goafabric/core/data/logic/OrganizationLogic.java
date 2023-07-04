@@ -27,9 +27,8 @@ public class OrganizationLogic {
                 organizationRepository.findById(id).get());
     }
 
-    public List<Organization> findAll() {
-        return organizationMapper.map(
-                organizationRepository.findAll());
+    public void delete(String id) {
+        organizationRepository.deleteById(id);
     }
 
     public List<Organization> findByName(String name) {

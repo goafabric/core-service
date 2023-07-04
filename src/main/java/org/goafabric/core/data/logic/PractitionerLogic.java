@@ -27,9 +27,8 @@ public class PractitionerLogic {
                 practitionerRepository.findById(id).get());
     }
 
-    public List<Practitioner> findAll() {
-        return practitionerMapper.map(
-                practitionerRepository.findAll());
+    public void delete(String id) {
+        practitionerRepository.deleteById(id);
     }
 
     public List<Practitioner> findByGivenName(String givenName) {

@@ -22,11 +22,6 @@ public class OrganizationController {
         return organizationLogic.getById(id);
     }
 
-    @GetMapping("findAll")
-    public List<Organization> findAll() {
-        return organizationLogic.findAll();
-    }
-
     @GetMapping("findByGivenName")
     public List<Organization> findByName(@RequestParam("name") String name) {
         return organizationLogic.findByName(name);

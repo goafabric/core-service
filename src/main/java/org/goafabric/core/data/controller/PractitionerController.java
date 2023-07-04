@@ -22,11 +22,6 @@ public class PractitionerController {
         return practitionerLogic.getById(id);
     }
 
-    @GetMapping("findAll")
-    public List<Practitioner> findAll() {
-        return practitionerLogic.findAll();
-    }
-
     @GetMapping("findByGivenName")
     public List<Practitioner> findByGivenName(@RequestParam("givenName") String givenName) {
         return practitionerLogic.findByGivenName(givenName);

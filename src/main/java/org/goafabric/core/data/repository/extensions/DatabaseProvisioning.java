@@ -65,7 +65,7 @@ public class DatabaseProvisioning implements CommandLineRunner {
     private void importDemoData() {
         Arrays.asList(tenants.split(",")).forEach(tenant -> {
             setTenantId(tenant);
-            if (applicationContext.getBean(PatientLogic.class).findAll().isEmpty()) {
+            if (applicationContext.getBean(PatientLogic.class).findByFamilyName("").isEmpty()) {
                 insertData();
             }
         });
@@ -152,11 +152,7 @@ public class DatabaseProvisioning implements CommandLineRunner {
         return Collections.singletonList(new ContactPoint(null, AdressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
     }
 
-    /*
-    private void setTenantId(String tenantId) {
-        HttpInterceptor.setTenantId("0");
-    }
-     */
+
     @Autowired(required = false)
     private ObjectStorageLogic objectStorageLogic;
 
@@ -177,7 +173,7 @@ public class DatabaseProvisioning implements CommandLineRunner {
     }
 
 
-    private static void setTenantId(String tenantId) {
+    public static void setTenantId(String tenantId) {
         SecurityContextHolder.getContext().setAuthentication(
                 new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name")
                         , new ArrayList<>(), tenantId));
