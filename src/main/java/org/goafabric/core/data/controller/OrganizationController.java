@@ -11,26 +11,31 @@ import java.util.List;
 @RequestMapping(value = "/organizations", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class OrganizationController {
-    private final OrganizationLogic organizationLogic;
+    private final OrganizationLogic logic;
 
     public OrganizationController(OrganizationLogic organizationLogic) {
-        this.organizationLogic = organizationLogic;
+        this.logic = organizationLogic;
+    }
+
+    @DeleteMapping("deleteById/{id}")
+    public void deleteById(@PathVariable("id") String id) {
+        logic.deleteById(id);
     }
 
     @GetMapping("getById/{id}")
     public Organization getById(@PathVariable("id") String id) {
-        return organizationLogic.getById(id);
+        return logic.getById(id);
     }
 
     @GetMapping("findByGivenName")
     public List<Organization> findByName(@RequestParam("name") String name) {
-        return organizationLogic.findByName(name);
+        return logic.findByName(name);
     }
 
 
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Organization save(@RequestBody @Valid Organization organization) {
-        return organizationLogic.save(organization);
+        return logic.save(organization);
     }
 
 }

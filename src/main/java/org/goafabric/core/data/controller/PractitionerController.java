@@ -11,30 +11,35 @@ import java.util.List;
 @RequestMapping(value = "/practitioners", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class PractitionerController {
-    private final PractitionerLogic practitionerLogic;
+    private final PractitionerLogic logic;
 
     public PractitionerController(PractitionerLogic practitionerLogic) {
-        this.practitionerLogic = practitionerLogic;
+        this.logic = practitionerLogic;
+    }
+
+    @DeleteMapping("deleteById/{id}")
+    public void deleteById(@PathVariable("id") String id) {
+        logic.deleteById(id);
     }
 
     @GetMapping("getById/{id}")
     public Practitioner getById(@PathVariable("id") String id) {
-        return practitionerLogic.getById(id);
+        return logic.getById(id);
     }
 
     @GetMapping("findByGivenName")
     public List<Practitioner> findByGivenName(@RequestParam("givenName") String givenName) {
-        return practitionerLogic.findByGivenName(givenName);
+        return logic.findByGivenName(givenName);
     }
 
     @GetMapping("findByFamilyName")
     public List<Practitioner> findByFamilyName(@RequestParam("familyName") String familyName) {
-        return practitionerLogic.findByFamilyName(familyName);
+        return logic.findByFamilyName(familyName);
     }
 
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Practitioner save(@RequestBody @Valid Practitioner practitioner) {
-        return practitionerLogic.save(practitioner);
+        return logic.save(practitioner);
     }
 
 }

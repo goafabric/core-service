@@ -22,15 +22,14 @@ public class PatientLogic {
         this.patientRepository = patientRepository;
     }
 
+    public void deleteById(String id) {
+        patientRepository.deleteById(id);
+    }
+
     public Patient getById(String id) {
         return patientMapper.map(
                 patientRepository.findById(id).get());
     }
-
-    public void delete(String id) {
-        patientRepository.deleteById(id);
-    }
-
 
     public List<Patient> findByGivenName(String givenName) {
         return patientMapper.map(

@@ -27,7 +27,7 @@ public class PractitionerLogic {
                 practitionerRepository.findById(id).get());
     }
 
-    public void delete(String id) {
+    public void deleteById(String id) {
         practitionerRepository.deleteById(id);
     }
 

@@ -1,4 +1,4 @@
-package org.goafabric.core.logic;
+package org.goafabric.core;
 
 import org.goafabric.core.data.controller.vo.*;
 import org.goafabric.core.data.controller.vo.types.AdressUse;

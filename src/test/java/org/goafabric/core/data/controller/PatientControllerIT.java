@@ -1,8 +1,6 @@
-package org.goafabric.core.logic;
+package org.goafabric.core.data.controller;
 
 import org.goafabric.core.crossfunctional.TenantInterceptor;
-import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.data.repository.PatientRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,17 +8,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.goafabric.core.logic.DataRocker.*;
+import static org.goafabric.core.DataRocker.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class PatientLogicIT {
+class PatientControllerIT {
     @Autowired
-    private PatientLogic patientLogic;
-
-    @Autowired
-    private PatientRepository patientRepository;
+    private PatientController patientLogic;
 
     @Test
     public void getById() {
@@ -85,7 +80,7 @@ class PatientLogicIT {
     }
 
     private void delete(String id) {
-        patientLogic.delete(id);
+        patientLogic.deleteById(id);
     }
 
 }

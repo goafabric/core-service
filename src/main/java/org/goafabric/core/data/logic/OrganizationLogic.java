@@ -27,7 +27,7 @@ public class OrganizationLogic {
                 organizationRepository.findById(id).get());
     }
 
-    public void delete(String id) {
+    public void deleteById(String id) {
         organizationRepository.deleteById(id);
     }
 
