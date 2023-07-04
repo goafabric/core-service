@@ -31,7 +31,7 @@ class PractitionerControllerIT {
 
         assertThat(practitioner.address()).isNotNull().isNotEmpty();
         assertThat(practitioner.address().get(0).city()).isEqualTo("Springfield");
-        assertThat(practitioner.address().get(0).street()).isEqualTo("Psych Street 0");
+        assertThat(practitioner.address().get(0).street()).isEqualTo("Monroe Street 0");
 
         assertThat(practitioner.contactPoint()).isNotNull().isNotEmpty();
         assertThat(practitioner.contactPoint()).isNotNull().isNotEmpty();
@@ -76,7 +76,7 @@ class PractitionerControllerIT {
     private String create() {
         return controller.save(
                 createPractitioner("Marvin", "Monroe",
-                        createAddress("Psych Street " + TenantInterceptor.getTenantId()),
+                        createAddress("Monroe Street " + TenantInterceptor.getTenantId()),
                         createContactPoint("555-333"))
         ).id();
     }
