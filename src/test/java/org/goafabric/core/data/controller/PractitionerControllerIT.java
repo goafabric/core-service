@@ -15,28 +15,30 @@ import static org.goafabric.core.DataRocker.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class PatientControllerIT {
+class PractitionerControllerIT {
     @Autowired
-    private PatientController controller;
+    private PractitionerController controller;
 
     @Test
     public void getById() {
         setTenantId("0");
         var id = create();
-        var patient = controller.getById(id);
+        var practitioner = controller.getById(id);
 
-        assertThat(patient).isNotNull();
-        assertThat(patient.givenName()).isEqualTo("Homer");
-        assertThat(patient.familyName()).isEqualTo("Simpson");
+        assertThat(practitioner).isNotNull();
+        assertThat(practitioner.givenName()).isEqualTo("Marvin");
+        assertThat(practitioner.familyName()).isEqualTo("Monroe");
 
-        assertThat(patient.address()).isNotNull().isNotEmpty();
-        assertThat(patient.address().get(0).city()).isEqualTo("Springfield");
-        assertThat(patient.address().get(0).street()).isEqualTo("Evergreen Terrace 0");
+        assertThat(practitioner.address()).isNotNull().isNotEmpty();
+        assertThat(practitioner.address().get(0).city()).isEqualTo("Springfield");
+        assertThat(practitioner.address().get(0).street()).isEqualTo("Psych Street 0");
 
-        assertThat(patient.contactPoint()).isNotNull().isNotEmpty();
-        assertThat(patient.contactPoint().get(0).use()).isEqualTo(AddressUse.HOME.getValue());
-        assertThat(patient.contactPoint().get(0).system()).isEqualTo(ContactPointSystem.PHONE.getValue());
-        assertThat(patient.contactPoint().get(0).value()).isEqualTo("555-444");
+        assertThat(practitioner.contactPoint()).isNotNull().isNotEmpty();
+        assertThat(practitioner.contactPoint()).isNotNull().isNotEmpty();
+        assertThat(practitioner.contactPoint().get(0).use()).isEqualTo(AddressUse.HOME.getValue());
+        assertThat(practitioner.contactPoint().get(0).system()).isEqualTo(ContactPointSystem.PHONE.getValue());
+        assertThat(practitioner.contactPoint().get(0).value()).isEqualTo("555-333");
+
 
         delete(id);
         assertThatThrownBy(() -> controller.getById(id)).isInstanceOf(Exception.class);
@@ -46,11 +48,11 @@ class PatientControllerIT {
     public void findByGivenName() {
         setTenantId("0");
         var id0 = create();
-        assertThat(controller.findByGivenName("Homer")).isNotNull().hasSize(1);
+        assertThat(controller.findByGivenName("Marvin")).isNotNull().hasSize(1);
 
         setTenantId("5");
         var id5 = create();
-        assertThat(controller.findByGivenName("Homer")).isNotNull().hasSize(1);
+        assertThat(controller.findByGivenName("Marvin")).isNotNull().hasSize(1);
 
         delete(id0, "0");
         delete(id5, "5");
@@ -60,11 +62,11 @@ class PatientControllerIT {
     public void findByFamilyName() {
         setTenantId("0");
         var id0 = create();
-        assertThat(controller.findByFamilyName("Simpson")).isNotNull().hasSize(1);
+        assertThat(controller.findByFamilyName("Monroe")).isNotNull().hasSize(1);
 
         setTenantId("5");
         var id5 = create();
-        assertThat(controller.findByFamilyName("Simpson")).isNotNull().hasSize(1);
+        assertThat(controller.findByFamilyName("Monroe")).isNotNull().hasSize(1);
 
         delete(id0, "0");
         delete(id5, "5");
@@ -73,9 +75,9 @@ class PatientControllerIT {
 
     private String create() {
         return controller.save(
-                createPatient("Homer", "Simpson",
-                        createAddress("Evergreen Terrace " + TenantInterceptor.getTenantId()),
-                        createContactPoint("555-444"))
+                createPractitioner("Marvin", "Monroe",
+                        createAddress("Psych Street " + TenantInterceptor.getTenantId()),
+                        createContactPoint("555-333"))
         ).id();
     }
 

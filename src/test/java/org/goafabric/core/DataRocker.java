@@ -1,7 +1,7 @@
 package org.goafabric.core;
 
 import org.goafabric.core.data.controller.vo.*;
-import org.goafabric.core.data.controller.vo.types.AdressUse;
+import org.goafabric.core.data.controller.vo.types.AddressUse;
 import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -37,10 +37,10 @@ public class DataRocker {
     }
 
     public static List<Address> createAddress(String street) {
-        return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(),street, "Springfield"));
+        return Collections.singletonList(new Address(null, AddressUse.HOME.getValue(),street, "Springfield"));
     }
 
     public static List<ContactPoint> createContactPoint(String phone) {
-        return Collections.singletonList(new ContactPoint(null, AdressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
+        return Collections.singletonList(new ContactPoint(null, AddressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
     }
 }

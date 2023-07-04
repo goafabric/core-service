@@ -1,6 +1,6 @@
 package org.goafabric.core.data.controller.vo.types;
 
-public enum AdressUse {
+public enum AddressUse {
     /**
      * A communication address at a home.
      */
@@ -28,7 +28,7 @@ public enum AdressUse {
 
     private String value;
 
-    AdressUse(String value) {
+    AddressUse(String value) {
         this.value = value;
     }
 

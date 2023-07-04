@@ -3,7 +3,7 @@ package org.goafabric.core.data.repository.extensions;
 import net.datafaker.Faker;
 import org.goafabric.core.crossfunctional.TenantInterceptor;
 import org.goafabric.core.data.controller.vo.*;
-import org.goafabric.core.data.controller.vo.types.AdressUse;
+import org.goafabric.core.data.controller.vo.types.AddressUse;
 import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
@@ -91,21 +91,21 @@ public class DatabaseProvisioning implements CommandLineRunner {
 
     private void createPractitioners() {
         applicationContext.getBean(PractitionerLogic.class).save(
-                createPractitioner("Dr Julius", "Hibbert",
+                createPractitioner("Dr. Julius", "Hibbert",
                         createAddress("Commonstreet 345"),
                         createContactPoint("555-520")
                 )
         );
 
         applicationContext.getBean(PractitionerLogic.class).save(
-                createPractitioner("Dr Marvin", "Monroe",
+                createPractitioner("Dr. Marvin", "Monroe",
                         createAddress("Psychstreet 104"),
                         createContactPoint("555-525")
                 )
         );
 
         applicationContext.getBean(PractitionerLogic.class).save(
-                createPractitioner("Dr Nick", "Riveria",
+                createPractitioner("Dr. Nick", "Riveria",
                         createAddress("Nickstreet 221"),
                         createContactPoint("555-501")
                 )
@@ -145,11 +145,11 @@ public class DatabaseProvisioning implements CommandLineRunner {
     }
 
     public static List<Address> createAddress(String street) {
-        return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(),street, "Springfield " + TenantInterceptor.getTenantId()));
+        return Collections.singletonList(new Address(null, AddressUse.HOME.getValue(),street, "Springfield " + TenantInterceptor.getTenantId()));
     }
 
     public static List<ContactPoint> createContactPoint(String phone) {
-        return Collections.singletonList(new ContactPoint(null, AdressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
+        return Collections.singletonList(new ContactPoint(null, AddressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
     }
 
 
