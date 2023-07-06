@@ -1,10 +1,12 @@
 package org.goafabric.core.data.repository.extensions;
 
 import org.flywaydb.core.Flyway;
-import org.goafabric.core.crossfunctional.TenantInterceptor;
+import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
@@ -32,7 +34,9 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
     private final String schemaPrefix;
 
     private final String defaultSchema;
-    
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     public TenantResolver(DataSource dataSource,
                           @Value("${multi-tenancy.default-schema:PUBLIC}") String defaultSchema,
                           @Value("${multi-tenancy.schema-prefix:_}") String schemaPrefix) {
@@ -45,7 +49,11 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
 
     @Override
     public String resolveCurrentTenantIdentifier() {
-        return TenantInterceptor.getOrgunitId();
+        return getOrgunitId();
+    }
+
+    public static String getOrgunitId() {
+        return "1";
     }
 
     @Override
@@ -64,7 +72,7 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
     @Override
     public Connection getConnection(String schema) throws SQLException {
         var connection = dataSource.getConnection();
-        connection.setSchema(defaultSchema.equals(schema) ? defaultSchema : schemaPrefix + TenantInterceptor.getTenantId());
+        connection.setSchema(defaultSchema.equals(schema) ? defaultSchema : schemaPrefix + HttpInterceptor.getTenantId());
         return connection;
     }
 

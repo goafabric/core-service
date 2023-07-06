@@ -1,7 +1,7 @@
 package org.goafabric.core.data.repository.extensions;
 
 import net.datafaker.Faker;
-import org.goafabric.core.crossfunctional.TenantInterceptor;
+import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.controller.vo.*;
 import org.goafabric.core.data.controller.vo.types.AddressUse;
 import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
@@ -145,7 +145,7 @@ public class DatabaseProvisioning implements CommandLineRunner {
     }
 
     public static List<Address> createAddress(String street) {
-        return Collections.singletonList(new Address(null, AddressUse.HOME.getValue(),street, "Springfield " + TenantInterceptor.getTenantId()));
+        return Collections.singletonList(new Address(null, AddressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()));
     }
 
     public static List<ContactPoint> createContactPoint(String phone) {

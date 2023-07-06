@@ -5,7 +5,6 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
-import org.goafabric.core.crossfunctional.DurationLog;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @Component
-@DurationLog
 public class ExportLogic {
     private final PatientLogic patientLogic;
     private final PractitionerLogic practitionerLogic;

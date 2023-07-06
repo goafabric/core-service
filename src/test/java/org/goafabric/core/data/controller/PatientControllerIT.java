@@ -1,6 +1,6 @@
 package org.goafabric.core.data.controller;
 
-import org.goafabric.core.crossfunctional.TenantInterceptor;
+import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.controller.vo.types.AddressUse;
 import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
 import org.junit.jupiter.api.Test;
@@ -74,7 +74,7 @@ class PatientControllerIT {
     private String create() {
         return controller.save(
                 createPatient("Homer", "Simpson",
-                        createAddress("Evergreen Terrace " + TenantInterceptor.getTenantId()),
+                        createAddress("Evergreen Terrace " + HttpInterceptor.getTenantId()),
                         createContactPoint("555-444"))
         ).id();
     }

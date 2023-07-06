@@ -3,14 +3,12 @@ package org.goafabric.core.data.logic;
 import org.goafabric.core.data.controller.vo.Organization;
 import org.goafabric.core.data.logic.mapper.OrganizationMapper;
 import org.goafabric.core.data.repository.OrganizationRepository;
-import org.goafabric.core.crossfunctional.DurationLog;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
-@DurationLog
 @Transactional
 public class OrganizationLogic {
     private final OrganizationMapper organizationMapper;

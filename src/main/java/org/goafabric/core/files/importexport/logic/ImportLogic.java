@@ -10,7 +10,6 @@ import org.goafabric.core.data.controller.vo.Practitioner;
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
-import org.goafabric.core.crossfunctional.DurationLog;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -20,7 +19,6 @@ import java.nio.file.Paths;
 import java.util.List;
 
 @Component
-@DurationLog
 public class ImportLogic {
     private final PatientLogic patientLogic;
     private final PractitionerLogic practitionerLogic;

@@ -1,6 +1,6 @@
 package org.goafabric.core.data.controller;
 
-import org.goafabric.core.crossfunctional.TenantInterceptor;
+import org.goafabric.core.crossfunctional.HttpInterceptor;
 import org.goafabric.core.data.controller.vo.types.AddressUse;
 import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
 import org.junit.jupiter.api.Test;
@@ -60,7 +60,7 @@ class OrganizationControllerIT {
     private String create() {
         return controller.save(
                 createOrganization("Practice Dr. Monroe",
-                        createAddress("Psych Street " + TenantInterceptor.getTenantId()),
+                        createAddress("Psych Street " + HttpInterceptor.getTenantId()),
                         createContactPoint("555-222"))
         ).id();
     }
