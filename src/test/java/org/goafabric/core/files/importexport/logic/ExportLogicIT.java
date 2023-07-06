@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.goafabric.core.crossfunctional.HttpInterceptor;
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.data.controller.PatientController;
 import org.goafabric.core.data.controller.vo.Patient;
 import org.junit.jupiter.api.Test;
