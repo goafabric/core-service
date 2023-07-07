@@ -37,7 +37,9 @@ public class DataRocker {
     }
 
     public static List<Address> createAddress(String street) {
-        return Collections.singletonList(new Address(null, AddressUse.HOME.getValue(),street, "Springfield"));
+        return Collections.singletonList(
+                new Address(null, AddressUse.HOME.getValue(),street, "Springfield"
+                        , "555", "Florida", "US"));
     }
 
     public static List<ContactPoint> createContactPoint(String phone) {

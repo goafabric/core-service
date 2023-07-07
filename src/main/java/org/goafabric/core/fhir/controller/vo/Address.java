@@ -15,11 +15,13 @@ import java.util.List;
 public class Address {
     private String id;
 
-    private String city;
-    private String state;
-    private String postalCode;
-    private String country;
     private String use;
 
     private List<String> line;
+    private String city;
+    private String postalCode;
+
+    private String state;
+    private String country;
+
 }

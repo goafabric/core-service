@@ -17,6 +17,10 @@ public class AddressEo {
     public String street;
     public String city;
 
+    public String postalCode;
+    public String state;
+    public String country;
+
     @Version //optimistic locking
     public Long version;
 }

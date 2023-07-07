@@ -7,6 +7,9 @@ public record Address (
 
         @NotNull String use,
         @NotNull String street,
-        @NotNull String city
+        @NotNull String city,
+        @NotNull String postalCode,
+        @NotNull String state,
+        @NotNull String country
 ) {}
 

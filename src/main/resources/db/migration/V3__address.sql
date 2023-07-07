@@ -7,6 +7,11 @@ create table address
     use varchar(255),
 	street varchar(255),
 	city varchar(255),
+
+    postal_code varchar(255),
+    state varchar(255),
+    country varchar(255),
+
 	version bigint default 0
 );
 

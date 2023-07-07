@@ -145,7 +145,9 @@ public class DatabaseProvisioning implements CommandLineRunner {
     }
 
     public static List<Address> createAddress(String street) {
-        return Collections.singletonList(new Address(null, AddressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()));
+        return Collections.singletonList(
+                new Address(null, AddressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()
+                        , "555", "Florida", "US"));
     }
 
     public static List<ContactPoint> createContactPoint(String phone) {
