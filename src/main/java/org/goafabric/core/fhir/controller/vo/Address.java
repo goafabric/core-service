@@ -1,27 +1,18 @@
 
 package org.goafabric.core.fhir.controller.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.List;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Address {
-    private String id;
+    public String id;
 
-    private String use;
+    public String use;
 
-    private List<String> line;
-    private String city;
-    private String postalCode;
+    public List<String> line;
+    public String city;
+    public String postalCode;
 
-    private String state;
-    private String country;
+    public String state;
+    public String country;
 
 }

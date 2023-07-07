@@ -1,20 +1,11 @@
 
 package org.goafabric.core.fhir.controller.vo;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Telecom {
-    private String id;
+    public String id;
 
-    private String system;
-    private String value;
-    private String use;
+    public String system;
+    public String value;
+    public String use;
 
 }
