@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "fhir/Patient", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
-public class PatientProjector {
+public class PatientFhirProjector {
     private final PatientLogic logic;
     private final FhirPatientMapper mapper;
 
-    public PatientProjector(PatientLogic logic, FhirPatientMapper mapper) {
+    public PatientFhirProjector(PatientLogic logic, FhirPatientMapper mapper) {
         this.logic = logic;
         this.mapper = mapper;
     }

@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "fhir/Practitioner", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
-public class PractitionerProjector {
+public class PractitionerFhirProjector {
 	private final PractitionerLogic logic;
 	private final FhirPractitionerMapper mapper;
 
-	public PractitionerProjector(PractitionerLogic logic, FhirPractitionerMapper mapper) {
+	public PractitionerFhirProjector(PractitionerLogic logic, FhirPractitionerMapper mapper) {
 		this.logic = logic;
 		this.mapper = mapper;
 	}
