@@ -1,6 +1,6 @@
-package org.goafabric.core.fhir.projector;
+package org.goafabric.core.fhir.controller;
 
-import org.goafabric.core.fhir.projector.vo.Bundle;
+import org.goafabric.core.fhir.controller.vo.Bundle;
 
 public interface FhirProjector<T> {
 

@@ -1,10 +1,10 @@
-package org.goafabric.core.fhir.projector;
+package org.goafabric.core.fhir.controller;
 
 
 import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.fhir.projector.mapper.FPatientMapper;
-import org.goafabric.core.fhir.projector.vo.Bundle;
-import org.goafabric.core.fhir.projector.vo.Patient;
+import org.goafabric.core.fhir.logic.mapper.FhirPatientMapper;
+import org.goafabric.core.fhir.controller.vo.Bundle;
+import org.goafabric.core.fhir.controller.vo.Patient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "fhir/Patient", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
 public class PatientProjector {
     private final PatientLogic logic;
-    private final FPatientMapper mapper;
+    private final FhirPatientMapper mapper;
 
-    public PatientProjector(PatientLogic logic, FPatientMapper mapper) {
+    public PatientProjector(PatientLogic logic, FhirPatientMapper mapper) {
         this.logic = logic;
         this.mapper = mapper;
     }
@@ -36,11 +36,8 @@ public class PatientProjector {
 
     @GetMapping
     public Bundle<Patient> search(@RequestParam(value = "family", required = false) String familyName) {
-        var bundle = new Bundle<Patient>();
-        mapper.map(logic.findByFamilyName(familyName))
-                .forEach(o -> bundle.addEntry(new Bundle.BundleEntryComponent(o, o.getClass().getSimpleName() + "/" + o.id)));
-        return bundle;
+        return new Bundle<>(mapper.map(logic.findByFamilyName(familyName))
+                .stream().map(o -> new Bundle.BundleEntryComponent<>(o, o.getClass().getSimpleName() + "/" + o.id)).toList());
     }
-
 
 }

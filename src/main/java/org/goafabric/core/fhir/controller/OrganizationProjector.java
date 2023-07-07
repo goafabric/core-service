@@ -1,9 +1,9 @@
-package org.goafabric.core.fhir.projector;
+package org.goafabric.core.fhir.controller;
 
-import org.goafabric.core.fhir.projector.mapper.FOrganizationMapper;
-import org.goafabric.core.fhir.projector.vo.Bundle;
-import org.goafabric.core.fhir.projector.vo.Organization;
 import org.goafabric.core.data.logic.OrganizationLogic;
+import org.goafabric.core.fhir.logic.mapper.FhirOrganizationMapper;
+import org.goafabric.core.fhir.controller.vo.Bundle;
+import org.goafabric.core.fhir.controller.vo.Organization;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "fhir/Organization", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
 public class OrganizationProjector implements FhirProjector<Organization> {
     private final OrganizationLogic logic;
-    private final FOrganizationMapper mapper;
+    private final FhirOrganizationMapper mapper;
 
-    public OrganizationProjector(OrganizationLogic logic, FOrganizationMapper mapper) {
+    public OrganizationProjector(OrganizationLogic logic, FhirOrganizationMapper mapper) {
         this.logic = logic;
         this.mapper = mapper;
     }
@@ -35,9 +35,7 @@ public class OrganizationProjector implements FhirProjector<Organization> {
 
     @GetMapping
     public Bundle<Organization> search(@RequestParam(value = "name", required = false) String name) {
-        var bundle = new Bundle<Organization>();
-        mapper.map(logic.findByName(name))
-                .forEach(o -> bundle.addEntry(new Bundle.BundleEntryComponent(o, o.getClass().getSimpleName() + "/" + o.id)));
-        return bundle;
+        return new Bundle<>(mapper.map(logic.findByName(name))
+                        .stream().map(o -> new Bundle.BundleEntryComponent<>(o, o.getClass().getSimpleName() + "/" + o.id)).toList());
     }
 }
