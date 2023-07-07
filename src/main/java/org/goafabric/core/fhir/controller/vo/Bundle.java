@@ -14,8 +14,14 @@ public class Bundle<T> {
     }
 
     public static class BundleEntryComponent<T> {
-        public String fullUrl;
         public T resource;
+
+        public BundleEntryComponent(T resource, String fullUrl) {
+            this.resource = resource;
+            this.fullUrl = fullUrl;
+        }
+
+        public String fullUrl;
     }
 
 }

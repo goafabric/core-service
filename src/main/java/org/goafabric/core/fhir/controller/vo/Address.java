@@ -15,4 +15,7 @@ public class Address {
     public String state;
     public String country;
 
+    public String getStreet() {
+        return line != null ? String.join("", line) : " ";
+    }
 }

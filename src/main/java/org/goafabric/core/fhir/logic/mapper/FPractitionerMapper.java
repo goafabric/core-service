@@ -7,7 +7,7 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring")
-public interface FPractitionerMapper {
+public interface FPractitionerMapper extends FhirBaseMapper {
     @Mapping(source = "telecom", target = "contactPoint")
     org.goafabric.core.data.controller.vo.Practitioner map(org.goafabric.core.fhir.controller.vo.Practitioner value);
 

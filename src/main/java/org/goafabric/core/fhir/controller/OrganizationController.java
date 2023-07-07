@@ -33,8 +33,11 @@ public class OrganizationController implements FhirController<Organization> {
     @GetMapping
     public Bundle<Organization> search(@RequestParam(value = "name", required = false) String name) {
         var bundle = new Bundle<Organization>();
-        //organizationLogic.search(name).forEach(p -> bundle.addEntry(MockUtil.createBundleEntry(p, p.getId())));
+        organizationLogic.search(name).forEach(o -> bundle.addEntry(createBundleEntry(o, o.id)));
         return bundle;
     }
 
+    public static Bundle.BundleEntryComponent createBundleEntry(Object resource, String id) {
+        return new Bundle.BundleEntryComponent(resource, resource.getClass().getSimpleName() + "/" + id);
+    }
 }

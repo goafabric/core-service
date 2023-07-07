@@ -27,7 +27,7 @@ public class OrganizationController {
         return logic.getById(id);
     }
 
-    @GetMapping("findByGivenName")
+    @GetMapping("findByName")
     public List<Organization> findByName(@RequestParam("name") String name) {
         return logic.findByName(name);
     }

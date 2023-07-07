@@ -33,8 +33,12 @@ public class PractitionerController {
 	@GetMapping
 	public Bundle<Practitioner> search(@RequestParam(value = "family", required = false) String familyName) {
 		var bundle = new Bundle<Practitioner>();
-		//practitionerLogic.search(familyName).forEach(p -> bundle.addEntry(MockUtil.createBundleEntry(p, p.getId())));
+		practitionerLogic.search(familyName).forEach(o -> bundle.addEntry(createBundleEntry(o, o.id)));
 		return bundle;
+	}
+
+	public static Bundle.BundleEntryComponent createBundleEntry(Object resource, String id) {
+		return new Bundle.BundleEntryComponent(resource, resource.getClass().getSimpleName() + "/" + id);
 	}
 
 }
