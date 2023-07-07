@@ -38,12 +38,10 @@ public class PatientController {
     @GetMapping
     public Bundle<Patient> search(@RequestParam(value = "family", required = false) String familyName) {
         var bundle = new Bundle<Patient>();
-        patientLogic.search(familyName).forEach(o -> bundle.addEntry(createBundleEntry(o, o.id)));
+        patientLogic.search(familyName)
+                .forEach(o -> bundle.addEntry(new Bundle.BundleEntryComponent(o, o.getClass().getSimpleName() + "/" + o.id)));
         return bundle;
     }
 
-    public static Bundle.BundleEntryComponent createBundleEntry(Object resource, String id) {
-        return new Bundle.BundleEntryComponent(resource, resource.getClass().getSimpleName() + "/" + id);
-    }
 
 }
