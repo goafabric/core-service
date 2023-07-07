@@ -1,23 +1,21 @@
 
 package org.goafabric.core.fhir.controller.vo;
 
-import org.springframework.data.annotation.Transient;
-
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Organization {
 
     public String id;
-    public Meta meta;
 
-    @Transient
+    public final Meta meta = new Meta();
     public final String resourceType = "Organization";
+    public final Boolean active = Boolean.TRUE;
+    public final List<Identifier> identifier = new ArrayList<>();
 
-    public Boolean active;
     public String name;
 
-    public List<Identifier> identifier;
     public List<Telecom> telecom;
     public List<Address> address;
 
