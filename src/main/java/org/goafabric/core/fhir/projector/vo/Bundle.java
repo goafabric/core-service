@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.controller.vo;
+package org.goafabric.core.fhir.projector.vo;
 
 import java.util.ArrayList;
 import java.util.List;

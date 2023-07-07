@@ -1,5 +1,5 @@
 
-package org.goafabric.core.fhir.controller.vo;
+package org.goafabric.core.fhir.projector.vo;
 
 public class Telecom {
     public String id;

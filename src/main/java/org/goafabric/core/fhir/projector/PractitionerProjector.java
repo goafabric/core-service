@@ -1,39 +1,42 @@
-package org.goafabric.core.fhir.controller;
+package org.goafabric.core.fhir.projector;
 
-import org.goafabric.core.fhir.controller.vo.Bundle;
-import org.goafabric.core.fhir.controller.vo.Practitioner;
-import org.goafabric.core.fhir.logic.FhirLogic;
+import org.goafabric.core.data.logic.PractitionerLogic;
+import org.goafabric.core.fhir.projector.mapper.FPractitionerMapper;
+import org.goafabric.core.fhir.projector.vo.Bundle;
+import org.goafabric.core.fhir.projector.vo.Practitioner;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-@RestController(value = "FhirPractitionerController")
+@RestController
 @RequestMapping(value = "fhir/Practitioner", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
-public class PractitionerController {
-	private final FhirLogic<Practitioner> practitionerLogic;
+public class PractitionerProjector {
+	private final PractitionerLogic logic;
+	private final FPractitionerMapper mapper;
 
-	public PractitionerController(FhirLogic<Practitioner> practitionerLogic) {
-		this.practitionerLogic = practitionerLogic;
+	public PractitionerProjector(PractitionerLogic logic, FPractitionerMapper mapper) {
+		this.logic = logic;
+		this.mapper = mapper;
 	}
 
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
 	public void create(Practitioner practitioner) {
-		practitionerLogic.create(practitioner);
+		logic.save(mapper.map(practitioner));
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable String id) {
-		practitionerLogic.delete(id);
+		logic.deleteById(id);
 	}
 
 	@GetMapping("/{id}")
 	public Practitioner getById(@PathVariable String id) {
-		return practitionerLogic.getById(id);
+		return mapper.map(logic.getById(id));
 	}
 
 	@GetMapping
 	public Bundle<Practitioner> search(@RequestParam(value = "family", required = false) String familyName) {
 		var bundle = new Bundle<Practitioner>();
-		practitionerLogic.search(familyName)
+		mapper.map(logic.findByGivenName(familyName))
 				.forEach(o -> bundle.addEntry(new Bundle.BundleEntryComponent(o, o.getClass().getSimpleName() + "/" + o.id)));
 		return bundle;
 	}
