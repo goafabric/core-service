@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.UUID;
 
 // Simple Audittrail that fulfills the requirements of logging content changes + user + aot support, could be db independant
-public class AuditTrailListener implements ApplicationContextAware {
+public class AuditListener implements ApplicationContextAware {
     private static ApplicationContext context;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
