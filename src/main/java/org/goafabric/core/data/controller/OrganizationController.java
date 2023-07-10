@@ -13,8 +13,8 @@ import java.util.List;
 public class OrganizationController {
     private final OrganizationLogic logic;
 
-    public OrganizationController(OrganizationLogic organizationLogic) {
-        this.logic = organizationLogic;
+    public OrganizationController(OrganizationLogic logic) {
+        this.logic = logic;
     }
 
     @DeleteMapping("deleteById/{id}")

@@ -13,8 +13,8 @@ import java.util.List;
 public class PractitionerController {
     private final PractitionerLogic logic;
 
-    public PractitionerController(PractitionerLogic practitionerLogic) {
-        this.logic = practitionerLogic;
+    public PractitionerController(PractitionerLogic logic) {
+        this.logic = logic;
     }
 
     @DeleteMapping("deleteById/{id}")

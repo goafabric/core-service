@@ -13,8 +13,8 @@ import java.util.List;
 public class PatientController {
     private final PatientLogic logic;
 
-    public PatientController(PatientLogic patientLogic) {
-        this.logic = patientLogic;
+    public PatientController(PatientLogic logic) {
+        this.logic = logic;
     }
 
     @DeleteMapping("deleteById/{id}")
