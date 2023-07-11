@@ -1,14 +1,14 @@
 package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.core.data.repository.extensions.AuditTrailListener;
+import org.goafabric.core.data.repository.extensions.AuditListener;
 import org.hibernate.annotations.TenantId;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "patient")
-@EntityListeners(AuditTrailListener.class)
+@EntityListeners(AuditListener.class)
 public class PatientEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

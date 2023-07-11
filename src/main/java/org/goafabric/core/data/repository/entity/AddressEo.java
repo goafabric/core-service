@@ -1,12 +1,12 @@
 package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.core.data.repository.extensions.AuditTrailListener;
+import org.goafabric.core.data.repository.extensions.AuditListener;
 
 
 @Entity
 @Table(name="address")
-@EntityListeners(AuditTrailListener.class)
+@EntityListeners(AuditListener.class)
 public class AddressEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
