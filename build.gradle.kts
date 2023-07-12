@@ -7,6 +7,7 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 val dockerRegistry = "goafabric"
 val nativeBuilder = "dashaun/builder:20230225"
 val baseImage = "ibm-semeru-runtimes:open-17.0.6_10-jre-focal@sha256:739eab970ff538cf22a20b768d7755dad80922a89b73b2fddd80dd79f9b880a1"
+jacoco.toolVersion = "0.8.9"
 
 plugins {
 	java
