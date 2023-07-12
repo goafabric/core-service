@@ -11,35 +11,35 @@ import java.util.List;
 @RequestMapping(value = "/patients", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class PatientController {
-    private final PatientLogic patientLogic;
+    private final PatientLogic logic;
 
-    public PatientController(PatientLogic patientLogic) {
-        this.patientLogic = patientLogic;
+    public PatientController(PatientLogic logic) {
+        this.logic = logic;
+    }
+
+    @DeleteMapping("deleteById/{id}")
+    public void deleteById(@PathVariable("id") String id) {
+        logic.deleteById(id);
     }
 
     @GetMapping("getById/{id}")
     public Patient getById(@PathVariable("id") String id) {
-        return patientLogic.getById(id);
-    }
-
-    @GetMapping("findAll")
-    public List<Patient> findAll() {
-        return patientLogic.findAll();
+        return logic.getById(id);
     }
 
     @GetMapping("findByGivenName")
     public List<Patient> findByGivenName(@RequestParam("givenName") String givenName) {
-        return patientLogic.findByGivenName(givenName);
+        return logic.findByGivenName(givenName);
     }
 
     @GetMapping("findByFamilyName")
     public List<Patient> findByFamilyName(@RequestParam("familyName") String familyName) {
-        return patientLogic.findByFamilyName(familyName);
+        return logic.findByFamilyName(familyName);
     }
 
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public Patient save(@RequestBody @Valid Patient patient) {
-        return patientLogic.save(patient);
+        return logic.save(patient);
     }
 
 }

@@ -3,14 +3,12 @@ package org.goafabric.core.data.logic;
 import org.goafabric.core.data.controller.vo.Practitioner;
 import org.goafabric.core.data.logic.mapper.PractitionerMapper;
 import org.goafabric.core.data.repository.PractitionerRepository;
-import org.goafabric.core.crossfunctional.DurationLog;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
-@DurationLog
 @Transactional
 public class PractitionerLogic {
     private final PractitionerMapper practitionerMapper;
@@ -27,9 +25,8 @@ public class PractitionerLogic {
                 practitionerRepository.findById(id).get());
     }
 
-    public List<Practitioner> findAll() {
-        return practitionerMapper.map(
-                practitionerRepository.findAll());
+    public void deleteById(String id) {
+        practitionerRepository.deleteById(id);
     }
 
     public List<Practitioner> findByGivenName(String givenName) {

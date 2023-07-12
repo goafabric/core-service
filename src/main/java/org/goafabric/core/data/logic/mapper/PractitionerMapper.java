@@ -16,5 +16,4 @@ public interface PractitionerMapper extends WorkaroundMapper {
 
     List<Practitioner> map(List<PractitionerEo> value);
 
-    List<Practitioner> map(Iterable<PractitionerEo> value);
 }

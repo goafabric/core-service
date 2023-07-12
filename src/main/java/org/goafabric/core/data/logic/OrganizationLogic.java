@@ -3,14 +3,12 @@ package org.goafabric.core.data.logic;
 import org.goafabric.core.data.controller.vo.Organization;
 import org.goafabric.core.data.logic.mapper.OrganizationMapper;
 import org.goafabric.core.data.repository.OrganizationRepository;
-import org.goafabric.core.crossfunctional.DurationLog;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
-@DurationLog
 @Transactional
 public class OrganizationLogic {
     private final OrganizationMapper organizationMapper;
@@ -27,9 +25,8 @@ public class OrganizationLogic {
                 organizationRepository.findById(id).get());
     }
 
-    public List<Organization> findAll() {
-        return organizationMapper.map(
-                organizationRepository.findAll());
+    public void deleteById(String id) {
+        organizationRepository.deleteById(id);
     }
 
     public List<Organization> findByName(String name) {

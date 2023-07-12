@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.persistence.*;
-import org.goafabric.core.crossfunctional.TenantInterceptor;
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.UUID;
 
 // Simple Audittrail that fulfills the requirements of logging content changes + user + aot support, could be db independant
-public class AuditTrailListener implements ApplicationContextAware {
+public class AuditListener implements ApplicationContextAware {
     private static ApplicationContext context;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -49,10 +49,12 @@ public class AuditTrailListener implements ApplicationContextAware {
         context = applicationContext;
     }
 
+    /*
     @PostLoad
     public void afterRead(Object object) {
         insertAudit(DbOperation.READ, getId(object), object, object);
     }
+    */
 
     @PostPersist
     public void afterCreate(Object object)  {
@@ -86,14 +88,14 @@ public class AuditTrailListener implements ApplicationContextAware {
         final Date date = new Date(System.currentTimeMillis());
         return new AuditTrail(
                 UUID.randomUUID().toString(),
-                TenantInterceptor.getOrgunitId(),
+                TenantResolver.getOrgunitId(),
                 getTableName(newObject != null ? newObject : oldObject),
                 referenceId,
                 dbOperation,
-                (dbOperation == DbOperation.CREATE ? TenantInterceptor.getUserName() : null),
+                (dbOperation == DbOperation.CREATE ? HttpInterceptor.getUserName() : null),
                 (dbOperation == DbOperation.CREATE ? date : null),
-                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE || dbOperation == DbOperation.READ) ? TenantInterceptor.getUserName() : null),
-                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE || dbOperation == DbOperation.READ) ? date : null),
+                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? HttpInterceptor.getUserName() : null),
+                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? date : null),
                 (oldObject == null ? null : getJsonValue(oldObject)),
                 (newObject == null ? null : getJsonValue(newObject))
         );
@@ -126,7 +128,7 @@ public class AuditTrailListener implements ApplicationContextAware {
 
         public void insertAudit(AuditTrail auditTrail, Object object) { //we cannot use jpa because of the dynamic table name
             new SimpleJdbcInsert(dataSource)
-                    .withSchemaName(schemaPrefix + TenantInterceptor.getTenantId())
+                    .withSchemaName(schemaPrefix + HttpInterceptor.getTenantId())
                     .withTableName("audit_trail")
                 .execute(new BeanPropertySqlParameterSource(auditTrail));
         }

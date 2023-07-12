@@ -3,14 +3,12 @@ package org.goafabric.core.data.logic;
 import org.goafabric.core.data.controller.vo.Patient;
 import org.goafabric.core.data.logic.mapper.PatientMapper;
 import org.goafabric.core.data.repository.PatientRepository;
-import org.goafabric.core.crossfunctional.DurationLog;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Component
-@DurationLog
 @Transactional
 public class PatientLogic {
     private final PatientMapper patientMapper;
@@ -22,14 +20,13 @@ public class PatientLogic {
         this.patientRepository = patientRepository;
     }
 
+    public void deleteById(String id) {
+        patientRepository.deleteById(id);
+    }
+
     public Patient getById(String id) {
         return patientMapper.map(
                 patientRepository.findById(id).get());
-    }
-
-    public List<Patient> findAll() {
-        return patientMapper.map(
-                patientRepository.findAll());
     }
 
     public List<Patient> findByGivenName(String givenName) {

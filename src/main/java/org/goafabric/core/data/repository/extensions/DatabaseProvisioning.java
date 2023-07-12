@@ -1,13 +1,13 @@
 package org.goafabric.core.data.repository.extensions;
 
 import net.datafaker.Faker;
-import org.goafabric.core.crossfunctional.TenantInterceptor;
 import org.goafabric.core.data.controller.vo.*;
-import org.goafabric.core.data.controller.vo.types.AdressUse;
+import org.goafabric.core.data.controller.vo.types.AddressUse;
 import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.files.objectstorage.controller.vo.ObjectEntry;
 import org.goafabric.core.files.objectstorage.logic.ObjectStorageLogic;
 import org.slf4j.Logger;
@@ -65,7 +65,7 @@ public class DatabaseProvisioning implements CommandLineRunner {
     private void importDemoData() {
         Arrays.asList(tenants.split(",")).forEach(tenant -> {
             setTenantId(tenant);
-            if (applicationContext.getBean(PatientLogic.class).findAll().isEmpty()) {
+            if (applicationContext.getBean(PatientLogic.class).findByFamilyName("").isEmpty()) {
                 insertData();
             }
         });
@@ -91,21 +91,21 @@ public class DatabaseProvisioning implements CommandLineRunner {
 
     private void createPractitioners() {
         applicationContext.getBean(PractitionerLogic.class).save(
-                createPractitioner("Dr Julius", "Hibbert",
+                createPractitioner("Dr. Julius", "Hibbert",
                         createAddress("Commonstreet 345"),
                         createContactPoint("555-520")
                 )
         );
 
         applicationContext.getBean(PractitionerLogic.class).save(
-                createPractitioner("Dr Marvin", "Monroe",
+                createPractitioner("Dr. Marvin", "Monroe",
                         createAddress("Psychstreet 104"),
                         createContactPoint("555-525")
                 )
         );
 
         applicationContext.getBean(PractitionerLogic.class).save(
-                createPractitioner("Dr Nick", "Riveria",
+                createPractitioner("Dr. Nick", "Riveria",
                         createAddress("Nickstreet 221"),
                         createContactPoint("555-501")
                 )
@@ -145,18 +145,16 @@ public class DatabaseProvisioning implements CommandLineRunner {
     }
 
     public static List<Address> createAddress(String street) {
-        return Collections.singletonList(new Address(null, AdressUse.HOME.getValue(),street, "Springfield " + TenantInterceptor.getTenantId()));
+        return Collections.singletonList(
+                new Address(null, AddressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()
+                        , "555", "Florida", "US"));
     }
 
     public static List<ContactPoint> createContactPoint(String phone) {
-        return Collections.singletonList(new ContactPoint(null, AdressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
+        return Collections.singletonList(new ContactPoint(null, AddressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
     }
 
-    /*
-    private void setTenantId(String tenantId) {
-        HttpInterceptor.setTenantId("0");
-    }
-     */
+
     @Autowired(required = false)
     private ObjectStorageLogic objectStorageLogic;
 
@@ -177,7 +175,7 @@ public class DatabaseProvisioning implements CommandLineRunner {
     }
 
 
-    private static void setTenantId(String tenantId) {
+    public static void setTenantId(String tenantId) {
         SecurityContextHolder.getContext().setAuthentication(
                 new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name")
                         , new ArrayList<>(), tenantId));

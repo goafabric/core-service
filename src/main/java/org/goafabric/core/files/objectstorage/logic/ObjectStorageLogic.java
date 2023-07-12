@@ -1,8 +1,7 @@
 package org.goafabric.core.files.objectstorage.logic;
 
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
-import org.goafabric.core.crossfunctional.DurationLog;
-import org.goafabric.core.crossfunctional.TenantInterceptor;
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.files.objectstorage.controller.vo.ObjectEntry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -18,17 +17,15 @@ import java.util.List;
 @Component
 @ConditionalOnProperty(value = "spring.cloud.aws.s3.enabled", havingValue = "true")
 @Import(AwsAutoConfiguration.class)
-@DurationLog
-public class ObjectStorageLogic{
+public class ObjectStorageLogic {
 
     private final S3Client s3Client;
     
-    @Value("${multi-tenancy.schema-prefix}") 
     private String schemaPrefix;
     
-
-    public ObjectStorageLogic(S3Client s3Client) {
+    public ObjectStorageLogic(S3Client s3Client, @Value("${multi-tenancy.schema-prefix}") String schemaPrefix) {
         this.s3Client = s3Client;
+        this.schemaPrefix = schemaPrefix;
     }
 
     public void create(ObjectEntry objectEntry) {
@@ -40,15 +37,6 @@ public class ObjectStorageLogic{
                         .contentType(objectEntry.contentType())
                         .build(),
                 RequestBody.fromBytes(objectEntry.data()));
-    }
-
-    private void createBucketIfNotExists(String bucket) {
-        if (s3Client.listBuckets().buckets().stream().noneMatch(b -> b.name().equals(bucket))) {
-            s3Client.createBucket(CreateBucketRequest.builder().bucket(bucket).build());
-            s3Client.putBucketVersioning(PutBucketVersioningRequest.builder().bucket(bucket)
-                    .versioningConfiguration(VersioningConfiguration.builder().status(BucketVersioningStatus.ENABLED).build())
-                        .build());
-        }
     }
 
     public ObjectEntry getById(String id) {
@@ -67,8 +55,18 @@ public class ObjectStorageLogic{
                 .filter(o -> o.objectName().toLowerCase().startsWith(search.toLowerCase()))
                 .toList();
     }
+
+    private void createBucketIfNotExists(String bucket) {
+        if (s3Client.listBuckets().buckets().stream().noneMatch(b -> b.name().equals(bucket))) {
+            s3Client.createBucket(CreateBucketRequest.builder().bucket(bucket).build());
+            s3Client.putBucketVersioning(PutBucketVersioningRequest.builder().bucket(bucket)
+                    .versioningConfiguration(VersioningConfiguration.builder().status(BucketVersioningStatus.ENABLED).build())
+                    .build());
+        }
+    }
+    
     private String getBucketName() {
-        return schemaPrefix.replaceAll("_", "-") + TenantInterceptor.getTenantId();
+        return schemaPrefix.replaceAll("_", "-") + HttpInterceptor.getTenantId();
     }
 
 }
