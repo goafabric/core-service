@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Landing page</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <div style="margin-left: 20px;">
+        <h1>Frontend</h1>
+        <li><a href="frontend/">Frontend</a></li>
+        <h2>NGINX Proxy Links</h2>
+        <ul>
+            <li><a href="/core/">Core Service</a></li>
+            <li><a href="/catalog/">Catalog Service</a></li>
+            <li><a href="/oidc/">Oidc Provider</a></li>
+        </ul>
+        <h2>Monitoring</h2>
+        <ul>
+            <li><a href="actuator/health">Health</a></li>
+            <li><a href="actuator/prometheus">Prometheus</a></li>
+            <li><a href="swagger-ui/index.html">Swagger API Documentation</a></li>
+            <li><a href="logout">Logout</a></li>
+        </ul>
+        <h2>Patient Links</h2>
+        <ul>
+            <li><a href="patients/findByGivenName?givenName=S">findByGivenName</a></li>
+            <li><a href="patients/findByFamilyName?familyName=S">findByFamilyName</a></li>
+        </ul>
+        <h2>Practitioner and Organization Links</h2>
+        <ul>
+            <li><a href="practitioners/findByFamilyName?familyName=">findAll Practitioners</a></li>
+            <li><a href="organizations/findByName?name=">findAll Organizations</a></li>
+        </ul>
+        <h2>FHIR</h2>
+        <ul>
+            <li><a href="fhir/r4/Patient?family=">FHIR Patient</a></li>
+            <li><a href="fhir/r4/Practitioner?family=">FHIR Practitioner</a></li>
+            <li><a href="fhir/r4/Organization?name=">FHIR Organizations</a></li>
+        </ul>
+    </div>
+</body>
+</html>
