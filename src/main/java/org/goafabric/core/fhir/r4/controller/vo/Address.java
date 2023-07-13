@@ -3,19 +3,16 @@ package org.goafabric.core.fhir.r4.controller.vo;
 
 import java.util.List;
 
-public class Address {
-    public String id;
-
-    public String use;
-
-    public List<String> line;
-    public String city;
-    public String postalCode;
-
-    public String state;
-    public String country;
-
+public record Address (
+    String id,
+    String use,
+    List<String> line,
+    String city,
+    String postalCode,
+    String state,
+    String country
+) {
     public String getStreet() {
-        return line != null ? String.join("", line) : " ";
+        return line() != null ? String.join("", line) : " ";
     }
 }
