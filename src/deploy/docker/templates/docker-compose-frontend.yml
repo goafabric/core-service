@@ -35,7 +35,7 @@ services:
       management.endpoints.web.exposure.include: "health,heapdump,circuitbreakers,prometheus"
 
       #forntend
-      frontend.core-service.uri: "http://core-service:50400"
+      frontend.core-service.uri: "http://core-service-application:50800"
       frontend.catalog-service.uri: "http://catalog-service:50600"
 
       monitoring.view.tracing.url: "http://localhost:16686/search"
