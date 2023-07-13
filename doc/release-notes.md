@@ -1,5 +1,6 @@
 # 1.0.4
 - java 20 compatibility + jvm baseimage updated to java 20
+- FHIR implementation
 
 # 1.0.3
 - fix for x-forward for native images
