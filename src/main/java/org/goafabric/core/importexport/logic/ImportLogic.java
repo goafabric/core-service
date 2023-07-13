@@ -1,4 +1,4 @@
-package org.goafabric.core.files.importexport.logic;
+package org.goafabric.core.importexport.logic;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
