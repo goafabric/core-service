@@ -21,7 +21,7 @@ class PractitionerFhirProjectorIT {
     private String port;
 
     @Test
-    void findAndGet() {
+    void search() {
         var id = create();
         final IGenericClient client = ClientFactory.createClient(port);
 

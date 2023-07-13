@@ -20,7 +20,7 @@ class PatientFhirProjectorIT {
     private String port;
 
     @Test
-    void findAndGet() {
+    void search() {
         var id = create();
         final IGenericClient client = ClientFactory.createClient(port);
 
@@ -32,7 +32,7 @@ class PatientFhirProjectorIT {
                         .execute();
 
         assertThat(bundle).isNotNull();
-        final Patient patient = (Patient) bundle.getEntry().get(0).getResource();
+        var patient = (Patient) bundle.getEntry().get(0).getResource();
 
         assertThat(patient.getName()).hasSize(1);
         //assertThat(patient.getName().get(0).getFamily()).isEqualTo("Simpson");
