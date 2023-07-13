@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.r4.r4.controller;
+package org.goafabric.core.fhir.r4.controller;
 
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.fhir.r4.logic.mapper.FhirOrganizationMapper;
@@ -36,6 +36,6 @@ public class OrganizationFhirProjector implements FhirProjector<Organization> {
     @GetMapping
     public Bundle<Organization> search(@RequestParam(value = "name", required = false) String name) {
         return new Bundle<>(mapper.map(logic.findByName(name))
-                        .stream().map(o -> new Bundle.BundleEntryComponent<>(o, o.getClass().getSimpleName() + "/" + o.id)).toList());
+                        .stream().map(o -> new Bundle.BundleEntryComponent<>(o, o.getClass().getSimpleName() + "/" + o.id())).toList());
     }
 }
