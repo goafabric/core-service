@@ -1,14 +1,14 @@
-package org.goafabric.core.fhir.controller;
+package org.goafabric.core.fhir.r4.controller;
 
 import org.goafabric.core.data.logic.OrganizationLogic;
-import org.goafabric.core.fhir.logic.mapper.FhirOrganizationMapper;
-import org.goafabric.core.fhir.controller.vo.Bundle;
-import org.goafabric.core.fhir.controller.vo.Organization;
+import org.goafabric.core.fhir.r4.logic.mapper.FhirOrganizationMapper;
+import org.goafabric.core.fhir.r4.controller.vo.Bundle;
+import org.goafabric.core.fhir.r4.controller.vo.Organization;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "fhir/Organization", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
+@RequestMapping(value = "fhir/r4/Organization", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
 public class OrganizationFhirProjector implements FhirProjector<Organization> {
     private final OrganizationLogic logic;
     private final FhirOrganizationMapper mapper;
@@ -20,7 +20,8 @@ public class OrganizationFhirProjector implements FhirProjector<Organization> {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
     public void create(Organization organization) {
-        logic.save(mapper.map(organization));
+        throw new IllegalStateException("NYI");
+        //logic.save(mapper.map(organization));
     }
 
     @DeleteMapping("/{id}")
@@ -36,6 +37,6 @@ public class OrganizationFhirProjector implements FhirProjector<Organization> {
     @GetMapping
     public Bundle<Organization> search(@RequestParam(value = "name", required = false) String name) {
         return new Bundle<>(mapper.map(logic.findByName(name))
-                        .stream().map(o -> new Bundle.BundleEntryComponent<>(o, o.getClass().getSimpleName() + "/" + o.id)).toList());
+                        .stream().map(o -> new Bundle.BundleEntryComponent<>(o, o.getClass().getSimpleName() + "/" + o.id())).toList());
     }
 }
