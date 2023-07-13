@@ -1,5 +1,5 @@
 
-package org.goafabric.core.fhir.controller.vo.metadata;
+package org.goafabric.core.fhir.r4.controller.vo.metadata;
 
 public class Implementation {
     public String description;

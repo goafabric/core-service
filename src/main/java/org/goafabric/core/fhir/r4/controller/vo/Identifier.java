@@ -1,5 +1,5 @@
 
-package org.goafabric.core.fhir.controller.vo;
+package org.goafabric.core.fhir.r4.controller.vo;
 
 public class Identifier {
 

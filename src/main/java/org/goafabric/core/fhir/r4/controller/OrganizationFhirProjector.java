@@ -1,9 +1,9 @@
 package org.goafabric.core.fhir.r4.controller;
 
 import org.goafabric.core.data.logic.OrganizationLogic;
-import org.goafabric.core.fhir.logic.mapper.FhirOrganizationMapper;
-import org.goafabric.core.fhir.controller.vo.Bundle;
-import org.goafabric.core.fhir.controller.vo.Organization;
+import org.goafabric.core.fhir.r4.logic.mapper.FhirOrganizationMapper;
+import org.goafabric.core.fhir.r4.controller.vo.Bundle;
+import org.goafabric.core.fhir.r4.controller.vo.Organization;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
