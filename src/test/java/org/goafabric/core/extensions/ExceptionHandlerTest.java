@@ -1,5 +1,6 @@
 package org.goafabric.core.extensions;
 
+import org.goafabric.core.data.extensions.ExceptionHandler;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

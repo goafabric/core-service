@@ -1,4 +1,4 @@
-package org.goafabric.core.files.objectstorage.controller.vo;
+package org.goafabric.core.data.controller.vo;
 
 public record ObjectEntry(
     String objectName,

@@ -1,6 +1,7 @@
 package org.goafabric.core.files.objectstorage.logic;
 
-import org.goafabric.core.files.objectstorage.controller.vo.ObjectEntry;
+import org.goafabric.core.data.logic.ObjectStorageLogic;
+import org.goafabric.core.data.controller.vo.ObjectEntry;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import software.amazon.awssdk.core.ResponseInputStream;
