@@ -2,11 +2,12 @@ package org.goafabric.core.fhir.logic.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface FhirPatientMapper extends FhirBaseMapper {
     @Mapping(source = "telecom", target = "contactPoint")
     org.goafabric.core.data.controller.vo.Patient map(org.goafabric.core.fhir.controller.vo.Patient value);
