@@ -1,6 +1,6 @@
 package org.goafabric.core.fhir.r4.controller;
 
-import org.goafabric.core.fhir.r4.controller.vo.metadata.MetaData;
+import org.goafabric.core.fhir.r4.controller.vo.MetaData;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +12,7 @@ public class MetaDataController {
 
     @GetMapping
     public MetaData getMetadata() {
-        var metaData = new MetaData();
-        metaData.resourceType = "CapabilityStatement";
-        metaData.name = "core-service";
+        var metaData = new MetaData("CapabilityStatement", "core-service");
         return metaData;
 
     }
