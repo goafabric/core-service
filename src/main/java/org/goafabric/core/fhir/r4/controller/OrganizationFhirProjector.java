@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.r4.controller;
+package org.goafabric.core.fhir.r4.r4.controller;
 
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.fhir.r4.logic.mapper.FhirOrganizationMapper;

@@ -1,23 +1,25 @@
 
 package org.goafabric.core.fhir.r4.controller.vo;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Patient {
+public record Patient (
+    String resourceType,
 
-    public String id;
+    String id,
 
-    public final Meta meta = new Meta();
-    public final String resourceType = "Patient";
-    public final Boolean active = Boolean.TRUE;
-    public final List<Identifier> identifier = new ArrayList<>();
+    Meta meta,
+    Boolean active,
+    List<Identifier> identifier,
 
-    public String gender;
-    public String birthDate;
+    String gender,
+    String birthDate,
 
-    public List<HumanName> name;
-    public List<Telecom> telecom;
-    public List<Address> address;
-
+    List<HumanName> name,
+    List<Telecom> telecom,
+    List<Address> address
+) {
+    public String resourceType() {
+        return "Patient";
+    }
 }

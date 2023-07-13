@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.r4.controller;
+package org.goafabric.core.fhir.r4.r4.controller;
 
 import org.goafabric.core.data.logic.PractitionerLogic;
 import org.goafabric.core.fhir.r4.logic.mapper.FhirPractitionerMapper;
@@ -36,7 +36,7 @@ public class PractitionerFhirProjector {
 	@GetMapping
 	public Bundle<Practitioner> search(@RequestParam(value = "family", required = false) String familyName) {
 		return new Bundle<>(mapper.map(logic.findByFamilyName(familyName))
-				.stream().map(o -> new Bundle.BundleEntryComponent<>(o, o.getClass().getSimpleName() + "/" + o.id)).toList());
+				.stream().map(o -> new Bundle.BundleEntryComponent<>(o, o.getClass().getSimpleName() + "/" + o.id())).toList());
 	}
 
 }
