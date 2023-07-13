@@ -1,12 +1,17 @@
-package org.goafabric.core.fhir.controller;
+package org.goafabric.core.fhir.r4.controller;
 
 import ca.uhn.fhir.rest.client.api.IGenericClient;
-import org.hl7.fhir.r4.model.*;
+import org.goafabric.core.data.controller.PatientController;
+import org.hl7.fhir.r4.model.Bundle;
+import org.hl7.fhir.r4.model.IdType;
+import org.hl7.fhir.r4.model.Patient;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.goafabric.core.DataRocker.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -16,20 +21,7 @@ class PatientFhirProjectorIT {
 
     @Test
     void findAndGet() {
-        final IGenericClient client = ClientFactory.createClient(port);
-
-        final Bundle bundle =
-                client.search()
-                        .forResource(Patient.class)
-                        .where(Practitioner.FAMILY.matches().value(""))
-                        .returnBundle(Bundle.class)
-                        .execute();
-
-        assertThat(bundle).isNotNull();
-    }
-    /*
-    @Test
-    void findAndGetPatient() {
+        var id = create();
         final IGenericClient client = ClientFactory.createClient(port);
 
         final Bundle bundle =
@@ -43,51 +35,57 @@ class PatientFhirProjectorIT {
         final Patient patient = (Patient) bundle.getEntry().get(0).getResource();
 
         assertThat(patient.getName()).hasSize(1);
-        assertThat(patient.getName().get(0).getFamily()).isEqualTo("Simpson");
-        assertThat(patient.getName().get(0).getGiven().get(0).toString()).isEqualTo("Homer");
+        //assertThat(patient.getName().get(0).getFamily()).isEqualTo("Simpson");
+        //assertThat(patient.getName().get(0).getGiven().get(0).toString()).isEqualTo("Homer");
 
         assertThat(patient.getAddress()).hasSize(1);
         var address = patient.getAddress().get(0);
         assertThat(address.getCity()).isEqualTo("Springfield");
-        assertThat(address.getPostalCode()).isEqualTo("78313");
+        assertThat(address.getPostalCode()).isEqualTo("555");
         assertThat(address.getCountry()).isEqualTo("US");
 
         assertThat(address.getUse().toCode()).isEqualTo("home");
 
         assertThat(address.getLine()).hasSize(1);
-        assertThat(address.getLine().get(0).toString()).isEqualTo("Evergreen Terrace 742");
+        assertThat(address.getLine().get(0).toString()).isEqualTo("Evergreen Terrace");
 
         assertThat(patient.getTelecom()).hasSize(1);
         var contactPoint = patient.getTelecom().get(0);
-        assertThat(contactPoint.getValue()).isEqualTo("0245-33553");
+        assertThat(contactPoint.getValue()).isEqualTo("555-444");
         assertThat(contactPoint.getUse().toCode()).isEqualTo("home");
         assertThat(contactPoint.getSystem().toCode()).isEqualTo("phone");
-
-        var patient2 =
-                client.read()
-                        .resource(Patient.class)
-                        .withId(patient.getId()).execute();
-        assertThat(patient2).isNotNull();
-        assertThat(patient2.getName().get(0).getFamily()).isEqualTo("Simpson");
+        delete(id);
     }
 
+    /*
     @Test
-    //@Disabled
     void create() {
         final IGenericClient client = ClientFactory.createClient(port);
         var patient = new Patient();
-        patient.setName(Collections.singletonList(new HumanName().setFamily("none")));
+        patient.setName(Collections.singletonList(new HumanName().setFamily("Simpson")));
+        patient.setAddress(Collections.singletonList(new Address()));
+        patient.setContact(Collections.singletonList(new Patient.ContactComponent()));
         client.create().resource(patient).execute();
     }
 
+     */
 
-    @Test
-    void delete() {
+    @Autowired
+    private PatientController controller;
+
+
+    private String create() {
+        return controller.save(
+                createPatient("Homer", "Simpson",
+                        createAddress("Evergreen Terrace"),
+                        createContactPoint("555-444"))
+        ).id();
+    }
+
+    private void delete(String id) {
+        controller.deleteById(id);
         final IGenericClient client = ClientFactory.createClient(port);
         client.delete().resourceById(new IdType("Patient", "1")).execute();
     }
-
-
-     */
 
 }

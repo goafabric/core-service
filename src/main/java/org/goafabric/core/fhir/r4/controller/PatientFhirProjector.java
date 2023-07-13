@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.controller;
+package org.goafabric.core.fhir.r4.controller;
 
 
 import org.goafabric.core.data.logic.PatientLogic;
@@ -9,7 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "fhir/Patient", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
+@RequestMapping(value = "fhir/r4/Patient", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
 public class PatientFhirProjector {
     private final PatientLogic logic;
     private final FhirPatientMapper mapper;

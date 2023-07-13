@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.controller;
+package org.goafabric.core.fhir.r4.controller;
 
 import org.goafabric.core.fhir.controller.vo.Bundle;
 

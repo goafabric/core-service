@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.controller;
+package org.goafabric.core.fhir.r4.controller;
 
 import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.fhir.logic.mapper.FhirOrganizationMapper;
@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "fhir/Organization", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
+@RequestMapping(value = "fhir/r4/Organization", produces = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
 public class OrganizationFhirProjector implements FhirProjector<Organization> {
     private final OrganizationLogic logic;
     private final FhirOrganizationMapper mapper;

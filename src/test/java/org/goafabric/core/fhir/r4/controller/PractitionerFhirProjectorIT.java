@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.controller;
+package org.goafabric.core.fhir.r4.controller;
 
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import org.hl7.fhir.r4.model.Bundle;
