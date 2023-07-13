@@ -1,5 +1,5 @@
 services:
-  catalog-service:
+  core-fe:
     container_name: core-fe
 #    image:  goafabric/core-service-native${_Values_server_arch}:1.0.1
     image:  goafabric/core-fe:1.0.3-SNAPSHOT

@@ -1,2 +1,2 @@
 #!/bin/bash
-./gradlew test vaadinBuildFrontend jib jib
+./gradlew clean test vaadinBuildFrontend jib jib

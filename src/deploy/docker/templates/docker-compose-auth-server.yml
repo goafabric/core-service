@@ -4,6 +4,11 @@ services:
       spring.security.oauth2.authorization-uri: "http://127.0.0.1:30200/oidc/auth"
       spring.security.oauth2.base-uri: "http://auth-server:8080/oidc"
 
+  core-fe:
+    environment:
+      spring.security.oauth2.authorization-uri: "http://127.0.0.1:30200/oidc/auth"
+      spring.security.oauth2.base-uri: "http://auth-server:8080/oidc"
+
   auth-server:
     container_name: auth-server
     image: goafabric/spring-auth-server-native${_Values_server_arch}:1.0.2
