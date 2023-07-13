@@ -21,7 +21,8 @@ public class PatientFhirProjector {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
     public void create(Patient patient) {
-        logic.save(mapper.map(patient));
+        throw new IllegalStateException("NYI");
+        //logic.save(mapper.map(patient));
     }
 
     @DeleteMapping("/{id}")

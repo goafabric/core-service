@@ -34,8 +34,8 @@ class PractitionerFhirProjectorIT {
         assertThat(bundle).isNotNull();
 
         var practitioner  = (Practitioner) bundle.getEntry().get(0).getResource();
-        //assertThat(patient.getName().get(0).getFamily()).isEqualTo("Simpson");
-        //assertThat(patient.getName().get(0).getGiven().get(0).toString()).isEqualTo("Homer");
+        assertThat(practitioner.getName().get(0).getGiven().get(0).toString()).isEqualTo("Marvin");
+        assertThat(practitioner.getName().get(0).getFamily()).isEqualTo("Monroe");
 
         assertThat(practitioner.getAddress()).hasSize(1);
         var address = practitioner.getAddress().get(0);
@@ -53,6 +53,8 @@ class PractitionerFhirProjectorIT {
         assertThat(contactPoint.getValue()).isEqualTo("555-333");
         assertThat(contactPoint.getUse().toCode()).isEqualTo("home");
         assertThat(contactPoint.getSystem().toCode()).isEqualTo("phone");
+
+        assertThat(client.read().resource(Practitioner.class).withId(id).execute()).isNotNull();
 
         delete(id);
     }

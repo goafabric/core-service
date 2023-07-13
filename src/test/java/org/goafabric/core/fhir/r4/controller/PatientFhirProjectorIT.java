@@ -3,7 +3,6 @@ package org.goafabric.core.fhir.r4.controller;
 import ca.uhn.fhir.rest.client.api.IGenericClient;
 import org.goafabric.core.data.controller.PatientController;
 import org.hl7.fhir.r4.model.Bundle;
-import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Patient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,8 +34,8 @@ class PatientFhirProjectorIT {
         var patient = (Patient) bundle.getEntry().get(0).getResource();
 
         assertThat(patient.getName()).hasSize(1);
-        //assertThat(patient.getName().get(0).getFamily()).isEqualTo("Simpson");
-        //assertThat(patient.getName().get(0).getGiven().get(0).toString()).isEqualTo("Homer");
+        assertThat(patient.getName().get(0).getGiven().get(0).toString()).isEqualTo("Homer");
+        assertThat(patient.getName().get(0).getFamily()).isEqualTo("Simpson");
 
         assertThat(patient.getAddress()).hasSize(1);
         var address = patient.getAddress().get(0);
@@ -54,6 +53,9 @@ class PatientFhirProjectorIT {
         assertThat(contactPoint.getValue()).isEqualTo("555-444");
         assertThat(contactPoint.getUse().toCode()).isEqualTo("home");
         assertThat(contactPoint.getSystem().toCode()).isEqualTo("phone");
+
+        assertThat(client.read().resource(Patient.class).withId(id).execute()).isNotNull();
+
         delete(id);
     }
 
@@ -84,8 +86,6 @@ class PatientFhirProjectorIT {
 
     private void delete(String id) {
         controller.deleteById(id);
-        final IGenericClient client = ClientFactory.createClient(port);
-        client.delete().resourceById(new IdType("Patient", "1")).execute();
     }
 
 }

@@ -53,6 +53,8 @@ class OrganizationFhirProjectorIT {
         assertThat(contactPoint.getUse().toCode()).isEqualTo("home");
         assertThat(contactPoint.getSystem().toCode()).isEqualTo("phone");
 
+        assertThat(client.read().resource(Organization.class).withId(id).execute()).isNotNull();
+
         delete(id);
     }
 
