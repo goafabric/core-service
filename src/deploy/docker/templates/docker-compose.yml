@@ -19,6 +19,7 @@ services:
     volumes:
       - tmp:/tmp
       - applogs:/usr/share/logs
+      - /Users/andreas/Downloads:/Users/andreas/Downloads
     networks:
       - ${_Values_root_name}-net
     environment:
