@@ -2,7 +2,7 @@ package org.goafabric.core.importexport.controller;
 
 import org.goafabric.core.importexport.logic.ExportLogic;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +16,7 @@ public class ExportController {
         this.logic = logic;
     }
 
-    @GetMapping("run")
+    @PostMapping("run")
     public void run (@RequestParam("path") String path) {
         logic.run(path);
     }

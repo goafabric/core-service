@@ -1,14 +1,12 @@
-package org.goafabric.core.files.importexport.logic;
+package org.goafabric.core.importexport.controller;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.goafabric.core.data.extensions.HttpInterceptor;
 import org.goafabric.core.data.controller.PatientController;
 import org.goafabric.core.data.controller.vo.Patient;
-import org.goafabric.core.importexport.logic.ExportLogic;
-import org.goafabric.core.importexport.logic.ImportLogic;
+import org.goafabric.core.data.extensions.HttpInterceptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,15 +19,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.goafabric.core.DataRocker.*;
 
 @SpringBootTest
-public class ExportLogicIT {
+class ExportControllerIT {
     @Autowired
-    private PatientController controller;
+    private PatientController patientController;
 
     @Autowired
-    private ExportLogic exportLogic;
+    private ExportController exportController;
 
     @Autowired
-    private ImportLogic importLogic;
+    private ImportController importController;
 
     @Test
     void export() throws IOException {
@@ -38,18 +36,18 @@ public class ExportLogicIT {
 
         var tempDir = System.getProperty("java.io.tmpdir");
 
-        exportLogic.run(tempDir);
-        importLogic.run(tempDir);
+        exportController.run(tempDir);
+        importController.run(tempDir);
 
         var patients = new ObjectMapper().registerModule(new JavaTimeModule()).configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
-            .registerModule(new JavaTimeModule()).readValue(new File(tempDir + "/patient.json"), new TypeReference<List<Patient>>() {});
+                .registerModule(new JavaTimeModule()).readValue(new File(tempDir + "/patient.json"), new TypeReference<List<Patient>>() {});
 
         assertThat(patients).isNotNull().isNotEmpty();
         delete(id);
     }
 
     private String create() {
-        return controller.save(
+        return patientController.save(
                 createPatient("Homer", "Simpson",
                         createAddress("Evergreen Terrace " + HttpInterceptor.getTenantId()),
                         createContactPoint("555-444"))
@@ -57,6 +55,8 @@ public class ExportLogicIT {
     }
 
     private void delete(String id) {
-        controller.deleteById(id);
+        patientController.deleteById(id);
     }
+
+
 }
