@@ -12,11 +12,14 @@ import org.goafabric.core.data.controller.vo.ObjectEntry;
 import org.goafabric.core.data.logic.ObjectStorageLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aot.hint.RuntimeHints;
+import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
@@ -27,6 +30,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 @Component
+@ImportRuntimeHints(DatabaseProvisioning.DbRuntimeHints.class)
 public class DatabaseProvisioning implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
@@ -179,6 +183,13 @@ public class DatabaseProvisioning implements CommandLineRunner {
         SecurityContextHolder.getContext().setAuthentication(
                 new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name")
                         , new ArrayList<>(), tenantId));
+    }
+
+    static class DbRuntimeHints implements RuntimeHintsRegistrar {
+        @Override
+        public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+            hints.resources().registerPattern("en/*.yml"); //needed for stupid faker
+        }
     }
 
 }
