@@ -1,3 +1,0 @@
-#!/bin/bash
-./gradlew clean nativeCompile
-./build/native/nativeCompile/core-fe -Xmx32m
