@@ -1,8 +1,10 @@
 package org.goafabric.core;
 
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
+import org.goafabric.core.fhir.r4.controller.vo.Bundle;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,6 +19,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
 
 @SpringBootApplication(exclude = AwsAutoConfiguration.class)
 @ImportRuntimeHints(Application.applicationRuntimeHints.class)
+@RegisterReflectionForBinding({Bundle.class, Bundle.BundleEntryComponent.class})
 public class Application {
 
     public static void main(String[] args){
