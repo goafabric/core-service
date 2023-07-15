@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Entity
 @Table(name = "organization")
-@Document("organization")
+@Document("#{@tenantIdBean.getPrefix()}organization")
 @EntityListeners(AuditListener.class)
 public class OrganizationEo {
     @Id

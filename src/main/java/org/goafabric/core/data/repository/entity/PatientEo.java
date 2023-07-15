@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "patient")
-@Document("patient")
+@Document("#{@tenantIdBean.getPrefix()}patient")
 @EntityListeners(AuditListener.class)
 public class PatientEo {
     @Id

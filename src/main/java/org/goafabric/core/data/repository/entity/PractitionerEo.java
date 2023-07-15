@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "practitioner")
-@Document("practitioner")
+@Document("#{@tenantIdBean.getPrefix()}practitioner")
 @EntityListeners(AuditListener.class)
 public class PractitionerEo {
     @Id
