@@ -2,13 +2,16 @@ package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
 import org.goafabric.core.data.repository.extensions.AuditListener;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Entity
 @Table(name="address")
+@Document("address")
 @EntityListeners(AuditListener.class)
 public class AddressEo {
     @Id
+    @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 

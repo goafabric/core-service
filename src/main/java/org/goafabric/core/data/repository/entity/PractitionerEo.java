@@ -2,14 +2,17 @@ package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
 import org.goafabric.core.data.repository.extensions.AuditListener;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "practitioner")
+@Document("practitioner")
 @EntityListeners(AuditListener.class)
 public class PractitionerEo {
     @Id
+    @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
