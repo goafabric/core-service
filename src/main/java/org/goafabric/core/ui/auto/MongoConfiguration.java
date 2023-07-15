@@ -11,4 +11,12 @@ import org.springframework.context.annotation.Profile;
 @Profile("mongodb")
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, JpaRepositoriesAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
 public class MongoConfiguration {
+
+    /*
+    @Bean
+    MongoTransactionManager transactionManager(MongoDatabaseFactory dbFactory) {
+        return new MongoTransactionManager(dbFactory);
+    }
+ */
+
 }
