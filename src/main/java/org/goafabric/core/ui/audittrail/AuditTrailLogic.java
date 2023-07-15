@@ -1,7 +1,6 @@
-package org.goafabric.core.ui.adapter;
+package org.goafabric.core.ui.audittrail;
 
 import org.goafabric.core.ui.SearchLogic;
-import org.goafabric.core.ui.adapter.vo.AuditEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

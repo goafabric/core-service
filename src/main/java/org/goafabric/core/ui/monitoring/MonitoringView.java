@@ -5,7 +5,7 @@ import com.vaadin.flow.component.tabs.TabSheet;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.goafabric.core.ui.MainView;
-import org.goafabric.core.ui.adapter.AuditTrailLogic;
+import org.goafabric.core.ui.audittrail.AuditTrailLogic;
 import org.goafabric.core.ui.monitoring.tabs.AuditTrailView;
 import org.goafabric.core.ui.monitoring.tabs.LokiView;
 import org.goafabric.core.ui.monitoring.tabs.S3View;

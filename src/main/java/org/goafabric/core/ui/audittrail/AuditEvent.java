@@ -1,14 +1,17 @@
-package org.goafabric.core.ui.adapter.vo;
+package org.goafabric.core.ui.audittrail;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.TenantId;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
 @Entity
 @Table(name = "audit_trail")
+@Document("audit_trail")
 public class AuditEvent {
     @Id
+    @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
