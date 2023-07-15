@@ -1,14 +1,11 @@
 package org.goafabric.core;
 
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
-import org.springframework.aot.hint.RuntimeHints;
-import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ImportRuntimeHints;
 
 
 /**
@@ -16,7 +13,6 @@ import org.springframework.context.annotation.ImportRuntimeHints;
  */
 
 @SpringBootApplication(exclude = AwsAutoConfiguration.class)
-@ImportRuntimeHints(Application.applicationRuntimeHints.class)
 public class Application {
 
     public static void main(String[] args){
@@ -30,10 +26,4 @@ public class Application {
         };
     }
 
-    static class applicationRuntimeHints implements RuntimeHintsRegistrar {
-        @Override
-        public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
-            hints.resources().registerPattern("en/*.yml"); //needed for stupid faker
-        }
-    }
 }
