@@ -1,8 +1,8 @@
 package org.goafabric.core.data.controller;
 
-import org.goafabric.core.data.extensions.HttpInterceptor;
 import org.goafabric.core.data.controller.vo.types.AddressUse;
 import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
+import org.goafabric.core.data.extensions.HttpInterceptor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +87,19 @@ class PatientControllerIT {
     private void delete(String id) {
         controller.deleteById(id);
     }
+
+    /*
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
+    @Test
+    void search() {
+        var id = create();
+        List<PatientEo> patients = mongoTemplate.find(new BasicQuery("{ familyName : 'Simpson' givenName : 'Homer' }"), PatientEo.class);
+        System.out.println(patients.get(0).familyName);
+        delete(id);
+    }
+
+     */
 
 }
