@@ -50,6 +50,14 @@ multi-tenancy.schema-prefix: "core_"
 database.provisioning.goals: "-migrate -import-demo-data"
 demo-data.size: "20"
 
+#mongo
+spring.data.mongodb.username: mongodb
+spring.data.mongodb.password: mongodb
+spring.data.mongodb.authentication-database: admin
+spring.data.mongodb.database: core
+
+spring.profiles.active: "jpa" #"mongodb"
+
 #s3
 spring.cloud.aws.s3.enabled: "false"
 spring.cloud.aws.s3.path-style-access-enabled: "true"
