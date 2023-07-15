@@ -85,4 +85,4 @@ spring.data.mongodb.password: mongodb
 spring.data.mongodb.authentication-database: admin
 spring.data.mongodb.database: core
 
-spring.profiles.active: "jpa" #"mongodb"
+spring.profiles.active: "mongodb" #"mongodb"
