@@ -1,6 +1,7 @@
 # 1.0.4
 - java 20 compatibility + jvm baseimage updated to java 20
 - FHIR implementation
+- Tests added
 
 # 1.0.3
 - fix for x-forward for native images
@@ -13,7 +14,7 @@
 - otlp tracing added
 
 # 1.0.1
-- Practitoner + Organization Entities added including Demodata
+- Practitioner + Organization Entities added including Demodata
 - Real Multi Tenant OIDC added
 
 # 1.0.0

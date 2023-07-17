@@ -14,7 +14,7 @@ import static org.goafabric.core.DataRocker.*;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class PatientFhirProjectorIT {
+class PatientFhirControllerIT {
     @LocalServerPort
     private String port;
 
