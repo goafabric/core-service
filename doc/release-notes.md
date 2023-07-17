@@ -3,7 +3,6 @@
 - FHIR implementation
 - Tests added
 
-# 1.0.3
 - fix for x-forward for native images
 - multi tenancy for s3 storage
 - logout for keycloak
