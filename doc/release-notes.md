@@ -1,3 +1,5 @@
+# 1.0.4
+
 # 1.0.3
 - fix for x-forward for native images
 - multi tenancy for s3 storage
