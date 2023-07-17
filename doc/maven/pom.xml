@@ -13,7 +13,7 @@
 
     <groupId>org.goafabric</groupId>
     <artifactId>core-service</artifactId>
-    <version>1.0.3-vaadin</version>
+    <version>1.0.4-vaadin-SNAPSHOT</version>
 
     <properties>
         <spring.boot.version>3.0.7</spring.boot.version>
