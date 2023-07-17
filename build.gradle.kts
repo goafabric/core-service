@@ -1,7 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 group = "org.goafabric"
-version = "1.0.3-vaadin-SNAPSHOT"
+version = "1.0.3-vaadin"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 val dockerRegistry = "goafabric"
