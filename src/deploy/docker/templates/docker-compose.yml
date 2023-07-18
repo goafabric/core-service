@@ -42,7 +42,7 @@ services:
       #persistence
       spring.datasource.url: "jdbc:postgresql://postgres:5432/core"
       spring.datasource.hikari.maximum-pool-size: "10"
-      spring.datasource.hikari.connection-timeout:
+      spring.datasource.hikari.connection-timeout: "10000"
 
       multi-tenancy.tenants: "0,5"
       multi-tenancy.schema-prefix: "core_"
@@ -189,6 +189,7 @@ volumes:
     miniodata:
     mongoconfig:
     mongodata:
+    rabbitdata:
 
 networks:
   core-service-net:

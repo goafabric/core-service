@@ -12,12 +12,16 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 import java.util.Date;
@@ -80,6 +84,7 @@ public class AuditListener implements ApplicationContextAware {
             var auditTrail = createAuditTrail(operation, referenceId, oldObject, newObject);
             log.debug("New audit:\n{}", auditTrail);
             context.getBean(AuditJpaInserter.class).insertAudit(auditTrail, oldObject != null ? oldObject : newObject);
+            dispatchEvent(auditTrail);
         } catch (Exception e) {
             log.error("Error during audit:\n{}", e.getMessage(), e);
         }
@@ -145,6 +150,19 @@ public class AuditListener implements ApplicationContextAware {
     private static String getTableName(Object object) {
         return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
     }
+
+    private final RestTemplate restTemplate = new RestTemplate();
+    record ChangeEvent (String id, String tenantId, String referenceId, String type, DbOperation operation, String origin) {}
+    private void dispatchEvent(AuditTrail auditTrail) {
+        var eventDispatcherUri = context.getEnvironment().getProperty("event.dispatcher.uri", "");
+        if (!eventDispatcherUri.equals("")) {
+            var changeEvent = new ChangeEvent(auditTrail.id(), HttpInterceptor.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
+            var headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            restTemplate.postForEntity(eventDispatcherUri, new HttpEntity<>(changeEvent, headers), Void.class);
+        }
+    }
+
 }
 
 
