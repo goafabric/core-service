@@ -1,7 +1,13 @@
 version: "3.7"
 
 services:
-  event-dispatcher:
+  application:
+    environment:
+      event.dispatcher.uri: "http://event-dispatcher-application:8080/events/dispatch"
+    depends_on:
+      event-dispatcher-application:
+        condition: service_started
+  event-dispatcher-application:
     container_name: event-dispatcher-application
     image: goafabric/event-dispatcher-service-native${_Values_server_arch}:3.1.1
     restart: 'no'
@@ -41,6 +47,9 @@ services:
       logging.level.root: "WARN"
       logging.level.org.goafabric: "INFO"
       logging.level.org.springframework: "INFO"
+    depends_on:
+      rabbitmq:
+        condition: service_started
 
   rabbitmq:
     container_name: rabbitmq

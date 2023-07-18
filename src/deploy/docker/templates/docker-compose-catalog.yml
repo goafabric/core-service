@@ -1,14 +1,14 @@
 services:
-  catalog-service:
-    container_name: catalog-service
+  catalog-service-application:
+    container_name: catalog-service-application
     image:  goafabric/catalog-service-native${_Values_server_arch}:1.0.1
     restart: 'no'
 #    ports:
-#      - "50600:50600"
+#      - "50600:8080"
     command: "-Xmx32m"
 
     healthcheck:
-      test: "curl -f http://localhost:50600/actuator/health || exit 1"
+      test: "curl -f http://localhost:8080/actuator/health || exit 1"
       disable: true #disabled for native images because of no curl
       interval: 5s
       timeout: 10s
@@ -22,7 +22,7 @@ services:
     environment:
       #application
       TZ: Europe/Berlin
-      server.port: "50600"
+      server.port: "8080"
       server.tomcat.threads.max: "20"
       server.forward-headers-strategy: FRAMEWORK
 
