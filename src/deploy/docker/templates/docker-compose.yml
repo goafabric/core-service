@@ -152,6 +152,7 @@ volumes:
     pgdata:
     kcdata:
     miniodata:
+    rabbitdata:
 
 networks:
   core-service-net:
