@@ -9,7 +9,7 @@ services:
         condition: service_started
   event-dispatcher-application:
     container_name: event-dispatcher-application
-    image: goafabric/event-dispatcher-service-native${_Values_server_arch}:3.1.1
+    image: goafabric/event-dispatcher-service-native${_Values_server_arch}:3.1.1-SNAPSHOT
     restart: 'no'
     command: -Xmx32m
 
