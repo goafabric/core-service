@@ -1,5 +1,6 @@
 # 1.0.4
-
+- upgrade to keycloak 22.2.0
+- 
 # 1.0.3
 - fix for x-forward for native images
 - multi tenancy for s3 storage

@@ -8,17 +8,17 @@ services:
 
   keycloak:
     container_name: auth-server
-    image:  quay.io/keycloak/keycloak:20.0.2
+    image:  quay.io/keycloak/keycloak:22.0.0
 
     restart: 'no'
 #    ports:
 #      - "30200:8080"
     command: start --import-realm
-    healthcheck:
-      test: "curl -f http://localhost:8080/oidc/realms/master|| exit 1"
-      interval: 5s
-      timeout: 10s
-      retries: 5
+#    healthcheck:
+#      test: "curl -f http://localhost:8080/oidc/realms/master|| exit 1"
+#      interval: 5s
+#      timeout: 10s
+#      retries: 5
 
     networks:
       - ${_Values_root_name}-net
