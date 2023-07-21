@@ -11,4 +11,3 @@ _Values_health_check_disabled=false
 
 _Values_oidc_provider=auth-server #keycloak
 _Values_message_broker_enabled=false
-_Values_database=jpa #mongodb
