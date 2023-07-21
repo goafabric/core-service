@@ -1,7 +1,7 @@
 package org.goafabric.core.data.logic;
 
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
-import org.goafabric.core.data.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.data.controller.vo.ObjectEntry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
