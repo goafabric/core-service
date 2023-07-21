@@ -12,15 +12,11 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
 import java.util.Date;
@@ -75,7 +71,6 @@ public class AuditListener implements ApplicationContextAware {
             var auditTrail = createAuditTrail(operation, referenceId, oldObject, newObject);
             log.debug("New audit:\n{}", auditTrail);
             context.getBean(AuditJpaInserter.class).insertAudit(auditTrail, oldObject != null ? oldObject : newObject);
-            dispatchEvent(auditTrail);
         } catch (Exception e) {
             log.error("Error during audit:\n{}", e.getMessage(), e);
         }
