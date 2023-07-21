@@ -2,7 +2,7 @@ package org.goafabric.core.data.controller;
 
 import org.goafabric.core.data.controller.vo.types.AddressUse;
 import org.goafabric.core.data.controller.vo.types.ContactPointSystem;
-import org.goafabric.core.data.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;

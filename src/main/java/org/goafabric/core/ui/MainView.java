@@ -17,7 +17,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import org.goafabric.core.data.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.data.repository.extensions.TenantResolver;
 import org.goafabric.core.ui.appointments.AppointmentView;
 import org.goafabric.core.ui.catalogs.CatalogView;
