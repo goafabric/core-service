@@ -117,6 +117,7 @@ services:
       - ${_Values_root_name}-net
 
   mongodb:
+    profiles: ["mongodb"]
     mem_limit: 128m
     image: mongo:6.0.8
     container_name: ${_Values_root_name}-mongodb
