@@ -84,7 +84,7 @@ public class MainView extends AppLayout {
 
     private HorizontalLayout createUserIcon() {
         var userButton = new Button(new Icon(VaadinIcon.USER));
-        userButton.addClickListener(event -> getUI().get().getPage().open("/core/logout"));
+        userButton.addClickListener(event -> getUI().get().getPage().open("/core/logout", "_self"));
         return new HorizontalLayout(userButton, new Label(HttpInterceptor.getUserName())
                 , new Button(new Icon(VaadinIcon.HOME)), new Label(HttpInterceptor.getTenantId() + "," + TenantResolver.getOrgunitId()));
     }
