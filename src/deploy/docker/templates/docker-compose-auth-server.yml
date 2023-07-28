@@ -2,7 +2,9 @@ services:
   application:
     environment:
       spring.security.oauth2.authorization-uri: "http://127.0.0.1:30200/oidc/auth"
+      spring.security.oauth2.logout-uri: "http://127.0.0.1:30200/logout"
       spring.security.oauth2.base-uri: "http://auth-server:8080/oidc"
+
 
   auth-server:
     container_name: auth-server
