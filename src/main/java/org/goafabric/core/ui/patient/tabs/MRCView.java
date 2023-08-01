@@ -11,16 +11,16 @@ import com.vaadin.flow.data.provider.CallbackDataProvider;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.ui.SearchLogic;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
-import org.goafabric.core.ui.adapter.vo.Diagnosis;
+import org.goafabric.core.ui.adapter.vo.Condition;
 
 import java.util.ArrayList;
 
 public class MRCView extends VerticalLayout {
     private final PatientLogic patientLogic;
-    private final SearchLogic<Diagnosis> diagnosisLogic;
+    private final SearchLogic<Condition> diagnosisLogic;
     private final SearchLogic<ChargeItem> chargeItemLogic;
 
-    public MRCView(PatientLogic patientLogic, SearchLogic<Diagnosis> diagnosisLogic, SearchLogic<ChargeItem> chargeItemLogic) {
+    public MRCView(PatientLogic patientLogic, SearchLogic<Condition> diagnosisLogic, SearchLogic<ChargeItem> chargeItemLogic) {
         this.patientLogic = patientLogic;
         this.diagnosisLogic = diagnosisLogic;
         this.chargeItemLogic = chargeItemLogic;

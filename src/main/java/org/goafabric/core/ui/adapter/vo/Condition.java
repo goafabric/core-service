@@ -1,6 +1,6 @@
 package org.goafabric.core.ui.adapter.vo;
 
-public record Diagnosis (
+public record Condition(
     String id,
     String code,
     String display,

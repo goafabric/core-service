@@ -7,7 +7,7 @@ import com.vaadin.flow.router.Route;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.ui.MainView;
 import org.goafabric.core.ui.adapter.ChargeItemAdapter;
-import org.goafabric.core.ui.adapter.DiagnosisAdapter;
+import org.goafabric.core.ui.adapter.ConditionAdapter;
 import org.goafabric.core.ui.patient.tabs.MRCView;
 import org.goafabric.core.ui.patient.tabs.PatientView;
 
@@ -17,7 +17,7 @@ import org.goafabric.core.ui.patient.tabs.PatientView;
 public class PatientMainView extends VerticalLayout {
 
     public PatientMainView(
-            PatientLogic patientLogic, DiagnosisAdapter diagnosisAdapter, ChargeItemAdapter chargeItemAdapter) {
+            PatientLogic patientLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter) {
         this.setSizeFull();
 
         TabSheet tabSheet = new TabSheet();
@@ -25,7 +25,7 @@ public class PatientMainView extends VerticalLayout {
 
         tabSheet.add("Patient", new PatientView(patientLogic::findByFamilyName));
         tabSheet.add("MRC", new MRCView(patientLogic,
-                diagnosisAdapter::findByDisplay, chargeItemAdapter::findByDisplay));
+                conditionAdapter::findByDisplay, chargeItemAdapter::findByDisplay));
 
         add(tabSheet);
     }
