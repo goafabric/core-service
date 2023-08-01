@@ -1,7 +1,7 @@
 services:
   catalog-service-application:
     container_name: catalog-service-application
-    image:  goafabric/catalog-service-native${_Values_server_arch}:1.0.1
+    image:  goafabric/catalog-service-native${_Values_server_arch}:1.0.3
     restart: 'no'
 #    ports:
 #      - "50600:8080"
