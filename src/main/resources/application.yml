@@ -68,7 +68,7 @@ logging.level.org.springframework: "INFO"
 
 logging.level.org.goafabric: "INFO"
 logging.level.org.flywaydb.core: "INFO"
-logging.level.org.hibernate.SQL: "INFO"
+logging.level.org.hibernate.SQL: "DEBUG"
 logging.level.org.springframework.data.mongodb: "DEBUG"
 
 #vaadin
@@ -87,5 +87,7 @@ spring.data.mongodb.username: mongodb
 spring.data.mongodb.password: mongodb
 spring.data.mongodb.authentication-database: admin
 spring.data.mongodb.database: core
+spring.data.mongodb.auto-index-creation: true
 
 spring.profiles.active: "jpa" #"mongodb"
+
