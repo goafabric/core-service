@@ -8,7 +8,7 @@ import java.util.List;
 
 // TODO: use gin index + computated field, check if extension is needed, @@ phraseto_tsquery
 public interface AnamnesisRepository extends CrudRepository<AnamnesisEo, String> {
-    List<AnamnesisEo> findByEncounterIdAndTextContains(String encounterId, String text);
+    List<AnamnesisEo> findByEncounterIdAndTextContainsIgnoreCase(String encounterId, String text);
 
     /*
     @Query(nativeQuery = true, value = "select text from observation WHERE to_tsvector('english', text) @@ to_tsquery('english', :criteria)")

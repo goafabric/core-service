@@ -53,8 +53,8 @@ public class EncounterLogic {
                     encounter.id,
                     encounter.patientId,
                     encounter.encounterDate,
-                    anamnesisRepository.findByEncounterIdAndTextContains(encounter.id, text),
-                    conditionRepository.findByEncounterIdAndDisplayContains(encounter.id, text)
+                    anamnesisRepository.findByEncounterIdAndTextContainsIgnoreCase(encounter.id, text),
+                    conditionRepository.findByEncounterIdAndDisplayContainsIgnoreCase(encounter.id, text)
                 )
         );
     }

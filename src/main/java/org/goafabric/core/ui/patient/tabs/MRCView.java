@@ -11,6 +11,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
+import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.ui.SearchLogic;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
@@ -118,17 +119,27 @@ public class MRCView extends VerticalLayout {
             var encounters = encounterLogic.findByPatientIdAndText(patient.id(), filter);
 
             if (!encounters.isEmpty()) {
-                encounters.forEach(encounter ->
-                    encounter.anamnesises().forEach(anamnesis -> {
-                        var typeCombo = new ComboBox<>("", "Anamnesis", "Diagnosis", "GOÄ");
-                        var textField = new TextField("", anamnesis.text());
-                        textField.setWidth("500px");
-                        typeCombo.setValue("Anamnesis");
-                        encounterLayout.add(new HorizontalLayout(typeCombo, textField));
-                    })
-                );
+                encounters.forEach(this::processEncounter);
             }
             Notification.show("Search took " + (System.currentTimeMillis() -start) + " ms");
         }
+    }
+
+    private void processEncounter(Encounter encounter) {
+        encounter.anamnesises().forEach(anamnesis -> {
+            var typeCombo = new ComboBox<>("", "Anamnesis", "Diagnosis", "GOÄ");
+            var textField = new TextField("", anamnesis.text());
+            textField.setWidth("500px");
+            typeCombo.setValue("Anamnesis");
+            encounterLayout.add(new HorizontalLayout(typeCombo, textField));
+        });
+
+        encounter.conditions().forEach( condition -> {
+            var typeCombo = new ComboBox<>("", "Anamnesis", "Diagnosis", "GOÄ");
+            var textField = new TextField("", condition.display());
+            textField.setWidth("500px");
+            typeCombo.setValue("Diagnosis");
+            encounterLayout.add(new HorizontalLayout(typeCombo, textField));
+        });
     }
 }

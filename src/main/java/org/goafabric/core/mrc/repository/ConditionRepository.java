@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ConditionRepository extends CrudRepository<ConditionEo, String> {
-    List<ConditionEo> findByEncounterIdAndDisplayContains(String encounterId, String display);
+    List<ConditionEo> findByEncounterIdAndDisplayContainsIgnoreCase(String encounterId, String display);
 
 }
 
