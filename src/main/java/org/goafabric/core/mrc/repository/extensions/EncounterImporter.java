@@ -62,9 +62,9 @@ public class EncounterImporter implements CommandLineRunner {
     }
 
     public void importDemoData() {
-        if (applicationContext.getBean(PatientLogic.class).findByFamilyName("").isEmpty()) {
+        //if (applicationContext.getBean(PatientLogic.class).findByGivenName("Monty").isEmpty()) {
             insertData();
-        }
+        //}
     }
 
     private void insertData() {
@@ -73,7 +73,7 @@ public class EncounterImporter implements CommandLineRunner {
 
     private void insertObservations() {
         var patient = patientLogic.save(
-                createPatient("Homer", "Simpson",
+                createPatient("Monty", "Burns",
                         createAddress("Springfield"),
                         createContactPoint("555-520")));
 

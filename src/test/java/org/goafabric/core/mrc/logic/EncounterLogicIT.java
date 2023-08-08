@@ -2,14 +2,13 @@ package org.goafabric.core.mrc.logic;
 
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.mrc.repository.extensions.EncounterImporter;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.goafabric.core.DataRocker.setTenantId;
 
 @SpringBootTest
 class EncounterLogicIT {
@@ -26,18 +25,14 @@ class EncounterLogicIT {
     @Value("${spring.profiles.active}")
     private String profile;
 
-    @BeforeAll
-    public static void init() {
-
-    }
-
     @Test
     public void findByText() {
+        setTenantId("0");
         encounterImporter.importDemoData();
 
         long currentTime = System.currentTimeMillis();
 
-        var patient = patientLogic.findByGivenName("Homer").get(0);
+        var patient = patientLogic.findByGivenName("Monty").get(0);
         var encounters = encounterLogic.findByPatientIdAndText(patient.id(), "eat");
 
         System.out.println("search took: "  + (System.currentTimeMillis() -currentTime));

@@ -91,10 +91,6 @@ public class DatabaseProvisioning implements CommandLineRunner {
                             createContactPoint("555-520"))
             )
         );
-        applicationContext.getBean(PatientLogic.class).save(
-                createPatient("Homer", "Simpson",
-                        createAddress(faker.simpsons().location()),
-                        createContactPoint("555-520")));
     }
 
     private void createPractitioners() {
