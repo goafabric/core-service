@@ -12,10 +12,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.goafabric.core.data.repository.extensions.DatabaseProvisioning.*;
 
@@ -62,6 +67,7 @@ public class EncounterImporter implements CommandLineRunner {
     }
 
     public void importDemoData() {
+        setTenantId("0");
         //if (applicationContext.getBean(PatientLogic.class).findByGivenName("Monty").isEmpty()) {
             insertData();
         //}
@@ -95,5 +101,12 @@ public class EncounterImporter implements CommandLineRunner {
 
         encounterLogic.save(encounter);
     }
+
+    public static void setTenantId(String tenantId) {
+        SecurityContextHolder.getContext().setAuthentication(
+                new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name")
+                        , new ArrayList<>(), tenantId));
+    }
+
 
 }
