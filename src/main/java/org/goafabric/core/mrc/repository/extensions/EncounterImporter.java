@@ -21,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 import static org.goafabric.core.data.repository.extensions.DatabaseProvisioning.*;
 
@@ -91,15 +92,17 @@ public class EncounterImporter implements CommandLineRunner {
         var condition2 = new Condition(null, "E66.00", "Adipositas", "adi");
         var condition3 = new Condition(null, "F63.1", "Pyromanie", "psy");
 
-        var encounter = new Encounter(
-                null,
-                patient.id(),
-                LocalDate.now(),
-                Arrays.asList(anamnesis1, anamnesis2, anamnesis3),
-                Arrays.asList(condition1, condition2, condition3)
-        );
+        IntStream.range(0, 20).forEach(i -> {
+            var encounter = new Encounter(
+                    null,
+                    patient.id(),
+                    LocalDate.now(),
+                    Arrays.asList(anamnesis1, anamnesis2, anamnesis3),
+                    Arrays.asList(condition1, condition2, condition3)
+            );
 
-        encounterLogic.save(encounter);
+            encounterLogic.save(encounter);
+        });
     }
 
     public static void setTenantId(String tenantId) {
