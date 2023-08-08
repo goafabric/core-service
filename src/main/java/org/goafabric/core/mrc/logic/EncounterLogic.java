@@ -55,6 +55,8 @@ public class EncounterLogic {
                     encounter.encounterDate,
                     anamnesisRepository.findByEncounterIdAndTextContainsIgnoreCase(encounter.id, text),
                     conditionRepository.findByEncounterIdAndDisplayContainsIgnoreCase(encounter.id, text)
+                    //anamnesisRepository.findAllByEncounterId(encounter.id, new TextCriteria().matching(text)),
+                    //conditionRepository.findAllByEncounterId(encounter.id, new TextCriteria().matching(text))
                 )
         );
     }

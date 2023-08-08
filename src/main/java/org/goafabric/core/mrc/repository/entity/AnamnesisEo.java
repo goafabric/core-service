@@ -1,7 +1,7 @@
 package org.goafabric.core.mrc.repository.entity;
 
 import jakarta.persistence.*;
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -16,8 +16,7 @@ public class AnamnesisEo {
 
     public String encounterId;
 
-    //@TextIndexed
-    @Indexed
+    @TextIndexed
     public String text;
 
     @Version //optimistic locking

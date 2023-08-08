@@ -1,7 +1,7 @@
 package org.goafabric.core.mrc.repository.entity;
 
 import jakarta.persistence.*;
-import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -19,8 +19,7 @@ public class ConditionEo {
     public String code;
     public String shortname;
 
-    //@TextIndexed
-    @Indexed
+    @TextIndexed
     public String display;
 
     @Version //optimistic locking
