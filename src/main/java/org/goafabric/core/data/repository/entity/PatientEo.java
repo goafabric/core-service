@@ -39,4 +39,11 @@ public class PatientEo {
     @Version //optimistic locking
     public Long version;
 
+    public String getId() {
+        return id;
+    }
+
+    public String getFamilyName() {
+        return familyName;
+    }
 }

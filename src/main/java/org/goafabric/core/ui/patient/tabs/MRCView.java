@@ -11,6 +11,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
+import org.goafabric.core.data.repository.entity.PatientFamilyNameOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.ui.SearchLogic;
@@ -54,7 +55,7 @@ public class MRCView extends VerticalLayout {
             long start = System.currentTimeMillis();
             var lastNames = filter.equals("")
                     ? new ArrayList<String>().stream()
-                    : patientLogic.searchLastNames(filter).stream().limit(query.getLimit());
+                    : patientLogic.searchFamilyNames(filter).stream().map(PatientFamilyNameOnly::getFamilyName).limit(query.getLimit());
             Notification.show("Search took " + (System.currentTimeMillis() -start) + " ms");
             return lastNames;
         });
@@ -97,31 +98,33 @@ public class MRCView extends VerticalLayout {
 
     private void doEncounterStuff() {
         this.add(encounterLayout);
-        patientFilter.setValue("Burns");
         patientFilter.addValueChangeListener( event -> {
             showEncounter();
             encounterFilter.setValue("");
         });
+
+        patientFilter.setValue("Burns");
         encounterFilter.setValueChangeMode(ValueChangeMode.LAZY);
         encounterFilter.addValueChangeListener(event -> showEncounter());
-        showEncounter();
     }
 
     private void showEncounter() {
-        encounterLayout.removeAll();
+        var encounterFilter = this.encounterFilter.getValue() != null ? this.encounterFilter.getValue().toString() : "";
 
-        var patients = patientLogic.findByFamilyName(patientFilter.getValue() != null ? patientFilter.getValue().toString() : "");
-        if (!patients.isEmpty()) {
-            long start = System.currentTimeMillis();
+        if (encounterFilter.length() > 1) {
+            encounterLayout.removeAll();
+            var patients = patientLogic.searchFamilyNames(patientFilter.getValue() != null ? patientFilter.getValue().toString() : "");
+            if (!patients.isEmpty()) {
+                long start = System.currentTimeMillis();
 
-            var patient = patients.get(0);
-            var filter = encounterFilter.getValue() != null ? encounterFilter.getValue().toString() : "";
-            var encounters = encounterLogic.findByPatientIdAndText(patient.id(), filter);
+                var patientId = patients.get(0).getId();
+                var encounters = encounterLogic.findByPatientIdAndText(patientId, encounterFilter);
 
-            if (!encounters.isEmpty()) {
-                encounters.forEach(this::processEncounter);
+                if (!encounters.isEmpty()) {
+                    encounters.forEach(this::processEncounter);
+                }
+                Notification.show("Search took " + (System.currentTimeMillis() - start) + " ms");
             }
-            Notification.show("Search took " + (System.currentTimeMillis() -start) + " ms");
         }
     }
 
