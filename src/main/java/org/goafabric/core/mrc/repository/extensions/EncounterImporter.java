@@ -86,13 +86,13 @@ public class EncounterImporter implements CommandLineRunner {
 
         var anamnesis1 = new Anamnesis(null, "shows the tendency to eat a lot of sweets with sugar");
         var anamnesis2 = new Anamnesis(null, "shows the behaviour to eat a lot of fast food with fat");
-        var anamnesis3 = new Anamnesis(null, "hears strange voices inside his head, that tell him to set a fire");
+        var anamnesis3 = new Anamnesis(null, "hears strange voices of Üter Zörker, that tell him to set a fire");
 
         var condition1 = new Condition(null, "none", "Diabetes mellitus Typ 1", "dm1");
         var condition2 = new Condition(null, "E66.00", "Adipositas", "adi");
         var condition3 = new Condition(null, "F63.1", "Pyromanie", "psy");
 
-        IntStream.range(0, 20).forEach(i -> {
+        IntStream.range(0, demoDataSize).forEach(i -> {
             var encounter = new Encounter(
                     null,
                     patient.id(),

@@ -111,7 +111,7 @@ public class MRCView extends VerticalLayout {
     private void showEncounter() {
         var encounterFilter = this.encounterFilter.getValue() != null ? this.encounterFilter.getValue().toString() : "";
 
-        if (encounterFilter.length() > 1) {
+        if (encounterFilter.isEmpty() || encounterFilter.length() > 1) {
             encounterLayout.removeAll();
             var patients = patientLogic.searchFamilyNames(patientFilter.getValue() != null ? patientFilter.getValue().toString() : "");
             if (!patients.isEmpty()) {
