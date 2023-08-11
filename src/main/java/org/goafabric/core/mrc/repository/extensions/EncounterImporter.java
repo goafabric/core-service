@@ -1,9 +1,8 @@
 package org.goafabric.core.mrc.repository.extensions;
 
 import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.mrc.controller.vo.Anamnesis;
-import org.goafabric.core.mrc.controller.vo.Condition;
 import org.goafabric.core.mrc.controller.vo.Encounter;
+import org.goafabric.core.mrc.controller.vo.MedicalRecord;
 import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -84,21 +83,20 @@ public class EncounterImporter implements CommandLineRunner {
                         createAddress("Springfield"),
                         createContactPoint("555-520")));
 
-        var anamnesis1 = new Anamnesis(null, "shows the tendency to eat a lot of sweets with sugar");
-        var anamnesis2 = new Anamnesis(null, "shows the behaviour to eat a lot of fast food with fat");
-        var anamnesis3 = new Anamnesis(null, "hears strange voices of Üter Zörker, that tell him to set a fire");
+        var anamnesis1 = new MedicalRecord("ANAMNESIS", "", "shows the tendency to eat a lot of sweets with sugar");
+        var anamnesis2 = new MedicalRecord("ANAMNESIS", "", "shows the behaviour to eat a lot of fast food with fat");
+        var anamnesis3 = new MedicalRecord("ANAMNESIS", "", "hears strange voices of Üter Zörker, who tells him to set a fire");
 
-        var condition1 = new Condition(null, "none", "Diabetes mellitus Typ 1", "dm1");
-        var condition2 = new Condition(null, "E66.00", "Adipositas", "adi");
-        var condition3 = new Condition(null, "F63.1", "Pyromanie", "psy");
+        var condition1 = new MedicalRecord("CONDITION", "none", "Diabetes mellitus Typ 1");
+        var condition2 = new MedicalRecord("CONDITION","E66.00", "Adipositas");
+        var condition3 = new MedicalRecord("CONDITION", "F63.1", "Pyromanie");
 
         IntStream.range(0, 1).forEach(i -> {
             var encounter = new Encounter(
                     null,
                     patient.id(),
                     LocalDate.now(),
-                    Arrays.asList(anamnesis1, anamnesis2, anamnesis3),
-                    Arrays.asList(condition1, condition2, condition3)
+                    Arrays.asList(anamnesis1, anamnesis2, anamnesis3, condition1, condition2, condition3)
             );
 
             encounterLogic.save(encounter);

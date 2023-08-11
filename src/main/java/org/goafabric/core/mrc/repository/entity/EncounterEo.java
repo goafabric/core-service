@@ -4,11 +4,12 @@ import jakarta.persistence.*;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
 @Table(name = "encounter")
-@Document("encounter")
+@Document("#{@tenantIdBean.getPrefix()}encounter")
 public class EncounterEo {
 
     @Id
@@ -21,20 +22,15 @@ public class EncounterEo {
 
     @Transient
     @org.springframework.data.annotation.Transient
-    public List<AnamnesisEo> anamnesises;
-
-    @Transient
-    @org.springframework.data.annotation.Transient
-    public List<ConditionEo> conditions;
+    public List<MedicalRecordEo> medicalRecords;
 
     public EncounterEo() {
     }
 
-    public EncounterEo(String id, String patientId, LocalDate encounterDate, List<AnamnesisEo> anamesises, List<ConditionEo> conditions) {
+    public EncounterEo(String id, String patientId, LocalDate encounterDate, List<MedicalRecordEo> medicalRecords) {
         this.id = id;
         this.patientId = patientId;
         this.encounterDate = encounterDate;
-        this.conditions = conditions;
-        this.anamnesises = anamesises;
+        this.medicalRecords = Collections.unmodifiableList(medicalRecords);
     }
 }

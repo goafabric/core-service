@@ -129,20 +129,13 @@ public class MRCView extends VerticalLayout {
     }
 
     private void processEncounter(Encounter encounter) {
-        encounter.anamnesises().forEach(anamnesis -> {
-            var typeCombo = new ComboBox<>("", "Anamnesis", "Diagnosis", "GOÄ");
-            var textField = new TextField("", anamnesis.text());
+        encounter.medicalRecords().forEach(medicalRecord -> {
+            var typeCombo = new ComboBox<>("", "ANAMNESIS", "DIAGNOSIS", "GOÄ");
+            var textField = new TextField("", medicalRecord.display());
             textField.setWidth("500px");
-            typeCombo.setValue("Anamnesis");
+            typeCombo.setValue(medicalRecord.type());
             encounterLayout.add(new HorizontalLayout(typeCombo, textField));
         });
 
-        encounter.conditions().forEach( condition -> {
-            var typeCombo = new ComboBox<>("", "Anamnesis", "Diagnosis", "GOÄ");
-            var textField = new TextField("", condition.display());
-            textField.setWidth("500px");
-            typeCombo.setValue("Diagnosis");
-            encounterLayout.add(new HorizontalLayout(typeCombo, textField));
-        });
     }
 }

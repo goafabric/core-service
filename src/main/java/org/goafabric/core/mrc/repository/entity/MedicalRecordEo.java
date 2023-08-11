@@ -6,18 +6,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Entity
-@Table(name="condition")
-@Document("condition")
+@Table(name="medical_record")
+@Document("#{@tenantIdBean.getPrefix()}medical_record")
 //@EntityListeners(AuditTrailListener.class)
-public class ConditionEo {
+public class MedicalRecordEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
     public String encounterId;
 
+    public String type;
     public String code;
-    public String shortname;
 
     @TextIndexed
     public String display;

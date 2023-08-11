@@ -10,35 +10,22 @@ create table encounter
     version bigint default 0
 );
 
-create table anamnesis
+
+create table medical_record
 (
 	id varchar(36) not null
-		constraint pk_anamnesis
+		constraint pk_medical_record
 			primary key,
 
     encounter_id varchar(36),
 
-	text varchar(5000),
-
-    version bigint default 0
-);
-
-
-create table condition
-(
-	id varchar(36) not null
-		constraint pk_condition
-			primary key,
-
-    encounter_id varchar(36),
-
+    type varchar(255) not null,
 	code varchar(255),
 	display varchar(255),
-	shortname varchar(255),
+	relations varchar(5000),
 
     version bigint default 0
 );
 
 create index idx_encounter_patient_id on encounter(patient_id);
-create index idx_anamnesis_encounter_id on anamnesis(encounter_id);
-create index idx_condition_encounter_id on condition(encounter_id);
+create index idx_medical_record_encounter_id on medical_record(encounter_id);

@@ -2,9 +2,8 @@ package org.goafabric.core.mrc.logic;
 
 import jakarta.transaction.Transactional;
 import org.goafabric.core.mrc.controller.vo.Encounter;
-import org.goafabric.core.mrc.repository.AnamnesisRepository;
-import org.goafabric.core.mrc.repository.ConditionRepository;
 import org.goafabric.core.mrc.repository.EncounterRepository;
+import org.goafabric.core.mrc.repository.MedicalRecordRepository;
 import org.goafabric.core.mrc.repository.entity.EncounterEo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -19,26 +18,22 @@ public class EncounterLogic {
 
     private final EncounterRepository encounterRepository;
 
-    private final AnamnesisRepository anamnesisRepository;
 
-    private final ConditionRepository conditionRepository;
+    private final MedicalRecordRepository medicalRecordRepository;
 
     @Value("${spring.profiles.active}") private String profile;
 
-    public EncounterLogic(EncounterMapper encounterMapper, EncounterRepository encounterRepository, AnamnesisRepository anamnesisRepository, ConditionRepository conditionRepository) {
+    public EncounterLogic(EncounterMapper encounterMapper, EncounterRepository encounterRepository, MedicalRecordRepository medicalRecordRepository) {
         this.encounterMapper = encounterMapper;
         this.encounterRepository = encounterRepository;
-        this.anamnesisRepository = anamnesisRepository;
-        this.conditionRepository = conditionRepository;
+        this.medicalRecordRepository = medicalRecordRepository;
     }
 
     public void save(Encounter encounter) {
         var encounterEo = encounterRepository.save(encounterMapper.map(encounter));
 
-        encounterEo.anamnesises.stream().forEach(anamesis -> anamesis.encounterId = encounterEo.id);
-        encounterEo.conditions.stream().forEach(condition -> condition.encounterId = encounterEo.id);
-        anamnesisRepository.saveAll(encounterEo.anamnesises);
-        conditionRepository.saveAll(encounterEo.conditions);
+        encounterEo.medicalRecords.stream().forEach(condition -> condition.encounterId = encounterEo.id);
+        medicalRecordRepository.saveAll(encounterEo.medicalRecords);
     }
 
     public List<Encounter> findByPatientIdAndText(String patientId, String text) {
@@ -53,8 +48,7 @@ public class EncounterLogic {
                     encounter.id,
                     encounter.patientId,
                     encounter.encounterDate,
-                    anamnesisRepository.findByEncounterIdAndTextContainsIgnoreCase(encounter.id, text),
-                    conditionRepository.findByEncounterIdAndDisplayContainsIgnoreCase(encounter.id, text)
+                    medicalRecordRepository.findByEncounterIdAndDisplayContainsIgnoreCase(encounter.id, text)
                     //anamnesisRepository.findAllByEncounterId(encounter.id, new TextCriteria().matching(text)),
                     //conditionRepository.findAllByEncounterId(encounter.id, new TextCriteria().matching(text))
                 )
