@@ -84,20 +84,20 @@ public class EncounterImporter implements CommandLineRunner {
                         createAddress("Springfield"),
                         createContactPoint("555-520")));
 
-        var anamnesis1 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "", "shows the tendency to eat a lot of sweets with sugar");
-        var anamnesis2 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "", "shows the behaviour to eat a lot of fast food with fat");
-        var anamnesis3 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "", "hears strange voices of Üter Zörker, who tells him to set a fire");
+        var anamnesis1 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", "");
+        var anamnesis2 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", "");
+        var anamnesis3 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Üter Zörker, who tells him to set a fire", "");
 
-        var finding1 = new MedicalRecord(MedicalRecordType.FINDING, "", "possible indication of Diabetes");
-        var finding2 = new MedicalRecord(MedicalRecordType.FINDING, "", "clear indication of Adipositas");
-        var finding3 = new MedicalRecord(MedicalRecordType.FINDING, "", "psychological disorder");
+        var finding1 = new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", "");
+        var finding2 = new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", "");
+        var finding3 = new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", "");
 
-        var condition1 = new MedicalRecord(MedicalRecordType.CONDITION, "none", "Diabetes mellitus Typ 1");
-        var condition2 = new MedicalRecord(MedicalRecordType.CONDITION,"E66.00", "Adipositas");
-        var condition3 = new MedicalRecord(MedicalRecordType.CONDITION, "F63.1", "Pyromanie");
+        var condition1 = new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "");
+        var condition2 = new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "");
+        var condition3 = new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "");
 
-        var chargeItem1 = new MedicalRecord(MedicalRecordType.CHARGEITEM, "GOÄ1", "normal examination");
-        var therapy1 = new MedicalRecord(MedicalRecordType.THERAPY, "", "We recommend a sugar and fat free diet");
+        var chargeItem1 = new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "");
+        var therapy1 = new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", "");
 
         IntStream.range(0, 1).forEach(i -> {
             var encounter = new Encounter(
