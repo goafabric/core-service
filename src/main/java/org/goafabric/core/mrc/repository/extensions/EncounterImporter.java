@@ -4,7 +4,7 @@ import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.controller.vo.MedicalRecord;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
-import org.goafabric.core.mrc.logic.EncounterLogicJpa;
+import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class EncounterImporter implements CommandLineRunner {
     private final ApplicationContext applicationContext;
 
     @Autowired
-    private EncounterLogicJpa encounterLogic;
+    private EncounterLogic encounterLogic;
 
     @Autowired
     private PatientLogic patientLogic;

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Component
 @Profile("mongodb")
-public class EncounterLogicMongo {
+public class EncounterLogicMongo implements EncounterLogic {
     private final EncounterMapper encounterMapper;
 
     private final EncounterRepository encounterRepository;

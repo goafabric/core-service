@@ -14,7 +14,7 @@ import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.repository.entity.PatientFamilyNameOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
-import org.goafabric.core.mrc.logic.EncounterLogicJpa;
+import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.ui.SearchLogic;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
 import org.goafabric.core.ui.adapter.vo.Condition;
@@ -26,13 +26,13 @@ public class MRCView extends VerticalLayout {
     private final SearchLogic<Condition> diagnosisLogic;
     private final SearchLogic<ChargeItem> chargeItemLogic;
 
-    private final EncounterLogicJpa encounterLogic;
+    private final EncounterLogic encounterLogic;
     private final VerticalLayout encounterLayout = new VerticalLayout();
 
     private final ComboBox patientFilter = new ComboBox<>("", "Filter ...");
     private final TextField encounterFilter = new TextField("", "Filter ...");
 
-    public MRCView(PatientLogic patientLogic, EncounterLogicJpa encounterLogic, SearchLogic<Condition> diagnosisLogic, SearchLogic<ChargeItem> chargeItemLogic) {
+    public MRCView(PatientLogic patientLogic, EncounterLogic encounterLogic, SearchLogic<Condition> diagnosisLogic, SearchLogic<ChargeItem> chargeItemLogic) {
         this.patientLogic = patientLogic;
         this.encounterLogic = encounterLogic;
         this.diagnosisLogic = diagnosisLogic;

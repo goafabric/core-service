@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 @Transactional
 @Profile("jpa")
-public class EncounterLogicJpa {
+public class EncounterLogicJpa implements EncounterLogic{
 
     private final EncounterMapper encounterMapper;
 
