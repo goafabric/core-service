@@ -11,10 +11,8 @@ public interface EncounterRepository extends CrudRepository<EncounterEo, String>
     List<EncounterEo> findByPatientId(String patientId);
 
     @Query("select e from EncounterEo e")
-    List<EncounterEo> findAllByPatientId(String patientId, TextCriteria criteria);
-
-    @Query("select e from EncounterEo e")
-    List<EncounterEo> findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(String patient, String display);
+    //@Aggregation(pipeline = {"{'$match': {'medicalRecords.display' : 'eat'}}"})
+    List<EncounterEo> findAllByPatientId(String patientId, TextCriteria display);
 
 }
 

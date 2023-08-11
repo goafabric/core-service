@@ -37,7 +37,6 @@ public class EncounterLogicJpa implements EncounterLogic{
     public List<Encounter> findByPatientIdAndText(String patientId, String text) {
         var encounters = encounterRepository.findByPatientId(patientId);
         return encounters.stream().map(encounter -> findByEncounterIdAndText(encounter, text)).toList();
-        //return encounterMapper.map(encounterRepository.findAllByPatientId(patientId, (new TextCriteria().matchingAny(text))));
     }
 
     private Encounter findByEncounterIdAndText(EncounterEo encounter, String text) {
@@ -47,8 +46,6 @@ public class EncounterLogicJpa implements EncounterLogic{
                     encounter.patientId,
                     encounter.encounterDate,
                     medicalRecordRepository.findByEncounterIdAndDisplayContainsIgnoreCase(encounter.id, text)
-                    //anamnesisRepository.findAllByEncounterId(encounter.id, new TextCriteria().matching(text)),
-                    //conditionRepository.findAllByEncounterId(encounter.id, new TextCriteria().matching(text))
                 )
         );
     }
