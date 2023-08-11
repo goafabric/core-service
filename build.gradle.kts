@@ -66,7 +66,7 @@ dependencies {
 	implementation("org.flywaydb:flyway-core")
 
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-	developmentOnly("de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.7.0")
+	//developmentOnly("de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.7.0")
 
 	//s3
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1")
