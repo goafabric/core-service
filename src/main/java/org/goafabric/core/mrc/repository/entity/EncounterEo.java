@@ -21,7 +21,6 @@ public class EncounterEo {
     public LocalDate encounterDate;
 
     @Transient
-    @org.springframework.data.annotation.Transient
     public List<MedicalRecordEo> medicalRecords;
 
     public EncounterEo() {

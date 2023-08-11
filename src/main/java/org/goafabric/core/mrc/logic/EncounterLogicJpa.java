@@ -5,25 +5,23 @@ import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.EncounterRepository;
 import org.goafabric.core.mrc.repository.MedicalRecordRepository;
 import org.goafabric.core.mrc.repository.entity.EncounterEo;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 @Transactional
-public class EncounterLogic {
+@Profile("jpa")
+public class EncounterLogicJpa {
 
     private final EncounterMapper encounterMapper;
 
     private final EncounterRepository encounterRepository;
 
-
     private final MedicalRecordRepository medicalRecordRepository;
 
-    @Value("${spring.profiles.active}") private String profile;
-
-    public EncounterLogic(EncounterMapper encounterMapper, EncounterRepository encounterRepository, MedicalRecordRepository medicalRecordRepository) {
+    public EncounterLogicJpa(EncounterMapper encounterMapper, EncounterRepository encounterRepository, MedicalRecordRepository medicalRecordRepository) {
         this.encounterMapper = encounterMapper;
         this.encounterRepository = encounterRepository;
         this.medicalRecordRepository = medicalRecordRepository;
