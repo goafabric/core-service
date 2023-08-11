@@ -4,7 +4,6 @@ import io.micrometer.common.util.StringUtils;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.EncounterRepository;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -29,7 +28,7 @@ public class EncounterLogicMongo implements EncounterLogic {
         return encounterMapper.map(
                 StringUtils.isEmpty(text)
                         ? encounterRepository.findAll()
-                        : encounterRepository.findAllByPatientId(patientId, (new TextCriteria().matchingAny(text))));
+                        : encounterRepository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text)); //encounterRepository.findAllByPatientId(patientId, (new TextCriteria().matchingAny(text))));
     }
 
 }

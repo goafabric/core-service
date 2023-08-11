@@ -116,7 +116,6 @@ public class EncounterImporter implements CommandLineRunner {
                     LocalDate.now(),
                     stackedRecords
             );
-
             encounterLogic.save(encounter);
         });
     }

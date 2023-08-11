@@ -12,5 +12,9 @@ public interface EncounterRepository extends CrudRepository<EncounterEo, String>
 
     @Query("select e from EncounterEo e")
     List<EncounterEo> findAllByPatientId(String patientId, TextCriteria criteria);
+
+    @Query("select e from EncounterEo e")
+    List<EncounterEo> findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(String patient, String display);
+
 }
 
