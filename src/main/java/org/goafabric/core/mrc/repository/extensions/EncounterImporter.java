@@ -99,17 +99,22 @@ public class EncounterImporter implements CommandLineRunner {
         var chargeItem1 = new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "");
         var therapy1 = new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", "");
 
-        IntStream.range(0, 1).forEach(i -> {
+        var medicalRecords = Arrays.asList(
+                anamnesis1, anamnesis2, anamnesis3,
+                finding1, finding2, finding3,
+                condition1, condition2, condition3,
+                chargeItem1,
+                therapy1);
+
+        var stackedRecords = new ArrayList<MedicalRecord>();
+        stackedRecords.addAll(medicalRecords);
+
+        IntStream.range(0, 100).forEach(i -> {
             var encounter = new Encounter(
                     null,
                     patient.id(),
                     LocalDate.now(),
-                    Arrays.asList(
-                            anamnesis1, anamnesis2, anamnesis3,
-                            finding1, finding2, finding3,
-                            condition1, condition2, condition3,
-                            chargeItem1,
-                            therapy1)
+                    stackedRecords
             );
 
             encounterLogic.save(encounter);

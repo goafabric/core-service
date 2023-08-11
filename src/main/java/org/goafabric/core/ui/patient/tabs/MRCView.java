@@ -130,6 +130,10 @@ public class MRCView extends VerticalLayout {
     }
 
     private void processEncounter(Encounter encounter) {
+        if (encounterLayout.getChildren().count() > 100) {
+            return;
+        }
+        
         encounter.medicalRecords().forEach(medicalRecord -> {
             var typeCombo = new ComboBox<>("", MedicalRecordType.values());
             var textField = new TextField("", medicalRecord.display());
