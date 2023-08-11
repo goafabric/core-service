@@ -88,17 +88,28 @@ public class EncounterImporter implements CommandLineRunner {
         var anamnesis2 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "", "shows the behaviour to eat a lot of fast food with fat");
         var anamnesis3 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "", "hears strange voices of Üter Zörker, who tells him to set a fire");
 
+        var finding1 = new MedicalRecord(MedicalRecordType.FINDING, "", "possible indication of Diabetes");
+        var finding2 = new MedicalRecord(MedicalRecordType.FINDING, "", "clear indication of Adipositas");
+        var finding3 = new MedicalRecord(MedicalRecordType.FINDING, "", "psychological disorder");
+
         var condition1 = new MedicalRecord(MedicalRecordType.CONDITION, "none", "Diabetes mellitus Typ 1");
         var condition2 = new MedicalRecord(MedicalRecordType.CONDITION,"E66.00", "Adipositas");
         var condition3 = new MedicalRecord(MedicalRecordType.CONDITION, "F63.1", "Pyromanie");
 
+        var chargeItem1 = new MedicalRecord(MedicalRecordType.CHARGEITEM, "GOÄ1", "normal examination");
+        var therapy1 = new MedicalRecord(MedicalRecordType.THERAPY, "", "We recommend a sugar and fat free diet");
 
         IntStream.range(0, 1).forEach(i -> {
             var encounter = new Encounter(
                     null,
                     patient.id(),
                     LocalDate.now(),
-                    Arrays.asList(anamnesis1, anamnesis2, anamnesis3, condition1, condition2, condition3)
+                    Arrays.asList(
+                            anamnesis1, anamnesis2, anamnesis3,
+                            finding1, finding2, finding3,
+                            condition1, condition2, condition3,
+                            chargeItem1,
+                            therapy1)
             );
 
             encounterLogic.save(encounter);

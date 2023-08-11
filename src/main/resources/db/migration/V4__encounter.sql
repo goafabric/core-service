@@ -20,8 +20,8 @@ create table medical_record
     encounter_id varchar(36),
 
     type varchar(255) not null,
-	code varchar(255),
 	display varchar(255),
+	code varchar(255),
 	relations varchar(5000),
 
     version bigint default 0

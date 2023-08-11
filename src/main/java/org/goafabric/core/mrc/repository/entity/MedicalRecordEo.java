@@ -17,10 +17,11 @@ public class MedicalRecordEo {
     public String encounterId;
 
     public String type;
-    public String code;
 
     @TextIndexed
     public String display;
+
+    public String code;
 
     @Version //optimistic locking
     public Long version;
