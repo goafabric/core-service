@@ -1,5 +1,6 @@
 package org.goafabric.core.mrc.logic;
 
+import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.EncounterRepository;
@@ -45,7 +46,9 @@ public class EncounterLogicJpa implements EncounterLogic{
                     encounter.id,
                     encounter.patientId,
                     encounter.encounterDate,
-                    medicalRecordRepository.findByEncounterIdAndDisplayContainsIgnoreCase(encounter.id, text)
+                    StringUtils.isEmpty(text)
+                            ? medicalRecordRepository.findByEncounterId(encounter.id)
+                            : medicalRecordRepository.findByEncounterIdAndDisplayContainsIgnoreCase(encounter.id, text)
                 )
         );
     }
