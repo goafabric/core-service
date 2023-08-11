@@ -92,11 +92,11 @@ public class EncounterImporter implements CommandLineRunner {
         var finding2 = new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", "");
         var finding3 = new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", "");
 
-        var condition1 = new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "");
-        var condition2 = new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "");
-        var condition3 = new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "");
+        var condition1 = new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none");
+        var condition2 = new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00");
+        var condition3 = new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1");
 
-        var chargeItem1 = new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "");
+        var chargeItem1 = new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1");
         var therapy1 = new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", "");
 
         var medicalRecords = Arrays.asList(
