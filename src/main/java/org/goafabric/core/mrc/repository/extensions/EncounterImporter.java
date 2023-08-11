@@ -107,9 +107,9 @@ public class EncounterImporter implements CommandLineRunner {
                 therapy1);
 
         var stackedRecords = new ArrayList<MedicalRecord>();
-        stackedRecords.addAll(medicalRecords);
+        IntStream.range(0, 1).forEach(i -> stackedRecords.addAll(medicalRecords));
 
-        IntStream.range(0, 100).forEach(i -> {
+        IntStream.range(0, 1).forEach(i -> {
             var encounter = new Encounter(
                     null,
                     patient.id(),
