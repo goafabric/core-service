@@ -92,7 +92,7 @@ public class EncounterImporter implements CommandLineRunner {
         var condition2 = new Condition(null, "E66.00", "Adipositas", "adi");
         var condition3 = new Condition(null, "F63.1", "Pyromanie", "psy");
 
-        IntStream.range(0, demoDataSize).forEach(i -> {
+        IntStream.range(0, 1).forEach(i -> {
             var encounter = new Encounter(
                     null,
                     patient.id(),
