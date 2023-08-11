@@ -1,5 +1,6 @@
 package org.goafabric.core.mrc.logic;
 
+import io.micrometer.common.util.StringUtils;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.EncounterRepository;
 import org.springframework.context.annotation.Profile;
@@ -25,7 +26,10 @@ public class EncounterLogicMongo implements EncounterLogic {
     }
 
     public List<Encounter> findByPatientIdAndText(String patientId, String text) {
-        return encounterMapper.map(encounterRepository.findAllByPatientId(patientId, (new TextCriteria().matchingAny(text))));
+        return encounterMapper.map(
+                StringUtils.isEmpty(text)
+                        ? encounterRepository.findAll()
+                        : encounterRepository.findAllByPatientId(patientId, (new TextCriteria().matchingAny(text))));
     }
 
 }
