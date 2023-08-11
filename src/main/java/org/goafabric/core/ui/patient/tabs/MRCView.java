@@ -13,6 +13,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.repository.entity.PatientFamilyNameOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
+import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.ui.SearchLogic;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
@@ -130,7 +131,7 @@ public class MRCView extends VerticalLayout {
 
     private void processEncounter(Encounter encounter) {
         encounter.medicalRecords().forEach(medicalRecord -> {
-            var typeCombo = new ComboBox<>("", "ANAMNESIS", "DIAGNOSIS", "GOÄ");
+            var typeCombo = new ComboBox<>("", MedicalRecordType.values());
             var textField = new TextField("", medicalRecord.display());
             textField.setWidth("500px");
             typeCombo.setValue(medicalRecord.type());
