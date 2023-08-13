@@ -37,5 +37,30 @@ public class EncounterLogicMongo implements EncounterLogic {
                         ? encounterRepository.findAll()
                         : encounterRepository.findAllByPatientId(patientId, new TextCriteria().matchingAny(text)));
     }
-
 }
+
+/*
+simple queries
+{ "$text" : { "$search" : "eat"}}
+
+{ "medicalRecords.type" : "ANAMNESIS"}
+
+aggregation to filter embedded collection:
+
+[
+  {
+    $match: { "medicalRecords.type": "ANAMNESIS" }
+  },
+  {
+    $addFields: {
+      medicalRecords: {
+        $filter: {
+          input: "$medicalRecords",
+          as: "record",
+          cond: { $eq: ["$$record.type", "ANAMNESIS"] }
+        }
+      }
+    }
+  }
+]
+*/
