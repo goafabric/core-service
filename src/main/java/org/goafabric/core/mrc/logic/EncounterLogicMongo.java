@@ -27,8 +27,7 @@ public class EncounterLogicMongo implements EncounterLogic {
 
     public void save(Encounter encounter) {
         var encounterEo = encounterMapper.map(encounter);
-        //Iterable<MedicalRecordEo> medicalRecordEos = medicalRecordRepository.saveAll(encounterEo.medicalRecords);
-        //encounterEo.medicalRecords = StreamSupport.stream(medicalRecordEos.spliterator(), false).toList();
+        //encounterEo.medicalRecords = StreamSupport.stream(medicalRecordRepository.saveAll(encounterEo.medicalRecords).spliterator(), false).toList();
         encounterRepository.save(encounterEo);
     }
 
