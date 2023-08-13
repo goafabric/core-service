@@ -21,6 +21,7 @@ public class EncounterEo {
     public LocalDate encounterDate;
 
     @Transient
+    //@DBRef
     public List<MedicalRecordEo> medicalRecords;
 
     public EncounterEo() {

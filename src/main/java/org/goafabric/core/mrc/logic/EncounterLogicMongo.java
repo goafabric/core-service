@@ -3,6 +3,7 @@ package org.goafabric.core.mrc.logic;
 import io.micrometer.common.util.StringUtils;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.EncounterRepository;
+import org.goafabric.core.mrc.repository.MedicalRecordRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Component;
@@ -16,13 +17,19 @@ public class EncounterLogicMongo implements EncounterLogic {
 
     private final EncounterRepository encounterRepository;
 
-    public EncounterLogicMongo(EncounterMapper encounterMapper, EncounterRepository encounterRepository) {
+    private final MedicalRecordRepository medicalRecordRepository;
+
+    public EncounterLogicMongo(EncounterMapper encounterMapper, EncounterRepository encounterRepository, MedicalRecordRepository medicalRecordRepository) {
         this.encounterMapper = encounterMapper;
         this.encounterRepository = encounterRepository;
+        this.medicalRecordRepository = medicalRecordRepository;
     }
 
     public void save(Encounter encounter) {
-        encounterRepository.save(encounterMapper.map(encounter));
+        var encounterEo = encounterMapper.map(encounter);
+        //Iterable<MedicalRecordEo> medicalRecordEos = medicalRecordRepository.saveAll(encounterEo.medicalRecords);
+        //encounterEo.medicalRecords = StreamSupport.stream(medicalRecordEos.spliterator(), false).toList();
+        encounterRepository.save(encounterEo);
     }
 
     public List<Encounter> findByPatientIdAndText(String patientId, String text) {
