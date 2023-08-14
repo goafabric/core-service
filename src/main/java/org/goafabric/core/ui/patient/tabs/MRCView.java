@@ -11,7 +11,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.data.repository.entity.PatientFamilyNameOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 import org.goafabric.core.mrc.logic.EncounterLogic;
@@ -56,7 +55,8 @@ public class MRCView extends VerticalLayout {
             long start = System.currentTimeMillis();
             var lastNames = filter.equals("")
                     ? new ArrayList<String>().stream()
-                    : patientLogic.searchFamilyNames(filter).stream().map(PatientFamilyNameOnly::getFamilyName).limit(query.getLimit());
+                    : patientLogic.findNamesByFamilyName(filter).stream().map(
+                    name -> name.getFamilyName() + " " + name.getGivenName()).limit(query.getLimit());
             Notification.show("Search took " + (System.currentTimeMillis() -start) + " ms");
             return lastNames;
         });
@@ -104,7 +104,7 @@ public class MRCView extends VerticalLayout {
             encounterFilter.setValue("");
         });
 
-        patientFilter.setValue("Burns");
+        patientFilter.setValue("Burns Monty");
         encounterFilter.setValueChangeMode(ValueChangeMode.LAZY);
         encounterFilter.addValueChangeListener(event -> showEncounter());
     }
@@ -114,7 +114,8 @@ public class MRCView extends VerticalLayout {
 
         //if (encounterFilter.isEmpty() || encounterFilter.length() > 1) {
             encounterLayout.removeAll();
-            var patients = patientLogic.searchFamilyNames(patientFilter.getValue() != null ? patientFilter.getValue().toString() : "");
+            var patients = patientLogic.findNamesByFamilyName(patientFilter.getValue() != null
+                    ? patientFilter.getValue().toString().split(" ")[0] : "");
             if (!patients.isEmpty()) {
                 long start = System.currentTimeMillis();
 
