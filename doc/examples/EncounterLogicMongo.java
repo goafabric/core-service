@@ -3,14 +3,13 @@ package org.goafabric.core.mrc.logic;
 import io.micrometer.common.util.StringUtils;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.EncounterRepository;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-@Profile("mongodb")
+//@Profile("mongodb")
 public class EncounterLogicMongo implements EncounterLogic {
     private final EncounterMapper encounterMapper;
 

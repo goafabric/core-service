@@ -14,7 +14,7 @@ import static org.goafabric.core.DataRocker.setTenantId;
 class EncounterLogicIT {
 
     @Autowired
-    private EncounterLogicJpa encounterLogic;
+    private EncounterLogic encounterLogic;
 
     @Autowired
     private PatientLogic patientLogic;
