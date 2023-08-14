@@ -20,8 +20,8 @@ public class EncounterEo {
 
     public LocalDate encounterDate;
 
-    @Transient
-    //@DBRef
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "encounter_id")
     public List<MedicalRecordEo> medicalRecords;
 
     public EncounterEo() {

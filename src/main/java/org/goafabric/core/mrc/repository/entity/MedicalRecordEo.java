@@ -14,8 +14,6 @@ public class MedicalRecordEo {
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
-    public String encounterId;
-
     public String type;
 
     @TextIndexed
