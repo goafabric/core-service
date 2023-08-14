@@ -1,6 +1,7 @@
 package org.goafabric.core.mrc.repository.entity;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.TenantId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -15,6 +16,9 @@ public class EncounterEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
+
+    @TenantId
+    public String orgunitId;
 
     public String patientId;
 
