@@ -1,6 +1,5 @@
 package org.goafabric.core.mrc.logic;
 
-import io.micrometer.common.util.StringUtils;
 import jakarta.transaction.Transactional;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.EncounterRepository;
@@ -27,9 +26,7 @@ public class EncounterLogic {
 
     public List<Encounter> findByPatientIdAndText(String patientId, String text) {
         return encounterMapper.map(
-                StringUtils.isEmpty(text)
-                        ? encounterRepository.findAll()
-                        : encounterRepository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text));
+                encounterRepository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text));
     }
 
 }
