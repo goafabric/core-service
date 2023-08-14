@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface EncounterRepository extends CrudRepository<EncounterEo, String> {
 
-    //@Query(nativeQuery = true, value = "select e1_0.*, m1_0.* from encounter e1_0 left join medical_record m1_0 on e1_0.id=m1_0.encounter_id where e1_0.patient_id= :patientId and upper(m1_0.display) like concat('%', concat(upper(:display), '%'))")
+    //@Query(nativeQuery = true, value = "select * from medical_record WHERE encounter_id = :encounterId and to_tsvector('english', display) @@ to_tsquery('english', concat(:display, ':*'))")
     @Query("SELECT e FROM EncounterEo e JOIN FETCH e.medicalRecords m WHERE e.patientId = :patientId AND UPPER(m.display) LIKE UPPER(concat('%', :display, '%'))")
     List<EncounterEo> findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(String patientId, String display);
 

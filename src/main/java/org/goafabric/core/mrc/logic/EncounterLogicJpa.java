@@ -3,7 +3,6 @@ package org.goafabric.core.mrc.logic;
 import jakarta.transaction.Transactional;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.EncounterRepository;
-import org.goafabric.core.mrc.repository.MedicalRecordRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +17,7 @@ public class EncounterLogicJpa implements EncounterLogic{
 
     private final EncounterRepository encounterRepository;
 
-    public EncounterLogicJpa(EncounterMapper encounterMapper, EncounterRepository encounterRepository, MedicalRecordRepository medicalRecordRepository) {
+    public EncounterLogicJpa(EncounterMapper encounterMapper, EncounterRepository encounterRepository) {
         this.encounterMapper = encounterMapper;
         this.encounterRepository = encounterRepository;;
     }

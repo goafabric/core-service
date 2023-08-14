@@ -3,7 +3,6 @@ package org.goafabric.core.mrc.logic;
 import io.micrometer.common.util.StringUtils;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.EncounterRepository;
-import org.goafabric.core.mrc.repository.MedicalRecordRepository;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Component;
@@ -17,12 +16,9 @@ public class EncounterLogicMongo implements EncounterLogic {
 
     private final EncounterRepository encounterRepository;
 
-    private final MedicalRecordRepository medicalRecordRepository;
-
-    public EncounterLogicMongo(EncounterMapper encounterMapper, EncounterRepository encounterRepository, MedicalRecordRepository medicalRecordRepository) {
+    public EncounterLogicMongo(EncounterMapper encounterMapper, EncounterRepository encounterRepository) {
         this.encounterMapper = encounterMapper;
         this.encounterRepository = encounterRepository;
-        this.medicalRecordRepository = medicalRecordRepository;
     }
 
     public void save(Encounter encounter) {
