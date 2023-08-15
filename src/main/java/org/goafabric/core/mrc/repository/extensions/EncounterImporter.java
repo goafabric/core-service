@@ -68,10 +68,12 @@ public class EncounterImporter implements CommandLineRunner {
     }
 
     public void importDemoData() {
-        setTenantId("0");
-        //if (applicationContext.getBean(PatientLogic.class).findByGivenName("Monty").isEmpty()) {
-            insertData();
-        //}
+        Arrays.asList(tenants.split(",")).forEach(tenant -> {
+            setTenantId(tenant);
+            if (applicationContext.getBean(PatientLogic.class).findByGivenName("Monty").isEmpty()) {
+                insertData();
+            }
+        });
     }
 
     private void insertData() {
