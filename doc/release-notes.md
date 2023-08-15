@@ -3,7 +3,6 @@
 - upgrade to auth-server 1.0.3 
 - upgrade to catalog-service 1.0.2
 
-
 # 1.0.3
 - fix for x-forward for native images
 - multi tenancy for s3 storage
