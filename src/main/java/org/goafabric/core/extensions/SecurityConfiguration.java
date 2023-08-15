@@ -43,7 +43,8 @@ public class SecurityConfiguration {
                             .requestMatchers(new MvcRequestMatcher(introspector, "/"), new MvcRequestMatcher(introspector, "actuator/**"), new MvcRequestMatcher(introspector, "/login.html")).permitAll()
                             .anyRequest().authenticated())
                     .oauth2Login(oauth2 -> oauth2
-                            .clientRegistrationRepository(clientRegistrationRepository))
+                            .clientRegistrationRepository(clientRegistrationRepository)
+                            .defaultSuccessUrl("/frontend/",true))
                     .logout(l -> l.logoutSuccessHandler(logoutHandler))
                     .csrf(c -> c.disable())
                     .exceptionHandling(exception ->
