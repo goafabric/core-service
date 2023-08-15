@@ -24,9 +24,9 @@ public class PatientMainView extends VerticalLayout {
         TabSheet tabSheet = new TabSheet();
         tabSheet.setSizeFull();
 
-        tabSheet.add("Patient", new PatientView(patientLogic::findByFamilyName));
         tabSheet.add("MRC", new MRCView(patientLogic, encounterLogic,
                 conditionAdapter::findByDisplay, chargeItemAdapter::findByDisplay));
+        tabSheet.add("Patient", new PatientView(patientLogic::findByFamilyName));
 
         add(tabSheet);
     }

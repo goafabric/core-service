@@ -3,7 +3,7 @@ package org.goafabric.core.data.logic;
 import org.goafabric.core.data.controller.vo.Patient;
 import org.goafabric.core.data.logic.mapper.PatientMapper;
 import org.goafabric.core.data.repository.PatientRepository;
-import org.goafabric.core.data.repository.entity.PatientFamilyNameOnly;
+import org.goafabric.core.data.repository.entity.PatientNamesOnly;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,8 +46,8 @@ public class PatientLogic {
     }
 
     //performance optimazation if we only nead the lastnames, otherwise stupid hibernate will fetch 1:n relations with n queries
-    public List<PatientFamilyNameOnly> searchFamilyNames(String search) {
-        return patientRepository.findFamilyNameByFamilyNameStartsWithIgnoreCase(search);
+    public List<PatientNamesOnly> findPatientNamesByFamilyName(String search) {
+        return patientRepository.findPatientNamesByFamilyNameStartsWithIgnoreCase(search);
     }
 
 

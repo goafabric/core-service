@@ -8,9 +8,13 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface EncounterRepository extends CrudRepository<EncounterEo, String> {
-    List<EncounterEo> findByPatientId(String patientId);
+
+    //@Query(nativeQuery = true, value = "select * from medical_record WHERE encounter_id = :encounterId and to_tsvector('english', display) @@ to_tsquery('english', concat(:display, ':*'))")
+    @Query("SELECT e FROM EncounterEo e JOIN FETCH e.medicalRecords m WHERE e.patientId = :patientId AND UPPER(m.display) LIKE UPPER(concat('%', :display, '%'))")
+    List<EncounterEo> findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(String patientId, String display);
 
     @Query("select e from EncounterEo e")
-    List<EncounterEo> findAllByPatientId(String patientId, TextCriteria criteria);
+    List<EncounterEo> findAllByPatientId(String patientId, TextCriteria display);
+
 }
 
