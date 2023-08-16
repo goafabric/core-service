@@ -11,7 +11,7 @@ public interface PatientRepository extends CrudRepository<PatientEo, String> {
 
     List<PatientEo> findByFamilyNameStartsWithIgnoreCase(String familyName);
 
-    List<PatientNamesOnly> findPatientNamesByFamilyNameStartsWithIgnoreCase(String familyName);
+    List<PatientNamesOnly> findPatientNamesByFamilyNameStartsWithIgnoreCaseOrderByFamilyName(String familyName);
 
 }
 
