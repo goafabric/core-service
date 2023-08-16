@@ -7,5 +7,6 @@ public record Encounter(
     String id,
     String patientId,
     LocalDate encounterDate,
+    String encounterName,
     List<MedicalRecord> medicalRecords
 ) {}

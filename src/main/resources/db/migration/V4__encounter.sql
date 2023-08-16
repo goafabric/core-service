@@ -4,9 +4,10 @@ create table encounter
 		constraint pk_encounter
 			primary key,
 
-	orgunit_id varchar(36),
+	orgunit_id        varchar(36),
 
-	patient_id varchar(36),
+	patient_id        varchar(36),
+    encounter_name    varchar(255),
     encounter_date    date,
 
     version bigint default 0

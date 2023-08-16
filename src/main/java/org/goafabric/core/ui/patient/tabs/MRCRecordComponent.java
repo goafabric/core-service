@@ -1,6 +1,8 @@
 package org.goafabric.core.ui.patient.tabs;
 
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -45,7 +47,12 @@ public class MRCRecordComponent {
             }
 
             if (!encounters.isEmpty()) {
-                encounters.forEach(encounter -> addMedicalRecords(encounterLayout, encounter));
+                encounters.forEach(encounter -> {
+                    //encounterLayout.add(new Hr());
+                    encounterLayout.add(new HorizontalLayout(new DatePicker(encounter.encounterDate()), new TextField("", encounter.encounterName())));
+                    encounterLayout.add(new Hr());
+                    addMedicalRecords(encounterLayout, encounter);
+                });
             }
 
             Notification.show("Search took " + (System.currentTimeMillis() - start) + " ms");
@@ -54,7 +61,7 @@ public class MRCRecordComponent {
 
     private static List<Encounter> filterRecordsInMemory(MedicalRecordType recordType, List<Encounter> encounters) {
         return encounters.stream().map(e ->
-                new Encounter(e.id(), e.patientId(), e.encounterDate(),
+                new Encounter(e.id(), e.patientId(), e.encounterDate(), e.encounterName(),
                  e.medicalRecords().stream().filter(record -> record.type().equals(recordType)).toList())).toList();
     }
 

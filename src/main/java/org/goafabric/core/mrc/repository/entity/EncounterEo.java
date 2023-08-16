@@ -24,6 +24,8 @@ public class EncounterEo {
 
     public LocalDate encounterDate;
 
+    public String encounterName;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "encounter_id")
     public List<MedicalRecordEo> medicalRecords;
@@ -31,10 +33,11 @@ public class EncounterEo {
     public EncounterEo() {
     }
 
-    public EncounterEo(String id, String patientId, LocalDate encounterDate, List<MedicalRecordEo> medicalRecords) {
+    public EncounterEo(String id, String patientId, LocalDate encounterDate, String encounterName, List<MedicalRecordEo> medicalRecords) {
         this.id = id;
         this.patientId = patientId;
         this.encounterDate = encounterDate;
+        this.encounterName = encounterName;
         this.medicalRecords = Collections.unmodifiableList(medicalRecords);
     }
 }

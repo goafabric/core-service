@@ -109,6 +109,7 @@ public class EncounterImporter implements CommandLineRunner {
                     null,
                     patient.id(),
                     LocalDate.now(),
+                    "Encounter " + i,
                     stackedRecords
             );
             encounterLogic.save(encounter);
