@@ -77,7 +77,7 @@ public class MRCView extends VerticalLayout {
 
     private void showEncounter() {
         medicalRecordLayout.removeAll();
-        var familyName = patientFilter.getValue().toString().split(",")[0];
+        var familyName = patientFilter.getValue() != null ? patientFilter.getValue().toString().split(",")[0] : "";
         encounterComponent.processEncounters(patientLogic.findPatientNamesByFamilyName(familyName), medicalRecordFilter.getValue(), medicalRecordLayout);
     }
 
