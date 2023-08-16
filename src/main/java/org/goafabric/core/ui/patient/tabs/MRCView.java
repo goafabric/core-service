@@ -2,6 +2,7 @@ package org.goafabric.core.ui.patient.tabs;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -42,12 +43,12 @@ public class MRCView extends VerticalLayout {
     }
 
     private HorizontalLayout createMedicalRecordTypeButtons() {
-        var allButton = new Button("*");
-        var anamnesisButton = new Button("\uD83D\uDCDD");
-        var findingButton = new Button("F");
-        var conditionButton = new Button("\uD83E\uDE7A");
-        var chargItemButton = new Button("\uD83D\uDCB6");
-        var therapyButton = new Button("\uD83D\uDC8A");
+        var allButton = new Button(new Icon(VaadinIcon.ARROW_BACKWARD ));
+        var anamnesisButton = new Button(new Icon(VaadinIcon.OPEN_BOOK));
+        var findingButton = new Button(new Icon(VaadinIcon.FILE_SEARCH));
+        var conditionButton = new Button(new Icon(VaadinIcon.STETHOSCOPE));
+        var chargItemButton = new Button(new Icon(VaadinIcon.MONEY));
+        var therapyButton = new Button(new Icon(VaadinIcon.PILLS));
 
         allButton.addClickListener(event -> showEncounter(null));
         anamnesisButton.addClickListener(event -> showEncounter(MedicalRecordType.ANAMNESIS));
