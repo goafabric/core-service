@@ -1,4 +1,20 @@
 a[highlight] {
     font-weight: bold;
     text-decoration: underline;
+    color: black;
+    transition: background-color 0.3s; 
 }
+
+a:hover {
+    background-color: lightblue; /* Set the background color when hovering */
+}
+
+/*
+vaadin-combo-box {
+    background-color: lightgreen;
+}
+
+vaadin-text-field {
+    background-color: lightgreen;
+}
+*/

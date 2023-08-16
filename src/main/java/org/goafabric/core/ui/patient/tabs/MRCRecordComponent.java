@@ -70,6 +70,8 @@ public class MRCRecordComponent {
             if (encounterLayout.getChildren().count() < 100) {
                 var typeCombo = new ComboBox<>("", MedicalRecordType.values());
                 var textField = new TextField("", medicalRecord.display());
+                //typeCombo.addClassName("record-combo-box");
+                //textField.addClassName("record-text-field");
                 textField.setWidth("500px");
                 typeCombo.setValue(medicalRecord.type());
                 encounterLayout.add(new HorizontalLayout(typeCombo, textField));
