@@ -41,9 +41,7 @@ public class MRCRecordComponent {
             var encounters = encounterLogic.findByPatientIdAndText(patientId, display);
 
             if (recordType != null) {
-               encounters = encounters.stream().map(e ->
-                       new Encounter(e.id(), e.patientId(), e.encounterDate(),
-                        e.medicalRecords().stream().filter(record -> record.type().equals(recordType)).toList())).toList();
+                encounters = filterRecordsInMemory(recordType, encounters);
             }
 
             if (!encounters.isEmpty()) {
@@ -52,6 +50,12 @@ public class MRCRecordComponent {
 
             Notification.show("Search took " + (System.currentTimeMillis() - start) + " ms");
         }
+    }
+
+    private static List<Encounter> filterRecordsInMemory(MedicalRecordType recordType, List<Encounter> encounters) {
+        return encounters.stream().map(e ->
+                new Encounter(e.id(), e.patientId(), e.encounterDate(),
+                 e.medicalRecords().stream().filter(record -> record.type().equals(recordType)).toList())).toList();
     }
 
     private void addMedicalRecords(VerticalLayout encounterLayout, Encounter encounter) {
