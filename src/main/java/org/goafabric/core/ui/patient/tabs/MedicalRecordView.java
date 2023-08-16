@@ -65,7 +65,6 @@ public class MedicalRecordView extends VerticalLayout {
             query.getLimit(); query.getOffset();
             var filter = query.getFilter().get();
 
-            
             long start = System.currentTimeMillis();
             var lastNames = patientLogic.findPatientNamesByFamilyName(filter).stream().map(
                     name -> name.getFamilyName() + ", " + name.getGivenName()).limit(query.getLimit());
