@@ -37,7 +37,7 @@ public class MRCView extends VerticalLayout {
         this.add(patientFilter);
         this.add(new HorizontalLayout(medicalRecordFilter, createMedicalRecordTypeButtons()));
 
-        addAddMedicalRecordButton();
+        //addAddMedicalRecordButton();
 
         doEncounterStuff();
     }
