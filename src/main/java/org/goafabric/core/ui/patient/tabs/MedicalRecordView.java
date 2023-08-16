@@ -13,18 +13,18 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 
-public class MRCView extends VerticalLayout {
+public class MedicalRecordView extends VerticalLayout {
     private final PatientLogic patientLogic;
     private final VerticalLayout medicalRecordLayout = new VerticalLayout();
 
     private final ComboBox patientFilter = new ComboBox<>("", "Filter ...");
     private final TextField medicalRecordFilter = new TextField("", "Filter ...");
 
-    private final MRCRecordComponent encounterComponent;
+    private final MedicalRecordComponent encounterComponent;
 
     private MedicalRecordType medicalRecordType = null;
 
-    public MRCView(PatientLogic patientLogic, MRCRecordComponent encounterComponent) {
+    public MedicalRecordView(PatientLogic patientLogic, MedicalRecordComponent encounterComponent) {
         this.patientLogic = patientLogic;
         this.encounterComponent = encounterComponent;
 

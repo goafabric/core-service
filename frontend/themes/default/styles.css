@@ -6,7 +6,11 @@ a[highlight] {
 }
 
 a:hover {
-    background-color: lightblue; /* Set the background color when hovering */
+    background-color: lightblue; 
+}
+
+vaadin-text-field:hover {
+    background-color: lightblue; 
 }
 
 /*

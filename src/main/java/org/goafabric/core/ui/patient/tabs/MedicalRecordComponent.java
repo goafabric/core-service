@@ -12,6 +12,7 @@ import org.goafabric.core.data.repository.entity.PatientNamesOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 import org.goafabric.core.mrc.logic.EncounterLogic;
+import org.goafabric.core.mrc.repository.MedicalRecordRepository;
 import org.goafabric.core.ui.adapter.ChargeItemAdapter;
 import org.goafabric.core.ui.adapter.ConditionAdapter;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
@@ -22,16 +23,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class MRCRecordComponent {
+public class MedicalRecordComponent {
 
     private final EncounterLogic encounterLogic;
     private final ConditionAdapter conditionAdapter;
     private final ChargeItemAdapter chargeItemAdapter;
 
-    public MRCRecordComponent(EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter) {
+    private final MedicalRecordRepository medicalRecordRepository;
+
+    private MedicalRecordDetailsView medicalRecordDetailsView = null;
+
+    public MedicalRecordComponent(EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MedicalRecordRepository medicalRecordRepository) {
         this.encounterLogic = encounterLogic;
         this.conditionAdapter = conditionAdapter;
         this.chargeItemAdapter = chargeItemAdapter;
+        this.medicalRecordRepository = medicalRecordRepository;
     }
 
 
@@ -70,13 +76,23 @@ public class MRCRecordComponent {
             if (encounterLayout.getChildren().count() < 100) {
                 var typeCombo = new ComboBox<>("", MedicalRecordType.values());
                 var textField = new TextField("", medicalRecord.display());
-                //typeCombo.addClassName("record-combo-box");
-                //textField.addClassName("record-text-field");
                 textField.setWidth("500px");
+
+                textField.setId(medicalRecord.id());
                 typeCombo.setValue(medicalRecord.type());
                 encounterLayout.add(new HorizontalLayout(typeCombo, textField));
+
+                textField.addFocusListener(listener -> showRecordDetails(listener.getSource().getId().get()));
             }
         });
+    }
+
+    private void showRecordDetails(String id) {
+        var record = medicalRecordRepository.findById(id).get();
+        System.out.println(record.display);
+        medicalRecordDetailsView = new MedicalRecordDetailsView(record);
+        //medicalRecordDetailsView.setWidth("500px");
+        medicalRecordDetailsView.open();
     }
 
     public void loadMedicalCatalog(String catalogType, ComboBox<String> filterCombo) {
