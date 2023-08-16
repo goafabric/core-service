@@ -13,8 +13,6 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 
-import java.util.ArrayList;
-
 public class MRCView extends VerticalLayout {
     private final PatientLogic patientLogic;
     private final VerticalLayout medicalRecordLayout = new VerticalLayout();
@@ -67,10 +65,9 @@ public class MRCView extends VerticalLayout {
             query.getLimit(); query.getOffset();
             var filter = query.getFilter().get();
 
+            
             long start = System.currentTimeMillis();
-            var lastNames = filter.equals("")
-                    ? new ArrayList<String>().stream()
-                    : patientLogic.findPatientNamesByFamilyName(filter).stream().map(
+            var lastNames = patientLogic.findPatientNamesByFamilyName(filter).stream().map(
                     name -> name.getFamilyName() + ", " + name.getGivenName()).limit(query.getLimit());
             Notification.show("Search took " + (System.currentTimeMillis() -start) + " ms");
             return lastNames;

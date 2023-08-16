@@ -47,7 +47,7 @@ public class PatientLogic {
 
     //performance optimazation if we only nead the lastnames, otherwise stupid hibernate will fetch 1:n relations with n queries
     public List<PatientNamesOnly> findPatientNamesByFamilyName(String search) {
-        return patientRepository.findPatientNamesByFamilyNameStartsWithIgnoreCase(search);
+        return patientRepository.findPatientNamesByFamilyNameStartsWithIgnoreCaseOrderByFamilyName(search);
     }
 
 
