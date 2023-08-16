@@ -9,20 +9,16 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.data.repository.entity.PatientNamesOnly;
-import org.goafabric.core.mrc.controller.vo.Encounter;
-import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.ui.SearchLogic;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
 import org.goafabric.core.ui.adapter.vo.Condition;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MRCView extends VerticalLayout {
     private final PatientLogic patientLogic;
-    private final SearchLogic<Condition> diagnosisLogic;
+    private final SearchLogic<Condition> conditionLogic;
     private final SearchLogic<ChargeItem> chargeItemLogic;
 
     private final EncounterLogic encounterLogic;
@@ -31,31 +27,28 @@ public class MRCView extends VerticalLayout {
     private final ComboBox patientFilter = new ComboBox<>("", "Filter ...");
     private final TextField encounterFilter = new TextField("", "Filter ...");
 
-    public MRCView(PatientLogic patientLogic, EncounterLogic encounterLogic, SearchLogic<Condition> diagnosisLogic, SearchLogic<ChargeItem> chargeItemLogic) {
+    private final MRCEncounterComponent encounterComponent;
+
+    public MRCView(PatientLogic patientLogic, EncounterLogic encounterLogic, SearchLogic<Condition> diagnosisLogic, SearchLogic<ChargeItem> chargeItemLogic, MRCEncounterComponent encounterComponent) {
         this.patientLogic = patientLogic;
         this.encounterLogic = encounterLogic;
-        this.diagnosisLogic = diagnosisLogic;
+        this.conditionLogic = diagnosisLogic;
         this.chargeItemLogic = chargeItemLogic;
+        this.encounterComponent = encounterComponent;
 
         setSizeFull();
         addPatientsToFilter();
         this.add(patientFilter);
         this.add(encounterFilter);
 
-        addAddButton();
+        addAddEncounterButton();
 
         doEncounterStuff();
     }
 
-    private void addAddButton() {
-        var filterAddButton = new Button("+");
-        this.add(filterAddButton);
-        filterAddButton.addClickListener(event -> addFilterEntry());
-    }
-
-
     private void addPatientsToFilter() {
         patientFilter.setItems((CallbackDataProvider.FetchCallback<String, String>) query -> {
+            encounterFilter.setValue("");
             query.getLimit(); query.getOffset();
             var filter = query.getFilter().get();
 
@@ -69,74 +62,49 @@ public class MRCView extends VerticalLayout {
         });
     }
 
-    private void addFilterEntry() {
+    private void addAddEncounterButton() {
+        var filterAddButton = new Button("+");
+        this.add(filterAddButton);
+        filterAddButton.addClickListener(event -> addEncounterFilterEntries());
+    }
+
+    private void addEncounterFilterEntries() {
         var typeCombo = new ComboBox<>("", "Anamnesis", "Diagnosis", "GOÄ");
         var filterCombo = new ComboBox<>("", "Filter ...");
         encounterLayout.add(new HorizontalLayout(typeCombo, filterCombo));
         
-        typeCombo.addValueChangeListener(event -> setNewEntryItems(typeCombo, filterCombo));
+        typeCombo.addValueChangeListener(event -> loadMedicalCatalog(typeCombo.getValue(), filterCombo));
         typeCombo.setValue("Diagnosis");
     }
 
-    private void setNewEntryItems(ComboBox<String> typeCombo, ComboBox<String> filterCombo) {
+    private void doEncounterStuff() {
+        this.add(encounterLayout);
+        patientFilter.addValueChangeListener( event -> showEncounter());
+        patientFilter.setValue("Burns, Monty");
+
+        encounterFilter.setValueChangeMode(ValueChangeMode.LAZY);
+        encounterFilter.addValueChangeListener(event -> showEncounter());
+    }
+
+    private void showEncounter() {
+        encounterLayout.removeAll();
+        var familyName = patientFilter.getValue().toString().split(",")[0];
+        encounterComponent.processEncounters(patientLogic.findPatientNamesByFamilyName(familyName), encounterFilter.getValue(), encounterLayout);
+    }
+
+    public void loadMedicalCatalog(String catalogType, ComboBox<String> filterCombo) {
         filterCombo.setItems((CallbackDataProvider.FetchCallback<String, String>) query -> {
             query.getLimit(); query.getOffset();
             var filter = query.getFilter().get();
-            if (typeCombo.getValue().equals("Diagnosis")) {
-                return diagnosisLogic.search(filter).stream().map(d -> d.display()).limit(query.getLimit());
+            if (catalogType.equals("Diagnosis")) {
+                return conditionLogic.search(filter).stream().map(d -> d.display()).limit(query.getLimit());
             }
-            if (typeCombo.getValue().equals("GOÄ")) {
+            if (catalogType.equals("GOÄ")) {
                 return chargeItemLogic.search(filter).stream().map(d -> d.display()).limit(query.getLimit());
             }
             return new ArrayList<String>().stream();
         });
     }
 
-    private void doEncounterStuff() {
-        this.add(encounterLayout);
-        patientFilter.addValueChangeListener( event -> {
-            showEncounter();
-            encounterFilter.setValue("");
-        });
 
-        patientFilter.setValue("Burns, Monty");
-        encounterFilter.setValueChangeMode(ValueChangeMode.LAZY);
-        encounterFilter.addValueChangeListener(event -> showEncounter());
-    }
-
-    private void showEncounter() {
-        var encounterFilter = this.encounterFilter.getValue() != null ? this.encounterFilter.getValue().toString() : "";
-        var patients = patientLogic.findPatientNamesByFamilyName(patientFilter.getValue() != null
-                ? patientFilter.getValue().toString().split(",")[0] : "");
-
-        encounterLayout.removeAll();
-        processEncounters(patients, encounterFilter);
-    }
-
-    private void processEncounters(List<PatientNamesOnly> patients, String encounterFilter) {
-        if (!patients.isEmpty()) {
-            long start = System.currentTimeMillis();
-
-            var patientId = patients.get(0).getId();
-            var encounters = encounterLogic.findByPatientIdAndText(patientId, encounterFilter);
-
-            if (!encounters.isEmpty()) {
-                encounters.forEach(this::processEncounter);
-            }
-            Notification.show("Search took " + (System.currentTimeMillis() - start) + " ms");
-        }
-    }
-
-    private void processEncounter(Encounter encounter) {
-        encounter.medicalRecords().forEach(medicalRecord -> {
-            if (encounterLayout.getChildren().count() < 100) {
-                var typeCombo = new ComboBox<>("", MedicalRecordType.values());
-                var textField = new TextField("", medicalRecord.display());
-                textField.setWidth("500px");
-                typeCombo.setValue(medicalRecord.type());
-                encounterLayout.add(new HorizontalLayout(typeCombo, textField));
-            }
-        });
-
-    }
 }

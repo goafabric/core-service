@@ -9,6 +9,7 @@ import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.ui.MainView;
 import org.goafabric.core.ui.adapter.ChargeItemAdapter;
 import org.goafabric.core.ui.adapter.ConditionAdapter;
+import org.goafabric.core.ui.patient.tabs.MRCEncounterComponent;
 import org.goafabric.core.ui.patient.tabs.MRCView;
 import org.goafabric.core.ui.patient.tabs.PatientView;
 
@@ -18,14 +19,14 @@ import org.goafabric.core.ui.patient.tabs.PatientView;
 public class PatientMainView extends VerticalLayout {
 
     public PatientMainView(
-            PatientLogic patientLogic, EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter) {
+            PatientLogic patientLogic, EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MRCEncounterComponent encounterComponent) {
         this.setSizeFull();
 
         TabSheet tabSheet = new TabSheet();
         tabSheet.setSizeFull();
 
         tabSheet.add("MRC", new MRCView(patientLogic, encounterLogic,
-                conditionAdapter::findByDisplay, chargeItemAdapter::findByDisplay));
+                conditionAdapter::findByDisplay, chargeItemAdapter::findByDisplay, encounterComponent));
         tabSheet.add("Patient", new PatientView(patientLogic::findByFamilyName));
 
         add(tabSheet);

@@ -86,27 +86,20 @@ public class EncounterImporter implements CommandLineRunner {
                         createAddress("Springfield"),
                         createContactPoint("555-520")));
 
-        var anamnesis1 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", "");
-        var anamnesis2 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", "");
-        var anamnesis3 = new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Üter Zörker, who tells him to set a fire", "");
-
-        var finding1 = new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", "");
-        var finding2 = new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", "");
-        var finding3 = new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", "");
-
-        var condition1 = new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none");
-        var condition2 = new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00");
-        var condition3 = new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1");
-
-        var chargeItem1 = new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1");
-        var therapy1 = new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", "");
 
         var medicalRecords = Arrays.asList(
-                anamnesis1, anamnesis2, anamnesis3,
-                finding1, finding2, finding3,
-                condition1, condition2, condition3,
-                chargeItem1,
-                therapy1);
+                new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", ""),
+                new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", ""),
+                new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none"),
+                new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", ""),
+                new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", ""),
+                new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00"),
+                new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Üter Zörker, who tells him to set a fire", ""),
+                new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", ""),
+                new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1"),
+                new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1"),
+                new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", "")
+        );
 
         var stackedRecords = new ArrayList<MedicalRecord>();
         IntStream.range(0, 1).forEach(i -> stackedRecords.addAll(medicalRecords));
