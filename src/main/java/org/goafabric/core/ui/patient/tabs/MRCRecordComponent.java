@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class MRCEncounterComponent {
+public class MRCRecordComponent {
 
     private final EncounterLogic encounterLogic;
 
 
-    public MRCEncounterComponent(EncounterLogic encounterLogic) {
+    public MRCRecordComponent(EncounterLogic encounterLogic) {
         this.encounterLogic = encounterLogic;
     }
 

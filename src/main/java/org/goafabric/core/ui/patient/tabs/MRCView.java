@@ -9,7 +9,6 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.ui.SearchLogic;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
 import org.goafabric.core.ui.adapter.vo.Condition;
@@ -21,17 +20,15 @@ public class MRCView extends VerticalLayout {
     private final SearchLogic<Condition> conditionLogic;
     private final SearchLogic<ChargeItem> chargeItemLogic;
 
-    private final EncounterLogic encounterLogic;
-    private final VerticalLayout encounterLayout = new VerticalLayout();
+    private final VerticalLayout medicalRecordLayout = new VerticalLayout();
 
     private final ComboBox patientFilter = new ComboBox<>("", "Filter ...");
-    private final TextField encounterFilter = new TextField("", "Filter ...");
+    private final TextField medicalRecordFilter = new TextField("", "Filter ...");
 
-    private final MRCEncounterComponent encounterComponent;
+    private final MRCRecordComponent encounterComponent;
 
-    public MRCView(PatientLogic patientLogic, EncounterLogic encounterLogic, SearchLogic<Condition> diagnosisLogic, SearchLogic<ChargeItem> chargeItemLogic, MRCEncounterComponent encounterComponent) {
+    public MRCView(PatientLogic patientLogic, SearchLogic<Condition> diagnosisLogic, SearchLogic<ChargeItem> chargeItemLogic, MRCRecordComponent encounterComponent) {
         this.patientLogic = patientLogic;
-        this.encounterLogic = encounterLogic;
         this.conditionLogic = diagnosisLogic;
         this.chargeItemLogic = chargeItemLogic;
         this.encounterComponent = encounterComponent;
@@ -39,16 +36,16 @@ public class MRCView extends VerticalLayout {
         setSizeFull();
         addPatientsToFilter();
         this.add(patientFilter);
-        this.add(encounterFilter);
+        this.add(medicalRecordFilter);
 
-        addAddEncounterButton();
+        addAddMedicalRecordButton();
 
         doEncounterStuff();
     }
 
     private void addPatientsToFilter() {
         patientFilter.setItems((CallbackDataProvider.FetchCallback<String, String>) query -> {
-            encounterFilter.setValue("");
+            medicalRecordFilter.setValue("");
             query.getLimit(); query.getOffset();
             var filter = query.getFilter().get();
 
@@ -62,34 +59,34 @@ public class MRCView extends VerticalLayout {
         });
     }
 
-    private void addAddEncounterButton() {
+    private void addAddMedicalRecordButton() {
         var filterAddButton = new Button("+");
         this.add(filterAddButton);
-        filterAddButton.addClickListener(event -> addEncounterFilterEntries());
+        filterAddButton.addClickListener(event -> addMedicalRecordFilterEntries());
     }
 
-    private void addEncounterFilterEntries() {
+    private void addMedicalRecordFilterEntries() {
         var typeCombo = new ComboBox<>("", "Anamnesis", "Diagnosis", "GOÄ");
         var filterCombo = new ComboBox<>("", "Filter ...");
-        encounterLayout.add(new HorizontalLayout(typeCombo, filterCombo));
+        medicalRecordLayout.add(new HorizontalLayout(typeCombo, filterCombo));
         
         typeCombo.addValueChangeListener(event -> loadMedicalCatalog(typeCombo.getValue(), filterCombo));
         typeCombo.setValue("Diagnosis");
     }
 
     private void doEncounterStuff() {
-        this.add(encounterLayout);
+        this.add(medicalRecordLayout);
         patientFilter.addValueChangeListener( event -> showEncounter());
         patientFilter.setValue("Burns, Monty");
 
-        encounterFilter.setValueChangeMode(ValueChangeMode.LAZY);
-        encounterFilter.addValueChangeListener(event -> showEncounter());
+        medicalRecordFilter.setValueChangeMode(ValueChangeMode.LAZY);
+        medicalRecordFilter.addValueChangeListener(event -> showEncounter());
     }
 
     private void showEncounter() {
-        encounterLayout.removeAll();
+        medicalRecordLayout.removeAll();
         var familyName = patientFilter.getValue().toString().split(",")[0];
-        encounterComponent.processEncounters(patientLogic.findPatientNamesByFamilyName(familyName), encounterFilter.getValue(), encounterLayout);
+        encounterComponent.processEncounters(patientLogic.findPatientNamesByFamilyName(familyName), medicalRecordFilter.getValue(), medicalRecordLayout);
     }
 
     public void loadMedicalCatalog(String catalogType, ComboBox<String> filterCombo) {
