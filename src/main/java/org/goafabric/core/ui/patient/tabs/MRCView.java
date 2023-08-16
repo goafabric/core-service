@@ -2,6 +2,7 @@ package org.goafabric.core.ui.patient.tabs;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -9,6 +10,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
+import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 
 import java.util.ArrayList;
 
@@ -21,18 +23,41 @@ public class MRCView extends VerticalLayout {
 
     private final MRCRecordComponent encounterComponent;
 
+    private MedicalRecordType medicalRecordType = null;
+
     public MRCView(PatientLogic patientLogic, MRCRecordComponent encounterComponent) {
         this.patientLogic = patientLogic;
         this.encounterComponent = encounterComponent;
 
         setSizeFull();
         addPatientsToFilter();
+
+        medicalRecordFilter.setPrefixComponent(VaadinIcon.SEARCH.create());
         this.add(patientFilter);
-        this.add(medicalRecordFilter);
+        this.add(new HorizontalLayout(medicalRecordFilter, createMedicalRecordTypeButtons()));
 
         addAddMedicalRecordButton();
 
         doEncounterStuff();
+    }
+
+    private HorizontalLayout createMedicalRecordTypeButtons() {
+        var allButton = new Button("*");
+        var anamnesisButton = new Button("\uD83D\uDCDD");
+        var findingButton = new Button("F");
+        var conditionButton = new Button("\uD83E\uDE7A");
+        var chargItemButton = new Button("\uD83D\uDCB6");
+        var therapyButton = new Button("\uD83D\uDC8A");
+
+        allButton.addClickListener(event -> showEncounter(null));
+        anamnesisButton.addClickListener(event -> showEncounter(MedicalRecordType.ANAMNESIS));
+        findingButton.addClickListener(event -> showEncounter(MedicalRecordType.FINDING));
+        conditionButton.addClickListener(event -> showEncounter(MedicalRecordType.CONDITION));
+        chargItemButton.addClickListener(event -> showEncounter(MedicalRecordType.CHARGEITEM));
+        therapyButton.addClickListener(event -> showEncounter(MedicalRecordType.THERAPY));
+
+        return new HorizontalLayout(allButton, anamnesisButton, findingButton, conditionButton, chargItemButton, therapyButton);
+
     }
 
     private void addPatientsToFilter() {
@@ -75,10 +100,15 @@ public class MRCView extends VerticalLayout {
         medicalRecordFilter.addValueChangeListener(event -> showEncounter());
     }
 
+    private void showEncounter(MedicalRecordType medicalRecordType) {
+        this.medicalRecordType = medicalRecordType;
+        showEncounter();
+    }
     private void showEncounter() {
         medicalRecordLayout.removeAll();
         var familyName = patientFilter.getValue() != null ? patientFilter.getValue().toString().split(",")[0] : "";
-        encounterComponent.processEncounters(patientLogic.findPatientNamesByFamilyName(familyName), medicalRecordFilter.getValue(), medicalRecordLayout);
+        encounterComponent.processEncounters(medicalRecordLayout,
+                patientLogic.findPatientNamesByFamilyName(familyName), medicalRecordFilter.getValue(), medicalRecordType);
     }
 
 

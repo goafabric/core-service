@@ -33,21 +33,28 @@ public class MRCRecordComponent {
     }
 
 
-    public void processEncounters(List<PatientNamesOnly> patients, String encounterFilter, VerticalLayout encounterLayout) {
+    public void processEncounters(VerticalLayout encounterLayout, List<PatientNamesOnly> patients, String display, MedicalRecordType recordType) {
         if (!patients.isEmpty()) {
             long start = System.currentTimeMillis();
 
             var patientId = patients.get(0).getId();
-            var encounters = encounterLogic.findByPatientIdAndText(patientId, encounterFilter);
+            var encounters = encounterLogic.findByPatientIdAndText(patientId, display);
+
+            if (recordType != null) {
+               encounters = encounters.stream().map(e ->
+                       new Encounter(e.id(), e.patientId(), e.encounterDate(),
+                        e.medicalRecords().stream().filter(record -> record.type().equals(recordType)).toList())).toList();
+            }
 
             if (!encounters.isEmpty()) {
-                encounters.forEach(encounter -> addMedicalRecords(encounter, encounterLayout));
+                encounters.forEach(encounter -> addMedicalRecords(encounterLayout, encounter));
             }
+
             Notification.show("Search took " + (System.currentTimeMillis() - start) + " ms");
         }
     }
 
-    private void addMedicalRecords(Encounter encounter, VerticalLayout encounterLayout) {
+    private void addMedicalRecords(VerticalLayout encounterLayout, Encounter encounter) {
         encounter.medicalRecords().forEach(medicalRecord -> {
             if (encounterLayout.getChildren().count() < 100) {
                 var typeCombo = new ComboBox<>("", MedicalRecordType.values());
