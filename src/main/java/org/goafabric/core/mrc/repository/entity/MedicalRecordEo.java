@@ -21,6 +21,8 @@ public class MedicalRecordEo {
 
     public String code;
 
+    public String relations;
+
     @Version //optimistic locking
     public Long version;
 

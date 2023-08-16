@@ -6,7 +6,8 @@ public enum MedicalRecordType {
     CONDITION("CONDTION"),
     CHARGEITEM("CHARGE"),
     FINDING("FINDING"),
-    THERAPY("THERAPY")
+    THERAPY("THERAPY"),
+    BODY_METRICS("BODY_METRICS"),
     ;
     
     private String value;
