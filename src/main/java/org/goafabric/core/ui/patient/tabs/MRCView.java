@@ -9,17 +9,11 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.ui.SearchLogic;
-import org.goafabric.core.ui.adapter.vo.ChargeItem;
-import org.goafabric.core.ui.adapter.vo.Condition;
 
 import java.util.ArrayList;
 
 public class MRCView extends VerticalLayout {
     private final PatientLogic patientLogic;
-    private final SearchLogic<Condition> conditionLogic;
-    private final SearchLogic<ChargeItem> chargeItemLogic;
-
     private final VerticalLayout medicalRecordLayout = new VerticalLayout();
 
     private final ComboBox patientFilter = new ComboBox<>("", "Filter ...");
@@ -27,10 +21,8 @@ public class MRCView extends VerticalLayout {
 
     private final MRCRecordComponent encounterComponent;
 
-    public MRCView(PatientLogic patientLogic, SearchLogic<Condition> diagnosisLogic, SearchLogic<ChargeItem> chargeItemLogic, MRCRecordComponent encounterComponent) {
+    public MRCView(PatientLogic patientLogic, MRCRecordComponent encounterComponent) {
         this.patientLogic = patientLogic;
-        this.conditionLogic = diagnosisLogic;
-        this.chargeItemLogic = chargeItemLogic;
         this.encounterComponent = encounterComponent;
 
         setSizeFull();
@@ -70,7 +62,7 @@ public class MRCView extends VerticalLayout {
         var filterCombo = new ComboBox<>("", "Filter ...");
         medicalRecordLayout.add(new HorizontalLayout(typeCombo, filterCombo));
         
-        typeCombo.addValueChangeListener(event -> loadMedicalCatalog(typeCombo.getValue(), filterCombo));
+        typeCombo.addValueChangeListener(event -> encounterComponent.loadMedicalCatalog(typeCombo.getValue(), filterCombo));
         typeCombo.setValue("Diagnosis");
     }
 
@@ -87,20 +79,6 @@ public class MRCView extends VerticalLayout {
         medicalRecordLayout.removeAll();
         var familyName = patientFilter.getValue().toString().split(",")[0];
         encounterComponent.processEncounters(patientLogic.findPatientNamesByFamilyName(familyName), medicalRecordFilter.getValue(), medicalRecordLayout);
-    }
-
-    public void loadMedicalCatalog(String catalogType, ComboBox<String> filterCombo) {
-        filterCombo.setItems((CallbackDataProvider.FetchCallback<String, String>) query -> {
-            query.getLimit(); query.getOffset();
-            var filter = query.getFilter().get();
-            if (catalogType.equals("Diagnosis")) {
-                return conditionLogic.search(filter).stream().map(d -> d.display()).limit(query.getLimit());
-            }
-            if (catalogType.equals("GOÄ")) {
-                return chargeItemLogic.search(filter).stream().map(d -> d.display()).limit(query.getLimit());
-            }
-            return new ArrayList<String>().stream();
-        });
     }
 
 

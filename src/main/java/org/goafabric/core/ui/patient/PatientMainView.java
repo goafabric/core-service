@@ -19,14 +19,13 @@ import org.goafabric.core.ui.patient.tabs.PatientView;
 public class PatientMainView extends VerticalLayout {
 
     public PatientMainView(
-            PatientLogic patientLogic, EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MRCRecordComponent encounterComponent) {
+            PatientLogic patientLogic, EncounterLogic encounterLogic, MRCRecordComponent encounterComponent) {
         this.setSizeFull();
 
         TabSheet tabSheet = new TabSheet();
         tabSheet.setSizeFull();
 
-        tabSheet.add("MRC", new MRCView(patientLogic,
-                conditionAdapter::findByDisplay, chargeItemAdapter::findByDisplay, encounterComponent));
+        tabSheet.add("MRC", new MRCView(patientLogic, encounterComponent));
         tabSheet.add("Patient", new PatientView(patientLogic::findByFamilyName));
 
         add(tabSheet);
