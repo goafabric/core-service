@@ -3,7 +3,7 @@ package org.goafabric.core.mrc.controller.vo;
 public enum MedicalRecordType {
 
     ANAMNESIS("ANAMNESIS"),
-    CONDITION("CONDTION"),
+    CONDITION("CONDITION"),
     CHARGEITEM("CHARGE"),
     FINDING("FINDING"),
     THERAPY("THERAPY"),
