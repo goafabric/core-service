@@ -1,4 +1,4 @@
-package org.goafabric.core.mrc.repository.extensions;
+package org.goafabric.core.mrc.repository;
 
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.mrc.controller.vo.Encounter;

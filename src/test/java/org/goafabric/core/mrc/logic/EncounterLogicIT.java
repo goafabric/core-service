@@ -1,7 +1,7 @@
 package org.goafabric.core.mrc.logic;
 
 import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.mrc.repository.extensions.EncounterImporter;
+import org.goafabric.core.mrc.repository.EncounterImporter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
