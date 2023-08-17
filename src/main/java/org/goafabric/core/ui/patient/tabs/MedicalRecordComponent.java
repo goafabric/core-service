@@ -12,7 +12,7 @@ import org.goafabric.core.data.repository.entity.PatientNamesOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 import org.goafabric.core.mrc.logic.EncounterLogic;
-import org.goafabric.core.mrc.repository.MedicalRecordRepository;
+import org.goafabric.core.mrc.logic.MedicalRecordLogic;
 import org.goafabric.core.ui.adapter.ChargeItemAdapter;
 import org.goafabric.core.ui.adapter.ConditionAdapter;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
@@ -29,15 +29,15 @@ public class MedicalRecordComponent {
     private final ConditionAdapter conditionAdapter;
     private final ChargeItemAdapter chargeItemAdapter;
 
-    private final MedicalRecordRepository medicalRecordRepository;
+    private final MedicalRecordLogic medicalRecordLogic;
 
     private MedicalRecordDetailsView medicalRecordDetailsView = null;
 
-    public MedicalRecordComponent(EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MedicalRecordRepository medicalRecordRepository) {
+    public MedicalRecordComponent(EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MedicalRecordLogic medicalRecordRepository) {
         this.encounterLogic = encounterLogic;
         this.conditionAdapter = conditionAdapter;
         this.chargeItemAdapter = chargeItemAdapter;
-        this.medicalRecordRepository = medicalRecordRepository;
+        this.medicalRecordLogic = medicalRecordRepository;
     }
 
 
@@ -88,8 +88,7 @@ public class MedicalRecordComponent {
     }
 
     private void showRecordDetails(String id) {
-        var record = medicalRecordRepository.findById(id).get();
-        System.out.println(record.display);
+        var record = medicalRecordLogic.getById(id);
         medicalRecordDetailsView = new MedicalRecordDetailsView(record);
         //medicalRecordDetailsView.setWidth("500px");
         medicalRecordDetailsView.open();
