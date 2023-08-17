@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.IntStream;
 
-import static org.goafabric.core.data.repository.extensions.DatabaseProvisioning.*;
+import static org.goafabric.core.data.repository.extensions.DemoDataImporter.*;
 
 @Component
 public class EncounterImporter implements CommandLineRunner {
