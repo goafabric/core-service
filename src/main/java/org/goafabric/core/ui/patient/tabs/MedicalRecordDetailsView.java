@@ -1,16 +1,19 @@
 package org.goafabric.core.ui.patient.tabs;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import org.goafabric.core.mrc.controller.vo.MedicalRecord;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 import org.goafabric.core.mrc.logic.BodyMetricsLogic;
+import org.goafabric.core.mrc.logic.MedicalRecordLogic;
 import org.h2.util.StringUtils;
 import org.springframework.context.ApplicationContext;
 
 public class MedicalRecordDetailsView extends Dialog {
     private final ApplicationContext applicationContext;
+    private final TextField displayTextField = new TextField();
 
     public MedicalRecordDetailsView(MedicalRecord medicalRecord, ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
@@ -23,8 +26,27 @@ public class MedicalRecordDetailsView extends Dialog {
             addBodyMetric(medicalRecord, layout);
         }  else {
             addGenericType(medicalRecord, layout);
+            addSaveButton(medicalRecord, layout);
         }
 
+        addCancelButton(layout);
+    }
+
+    private void addCancelButton(VerticalLayout layout) {
+        var buttonCancel = new Button("Cancel");
+        buttonCancel.addClickListener(event -> this.close());
+        layout.add(buttonCancel);
+    }
+
+    private void addSaveButton(MedicalRecord medicalRecord, VerticalLayout layout) {
+        var buttonSave = new Button("Save");
+
+        buttonSave.addClickListener(event -> {
+                var changedRecord = new MedicalRecord(medicalRecord.id(), medicalRecord.type(), displayTextField.getValue(), medicalRecord.code(), medicalRecord.relation());
+                applicationContext.getBean(MedicalRecordLogic.class).save(changedRecord);
+                this.close();
+        });
+        layout.add(buttonSave);
     }
 
     private void addBodyMetric(MedicalRecord medicalRecord, VerticalLayout layout) {
@@ -35,10 +57,10 @@ public class MedicalRecordDetailsView extends Dialog {
         layout.add(new TextField("Body Fat", bodyMetrics.bodyFat()));
     }
 
-    private static void addGenericType(MedicalRecord medicalRecord, VerticalLayout layout) {
-        var display = new TextField("Display", medicalRecord.display());
-        display.setWidth("500px");
-        layout.add(display);
+    private void addGenericType(MedicalRecord medicalRecord, VerticalLayout layout) {
+        displayTextField.setValue(medicalRecord.display());
+        displayTextField.setWidth("500px");
+        layout.add(displayTextField);
 
         if (!StringUtils.isNullOrEmpty(medicalRecord.code())) {
             layout.add(new TextField("Code", medicalRecord.code()));
