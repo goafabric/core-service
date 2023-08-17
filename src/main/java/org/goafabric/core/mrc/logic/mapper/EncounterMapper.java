@@ -1,4 +1,4 @@
-package org.goafabric.core.mrc.logic;
+package org.goafabric.core.mrc.logic.mapper;
 
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.repository.entity.EncounterEo;

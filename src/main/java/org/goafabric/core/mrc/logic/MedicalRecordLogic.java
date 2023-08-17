@@ -2,6 +2,7 @@ package org.goafabric.core.mrc.logic;
 
 import jakarta.transaction.Transactional;
 import org.goafabric.core.mrc.controller.vo.MedicalRecord;
+import org.goafabric.core.mrc.logic.mapper.MedicalRecordMapper;
 import org.goafabric.core.mrc.repository.MedicalRecordRepository;
 import org.springframework.stereotype.Component;
 

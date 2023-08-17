@@ -5,7 +5,6 @@ import org.hibernate.annotations.TenantId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -30,14 +29,7 @@ public class EncounterEo {
     @JoinColumn(name = "encounter_id")
     public List<MedicalRecordEo> medicalRecords;
 
-    public EncounterEo() {
-    }
+    @Version //optimistic locking
+    public Long version;
 
-    public EncounterEo(String id, String patientId, LocalDate encounterDate, String encounterName, List<MedicalRecordEo> medicalRecords) {
-        this.id = id;
-        this.patientId = patientId;
-        this.encounterDate = encounterDate;
-        this.encounterName = encounterName;
-        this.medicalRecords = Collections.unmodifiableList(medicalRecords);
-    }
 }

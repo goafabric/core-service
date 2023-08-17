@@ -2,6 +2,7 @@ package org.goafabric.core.mrc.logic;
 
 import jakarta.transaction.Transactional;
 import org.goafabric.core.mrc.controller.vo.Encounter;
+import org.goafabric.core.mrc.logic.mapper.EncounterMapper;
 import org.goafabric.core.mrc.repository.EncounterRepository;
 import org.springframework.stereotype.Component;
 
