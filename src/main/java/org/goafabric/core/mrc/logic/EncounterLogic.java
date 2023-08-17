@@ -11,22 +11,22 @@ import java.util.List;
 @Transactional
 public class EncounterLogic {
 
-    private final EncounterMapper encounterMapper;
+    private final EncounterMapper mapper;
 
-    private final EncounterRepository encounterRepository;
+    private final EncounterRepository repository;
 
     public EncounterLogic(EncounterMapper encounterMapper, EncounterRepository encounterRepository) {
-        this.encounterMapper = encounterMapper;
-        this.encounterRepository = encounterRepository;;
+        this.mapper = encounterMapper;
+        this.repository = encounterRepository;;
     }
 
     public void save(Encounter encounter) {
-        encounterRepository.save(encounterMapper.map(encounter));
+        repository.save(mapper.map(encounter));
     }
 
-    public List<Encounter> findByPatientIdAndText(String patientId, String text) {
-        return encounterMapper.map(
-                encounterRepository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text));
+    public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
+        return mapper.map(
+                repository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text));
     }
 
 }

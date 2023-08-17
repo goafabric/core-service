@@ -33,7 +33,7 @@ class EncounterLogicIT {
         long currentTime = System.currentTimeMillis();
 
         var patient = patientLogic.findByGivenName("Monty").get(0);
-        var encounters = encounterLogic.findByPatientIdAndText(patient.id(), "eat");
+        var encounters = encounterLogic.findByPatientIdAndDisplay(patient.id(), "eat");
 
         System.out.println("search took: "  + (System.currentTimeMillis() -currentTime));
 

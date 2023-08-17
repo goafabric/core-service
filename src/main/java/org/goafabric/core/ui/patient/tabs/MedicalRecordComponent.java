@@ -46,7 +46,7 @@ public class MedicalRecordComponent {
             long start = System.currentTimeMillis();
 
             var patientId = patients.get(0).getId();
-            var encounters = encounterLogic.findByPatientIdAndText(patientId, display);
+            var encounters = encounterLogic.findByPatientIdAndDisplay(patientId, display);
 
             if (recordType != null) {
                 encounters = filterRecordsInMemory(recordType, encounters);
