@@ -7,12 +7,13 @@ import org.goafabric.core.mrc.controller.vo.MedicalRecord;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 import org.goafabric.core.mrc.logic.BodyMetricsLogic;
 import org.h2.util.StringUtils;
+import org.springframework.context.ApplicationContext;
 
 public class MedicalRecordDetailsView extends Dialog {
-    private final BodyMetricsLogic bodyMetricsLogic;
+    private final ApplicationContext applicationContext;
 
-    public MedicalRecordDetailsView(MedicalRecord medicalRecord, BodyMetricsLogic bodyMetricsLogic) {
-        this.bodyMetricsLogic = bodyMetricsLogic;
+    public MedicalRecordDetailsView(MedicalRecord medicalRecord, ApplicationContext applicationContext) {
+        this.applicationContext = applicationContext;
         this.setHeaderTitle(medicalRecord.type().getValue());
 
         var layout = new VerticalLayout();
@@ -27,7 +28,7 @@ public class MedicalRecordDetailsView extends Dialog {
     }
 
     private void addBodyMetric(MedicalRecord medicalRecord, VerticalLayout layout) {
-        var bodyMetrics = bodyMetricsLogic.getById(medicalRecord.relation());
+        var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).getById(medicalRecord.relation());
         layout.add(new TextField("Body Height", bodyMetrics.bodyHeight()));
         layout.add(new TextField("Belly Circumference ", bodyMetrics.bellyCircumference()));
         layout.add(new TextField("Head Circumference", bodyMetrics.headCircumference()));

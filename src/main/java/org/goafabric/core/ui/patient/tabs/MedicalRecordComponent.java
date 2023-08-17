@@ -11,13 +11,13 @@ import com.vaadin.flow.data.provider.CallbackDataProvider;
 import org.goafabric.core.data.repository.entity.PatientNamesOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
-import org.goafabric.core.mrc.logic.BodyMetricsLogic;
 import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.mrc.logic.MedicalRecordLogic;
 import org.goafabric.core.ui.adapter.ChargeItemAdapter;
 import org.goafabric.core.ui.adapter.ConditionAdapter;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
 import org.goafabric.core.ui.adapter.vo.Condition;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -34,14 +34,14 @@ public class MedicalRecordComponent {
 
     private MedicalRecordDetailsView medicalRecordDetailsView = null;
 
-    private final BodyMetricsLogic bodyMetricsLogic;
+    private final ApplicationContext applicationContext;
 
-    public MedicalRecordComponent(EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MedicalRecordLogic medicalRecordRepository, BodyMetricsLogic bodyMetricsLogic) {
+    public MedicalRecordComponent(EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MedicalRecordLogic medicalRecordRepository, ApplicationContext applicationContext) {
         this.encounterLogic = encounterLogic;
         this.conditionAdapter = conditionAdapter;
         this.chargeItemAdapter = chargeItemAdapter;
         this.medicalRecordLogic = medicalRecordRepository;
-        this.bodyMetricsLogic = bodyMetricsLogic;
+        this.applicationContext = applicationContext;
     }
 
 
@@ -93,7 +93,7 @@ public class MedicalRecordComponent {
 
     private void showRecordDetails(String id) {
         var record = medicalRecordLogic.getById(id);
-        medicalRecordDetailsView = new MedicalRecordDetailsView(record, bodyMetricsLogic);
+        medicalRecordDetailsView = new MedicalRecordDetailsView(record, applicationContext);
         //medicalRecordDetailsView.setWidth("500px");
         medicalRecordDetailsView.open();
     }

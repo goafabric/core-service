@@ -5,13 +5,13 @@
 go to /src/deploy/docker and do "./stack up" or "./stack up -native"
 
 # run jvm multi image
-docker run --pull always --name core-service --rm -p50800:50800 goafabric/core-service:1.0.4-vaadin-fixed-SNAPSHOT
+docker run --pull always --name core-service --rm -p50800:50800 goafabric/core-service:1.0.4-vaadin-SNAPSHOT
 
 # run native image
-docker run --pull always --name core-service-native --rm -p50800:50800 goafabric/core-service-native:1.0.4-vaadin-fixed-SNAPSHOT -Xmx64m
+docker run --pull always --name core-service-native --rm -p50800:50800 goafabric/core-service-native:1.0.4-vaadin-SNAPSHOT -Xmx64m
 
 # run native image arm
-docker run --pull always --name core-service-native --rm -p50800:50800 goafabric/core-service-native-arm64v8:1.0.4-vaadin-fixed-SNAPSHOT -Xmx64m
+docker run --pull always --name core-service-native --rm -p50800:50800 goafabric/core-service-native-arm64v8:1.0.4-vaadin-SNAPSHOT -Xmx64m
                              
 # auth-server 
 docker run --name auth-server --rm -p30200:30200 goafabric/spring-auth-server-native:1.0.2 -Xmx32m
