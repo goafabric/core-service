@@ -2,10 +2,12 @@ package org.goafabric.core.ui;
 
 import com.vaadin.flow.component.ClickEvent;
 import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -17,8 +19,8 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.data.repository.extensions.TenantResolver;
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.ui.appointments.AppointmentView;
 import org.goafabric.core.ui.catalogs.CatalogView;
 import org.goafabric.core.ui.files.FilesView;
@@ -78,7 +80,7 @@ public class MainView extends AppLayout {
 
     private Button createHomeButton() {
         var button = new Button(VaadinIcon.HOME.create());
-        button.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> getUI().get().getPage().setLocation("/"));
+        button.addClickListener((ComponentEventListener<ClickEvent<Button>>) event -> getUI().get().getPage().setLocation("./"));
         return button;
     }
 
@@ -95,7 +97,13 @@ public class MainView extends AppLayout {
         public SubView() {
             setSizeFull();
             this.setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-            //this.add(new Image("/images/logo.png", ""));
+            if (HttpInterceptor.getTenantId().equals("0")) {
+                this.add(new Text("Hibbert's Hospital"));
+                this.add(new Image("./images/hibbert.jpg", ""));
+            } else {
+                this.add(new Text("Zoidberg's Practice"));
+                this.add(new Image("./images/zoidberg.jpg", ""));
+            }
         }
     }
 }
