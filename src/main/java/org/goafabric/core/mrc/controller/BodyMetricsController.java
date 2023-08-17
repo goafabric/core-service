@@ -22,8 +22,8 @@ public class BodyMetricsController {
 
 
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void save(@RequestBody @Valid BodyMetrics bodyMetrics) {
-        logic.save(bodyMetrics);
+    public BodyMetrics save(@RequestBody @Valid BodyMetrics bodyMetrics) {
+        return logic.save(bodyMetrics);
     }
 
 }
