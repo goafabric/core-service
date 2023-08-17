@@ -26,8 +26,7 @@ public class InsuranceAdapter {
     public List<Insurance> findByDisplay(String search) {
         try {
             return restTemplate.exchange(uri + "/insurances/findByDisplay?display={display}", HttpMethod.GET, null,
-                    new ParameterizedTypeReference<List<Insurance>>() {
-                    }, search).getBody();
+                    new ParameterizedTypeReference<List<Insurance>>() {}, search).getBody();
         } catch (Exception e) {
             log.warn("exception during rest: " + e.getMessage());
             return new ArrayList<>();

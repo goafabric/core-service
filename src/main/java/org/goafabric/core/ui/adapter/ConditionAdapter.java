@@ -26,8 +26,7 @@ public class ConditionAdapter {
     public List<Condition> findByDisplay(String search) {
         try {
             return restTemplate.exchange(uri + "/diagnosis/findByDisplay?display={display}", HttpMethod.GET, null,
-                    new ParameterizedTypeReference<List<Condition>>() {
-                    }, search).getBody();
+                    new ParameterizedTypeReference<List<Condition>>() {}, search).getBody();
         } catch (Exception e) {
             log.warn("exception during rest: " + e.getMessage());
             return new ArrayList<>();

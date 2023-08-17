@@ -26,8 +26,7 @@ public class ChargeItemAdapter {
     public List<ChargeItem> findByDisplay(String search) {
         try {
             return restTemplate.exchange(uri + "/chargeitems/findByDisplay?display={display}", HttpMethod.GET, null,
-                    new ParameterizedTypeReference<List<ChargeItem>>() {
-                    }, search).getBody();
+                    new ParameterizedTypeReference<List<ChargeItem>>() {}, search).getBody();
         } catch (Exception e) {
             log.warn("exception during rest: " + e.getMessage());
             return new ArrayList<>();
