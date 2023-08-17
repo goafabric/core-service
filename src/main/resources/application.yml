@@ -69,8 +69,6 @@ logging.level.org.springframework: "INFO"
 logging.level.org.goafabric: "INFO"
 logging.level.org.flywaydb.core: "INFO"
 logging.level.org.hibernate.SQL: "INFO"
-logging.level.org.hibernate.stat: "INFO"
-spring.jpa.properties.hibernate.generate_statistics: "false"
 logging.level.org.springframework.data.mongodb: "DEBUG"
 
 #vaadin
