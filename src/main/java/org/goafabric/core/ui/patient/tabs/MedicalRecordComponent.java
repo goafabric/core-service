@@ -11,6 +11,7 @@ import com.vaadin.flow.data.provider.CallbackDataProvider;
 import org.goafabric.core.data.repository.entity.PatientNamesOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
+import org.goafabric.core.mrc.logic.BodyMetricsLogic;
 import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.mrc.logic.MedicalRecordLogic;
 import org.goafabric.core.ui.adapter.ChargeItemAdapter;
@@ -33,11 +34,14 @@ public class MedicalRecordComponent {
 
     private MedicalRecordDetailsView medicalRecordDetailsView = null;
 
-    public MedicalRecordComponent(EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MedicalRecordLogic medicalRecordRepository) {
+    private final BodyMetricsLogic bodyMetricsLogic;
+
+    public MedicalRecordComponent(EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MedicalRecordLogic medicalRecordRepository, BodyMetricsLogic bodyMetricsLogic) {
         this.encounterLogic = encounterLogic;
         this.conditionAdapter = conditionAdapter;
         this.chargeItemAdapter = chargeItemAdapter;
         this.medicalRecordLogic = medicalRecordRepository;
+        this.bodyMetricsLogic = bodyMetricsLogic;
     }
 
 
@@ -89,7 +93,7 @@ public class MedicalRecordComponent {
 
     private void showRecordDetails(String id) {
         var record = medicalRecordLogic.getById(id);
-        medicalRecordDetailsView = new MedicalRecordDetailsView(record);
+        medicalRecordDetailsView = new MedicalRecordDetailsView(record, bodyMetricsLogic);
         //medicalRecordDetailsView.setWidth("500px");
         medicalRecordDetailsView.open();
     }

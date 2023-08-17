@@ -5,7 +5,7 @@ public record MedicalRecord (
         MedicalRecordType type,
         String display,
         String code,
-        String relations) {
+        String relation) {
     public MedicalRecord(MedicalRecordType type, String display, String code) {
         this(null, type, display, code, null);
     }

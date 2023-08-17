@@ -23,7 +23,9 @@ public class MedicalRecordLogic {
         return mapper.map(repository.findById(id).get());
     }
 
-    public void save(MedicalRecord medicalRecord) {
-        repository.save(mapper.map(medicalRecord));
+    public MedicalRecord save(MedicalRecord medicalRecord) {
+        return mapper.map(
+            repository.save(mapper.map(medicalRecord))
+        );
     }
 }

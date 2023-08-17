@@ -7,6 +7,7 @@ import org.goafabric.core.mrc.controller.vo.BodyMetrics;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.controller.vo.MedicalRecord;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
+import org.goafabric.core.mrc.logic.BodyMetricsLogic;
 import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,11 +91,12 @@ public class EncounterImporter implements CommandLineRunner {
                         createContactPoint("555-520")));
 
 
-        var bodyMetrics = new BodyMetrics("170 cm", "100 cm", "30 cm", "30 %");
+        var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).save(
+                new BodyMetrics(null, "170 cm", "100 cm", "30 cm", "30 %"));
 
         var medicalRecords = Arrays.asList(
                 new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", ""),
-                new MedicalRecord(null, MedicalRecordType.BODY_METRICS, bodyMetrics.toString(), "", writeObject(bodyMetrics)),
+                new MedicalRecord(null, MedicalRecordType.BODY_METRICS, bodyMetrics.toString(), "", bodyMetrics.id()),
                 new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", ""),
                 new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none"),
                 new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", ""),

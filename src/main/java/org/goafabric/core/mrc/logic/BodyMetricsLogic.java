@@ -23,7 +23,9 @@ public class BodyMetricsLogic {
         return mapper.map(repository.findById(id).get());
     }
 
-    public void save(BodyMetrics BodyMetrics) {
-        repository.save(mapper.map(BodyMetrics));
+    public BodyMetrics save(BodyMetrics bodyMetrics) {
+        return mapper.map(
+                repository.save(mapper.map(bodyMetrics))
+        );
     }
 }

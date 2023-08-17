@@ -25,7 +25,21 @@ create table medical_record
     type varchar(255) not null,
 	display varchar(255),
 	code varchar(255),
-	relations varchar(5000),
+	relation varchar(36),
+
+    version bigint default 0
+);
+
+create table body_metrics
+(
+	id varchar(36) not null
+		constraint pk_body_metrics
+			primary key,
+
+    body_height varchar(255),
+    belly_circumference varchar(255),
+    head_circumference varchar(255),
+    body_fat varchar(255),
 
     version bigint default 0
 );
