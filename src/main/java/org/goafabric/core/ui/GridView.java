@@ -1,5 +1,7 @@
 package org.goafabric.core.ui;
 
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -15,6 +17,7 @@ public abstract class GridView<T> extends VerticalLayout {
         this.grid = grid;
         this.logic = logic;
         createView();
+        this.addAttachListener((ComponentEventListener<AttachEvent>) event -> updateList());
     }
 
     private void createView() {
@@ -22,8 +25,6 @@ public abstract class GridView<T> extends VerticalLayout {
 
         addFilterText();
         addGrid();
-
-        updateList();
     }
 
     private void addFilterText() {
