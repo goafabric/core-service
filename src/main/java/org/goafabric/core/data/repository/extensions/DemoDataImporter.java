@@ -30,8 +30,8 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 @Component
-@ImportRuntimeHints(DatabaseProvisioning.DbRuntimeHints.class)
-public class DatabaseProvisioning implements CommandLineRunner {
+@ImportRuntimeHints(DemoDataImporter.DbRuntimeHints.class)
+public class DemoDataImporter implements CommandLineRunner {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final String goals;
@@ -42,8 +42,8 @@ public class DatabaseProvisioning implements CommandLineRunner {
 
     private final ApplicationContext applicationContext;
 
-    public DatabaseProvisioning(@Value("${database.provisioning.goals:}")String goals, @Value("${demo-data.size}") Integer demoDataSize, @Value("${multi-tenancy.tenants}") String tenants,
-                                ApplicationContext applicationContext) {
+    public DemoDataImporter(@Value("${database.provisioning.goals:}")String goals, @Value("${demo-data.size}") Integer demoDataSize, @Value("${multi-tenancy.tenants}") String tenants,
+                            ApplicationContext applicationContext) {
         this.goals = goals;
         this.demoDataSize = demoDataSize;
         this.tenants = tenants;

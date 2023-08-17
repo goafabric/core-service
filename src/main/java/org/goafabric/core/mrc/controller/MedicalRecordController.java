@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/medicalrecords", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
-public class MedicalRecordConroller {
+public class MedicalRecordController {
     private final MedicalRecordLogic logic;
 
-    public MedicalRecordConroller(MedicalRecordLogic logic) {
+    public MedicalRecordController(MedicalRecordLogic logic) {
         this.logic = logic;
     }
 
@@ -22,8 +22,8 @@ public class MedicalRecordConroller {
 
 
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void save(@RequestBody @Valid MedicalRecord medicalRecord) {
-        logic.save(medicalRecord);
+    public MedicalRecord save(@RequestBody @Valid MedicalRecord medicalRecord) {
+        return logic.save(medicalRecord);
     }
 
 }
