@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.configuration.audittrail;
+package org.goafabric.core.ui.extension.audittrail;
 
 import org.goafabric.core.ui.adapter.SearchAdapter;
 import org.springframework.stereotype.Component;

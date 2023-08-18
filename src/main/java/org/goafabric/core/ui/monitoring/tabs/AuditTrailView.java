@@ -4,7 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.adapter.SearchAdapter;
-import org.goafabric.core.ui.configuration.audittrail.AuditEvent;
+import org.goafabric.core.ui.extension.audittrail.AuditEvent;
 
 @PageTitle("Patient")
 public class AuditTrailView extends GridView<AuditEvent> {
