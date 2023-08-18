@@ -91,6 +91,7 @@ public class EncounterImporter implements CommandLineRunner {
                         createContactPoint("555-520")));
 
 
+        //TODO: we currently need to manually synchronize body metrics data and display and record , should be one save that takes care of both
         var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).save(
                 new BodyMetrics(null, "170 cm", "100 cm", "30 cm", "30 %"));
 
