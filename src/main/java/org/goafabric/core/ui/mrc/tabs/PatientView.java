@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.patient.tabs;
+package org.goafabric.core.ui.mrc.tabs;
 
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;

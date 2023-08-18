@@ -25,7 +25,7 @@ import org.goafabric.core.ui.appointments.AppointmentView;
 import org.goafabric.core.ui.catalogs.CatalogView;
 import org.goafabric.core.ui.files.FilesView;
 import org.goafabric.core.ui.monitoring.MonitoringView;
-import org.goafabric.core.ui.patient.PatientMainView;
+import org.goafabric.core.ui.mrc.PatientMainView;
 import org.goafabric.core.ui.practice.PracticeView;
 import org.springframework.beans.factory.annotation.Value;
 

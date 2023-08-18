@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.patient;
+package org.goafabric.core.ui.mrc;
 
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.TabSheet;
@@ -7,9 +7,9 @@ import com.vaadin.flow.router.Route;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.mrc.logic.EncounterLogic;
 import org.goafabric.core.ui.MainView;
-import org.goafabric.core.ui.patient.tabs.MedicalRecordComponent;
-import org.goafabric.core.ui.patient.tabs.MedicalRecordView;
-import org.goafabric.core.ui.patient.tabs.PatientView;
+import org.goafabric.core.ui.mrc.tabs.MedicalRecordComponent;
+import org.goafabric.core.ui.mrc.tabs.MedicalRecordView;
+import org.goafabric.core.ui.mrc.tabs.PatientView;
 
 
 @Route(value = "patient", layout = MainView.class)
