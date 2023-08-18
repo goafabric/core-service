@@ -11,10 +11,10 @@ import com.vaadin.flow.data.provider.CallbackDataProvider;
 import org.goafabric.core.data.repository.entity.PatientNamesOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
-import org.goafabric.core.mrc.logic.EncounterLogic;
-import org.goafabric.core.mrc.logic.MedicalRecordLogic;
 import org.goafabric.core.ui.adapter.ChargeItemAdapter;
 import org.goafabric.core.ui.adapter.ConditionAdapter;
+import org.goafabric.core.ui.adapter.EncounterAdapter;
+import org.goafabric.core.ui.adapter.MedicalRecordAdapter;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
 import org.goafabric.core.ui.adapter.vo.Condition;
 import org.springframework.context.ApplicationContext;
@@ -26,24 +26,24 @@ import java.util.List;
 @Component
 public class MedicalRecordComponent {
 
-    private final EncounterLogic encounterLogic;
+    private final EncounterAdapter encounterLogic;
+    private final MedicalRecordAdapter medicalRecordLogic;
+
     private final ConditionAdapter conditionAdapter;
     private final ChargeItemAdapter chargeItemAdapter;
 
-    private final MedicalRecordLogic medicalRecordLogic;
 
     private MedicalRecordDetailsView medicalRecordDetailsView = null;
 
     private final ApplicationContext applicationContext;
 
-    public MedicalRecordComponent(EncounterLogic encounterLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, MedicalRecordLogic medicalRecordRepository, ApplicationContext applicationContext) {
+    public MedicalRecordComponent(EncounterAdapter encounterLogic, MedicalRecordAdapter medicalRecordLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, ApplicationContext applicationContext) {
         this.encounterLogic = encounterLogic;
+        this.medicalRecordLogic = medicalRecordLogic;
         this.conditionAdapter = conditionAdapter;
         this.chargeItemAdapter = chargeItemAdapter;
-        this.medicalRecordLogic = medicalRecordRepository;
         this.applicationContext = applicationContext;
     }
-
 
     public void processEncounters(VerticalLayout encounterLayout, List<PatientNamesOnly> patients, String display, MedicalRecordType recordType) {
         if (!patients.isEmpty()) {

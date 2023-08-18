@@ -16,13 +16,13 @@ import org.goafabric.core.ui.mrc.tabs.PatientView;
 public class MRCMainView extends VerticalLayout {
 
     public MRCMainView(
-            PatientAdapter patientAdapter, MedicalRecordComponent encounterComponent) {
+            PatientAdapter patientAdapter, MedicalRecordComponent medicalRecordComponent) {
         this.setSizeFull();
 
         TabSheet tabSheet = new TabSheet();
         tabSheet.setSizeFull();
 
-        tabSheet.add("MRC", new MedicalRecordView(patientAdapter, encounterComponent));
+        tabSheet.add("MRC", new MedicalRecordView(patientAdapter, medicalRecordComponent));
         tabSheet.add("Patient", new PatientView(patientAdapter));
 
         add(tabSheet);
