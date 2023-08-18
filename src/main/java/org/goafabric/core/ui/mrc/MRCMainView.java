@@ -14,9 +14,9 @@ import org.goafabric.core.ui.mrc.tabs.PatientView;
 
 @Route(value = "patient", layout = MainView.class)
 @PageTitle("Patient")
-public class PatientMainView extends VerticalLayout {
+public class MRCMainView extends VerticalLayout {
 
-    public PatientMainView(
+    public MRCMainView(
             PatientLogic patientLogic, EncounterLogic encounterLogic, MedicalRecordComponent encounterComponent) {
         this.setSizeFull();
 
