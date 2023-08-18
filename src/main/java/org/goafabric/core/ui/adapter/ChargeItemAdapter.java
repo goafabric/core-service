@@ -1,6 +1,6 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.ui.SearchLogic;
+import org.goafabric.core.ui.SearchAdapter;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Component
 @RegisterReflectionForBinding(ChargeItem.class)
-public class ChargeItemAdapter implements SearchLogic<ChargeItem> {
+public class ChargeItemAdapter implements SearchAdapter<ChargeItem> {
     @Autowired private RestTemplate restTemplate;
 
     @Value("${frontend.catalog-service.uri}") private String uri;

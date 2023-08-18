@@ -1,6 +1,6 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.ui.SearchLogic;
+import org.goafabric.core.ui.SearchAdapter;
 import org.goafabric.core.ui.adapter.vo.Condition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Component
 @RegisterReflectionForBinding(Condition.class)
-public class ConditionAdapter implements SearchLogic<Condition> {
+public class ConditionAdapter implements SearchAdapter<Condition> {
     @Autowired private RestTemplate restTemplate;
 
     @Value("${frontend.catalog-service.uri}") private String uri;

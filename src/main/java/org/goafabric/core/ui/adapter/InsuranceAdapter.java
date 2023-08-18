@@ -1,6 +1,6 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.ui.SearchLogic;
+import org.goafabric.core.ui.SearchAdapter;
 import org.goafabric.core.ui.adapter.vo.Insurance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import java.util.List;
 
 @Component
 @RegisterReflectionForBinding(Insurance.class)
-public class InsuranceAdapter implements SearchLogic<Insurance> {
+public class InsuranceAdapter implements SearchAdapter<Insurance> {
     @Autowired private RestTemplate restTemplate;
 
     @Value("${frontend.catalog-service.uri}") private String uri;

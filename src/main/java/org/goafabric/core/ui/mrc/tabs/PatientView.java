@@ -4,12 +4,12 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.data.controller.vo.Patient;
 import org.goafabric.core.ui.GridView;
-import org.goafabric.core.ui.SearchLogic;
+import org.goafabric.core.ui.SearchAdapter;
 
 @PageTitle("Patient")
 public class PatientView extends GridView<Patient> {
 
-    public PatientView(SearchLogic<Patient> logic) {
+    public PatientView(SearchAdapter<Patient> logic) {
         super(new Grid<>(Patient.class), logic);
     }
 

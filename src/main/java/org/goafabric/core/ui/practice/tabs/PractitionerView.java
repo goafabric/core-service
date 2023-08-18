@@ -4,12 +4,12 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.data.controller.vo.Practitioner;
 import org.goafabric.core.ui.GridView;
-import org.goafabric.core.ui.SearchLogic;
+import org.goafabric.core.ui.SearchAdapter;
 
 @PageTitle("Practitioner")
 public class PractitionerView extends GridView<Practitioner> {
 
-    public PractitionerView(SearchLogic<Practitioner> logic) {
+    public PractitionerView(SearchAdapter<Practitioner> logic) {
         super(new Grid<>(Practitioner.class), logic);
     }
 

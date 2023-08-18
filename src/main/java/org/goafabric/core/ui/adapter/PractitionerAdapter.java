@@ -2,13 +2,13 @@ package org.goafabric.core.ui.adapter;
 
 import org.goafabric.core.data.controller.vo.Practitioner;
 import org.goafabric.core.data.logic.PractitionerLogic;
-import org.goafabric.core.ui.SearchLogic;
+import org.goafabric.core.ui.SearchAdapter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class PractitionerAdapter implements SearchLogic<Practitioner> {
+public class PractitionerAdapter implements SearchAdapter<Practitioner> {
     private final PractitionerLogic practitionerLogic;
 
     public PractitionerAdapter(PractitionerLogic practitionerLogic) {

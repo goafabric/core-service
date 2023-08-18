@@ -7,14 +7,14 @@ import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import org.goafabric.core.data.controller.vo.ObjectEntry;
 import org.goafabric.core.data.logic.ObjectStorageLogic;
 import org.goafabric.core.ui.GridView;
-import org.goafabric.core.ui.SearchLogic;
+import org.goafabric.core.ui.SearchAdapter;
 
 import java.io.IOException;
 
 public class ArchiveView extends GridView<ObjectEntry> {
     private final ObjectStorageLogic objectStorageLogic;
 
-    public ArchiveView(SearchLogic<ObjectEntry> logic, ObjectStorageLogic objectStorageLogic) {
+    public ArchiveView(SearchAdapter<ObjectEntry> logic, ObjectStorageLogic objectStorageLogic) {
         super(new Grid<>(ObjectEntry.class), logic);
         this.objectStorageLogic = objectStorageLogic;
 

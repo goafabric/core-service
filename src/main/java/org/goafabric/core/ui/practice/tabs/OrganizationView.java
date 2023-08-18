@@ -4,12 +4,12 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.data.controller.vo.Organization;
 import org.goafabric.core.ui.GridView;
-import org.goafabric.core.ui.SearchLogic;
+import org.goafabric.core.ui.SearchAdapter;
 
 @PageTitle("Organization")
 public class OrganizationView extends GridView<Organization> {
 
-    public OrganizationView(SearchLogic<Organization> logic) {
+    public OrganizationView(SearchAdapter<Organization> logic) {
         super(new Grid<>(Organization.class), logic);
     }
 

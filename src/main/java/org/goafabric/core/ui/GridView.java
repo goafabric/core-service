@@ -11,9 +11,9 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 public abstract class GridView<T> extends VerticalLayout {
     private final Grid<T> grid;
     private final TextField filterText = new TextField("", "search ...");
-    private final SearchLogic<T> logic;
+    private final SearchAdapter<T> logic;
 
-    public GridView(Grid<T> grid, SearchLogic<T> logic) {
+    public GridView(Grid<T> grid, SearchAdapter<T> logic) {
         this.grid = grid;
         this.logic = logic;
         createView();
@@ -50,7 +50,7 @@ public abstract class GridView<T> extends VerticalLayout {
         Notification.show("Search took " + (System.currentTimeMillis() -start) + " ms");
     }
 
-    protected SearchLogic<T> getLogic() {
+    protected SearchAdapter<T> getLogic() {
         return logic;
     }
 
