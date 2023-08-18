@@ -2,7 +2,6 @@ package org.goafabric.core.ui.adapter;
 
 import org.goafabric.core.data.controller.vo.ObjectEntry;
 import org.goafabric.core.data.logic.ObjectStorageLogic;
-import org.goafabric.core.ui.SearchAdapter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -30,7 +29,9 @@ public class ObjectStorageAdapter implements SearchAdapter<ObjectEntry> {
         if (objectStorageLogic != null) {
             objectStorageLogic.create(objectEntry);
         } else {
-            objectEntriesInMem.add(objectEntry);
+            if (search(objectEntry.objectName()).isEmpty()) {
+                objectEntriesInMem.add(objectEntry);
+            }
         }
     }
 }

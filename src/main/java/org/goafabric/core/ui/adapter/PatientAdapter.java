@@ -3,7 +3,6 @@ package org.goafabric.core.ui.adapter;
 import org.goafabric.core.data.controller.vo.Patient;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.repository.entity.PatientNamesOnly;
-import org.goafabric.core.ui.SearchAdapter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

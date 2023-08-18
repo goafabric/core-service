@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.auto;
+package org.goafabric.core.ui.configuration.auto;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;

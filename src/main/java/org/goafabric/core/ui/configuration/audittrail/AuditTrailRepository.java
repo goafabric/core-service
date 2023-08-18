@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.audittrail;
+package org.goafabric.core.ui.configuration.audittrail;
 
 import org.springframework.data.repository.CrudRepository;
 

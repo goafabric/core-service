@@ -1,4 +1,4 @@
-package org.goafabric.core.ui;
+package org.goafabric.core.ui.adapter;
 
 import java.util.List;
 

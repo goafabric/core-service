@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.audittrail;
+package org.goafabric.core.ui.configuration.audittrail;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.TenantId;

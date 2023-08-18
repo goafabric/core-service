@@ -1,6 +1,6 @@
-package org.goafabric.core.ui.audittrail;
+package org.goafabric.core.ui.configuration.audittrail;
 
-import org.goafabric.core.ui.SearchAdapter;
+import org.goafabric.core.ui.adapter.SearchAdapter;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

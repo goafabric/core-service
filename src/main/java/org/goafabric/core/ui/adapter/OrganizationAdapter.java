@@ -2,7 +2,6 @@ package org.goafabric.core.ui.adapter;
 
 import org.goafabric.core.data.controller.vo.Organization;
 import org.goafabric.core.data.logic.OrganizationLogic;
-import org.goafabric.core.ui.SearchAdapter;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

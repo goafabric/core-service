@@ -5,7 +5,7 @@ import com.vaadin.flow.component.tabs.TabSheet;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.goafabric.core.ui.MainView;
-import org.goafabric.core.ui.audittrail.AuditTrailLogic;
+import org.goafabric.core.ui.configuration.audittrail.AuditTrailLogic;
 import org.goafabric.core.ui.monitoring.tabs.AuditTrailView;
 import org.goafabric.core.ui.monitoring.tabs.LokiView;
 import org.goafabric.core.ui.monitoring.tabs.S3View;
@@ -21,7 +21,7 @@ public class MonitoringView extends VerticalLayout {
                           @Value("${monitoring.view.tracing.url}") String monitoringViewTracingUrl,
                           @Value("${monitoring.view.loki.url}") String monitoringViewLokiUrl,
                           @Value("${monitoring.view.s3.url}") String monitoringViewS3Url,
-                          AuditTrailLogic auditTrailLogic
+                          AuditTrailLogic auditTrailAdapter
                           ) {
         this.setSizeFull();
 
@@ -32,7 +32,7 @@ public class MonitoringView extends VerticalLayout {
         tabSheet.add("Loki", new LokiView(monitoringViewLokiUrl));
         tabSheet.add("S3", new S3View(monitoringViewS3Url));
 
-        tabSheet.add("Audit", new AuditTrailView(auditTrailLogic));
+        tabSheet.add("Audit", new AuditTrailView(auditTrailAdapter));
         add(tabSheet);
     }
 }

@@ -7,6 +7,7 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import org.goafabric.core.ui.adapter.SearchAdapter;
 
 public abstract class GridView<T> extends VerticalLayout {
     private final Grid<T> grid;

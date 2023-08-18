@@ -1,6 +1,6 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.ui.audittrail.AuditTrailRepository;
+import org.goafabric.core.ui.configuration.audittrail.AuditTrailRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

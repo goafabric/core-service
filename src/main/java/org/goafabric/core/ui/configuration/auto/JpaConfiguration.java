@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.auto;
+package org.goafabric.core.ui.configuration.auto;
 
 import org.springframework.boot.actuate.autoconfigure.data.mongo.MongoHealthContributorAutoConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;

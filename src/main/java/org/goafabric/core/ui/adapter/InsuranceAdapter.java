@@ -1,6 +1,5 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.ui.SearchAdapter;
 import org.goafabric.core.ui.adapter.vo.Insurance;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

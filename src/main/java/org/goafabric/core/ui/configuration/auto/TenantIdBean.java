@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.auto;
+package org.goafabric.core.ui.configuration.auto;
 
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
