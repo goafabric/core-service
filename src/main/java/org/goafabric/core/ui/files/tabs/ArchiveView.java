@@ -5,18 +5,17 @@ import com.vaadin.flow.component.upload.SucceededEvent;
 import com.vaadin.flow.component.upload.Upload;
 import com.vaadin.flow.component.upload.receivers.MemoryBuffer;
 import org.goafabric.core.data.controller.vo.ObjectEntry;
-import org.goafabric.core.data.logic.ObjectStorageLogic;
 import org.goafabric.core.ui.GridView;
-import org.goafabric.core.ui.SearchAdapter;
+import org.goafabric.core.ui.adapter.ObjectStorageAdapter;
 
 import java.io.IOException;
 
 public class ArchiveView extends GridView<ObjectEntry> {
-    private final ObjectStorageLogic objectStorageLogic;
+    private final ObjectStorageAdapter objectStorageAdapter;
 
-    public ArchiveView(SearchAdapter<ObjectEntry> logic, ObjectStorageLogic objectStorageLogic) {
-        super(new Grid<>(ObjectEntry.class), logic);
-        this.objectStorageLogic = objectStorageLogic;
+    public ArchiveView(ObjectStorageAdapter objectStorageAdapter) {
+        super(new Grid<>(ObjectEntry.class), objectStorageAdapter);
+        this.objectStorageAdapter = objectStorageAdapter;
 
         addUpload();
     }
@@ -30,7 +29,7 @@ public class ArchiveView extends GridView<ObjectEntry> {
 
     private void uploadFile(MemoryBuffer memoryBuffer, SucceededEvent event) {
         try {
-            objectStorageLogic.create(
+            objectStorageAdapter.create(
                     new ObjectEntry(event.getFileName(), event.getMIMEType(), event.getContentLength(),
                             memoryBuffer.getInputStream().readAllBytes())
             );

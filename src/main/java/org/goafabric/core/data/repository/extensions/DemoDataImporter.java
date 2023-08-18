@@ -8,8 +8,7 @@ import org.goafabric.core.data.logic.OrganizationLogic;
 import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.data.logic.PractitionerLogic;
 import org.goafabric.core.extensions.HttpInterceptor;
-import org.goafabric.core.data.controller.vo.ObjectEntry;
-import org.goafabric.core.data.logic.ObjectStorageLogic;
+import org.goafabric.core.ui.adapter.ObjectStorageAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.RuntimeHints;
@@ -160,7 +159,7 @@ public class DemoDataImporter implements CommandLineRunner {
 
 
     @Autowired(required = false)
-    private ObjectStorageLogic objectStorageLogic;
+    private ObjectStorageAdapter objectStorageLogic;
 
     private void createArchiveFiles() {
         try {
