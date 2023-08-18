@@ -10,11 +10,11 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import org.goafabric.core.data.logic.PatientLogic;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
+import org.goafabric.core.ui.adapter.PatientAdapter;
 
 public class MedicalRecordView extends VerticalLayout {
-    private final PatientLogic patientLogic;
+    private final PatientAdapter patientAdapter;
     private final VerticalLayout medicalRecordLayout = new VerticalLayout();
 
     private final ComboBox patientFilter = new ComboBox<>("", "Filter ...");
@@ -24,8 +24,8 @@ public class MedicalRecordView extends VerticalLayout {
 
     private MedicalRecordType medicalRecordType = null;
 
-    public MedicalRecordView(PatientLogic patientLogic, MedicalRecordComponent encounterComponent) {
-        this.patientLogic = patientLogic;
+    public MedicalRecordView(PatientAdapter patientAdapter, MedicalRecordComponent encounterComponent) {
+        this.patientAdapter = patientAdapter;
         this.encounterComponent = encounterComponent;
 
         setSizeFull();
@@ -66,7 +66,7 @@ public class MedicalRecordView extends VerticalLayout {
             var filter = query.getFilter().get();
 
             long start = System.currentTimeMillis();
-            var lastNames = patientLogic.findPatientNamesByFamilyName(filter).stream().map(
+            var lastNames = patientAdapter.findPatientNamesByFamilyName(filter).stream().map(
                     name -> name.getFamilyName() + ", " + name.getGivenName()).limit(query.getLimit());
             Notification.show("Search took " + (System.currentTimeMillis() -start) + " ms");
             return lastNames;
@@ -105,7 +105,7 @@ public class MedicalRecordView extends VerticalLayout {
         medicalRecordLayout.removeAll();
         var familyName = patientFilter.getValue() != null ? patientFilter.getValue().toString().split(",")[0] : "";
         encounterComponent.processEncounters(medicalRecordLayout,
-                patientLogic.findPatientNamesByFamilyName(familyName), medicalRecordFilter.getValue(), medicalRecordType);
+                patientAdapter.findPatientNamesByFamilyName(familyName), medicalRecordFilter.getValue(), medicalRecordType);
     }
 
 
