@@ -103,10 +103,10 @@ public class MedicalRecordComponent {
             query.getLimit(); query.getOffset();
             var filter = query.getFilter().get();
             if (catalogType.equals("Diagnosis")) {
-                return conditionAdapter.findByDisplay(filter).stream().map(Condition::display).limit(query.getLimit());
+                return conditionAdapter.search(filter).stream().map(Condition::display).limit(query.getLimit());
             }
             if (catalogType.equals("GOÄ")) {
-                return chargeItemAdapter.findByDisplay(filter).stream().map(ChargeItem::display).limit(query.getLimit());
+                return chargeItemAdapter.search(filter).stream().map(ChargeItem::display).limit(query.getLimit());
             }
             return new ArrayList<String>().stream();
         });

@@ -1,5 +1,6 @@
 package org.goafabric.core.ui.adapter;
 
+import org.goafabric.core.ui.SearchLogic;
 import org.goafabric.core.ui.adapter.vo.ChargeItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,14 +17,14 @@ import java.util.List;
 
 @Component
 @RegisterReflectionForBinding(ChargeItem.class)
-public class ChargeItemAdapter {
+public class ChargeItemAdapter implements SearchLogic<ChargeItem> {
     @Autowired private RestTemplate restTemplate;
 
     @Value("${frontend.catalog-service.uri}") private String uri;
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    public List<ChargeItem> findByDisplay(String search) {
+    public List<ChargeItem> search(String search) {
         try {
             return restTemplate.exchange(uri + "/chargeitems/findByDisplay?display={display}", HttpMethod.GET, null,
                     new ParameterizedTypeReference<List<ChargeItem>>() {}, search).getBody();
@@ -32,4 +33,5 @@ public class ChargeItemAdapter {
             return new ArrayList<>();
         }
     }
+
 }

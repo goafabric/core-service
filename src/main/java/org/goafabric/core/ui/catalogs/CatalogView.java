@@ -22,9 +22,9 @@ public class CatalogView extends VerticalLayout {
         TabSheet tabSheet = new TabSheet();
         tabSheet.setSizeFull();
 
-        tabSheet.add("Insurance", new InsuranceVIew(insuranceAdapter::findByDisplay));
-        tabSheet.add("Condition", new ConditionView(conditionAdapter::findByDisplay));
-        tabSheet.add("Charges", new ChargeItemView(chargeItemAdapter::findByDisplay));
+        tabSheet.add("Insurance", new InsuranceVIew(insuranceAdapter));
+        tabSheet.add("Condition", new ConditionView(conditionAdapter));
+        tabSheet.add("Charges", new ChargeItemView(chargeItemAdapter));
 
         add(tabSheet);
     }
