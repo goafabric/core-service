@@ -18,6 +18,11 @@ class MedicalRecordConrollerIT {
         var medicalRecord = medicalRecordController.save(
                 new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00")
         );
+
         assertThat(medicalRecordController.getById(medicalRecord.id())).isNotNull();
+
+        assertThat(medicalRecordController.save(
+            new MedicalRecord(medicalRecord.id(), medicalRecord.version(), medicalRecord.type(), medicalRecord.display(), medicalRecord.code(), medicalRecord.relation())
+        ).id()).isEqualTo(medicalRecord.id());
     }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 
 public record Practitioner(
     @Null String id,
+    @Null String version,
     @NotNull @Size(min = 3, max = 255) String givenName,
     @NotNull @Size(min = 3, max = 255) String familyName,
 

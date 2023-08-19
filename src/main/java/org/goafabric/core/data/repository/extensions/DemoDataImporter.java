@@ -132,29 +132,29 @@ public class DemoDataImporter implements CommandLineRunner {
     }
 
     public static Patient createPatient(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {
-        return new Patient(null, givenName, familyName, "male", LocalDate.of(2020, 1, 8),
+        return new Patient(null, null, givenName, familyName, "male", LocalDate.of(2020, 1, 8),
                 addresses, contactPoints
         );
     }
 
     public static Practitioner createPractitioner(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {
-        return new Practitioner(null, givenName, familyName, "male", LocalDate.of(2020, 1, 8),
+        return new Practitioner(null, null, givenName, familyName, "male", LocalDate.of(2020, 1, 8),
                 addresses, contactPoints
         );
     }
 
     public static Organization createOrganization(String name, List<Address> addresses, List<ContactPoint> contactPoints) {
-        return new Organization(null, name, addresses, contactPoints);
+        return new Organization(null, null, name, addresses, contactPoints);
     }
 
     public static List<Address> createAddress(String street) {
         return Collections.singletonList(
-                new Address(null, AddressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()
+                new Address(null, null,  AddressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()
                         , "555", "Florida", "US"));
     }
 
     public static List<ContactPoint> createContactPoint(String phone) {
-        return Collections.singletonList(new ContactPoint(null, AddressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
+        return Collections.singletonList(new ContactPoint(null, null, AddressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
     }
 
 

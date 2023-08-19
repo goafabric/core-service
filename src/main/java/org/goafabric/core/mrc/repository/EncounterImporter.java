@@ -93,11 +93,11 @@ public class EncounterImporter implements CommandLineRunner {
 
         //TODO: we currently need to manually synchronize body metrics data and display and record , should be one save that takes care of both
         var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).save(
-                new BodyMetrics(null, "170 cm", "100 cm", "30 cm", "30 %"));
+                new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %"));
 
         var medicalRecords = Arrays.asList(
                 new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", ""),
-                new MedicalRecord(null, MedicalRecordType.BODY_METRICS, bodyMetrics.toDisplay(), "", bodyMetrics.id()),
+                new MedicalRecord(null, null, MedicalRecordType.BODY_METRICS, bodyMetrics.toDisplay(), "", bodyMetrics.id()),
                 new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", ""),
                 new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none"),
                 new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", ""),
@@ -115,6 +115,7 @@ public class EncounterImporter implements CommandLineRunner {
 
         IntStream.range(0, 1).forEach(i -> {
             var encounter = new Encounter(
+                    null,
                     null,
                     patient.id(),
                     LocalDate.now(),
