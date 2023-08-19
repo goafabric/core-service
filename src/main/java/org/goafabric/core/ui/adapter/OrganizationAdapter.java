@@ -8,15 +8,18 @@ import java.util.List;
 
 @Component
 public class OrganizationAdapter implements SearchAdapter<Organization> {
-    private final OrganizationLogic practitionerLogic;
+    private final OrganizationLogic organizationLogic;
 
     public OrganizationAdapter(OrganizationLogic practitionerLogic) {
-        this.practitionerLogic = practitionerLogic;
+        this.organizationLogic = practitionerLogic;
     }
 
     @Override
     public List<Organization> search(String search) {
-        return practitionerLogic.findByName(search);
+        return organizationLogic.findByName(search);
     }
 
+    public Organization save(Organization organization) {
+        return organizationLogic.save(organization);
+    }
 }
