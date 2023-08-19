@@ -23,4 +23,8 @@ public class PatientAdapter implements SearchAdapter<Patient> {
     public List<PatientNamesOnly> findPatientNamesByFamilyName(String search) {
         return patientLogic.findPatientNamesByFamilyName(search);
     }
+
+    public void save(Patient patient) {
+        patientLogic.save(patient);
+    }
 }
