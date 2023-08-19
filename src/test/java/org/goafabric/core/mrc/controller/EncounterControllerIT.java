@@ -30,9 +30,10 @@ class EncounterControllerIT {
 
         var encounter = new Encounter(
                 null,
+                null,
                 patientId,
                 LocalDate.now(),
-                "Encounter Teset",
+                "Encounter Test",
                 Collections.singletonList(
                         new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00"))
         );

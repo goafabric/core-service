@@ -5,6 +5,7 @@ import java.util.List;
 
 public record Encounter(
     String id,
+    String version,
     String patientId,
     LocalDate encounterDate,
     String encounterName,
