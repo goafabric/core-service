@@ -28,7 +28,7 @@ public class PatientView extends GridView<Patient> {
         grid.addSelectionListener(event -> {
             var patient = event.getFirstSelectedItem().get();
 
-            put(new TextField("Given Name", patient.familyName()));
+            put(new TextField("Given Name", patient.givenName()));
             put(new TextField("Family Name", patient.familyName()));
             put(new TextField("City", patient.address().get(0).city()));
             put(new TextField("Street", patient.address().get(0).street()));
