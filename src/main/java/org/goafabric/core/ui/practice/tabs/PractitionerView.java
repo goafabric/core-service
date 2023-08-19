@@ -43,4 +43,9 @@ public class PractitionerView extends GridView<Practitioner> {
                 practitioner.contactPoint());
         getAdapter().save(updated);
     }
+
+    protected void onDelete(Practitioner practitioner) {
+        getAdapter().delete(practitioner.id());
+    }
+
 }

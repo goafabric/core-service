@@ -44,4 +44,8 @@ public class PatientView extends GridView<Patient> {
         getAdapter().save(updated);
     }
 
+    protected void onDelete(Patient patient) {
+        getAdapter().delete(patient.id());
+    }
+
 }

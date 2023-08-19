@@ -6,6 +6,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
@@ -69,28 +70,48 @@ public abstract class GridView<T> extends VerticalLayout {
             T item = event.getItem();
             configureSaveDialog(item);
             if (!mapDialog.isEmpty()) {
-                var dialog = new Dialog();
-                var layout = new VerticalLayout();
-                dialog.add(layout);
-                mapDialog.values().forEach(layout::add);
-
-                var saveButton = new Button("save");
-                dialog.add(saveButton);
-
-                saveButton.addClickListener(evt -> {
-                    onSave(item);
-                    dialog.close();
-                    updateList();
-                });
-                dialog.open();
+                createDialog(item);
             }
         });
-
     }
+
+    private void createDialog(T item) {
+        var dialog = new Dialog();
+        var layout = new VerticalLayout();
+        dialog.add(layout);
+        mapDialog.values().forEach(layout::add);
+        addButtons(item, layout, dialog);
+        dialog.open();
+    }
+
+    private void addButtons(T item, VerticalLayout layout, Dialog dialog) {
+        var saveButton = new Button("Save");
+        saveButton.addClickListener(event -> {
+            onSave(item);
+            dialog.close();
+            updateList();
+        });
+
+        var deleteButton = new Button("Delete");
+        deleteButton.addClickListener(event -> {
+            onDelete(item);
+            dialog.close();
+            updateList();
+        });
+
+        var cancelButton = new Button("Cancel");
+        cancelButton.addClickListener(event -> dialog.close());
+
+        layout.add(new HorizontalLayout(saveButton, deleteButton, cancelButton));
+    }
+
+
+    protected void onSave(T item) {}
+
+    protected void onDelete(T item) {}
 
     protected void configureSaveDialog(T item) {}
 
-    protected void onSave(T item) {}
 
     protected final HashMap<String, TextField> mapDialog = new HashMap();
 

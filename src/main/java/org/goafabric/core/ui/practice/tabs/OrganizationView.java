@@ -39,4 +39,9 @@ public class OrganizationView extends GridView<Organization> {
                 organization.contactPoint());
         getAdapter().save(updated);
     }
+
+    protected void onDelete(Organization organization) {
+        getAdapter().delete(organization.id());
+    }
+
 }
