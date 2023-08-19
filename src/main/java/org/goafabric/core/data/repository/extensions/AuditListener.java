@@ -15,10 +15,10 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
@@ -30,6 +30,8 @@ import javax.sql.DataSource;
 import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 // Simple Audittrail that fulfills the requirements of logging content changes + user + aot support, could be db independant
 @Profile("jpa")
@@ -156,6 +158,7 @@ public class AuditListener implements ApplicationContextAware {
     }
 
     @Autowired private RestTemplate auditRestTemplate;
+    private final ExecutorService executor = Executors.newFixedThreadPool(3);
     record ChangeEvent (String id, String tenantId, String referenceId, String type, DbOperation operation, String origin) {}
     private void dispatchEvent(AuditTrail auditTrail) {
         var eventDispatcherUri = context.getEnvironment().getProperty("event.dispatcher.uri", "");
@@ -163,7 +166,7 @@ public class AuditListener implements ApplicationContextAware {
             var changeEvent = new ChangeEvent(auditTrail.id(), HttpInterceptor.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
             var headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            auditRestTemplate.postForEntity(eventDispatcherUri, new HttpEntity<>(changeEvent, headers), Void.class);
+            executor.submit(() -> { auditRestTemplate.postForEntity(eventDispatcherUri, new HttpEntity<>(changeEvent, headers), Void.class); });
         }
     }
     @Bean public RestTemplate auditRestTemplate(RestTemplateBuilder builder) {
