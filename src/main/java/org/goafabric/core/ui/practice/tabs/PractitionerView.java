@@ -15,8 +15,8 @@ public class PractitionerView extends GridView<Practitioner> {
 
     @Override
     protected void addColumns(Grid<Practitioner> grid) {
-        grid.addColumn(p -> p.givenName()).setHeader("First Name");
-        grid.addColumn(p -> p.familyName()).setHeader("Last Name");
+        grid.addColumn(p -> p.givenName()).setHeader("Given Name");
+        grid.addColumn(p -> p.familyName()).setHeader("Family Name");
         grid.addColumn(p -> p.address().get(0).street()).setHeader("Street");
         grid.addColumn(p -> p.address().get(0).city()).setHeader("City");
     }
