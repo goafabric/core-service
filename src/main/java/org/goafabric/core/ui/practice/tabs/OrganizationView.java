@@ -16,7 +16,7 @@ public class OrganizationView extends GridView<Organization> {
     @Override
     protected void addColumns(Grid<Organization> grid) {
         grid.addColumn(Organization::name).setHeader("name");
-        grid.addColumn(p -> p.address().get(0).city()).setHeader("city");
         grid.addColumn(p -> p.address().get(0).street()).setHeader("street");
+        grid.addColumn(p -> p.address().get(0).city()).setHeader("city");
     }
 }
