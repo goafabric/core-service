@@ -19,7 +19,11 @@ public class PractitionerAdapter implements SearchAdapter<Practitioner> {
         return practitionerLogic.findByFamilyName(search);
     }
 
-    public Practitioner save(Practitioner practitioner) {
-        return practitionerLogic.save(practitioner);
+    public void save(Practitioner practitioner) {
+        practitionerLogic.save(practitioner);
+    }
+
+    public void delete(String id) {
+        practitionerLogic.deleteById(id);
     }
 }

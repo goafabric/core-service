@@ -19,7 +19,11 @@ public class OrganizationAdapter implements SearchAdapter<Organization> {
         return organizationLogic.findByName(search);
     }
 
-    public Organization save(Organization organization) {
-        return organizationLogic.save(organization);
+    public void save(Organization organization) {
+        organizationLogic.save(organization);
+    }
+
+    public void delete(String id) {
+        organizationLogic.deleteById(id);
     }
 }

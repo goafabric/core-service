@@ -27,4 +27,8 @@ public class PatientAdapter implements SearchAdapter<Patient> {
     public void save(Patient patient) {
         patientLogic.save(patient);
     }
+
+    public void delete(String id) {
+        patientLogic.deleteById(id);
+    }
 }
