@@ -78,12 +78,11 @@ public class MedicalRecordComponent {
     private void addMedicalRecords(VerticalLayout encounterLayout, Encounter encounter) {
         encounter.medicalRecords().forEach(medicalRecord -> {
             if (encounterLayout.getChildren().count() < 100) {
-                var typeCombo = new ComboBox<>("", MedicalRecordType.values());
-                var textField = new TextField("", medicalRecord.display());
+                var typeCombo = new TextField("", medicalRecord.type().getValue(), "");
+                var textField = new TextField("", medicalRecord.display(), "");
                 textField.setWidth("500px");
 
                 textField.setId(medicalRecord.id());
-                typeCombo.setValue(medicalRecord.type());
                 encounterLayout.add(new HorizontalLayout(typeCombo, textField));
 
                 textField.addFocusListener(listener -> showRecordDetails(listener.getSource().getId().get()));
