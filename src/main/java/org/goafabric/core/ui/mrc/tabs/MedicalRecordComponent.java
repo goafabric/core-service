@@ -2,7 +2,8 @@ package org.goafabric.core.ui.mrc.tabs;
 
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
-import com.vaadin.flow.component.html.Hr;
+import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridVariant;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -10,6 +11,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import org.goafabric.core.data.repository.entity.PatientNamesOnly;
 import org.goafabric.core.mrc.controller.vo.Encounter;
+import org.goafabric.core.mrc.controller.vo.MedicalRecord;
 import org.goafabric.core.mrc.controller.vo.MedicalRecordType;
 import org.goafabric.core.ui.adapter.ChargeItemAdapter;
 import org.goafabric.core.ui.adapter.ConditionAdapter;
@@ -58,9 +60,7 @@ public class MedicalRecordComponent {
 
             if (!encounters.isEmpty()) {
                 encounters.forEach(encounter -> {
-                    //encounterLayout.add(new Hr());
                     encounterLayout.add(new HorizontalLayout(new DatePicker(encounter.encounterDate()), new TextField("", encounter.encounterName())));
-                    encounterLayout.add(new Hr());
                     addMedicalRecords(encounterLayout, encounter);
                 });
             }
@@ -76,6 +76,23 @@ public class MedicalRecordComponent {
     }
 
     private void addMedicalRecords(VerticalLayout encounterLayout, Encounter encounter) {
+        var grid = new Grid<>(MedicalRecord.class);
+        grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
+        encounterLayout.setSizeFull();
+        grid.setSizeFull();
+        grid.setColumns();
+
+        grid.addColumn(r -> r.type()).setHeader("Type");
+        grid.addColumn(r -> r.display()).setHeader("Text");
+        grid.addColumn(r -> r.code()).setHeader("Code");
+
+        grid.getColumns().forEach(col -> col.setAutoWidth(true));
+        encounterLayout.add(grid);
+        grid.addItemDoubleClickListener(event -> showRecordDetails(event.getItem().id()));
+
+        grid.setItems(encounter.medicalRecords().stream().limit(100).toList());
+
+        /*
         encounter.medicalRecords().forEach(medicalRecord -> {
             if (encounterLayout.getChildren().count() < 100) {
                 var typeCombo = new TextField("", medicalRecord.type().getValue(), "");
@@ -88,6 +105,8 @@ public class MedicalRecordComponent {
                 textField.addFocusListener(listener -> showRecordDetails(listener.getSource().getId().get()));
             }
         });
+
+         */
     }
 
     private void showRecordDetails(String id) {
