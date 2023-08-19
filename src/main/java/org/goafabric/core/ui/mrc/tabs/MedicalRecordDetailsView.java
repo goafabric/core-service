@@ -42,7 +42,7 @@ public class MedicalRecordDetailsView extends Dialog {
         var buttonSave = new Button("Save");
 
         buttonSave.addClickListener(event -> {
-                var changedRecord = new MedicalRecord(medicalRecord.id(), medicalRecord.type(), displayTextField.getValue(), medicalRecord.code(), medicalRecord.relation());
+                var changedRecord = new MedicalRecord(medicalRecord.id(), medicalRecord.version(), medicalRecord.type(), displayTextField.getValue(), medicalRecord.code(), medicalRecord.relation());
                 applicationContext.getBean(MedicalRecordAdapter.class).save(changedRecord);
                 this.close();
         });
