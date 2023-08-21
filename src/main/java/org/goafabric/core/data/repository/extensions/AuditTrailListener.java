@@ -10,28 +10,35 @@ import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
+import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 // Simple Audittrail that fulfills the requirements of logging content changes + user + aot support, could be db independant
 public class AuditTrailListener implements ApplicationContextAware {
     private static ApplicationContext context;
 
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     enum DbOperation { CREATE, READ, UPDATE, DELETE }
 
-    record AuditTrail(
+    private record AuditTrail(
             String id,
             String orgunitId,
             String objectType,
@@ -74,12 +81,18 @@ public class AuditTrailListener implements ApplicationContextAware {
         private final DataSource dataSource;
         private final String     schemaPrefix;
         @PersistenceContext private EntityManager entityManager;
-
         private static final Logger log = LoggerFactory.getLogger("org.goafabric.AuditProcessor");
 
-        public AuditProcessor(DataSource dataSource, @Value("${multi-tenancy.schema-prefix:_}") String schemaPrefix) {
+        private final RestTemplate auditRestTemplate;
+        private final String eventDispatcherUri;
+        private static final ExecutorService executor = Executors.newFixedThreadPool(3);
+
+        public AuditProcessor(DataSource dataSource, @Value("${multi-tenancy.schema-prefix:_}") String schemaPrefix,
+                              RestTemplate auditRestTemplate, @Value("${event.dispatcher.uri:}") String eventDispatcherUri) {
             this.dataSource = dataSource;
             this.schemaPrefix = schemaPrefix;
+            this.auditRestTemplate = auditRestTemplate;
+            this.eventDispatcherUri = eventDispatcherUri;
         }
 
         public void afterCreate(Object object)  {
@@ -101,7 +114,6 @@ public class AuditTrailListener implements ApplicationContextAware {
                 var auditTrail = createAuditTrail(operation, referenceId, oldObject, newObject);
                 log.debug("New audit:\n{}", auditTrail);
                 insertAudit(auditTrail, oldObject != null ? oldObject : newObject);
-                context.getBean(AuditEventDispatcher.class).
                 dispatchEvent(auditTrail);
             } catch (Exception e) {
                 log.error("Error during audit:\n{}", e.getMessage(), e);
@@ -150,7 +162,22 @@ public class AuditTrailListener implements ApplicationContextAware {
             return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
         }
 
+        public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail) {
+            if (!eventDispatcherUri.isEmpty()) {
+                var changeEvent = new ChangeEvent(auditTrail.id(), HttpInterceptor.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
+                var headers = new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                executor.submit(() -> {
+                    auditRestTemplate.postForEntity(eventDispatcherUri, new HttpEntity<>(changeEvent, headers), Void.class); });
+            }
+        }
 
+        @Bean
+        public RestTemplate auditRestTemplate(RestTemplateBuilder builder) {
+            return builder.setConnectTimeout(Duration.ofMillis(1000)).setReadTimeout(Duration.ofMillis(1000)).build();
+        }
+
+        record ChangeEvent (String id, String tenantId, String referenceId, String type, AuditTrailListener.DbOperation operation, String origin) {}
     }
 
 }
