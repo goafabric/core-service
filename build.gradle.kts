@@ -16,8 +16,6 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.0"
 	id("org.graalvm.buildtools.native") version "0.9.23"
 	id("com.google.cloud.tools.jib") version "3.3.1"
-
-	id("com.vaadin") version "24.0.3"
 }
 
 repositories {
@@ -101,7 +99,6 @@ jib {
 
 tasks.register("dockerImageNative") { group = "build"; dependsOn("bootBuildImage") }
 tasks.named<BootBuildImage>("bootBuildImage") {
-	dependsOn("vaadinBuildFrontend")
 	val nativeImageName = "${dockerRegistry}/${project.name}-native" + (if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else "") + ":${project.version}"
 	builder.set(nativeBuilder)
 	imageName.set(nativeImageName)
