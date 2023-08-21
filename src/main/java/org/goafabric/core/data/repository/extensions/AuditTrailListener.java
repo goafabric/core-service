@@ -12,6 +12,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
@@ -67,6 +68,7 @@ public class AuditTrailListener implements ApplicationContextAware {
 
 
     @Component
+    @Profile("jpa")
     @RegisterReflectionForBinding(AuditTrail.class)
     static class AuditProcessor {
         private final DataSource dataSource;
