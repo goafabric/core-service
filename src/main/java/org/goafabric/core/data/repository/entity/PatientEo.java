@@ -1,14 +1,14 @@
 package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.core.data.repository.extensions.AuditListener;
+import org.goafabric.core.data.repository.extensions.AuditTrailListener;
 import org.hibernate.annotations.TenantId;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "patient")
-@EntityListeners(AuditListener.class)
+@EntityListeners(AuditTrailListener.class)
 public class PatientEo {
     @Id
     @org.springframework.data.annotation.Id

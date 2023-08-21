@@ -1,12 +1,12 @@
 package org.goafabric.core.mrc.repository.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.core.data.repository.extensions.AuditListener;
+import org.goafabric.core.data.repository.extensions.AuditTrailListener;
 
 
 @Entity
 @Table(name="body_metrics")
-@EntityListeners(AuditListener.class)
+@EntityListeners(AuditTrailListener.class)
 public class BodyMetricsEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

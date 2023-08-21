@@ -1,12 +1,12 @@
 package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.core.data.repository.extensions.AuditListener;
+import org.goafabric.core.data.repository.extensions.AuditTrailListener;
 
 
 @Entity
 @Table(name="address")
-@EntityListeners(AuditListener.class)
+@EntityListeners(AuditTrailListener.class)
 public class AddressEo {
     @Id
     @org.springframework.data.annotation.Id

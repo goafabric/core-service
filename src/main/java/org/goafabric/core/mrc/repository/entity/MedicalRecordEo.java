@@ -1,12 +1,12 @@
 package org.goafabric.core.mrc.repository.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.core.data.repository.extensions.AuditListener;
+import org.goafabric.core.data.repository.extensions.AuditTrailListener;
 
 
 @Entity
 @Table(name="medical_record")
-@EntityListeners(AuditListener.class)
+@EntityListeners(AuditTrailListener.class)
 public class MedicalRecordEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
