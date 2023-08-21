@@ -1,7 +1,7 @@
 package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.core.data.repository.extensions.AuditListener;
+import org.goafabric.core.data.repository.extensions.AuditTrailListener;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "practitioner")
 @Document("#{@tenantIdBean.getPrefix()}practitioner")
-@EntityListeners(AuditListener.class)
+@EntityListeners(AuditTrailListener.class)
 public class PractitionerEo {
     @Id
     @org.springframework.data.annotation.Id
