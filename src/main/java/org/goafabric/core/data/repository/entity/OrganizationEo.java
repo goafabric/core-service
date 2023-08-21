@@ -2,11 +2,9 @@ package org.goafabric.core.data.repository.entity;
 
 import jakarta.persistence.*;
 import org.goafabric.core.data.repository.extensions.AuditListener;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Entity
 @Table(name = "organization")
-@Document("#{@tenantIdBean.getPrefix()}organization")
 @EntityListeners(AuditListener.class)
 public class OrganizationEo {
     @Id

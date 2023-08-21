@@ -71,9 +71,6 @@ dependencies {
 	//s3
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1")
 
-	//vaadin
-	implementation("com.vaadin:vaadin-spring-boot-starter:24.0.5")
-
 	//devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
