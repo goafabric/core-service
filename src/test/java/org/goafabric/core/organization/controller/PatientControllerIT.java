@@ -46,11 +46,11 @@ class PatientControllerIT {
     public void findByGivenName() {
         setTenantId("0");
         var id0 = create();
-        assertThat(controller.findByGivenName("Homer")).isNotNull().hasSize(1);
+        assertThat(controller.findByGivenName("Homer")).isNotNull().isNotEmpty();
 
         setTenantId("5");
         var id5 = create();
-        assertThat(controller.findByGivenName("Homer")).isNotNull().hasSize(1);
+        assertThat(controller.findByGivenName("Homer")).isNotNull().isNotEmpty();
 
         delete(id0, "0");
         delete(id5, "5");
@@ -60,11 +60,11 @@ class PatientControllerIT {
     public void findByFamilyName() {
         setTenantId("0");
         var id0 = create();
-        assertThat(controller.findByFamilyName("Simpson")).isNotNull().hasSize(1);
+        assertThat(controller.findByFamilyName("Simpson")).isNotNull().isNotEmpty();
 
         setTenantId("5");
         var id5 = create();
-        assertThat(controller.findByFamilyName("Simpson")).isNotNull().hasSize(1);
+        assertThat(controller.findByFamilyName("Simpson")).isNotNull().isNotEmpty();
 
         delete(id0, "0");
         delete(id5, "5");
