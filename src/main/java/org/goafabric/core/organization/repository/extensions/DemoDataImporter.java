@@ -176,7 +176,6 @@ public class DemoDataImporter implements CommandLineRunner {
         }
     }
 
-
     public static void setTenantId(String tenantId) {
         SecurityContextHolder.getContext().setAuthentication(
                 new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name")
