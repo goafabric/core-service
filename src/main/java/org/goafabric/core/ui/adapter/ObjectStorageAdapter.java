@@ -1,7 +1,7 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.data.controller.vo.ObjectEntry;
-import org.goafabric.core.data.logic.ObjectStorageLogic;
+import org.goafabric.core.organization.controller.vo.ObjectEntry;
+import org.goafabric.core.organization.logic.ObjectStorageLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

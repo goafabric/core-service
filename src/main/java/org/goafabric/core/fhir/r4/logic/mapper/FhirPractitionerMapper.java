@@ -12,16 +12,16 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface FhirPractitionerMapper extends FhirBaseMapper {
     @Mapping(source = "telecom", target = "contactPoint")
-    org.goafabric.core.data.controller.vo.Practitioner map(org.goafabric.core.fhir.r4.controller.vo.Practitioner value);
+    org.goafabric.core.organization.controller.vo.Practitioner map(org.goafabric.core.fhir.r4.controller.vo.Practitioner value);
 
     @Mapping(source = "contactPoint", target = "telecom")
     @Mapping(expression = "java(mapHumanName(value))", target = "name")
-    org.goafabric.core.fhir.r4.controller.vo.Practitioner map(org.goafabric.core.data.controller.vo.Practitioner value);
+    org.goafabric.core.fhir.r4.controller.vo.Practitioner map(org.goafabric.core.organization.controller.vo.Practitioner value);
 
     @Mapping(source = "contactPoint", target = "telecom")
-    List<org.goafabric.core.fhir.r4.controller.vo.Practitioner> map(List<org.goafabric.core.data.controller.vo.Practitioner> value);
+    List<org.goafabric.core.fhir.r4.controller.vo.Practitioner> map(List<org.goafabric.core.organization.controller.vo.Practitioner> value);
 
-    default List<HumanName> mapHumanName(org.goafabric.core.data.controller.vo.Practitioner value) {
+    default List<HumanName> mapHumanName(org.goafabric.core.organization.controller.vo.Practitioner value) {
         return Collections.singletonList(new HumanName("", value.familyName(), Collections.singletonList(value.givenName())));
     }
 }

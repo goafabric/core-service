@@ -1,8 +1,8 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.data.controller.vo.Patient;
-import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.data.repository.entity.PatientNamesOnly;
+import org.goafabric.core.organization.controller.vo.Patient;
+import org.goafabric.core.organization.logic.PatientLogic;
+import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

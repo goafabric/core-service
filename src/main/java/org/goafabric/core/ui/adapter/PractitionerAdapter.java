@@ -1,7 +1,7 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.data.controller.vo.Practitioner;
-import org.goafabric.core.data.logic.PractitionerLogic;
+import org.goafabric.core.organization.controller.vo.Practitioner;
+import org.goafabric.core.organization.logic.PractitionerLogic;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package org.goafabric.core.fhir.r4.controller;
 
-import org.goafabric.core.data.logic.PractitionerLogic;
+import org.goafabric.core.organization.logic.PractitionerLogic;
 import org.goafabric.core.fhir.r4.logic.mapper.FhirPractitionerMapper;
 import org.goafabric.core.fhir.r4.controller.vo.Bundle;
 import org.goafabric.core.fhir.r4.controller.vo.Practitioner;

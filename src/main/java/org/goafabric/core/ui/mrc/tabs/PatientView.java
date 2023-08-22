@@ -3,8 +3,8 @@ package org.goafabric.core.ui.mrc.tabs;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
-import org.goafabric.core.data.controller.vo.Address;
-import org.goafabric.core.data.controller.vo.Patient;
+import org.goafabric.core.organization.controller.vo.Address;
+import org.goafabric.core.organization.controller.vo.Patient;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.adapter.PatientAdapter;
 

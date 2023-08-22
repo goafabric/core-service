@@ -1,7 +1,7 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.mrc.controller.vo.Encounter;
-import org.goafabric.core.mrc.logic.EncounterLogic;
+import org.goafabric.core.medicalrecords.controller.vo.Encounter;
+import org.goafabric.core.medicalrecords.logic.EncounterLogic;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

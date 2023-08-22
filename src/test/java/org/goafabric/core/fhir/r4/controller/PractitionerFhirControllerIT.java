@@ -1,7 +1,7 @@
 package org.goafabric.core.fhir.r4.controller;
 
 import ca.uhn.fhir.rest.client.api.IGenericClient;
-import org.goafabric.core.data.controller.PractitionerController;
+import org.goafabric.core.organization.controller.PractitionerController;
 import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Patient;

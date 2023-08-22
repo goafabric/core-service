@@ -1,8 +1,8 @@
 package org.goafabric.core.ui.adapter;
 
 
-import org.goafabric.core.mrc.controller.vo.MedicalRecord;
-import org.goafabric.core.mrc.logic.MedicalRecordLogic;
+import org.goafabric.core.medicalrecords.controller.vo.MedicalRecord;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.springframework.stereotype.Component;
 
 @Component

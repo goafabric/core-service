@@ -1,7 +1,7 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.mrc.controller.vo.BodyMetrics;
-import org.goafabric.core.mrc.logic.BodyMetricsLogic;
+import org.goafabric.core.medicalrecords.controller.vo.BodyMetrics;
+import org.goafabric.core.medicalrecords.logic.BodyMetricsLogic;
 import org.springframework.stereotype.Component;
 
 @Component
