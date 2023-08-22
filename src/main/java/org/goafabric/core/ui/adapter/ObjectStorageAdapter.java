@@ -1,37 +1,27 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.organization.controller.vo.ObjectEntry;
-import org.goafabric.core.organization.logic.ObjectStorageLogic;
+import org.goafabric.core.medicalrecords.controller.ObjectStorageController;
+import org.goafabric.core.medicalrecords.controller.vo.ObjectEntry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ObjectStorageAdapter implements SearchAdapter<ObjectEntry> {
-    private final ObjectStorageLogic objectStorageLogic;
+    private final ObjectStorageController objectStorageController;
 
-    private final List<ObjectEntry> objectEntriesInMem = new ArrayList<>();
 
-    public ObjectStorageAdapter(@Autowired(required = false) ObjectStorageLogic objectStorageLogic) {
-        this.objectStorageLogic = objectStorageLogic;
+    public ObjectStorageAdapter(@Autowired(required = false) ObjectStorageController objectStorageController) {
+        this.objectStorageController = objectStorageController;
     }
 
     @Override
     public List<ObjectEntry> search(String search) {
-        return objectStorageLogic != null
-                ? objectStorageLogic.search(search)
-                : objectEntriesInMem.stream().filter(o -> o.objectName().startsWith(search)).toList();
+        return objectStorageController.search(search);
     }
 
     public void create(ObjectEntry objectEntry) {
-        if (objectStorageLogic != null) {
-            objectStorageLogic.create(objectEntry);
-        } else {
-            if (search(objectEntry.objectName()).isEmpty()) {
-                objectEntriesInMem.add(objectEntry);
-            }
-        }
+        objectStorageController.save(objectEntry);
     }
 }
