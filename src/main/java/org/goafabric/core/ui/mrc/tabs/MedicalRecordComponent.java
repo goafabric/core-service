@@ -71,7 +71,7 @@ public class MedicalRecordComponent {
 
     private static List<Encounter> filterRecordsInMemory(MedicalRecordType recordType, List<Encounter> encounters) {
         return encounters.stream().map(e ->
-                new Encounter(e.id(), e.version(), e.patientId(), e.encounterDate(), e.encounterName(),
+                new Encounter(e.id(), e.version(), e.patientId(), e.practitionerId(), e.encounterDate(), e.encounterName(),
                  e.medicalRecords().stream().filter(record -> record.type().equals(recordType)).toList())).toList();
     }
 
