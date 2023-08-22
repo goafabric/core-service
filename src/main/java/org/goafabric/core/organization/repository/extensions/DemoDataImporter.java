@@ -69,7 +69,7 @@ public class DemoDataImporter implements CommandLineRunner {
     private void importDemoData() {
         Arrays.asList(tenants.split(",")).forEach(tenant -> {
             setTenantId(tenant);
-            if (applicationContext.getBean(PatientLogic.class).findByFamilyName("").isEmpty()) {
+            if (applicationContext.getBean(PractitionerLogic.class).findByFamilyName("").isEmpty()) {
                 insertData();
             }
         });
@@ -159,18 +159,20 @@ public class DemoDataImporter implements CommandLineRunner {
     }
 
 
-    @Autowired(required = false)
+    @Autowired
     private ObjectStorageController objectStorageController;
 
     private void createArchiveFiles() {
         try {
-            objectStorageController.save(
-                    new ObjectEntry("hello_world.txt", "text/plain",
-                            Long.valueOf("hello world".length()), "hello world".getBytes()));
+            if (objectStorageController.search("").isEmpty()) {
+                objectStorageController.save(
+                        new ObjectEntry("hello_world.txt", "text/plain",
+                                Long.valueOf("hello world".length()), "hello world".getBytes()));
 
-            objectStorageController.save(
-                    new ObjectEntry("top_secret.txt", "text/plain",
-                            Long.valueOf("top secret".length()), "top secret".getBytes()));
+                objectStorageController.save(
+                        new ObjectEntry("top_secret.txt", "text/plain",
+                                Long.valueOf("top secret".length()), "top secret".getBytes()));
+            }
         } catch (Exception e) { //to have low coupling it's ok to not have demodate if s3 is not started
             log.warn("Could not S3 Demo Data: " + e.getMessage());
         }
