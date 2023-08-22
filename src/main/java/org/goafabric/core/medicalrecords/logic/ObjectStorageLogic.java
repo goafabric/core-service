@@ -28,7 +28,7 @@ public class ObjectStorageLogic {
         this.schemaPrefix = schemaPrefix;
     }
 
-    public void create(ObjectEntry objectEntry) {
+    public void save(ObjectEntry objectEntry) {
         createBucketIfNotExists(getBucketName());
         s3Client.putObject(PutObjectRequest.builder()
                         .bucket(getBucketName())

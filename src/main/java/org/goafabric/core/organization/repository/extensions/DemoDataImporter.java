@@ -165,11 +165,11 @@ public class DemoDataImporter implements CommandLineRunner {
     private void createArchiveFiles() {
         try {
             if (objectStorageLogic != null) {
-                objectStorageLogic.create(
+                objectStorageLogic.save(
                         new ObjectEntry("hello_world.txt", "text/plain",
                                 Long.valueOf("hello world".length()), "hello world".getBytes()));
 
-                objectStorageLogic.create(
+                objectStorageLogic.save(
                         new ObjectEntry("top_secret.txt", "text/plain",
                                 Long.valueOf("top secret".length()), "top secret".getBytes()));
             }
