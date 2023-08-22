@@ -2,9 +2,9 @@ package org.goafabric.core.importexport.logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.goafabric.core.data.logic.OrganizationLogic;
-import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.data.logic.PractitionerLogic;
+import org.goafabric.core.organization.logic.OrganizationLogic;
+import org.goafabric.core.organization.logic.PatientLogic;
+import org.goafabric.core.organization.logic.PractitionerLogic;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
