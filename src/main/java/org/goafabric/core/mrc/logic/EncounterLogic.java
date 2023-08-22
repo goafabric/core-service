@@ -5,6 +5,7 @@ import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.logic.mapper.EncounterMapper;
 import org.goafabric.core.mrc.repository.EncounterRepository;
 import org.goafabric.core.mrc.repository.entity.EncounterEo;
+import org.h2.util.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -27,8 +28,9 @@ public class EncounterLogic {
     }
 
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
-        return mapper.map(
-                repository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text));
+        return StringUtils.isNullOrEmpty(text)
+                ? mapper.map(repository.findByPatientId(patientId))
+                : mapper.map(repository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text));
     }
 
 }
