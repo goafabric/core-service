@@ -90,6 +90,7 @@ public class EncounterImporter implements CommandLineRunner {
                         createAddress("Springfield"),
                         createContactPoint("555-520")));
 
+        String practitionerId = null;
 
         //TODO: we currently need to manually synchronize body metrics data and display and record , should be one save that takes care of both
         var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).save(
@@ -118,6 +119,7 @@ public class EncounterImporter implements CommandLineRunner {
                     null,
                     null,
                     patient.id(),
+                    practitionerId,
                     LocalDate.now(),
                     "Encounter " + i,
                     stackedRecords
