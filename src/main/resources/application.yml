@@ -92,3 +92,4 @@ de.flapdoodle.mongodb.embedded.version: "6.0.1"
 
 spring.profiles.active: "jpa" #mongodb
 
+spring.flyway.locations: "db/migration/*.sql,db/migration/{vendor}/*.sql"
