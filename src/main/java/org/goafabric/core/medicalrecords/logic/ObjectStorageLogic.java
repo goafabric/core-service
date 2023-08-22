@@ -1,8 +1,8 @@
-package org.goafabric.core.organization.logic;
+package org.goafabric.core.medicalrecords.logic;
 
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
 import org.goafabric.core.extensions.HttpInterceptor;
-import org.goafabric.core.organization.controller.vo.ObjectEntry;
+import org.goafabric.core.medicalrecords.controller.vo.ObjectEntry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Import;

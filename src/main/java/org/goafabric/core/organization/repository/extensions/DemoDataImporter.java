@@ -2,10 +2,11 @@ package org.goafabric.core.organization.repository.extensions;
 
 import net.datafaker.Faker;
 import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.medicalrecords.controller.vo.ObjectEntry;
 import org.goafabric.core.organization.controller.vo.*;
 import org.goafabric.core.organization.controller.vo.types.AddressUse;
 import org.goafabric.core.organization.controller.vo.types.ContactPointSystem;
-import org.goafabric.core.organization.logic.ObjectStorageLogic;
+import org.goafabric.core.medicalrecords.logic.ObjectStorageLogic;
 import org.goafabric.core.organization.logic.OrganizationLogic;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.organization.logic.PractitionerLogic;

@@ -1,4 +1,4 @@
-package org.goafabric.core.organization.controller.vo;
+package org.goafabric.core.medicalrecords.controller.vo;
 
 public record ObjectEntry(
     String objectName,
