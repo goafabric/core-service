@@ -10,14 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
@@ -26,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
-import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
@@ -114,7 +108,7 @@ public class AuditTrailListener implements ApplicationContextAware {
                 var auditTrail = createAuditTrail(operation, referenceId, oldObject, newObject);
                 log.debug("New audit:\n{}", auditTrail);
                 insertAudit(auditTrail, oldObject != null ? oldObject : newObject);
-                dispatchEvent(auditTrail);
+                //dispatchEvent(auditTrail);
             } catch (Exception e) {
                 log.error("Error during audit:\n{}", e.getMessage(), e);
             }
@@ -162,6 +156,7 @@ public class AuditTrailListener implements ApplicationContextAware {
             return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
         }
 
+        /*
         public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail) {
             if (!eventDispatcherUri.isEmpty()) {
                 var changeEvent = new ChangeEvent(auditTrail.id(), HttpInterceptor.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
@@ -178,6 +173,8 @@ public class AuditTrailListener implements ApplicationContextAware {
         }
 
         record ChangeEvent (String id, String tenantId, String referenceId, String type, AuditTrailListener.DbOperation operation, String origin) {}
+
+         */
     }
 
 }
