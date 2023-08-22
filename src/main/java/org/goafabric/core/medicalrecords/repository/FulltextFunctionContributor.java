@@ -13,8 +13,8 @@ public class FulltextFunctionContributor implements FunctionContributor {
         var resolveType = functionContributions.getTypeConfiguration().getBasicTypeRegistry().resolve(StandardBasicTypes.BOOLEAN);
 
         if (PostgreSQLDialect.class.equals(functionContributions.getDialect().getClass())) {
-            //functionContributions.getFunctionRegistry().registerPattern("fts","to_tsvector('english', display) @@ to_tsquery('english', concat(?1, ':*'))" ,resolveType);
-            functionContributions.getFunctionRegistry().registerPattern("fts","fts_display_english @@ to_tsquery('english', concat(?1, ':*'))" ,resolveType);
+            functionContributions.getFunctionRegistry().registerPattern("fts","to_tsvector('english', display) @@ to_tsquery('english', concat(?1, ':*'))" ,resolveType);
+            //functionContributions.getFunctionRegistry().registerPattern("fts","fts_display_english @@ to_tsquery('english', concat(?1, ':*'))" ,resolveType);
         } else {
             functionContributions.getFunctionRegistry().registerPattern("fts","UPPER(display) LIKE UPPER(concat('%', ?1, '%'))" ,resolveType);
         }
