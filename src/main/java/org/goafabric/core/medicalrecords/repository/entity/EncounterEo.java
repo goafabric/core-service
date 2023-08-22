@@ -19,6 +19,8 @@ public class EncounterEo {
 
     public String patientId;
 
+    public String practitionerId;
+
     public LocalDate encounterDate;
 
     public String encounterName;

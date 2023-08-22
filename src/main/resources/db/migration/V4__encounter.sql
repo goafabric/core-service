@@ -7,6 +7,7 @@ create table encounter
 	orgunit_id        varchar(36),
 
 	patient_id        varchar(36),
+	practitioner_id   varchar(36),
     encounter_name    varchar(255),
     encounter_date    date,
 

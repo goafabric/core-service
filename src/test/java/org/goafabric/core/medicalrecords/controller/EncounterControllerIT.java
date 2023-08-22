@@ -27,11 +27,13 @@ class EncounterControllerIT {
     @Test
     void findByPatientIdAndDisplay() {
         var patientId = createPatient();
+        String practitionerId = null;
 
         var encounter = new Encounter(
                 null,
                 null,
                 patientId,
+                practitionerId,
                 LocalDate.now(),
                 "Encounter Test",
                 Collections.singletonList(
