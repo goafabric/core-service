@@ -69,7 +69,7 @@ public class DemoDataImporter implements CommandLineRunner {
     private void importDemoData() {
         Arrays.asList(tenants.split(",")).forEach(tenant -> {
             setTenantId(tenant);
-            if (applicationContext.getBean(PatientLogic.class).findByFamilyName("").isEmpty()) {
+            if (applicationContext.getBean(PractitionerLogic.class).findByFamilyName("").isEmpty()) {
                 insertData();
             }
         });
@@ -159,7 +159,7 @@ public class DemoDataImporter implements CommandLineRunner {
     }
 
 
-    @Autowired(required = false)
+    @Autowired
     private ObjectStorageController objectStorageController;
 
     private void createArchiveFiles() {
