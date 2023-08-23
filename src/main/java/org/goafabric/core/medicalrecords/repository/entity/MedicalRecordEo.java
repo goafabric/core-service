@@ -2,7 +2,6 @@ package org.goafabric.core.medicalrecords.repository.entity;
 
 import jakarta.persistence.*;
 import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
-import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
@@ -17,7 +16,7 @@ public class MedicalRecordEo {
 
     public String type;
 
-    @TextIndexed
+    //@TextIndexed
     public String display;
 
     public String code;
