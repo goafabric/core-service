@@ -102,7 +102,7 @@ public abstract class GridView<T> extends VerticalLayout {
         var cancelButton = new Button("Cancel");
         cancelButton.addClickListener(event -> dialog.close());
 
-        layout.add(new HorizontalLayout(saveButton, deleteButton, cancelButton));
+        layout.add(new HorizontalLayout(cancelButton, saveButton, deleteButton));
     }
 
 
