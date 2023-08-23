@@ -91,5 +91,3 @@ spring.data.mongodb.auto-index-creation: true
 de.flapdoodle.mongodb.embedded.version: "6.0.1"
 
 spring.profiles.active: "jpa" #mongodb
-
-#spring.flyway.locations: "classpath:db/migration/*.sql,classpath:db/migration/{vendor}/*.sql"
