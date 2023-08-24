@@ -18,7 +18,7 @@ public class UserEo {
 
     public String name;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     public List<RoleEo> roles;
 

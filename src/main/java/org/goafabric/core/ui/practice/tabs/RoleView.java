@@ -1,6 +1,7 @@
 package org.goafabric.core.ui.practice.tabs;
 
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.organization.controller.vo.Role;
 import org.goafabric.core.ui.GridView;
@@ -16,6 +17,21 @@ public class RoleView extends GridView<Role> {
     @Override
     protected void addColumns(Grid<Role> grid) {
         grid.addColumn(Role::name).setHeader("Name");
+    }
+
+    protected void configureSaveDialog(Role role) {
+        put(new TextField("Name", role.name(), ""));
+    }
+
+    protected void onSave(Role role) {
+        var updated = new Role(
+                role.id(), role.version(),
+                mapDialog.get("Name").getValue());
+        getAdapter().save(updated);
+    }
+
+    protected void onDelete(Role role) {
+        getAdapter().delete(role.id());
     }
 
 }
