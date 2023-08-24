@@ -6,7 +6,7 @@ import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 import java.util.List;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "users")
 @EntityListeners(AuditTrailListener.class)
 public class UserEo {
     @Id
@@ -18,7 +18,7 @@ public class UserEo {
 
     public String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinColumn(name = "user_id")
     public List<RoleEo> roles;
 

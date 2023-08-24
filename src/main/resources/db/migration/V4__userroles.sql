@@ -4,7 +4,7 @@ create table users
 		constraint pk_user
 			primary key,
 
-    patiend_id varchar(255),
+    patient_id varchar(255),
     name varchar(255),
 
 	version bigint default 0

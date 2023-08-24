@@ -5,7 +5,7 @@ import java.util.List;
 public record User(
         String id,
         String version,
-        String name,
         String patientId,
+        String name,
         List<Role> roles
 ) {}

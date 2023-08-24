@@ -17,12 +17,6 @@ public class RoleControllerIT {
         var role = controller.save(
                 new Role(null, null, "administrator"));
 
-        controller.save(
-                new Role(null, null, "assistant"));
-
-        controller.save(
-                new Role(null, null, "user"));
-
         assertThat(controller.getById(role.id()).name())
                 .isEqualTo("administrator");
 

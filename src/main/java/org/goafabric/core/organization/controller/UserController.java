@@ -34,8 +34,8 @@ public class UserController {
 
 
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public User save(@RequestBody @Valid User organization) {
-        return logic.save(organization);
+    public User save(@RequestBody @Valid User user) {
+        return logic.save(user);
     }
 
 }
