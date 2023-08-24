@@ -1,10 +1,9 @@
 package org.goafabric.core.organization.controller;
 
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.organization.controller.vo.types.AddressUse;
 import org.goafabric.core.organization.controller.vo.types.ContactPointSystem;
-import org.goafabric.core.extensions.HttpInterceptor;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -13,8 +12,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.goafabric.core.DataRocker.*;
 
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@SpringBootTest
 class PatientControllerIT {
     @Autowired
     private PatientController controller;
