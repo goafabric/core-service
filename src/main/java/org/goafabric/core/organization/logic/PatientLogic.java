@@ -12,42 +12,42 @@ import java.util.List;
 @Component
 @Transactional
 public class PatientLogic {
-    private final PatientMapper patientMapper;
+    private final PatientMapper mapper;
 
-    private final PatientRepository patientRepository;
+    private final PatientRepository repository;
 
-    public PatientLogic(PatientMapper patientMapper, PatientRepository patientRepository) {
-        this.patientMapper = patientMapper;
-        this.patientRepository = patientRepository;
+    public PatientLogic(PatientMapper mapper, PatientRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
     }
 
     public void deleteById(String id) {
-        patientRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     public Patient getById(String id) {
-        return patientMapper.map(
-                patientRepository.findById(id).get());
+        return mapper.map(
+                repository.findById(id).get());
     }
 
     public List<Patient> findByGivenName(String givenName) {
-        return patientMapper.map(
-                patientRepository.findByGivenNameStartsWithIgnoreCase(givenName));
+        return mapper.map(
+                repository.findByGivenNameStartsWithIgnoreCase(givenName));
     }
 
     public List<Patient> findByFamilyName(String familyName) {
-        return patientMapper.map(
-                patientRepository.findByFamilyNameStartsWithIgnoreCase(familyName));
+        return mapper.map(
+                repository.findByFamilyNameStartsWithIgnoreCase(familyName));
     }
 
     public Patient save(Patient patient) {
-        return patientMapper.map(patientRepository.save(
-                patientMapper.map(patient)));
+        return mapper.map(repository.save(
+                mapper.map(patient)));
     }
 
     //performance optimazation if we only nead the lastnames, otherwise stupid hibernate will fetch 1:n relation with n queries
     public List<PatientNamesOnly> findPatientNamesByFamilyName(String search) {
-        return patientRepository.findPatientNamesByFamilyNameStartsWithIgnoreCaseOrderByFamilyName(search);
+        return repository.findPatientNamesByFamilyNameStartsWithIgnoreCaseOrderByFamilyName(search);
     }
 
 
