@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.vo.Encounter;
 import org.goafabric.core.medicalrecords.logic.mapper.EncounterMapper;
 import org.goafabric.core.medicalrecords.repository.EncounterRepository;
-import org.goafabric.core.medicalrecords.repository.entity.EncounterEo;
 import org.h2.util.StringUtils;
 import org.springframework.aop.framework.AopProxyUtils;
 import org.springframework.data.mongodb.repository.support.SimpleMongoRepository;
@@ -25,8 +24,8 @@ public class EncounterLogic {
         this.repository = encounterRepository;;
     }
 
-    public EncounterEo save(Encounter encounter) {
-        return repository.save(mapper.map(encounter));
+    public Encounter save(Encounter encounter) {
+        return mapper.map(repository.save(mapper.map(encounter)));
     }
 
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
