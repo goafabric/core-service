@@ -11,32 +11,32 @@ import java.util.List;
 @Component
 @Transactional
 public class OrganizationLogic {
-    private final OrganizationMapper organizationMapper;
+    private final OrganizationMapper mapper;
 
-    private final OrganizationRepository organizationRepository;
+    private final OrganizationRepository repository;
 
-    public OrganizationLogic(OrganizationMapper organizationMapper, OrganizationRepository organizationRepository) {
-        this.organizationMapper = organizationMapper;
-        this.organizationRepository = organizationRepository;
+    public OrganizationLogic(OrganizationMapper mapper, OrganizationRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
     }
 
     public Organization getById(String id) {
-        return organizationMapper.map(
-                organizationRepository.findById(id).get());
+        return mapper.map(
+                repository.findById(id).get());
     }
 
     public void deleteById(String id) {
-        organizationRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     public List<Organization> findByName(String name) {
-        return organizationMapper.map(
-                organizationRepository.findByNameStartsWithIgnoreCase(name));
+        return mapper.map(
+                repository.findByNameStartsWithIgnoreCase(name));
     }
 
     public Organization save(Organization organization) {
-        return organizationMapper.map(organizationRepository.save(
-                organizationMapper.map(organization)));
+        return mapper.map(repository.save(
+                mapper.map(organization)));
     }
 
 

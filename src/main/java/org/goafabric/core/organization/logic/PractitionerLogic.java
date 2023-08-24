@@ -11,37 +11,37 @@ import java.util.List;
 @Component
 @Transactional
 public class PractitionerLogic {
-    private final PractitionerMapper practitionerMapper;
+    private final PractitionerMapper mapper;
 
-    private final PractitionerRepository practitionerRepository;
+    private final PractitionerRepository repository;
 
-    public PractitionerLogic(PractitionerMapper practitionerMapper, PractitionerRepository practitionerRepository) {
-        this.practitionerMapper = practitionerMapper;
-        this.practitionerRepository = practitionerRepository;
+    public PractitionerLogic(PractitionerMapper mapper, PractitionerRepository repository) {
+        this.mapper = mapper;
+        this.repository = repository;
     }
 
     public Practitioner getById(String id) {
-        return practitionerMapper.map(
-                practitionerRepository.findById(id).get());
+        return mapper.map(
+                repository.findById(id).get());
     }
 
     public void deleteById(String id) {
-        practitionerRepository.deleteById(id);
+        repository.deleteById(id);
     }
 
     public List<Practitioner> findByGivenName(String givenName) {
-        return practitionerMapper.map(
-                practitionerRepository.findByGivenNameStartsWithIgnoreCase(givenName));
+        return mapper.map(
+                repository.findByGivenNameStartsWithIgnoreCase(givenName));
     }
 
     public List<Practitioner> findByFamilyName(String familyName) {
-        return practitionerMapper.map(
-                practitionerRepository.findByFamilyNameStartsWithIgnoreCase(familyName));
+        return mapper.map(
+                repository.findByFamilyNameStartsWithIgnoreCase(familyName));
     }
 
     public Practitioner save(Practitioner practitioner) {
-        return practitionerMapper.map(practitionerRepository.save(
-                practitionerMapper.map(practitioner)));
+        return mapper.map(repository.save(
+                mapper.map(practitioner)));
     }
 
 }
