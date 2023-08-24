@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 
-public class V5__fulltext extends BaseJavaMigration {
+public class V6__fulltext extends BaseJavaMigration {
 
     @Override
     public void migrate(Context context) throws Exception {

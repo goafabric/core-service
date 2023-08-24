@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.repository.extensions;
 
-import db.migration.V5__fulltext;
+import db.migration.V6__fulltext;
 import org.flywaydb.core.Flyway;
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.hibernate.cfg.AvailableSettings;
@@ -128,7 +128,7 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
             if (goals.contains("-migrate")) {
                 Arrays.asList(tenants.split(",")).forEach(tenant -> {
                             Flyway.configure().configuration(flyway.getConfiguration())
-                                    .javaMigrations(new V5__fulltext())
+                                    .javaMigrations(new V6__fulltext())
                                     .schemas(schemaPrefix + tenant).defaultSchema(schemaPrefix + tenant)
                                     .placeholders(Map.of("tenantId", tenant))
                                     .load().migrate();
