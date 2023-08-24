@@ -4,7 +4,6 @@ import jakarta.transaction.Transactional;
 import org.goafabric.core.mrc.controller.vo.Encounter;
 import org.goafabric.core.mrc.logic.mapper.EncounterMapper;
 import org.goafabric.core.mrc.repository.EncounterRepository;
-import org.goafabric.core.mrc.repository.entity.EncounterEo;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -22,8 +21,8 @@ public class EncounterLogic {
         this.repository = encounterRepository;;
     }
 
-    public EncounterEo save(Encounter encounter) {
-        return repository.save(mapper.map(encounter));
+    public Encounter save(Encounter encounter) {
+        return mapper.map(repository.save(mapper.map(encounter)));
     }
 
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
