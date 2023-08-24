@@ -1,7 +1,7 @@
 package org.goafabric.core.fhir.r4.controller;
 
 
-import org.goafabric.core.data.logic.PatientLogic;
+import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.fhir.r4.logic.mapper.FhirPatientMapper;
 import org.goafabric.core.fhir.r4.controller.vo.Bundle;
 import org.goafabric.core.fhir.r4.controller.vo.Patient;

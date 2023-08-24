@@ -4,12 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.goafabric.core.data.controller.vo.Organization;
-import org.goafabric.core.data.controller.vo.Patient;
-import org.goafabric.core.data.controller.vo.Practitioner;
-import org.goafabric.core.data.logic.OrganizationLogic;
-import org.goafabric.core.data.logic.PatientLogic;
-import org.goafabric.core.data.logic.PractitionerLogic;
+import org.goafabric.core.organization.controller.vo.Organization;
+import org.goafabric.core.organization.controller.vo.Patient;
+import org.goafabric.core.organization.controller.vo.Practitioner;
+import org.goafabric.core.organization.logic.OrganizationLogic;
+import org.goafabric.core.organization.logic.PatientLogic;
+import org.goafabric.core.organization.logic.PractitionerLogic;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
