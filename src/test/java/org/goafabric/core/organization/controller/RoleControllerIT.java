@@ -32,6 +32,7 @@ public class RoleControllerIT {
         controller.deleteById(role.id());
     }
 
+    @Test
     public void findByName() {
         var role = controller.save(
                 new Role(null, null, "administrator"));
@@ -40,6 +41,5 @@ public class RoleControllerIT {
                 .isEqualTo("administrator");
 
         controller.deleteById(role.id());
-
     }
 }
