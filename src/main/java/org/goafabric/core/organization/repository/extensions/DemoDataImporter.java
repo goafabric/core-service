@@ -4,6 +4,8 @@ import net.datafaker.Faker;
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.medicalrecords.controller.ObjectStorageController;
 import org.goafabric.core.medicalrecords.controller.vo.ObjectEntry;
+import org.goafabric.core.organization.controller.RoleController;
+import org.goafabric.core.organization.controller.UserController;
 import org.goafabric.core.organization.controller.vo.*;
 import org.goafabric.core.organization.controller.vo.types.AddressUse;
 import org.goafabric.core.organization.controller.vo.types.ContactPointSystem;
@@ -79,7 +81,26 @@ public class DemoDataImporter implements CommandLineRunner {
         createPatients();
         createPractitioners();
         createOrganizations();
+        createUserRoles();
         createArchiveFiles();
+    }
+
+    private void createUserRoles() {
+        var roleController =  applicationContext.getBean(RoleController.class);
+
+        var role1 = roleController.save(new Role(null, null, "administrator"));
+        var role2 = roleController.save(new Role(null, null, "assistant"));
+        var role3 = roleController.save(new Role(null, null, "user"));
+
+        applicationContext.getBean(UserController.class).save(
+                new User(null, null, "1", "user1", Collections.singletonList(role1)));
+
+        applicationContext.getBean(UserController.class).save(
+                new User(null, null, "1", "user2", Arrays.asList(role2, role3)));
+
+        applicationContext.getBean(UserController.class).save(
+                new User(null, null, "1", "user3", Arrays.asList(role2, role3)));
+
     }
 
     private void createPatients() {
