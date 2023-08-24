@@ -1,9 +1,9 @@
-package org.goafabric.core.mrc.logic;
+package org.goafabric.core.medicalrecords.logic;
 
 import jakarta.transaction.Transactional;
-import org.goafabric.core.mrc.controller.vo.Encounter;
-import org.goafabric.core.mrc.logic.mapper.EncounterMapper;
-import org.goafabric.core.mrc.repository.EncounterRepository;
+import org.goafabric.core.medicalrecords.controller.vo.Encounter;
+import org.goafabric.core.medicalrecords.logic.mapper.EncounterMapper;
+import org.goafabric.core.medicalrecords.repository.EncounterRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

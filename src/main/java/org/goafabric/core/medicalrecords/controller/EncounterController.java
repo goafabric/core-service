@@ -1,8 +1,8 @@
-package org.goafabric.core.mrc.controller;
+package org.goafabric.core.medicalrecords.controller;
 
 import jakarta.validation.Valid;
-import org.goafabric.core.mrc.controller.vo.Encounter;
-import org.goafabric.core.mrc.logic.EncounterLogic;
+import org.goafabric.core.medicalrecords.controller.vo.Encounter;
+import org.goafabric.core.medicalrecords.logic.EncounterLogic;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
