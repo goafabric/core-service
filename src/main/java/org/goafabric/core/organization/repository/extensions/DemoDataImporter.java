@@ -96,10 +96,10 @@ public class DemoDataImporter implements CommandLineRunner {
                 new User(null, null, "1", "user1", Collections.singletonList(role1)));
 
         applicationContext.getBean(UserController.class).save(
-                new User(null, null, "1", "user2", Arrays.asList(role2, role3)));
+                new User(null, null, "1", "user2", Arrays.asList(role2)));
 
         applicationContext.getBean(UserController.class).save(
-                new User(null, null, "1", "user3", Arrays.asList(role2, role3)));
+                new User(null, null, "1", "user3", Arrays.asList(role3)));
 
     }
 

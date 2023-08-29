@@ -28,7 +28,7 @@ public class PracticeView extends VerticalLayout {
 
         tabSheet.add("Practitioner", new PractitionerView(practitionerAdapter));
         tabSheet.add("Organization", new OrganizationView(organizationAdapter));
-        tabSheet.add("User", new UserView(userAdapter));
+        tabSheet.add("User", new UserView(userAdapter, roleAdapter));
         tabSheet.add("Role", new RoleView(roleAdapter));
 
         add(tabSheet);
