@@ -1,3 +1,5 @@
+# 1.0.5
+
 # 1.0.4
 - upgrade to keycloak 22.2.0
 - upgrade to auth-server 1.0.3 
