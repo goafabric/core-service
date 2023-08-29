@@ -18,8 +18,12 @@ public class UserEo {
 
     public String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "user_role",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id") }
+    )
     public List<RoleEo> roles;
 
     @Version //optimistic locking
