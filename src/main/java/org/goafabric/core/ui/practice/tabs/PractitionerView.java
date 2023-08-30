@@ -4,6 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.organization.controller.vo.Address;
+import org.goafabric.core.organization.controller.vo.ContactPoint;
 import org.goafabric.core.organization.controller.vo.Practitioner;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.adapter.SearchAdapter;
@@ -43,7 +44,8 @@ public class PractitionerView extends GridView<Practitioner> {
                         isNewItem() ? null : address.id(), isNewItem() ? null : address.version(),
                         address.use(),
                         mapDialog.get("Street").getValue(), mapDialog.get("City").getValue(), address.postalCode(), address.state(), address.country())),
-                practitioner.contactPoint());
+                isNewItem() ? Collections.singletonList(new ContactPoint(null, null, "", "", ""))
+                        :  practitioner.contactPoint());
         getAdapter().save(updated);
     }
 

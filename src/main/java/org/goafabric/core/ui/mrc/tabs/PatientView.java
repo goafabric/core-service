@@ -4,6 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.organization.controller.vo.Address;
+import org.goafabric.core.organization.controller.vo.ContactPoint;
 import org.goafabric.core.organization.controller.vo.Patient;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.adapter.PatientAdapter;
@@ -43,7 +44,8 @@ public class PatientView extends GridView<Patient> {
                         isNewItem() ? null : address.id(), isNewItem() ? null : address.version(),
                         address.use(),
                         mapDialog.get("Street").getValue(), mapDialog.get("City").getValue(), address.postalCode(), address.state(), address.country())),
-                patient.contactPoint());
+                isNewItem() ? Collections.singletonList(new ContactPoint(null, null, "", "", ""))
+                        : patient.contactPoint());
         getAdapter().save(updated);
     }
 
