@@ -3,6 +3,8 @@ package org.goafabric.core.organization.repository.entity;
 import jakarta.persistence.*;
 import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
+import java.util.List;
+
 @Entity
 @Table(name = "roles")
 @EntityListeners(AuditTrailListener.class)
@@ -13,6 +15,9 @@ public class RoleEo {
     public String id;
 
     public String name;
+
+    @Transient
+    public List<PermissionEo> permissions;
 
     @Version //optimistic locking
     public Long version;

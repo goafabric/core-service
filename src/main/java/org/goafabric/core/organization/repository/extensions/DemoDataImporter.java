@@ -9,6 +9,8 @@ import org.goafabric.core.organization.controller.UserController;
 import org.goafabric.core.organization.controller.vo.*;
 import org.goafabric.core.organization.controller.vo.types.AddressUse;
 import org.goafabric.core.organization.controller.vo.types.ContactPointSystem;
+import org.goafabric.core.organization.controller.vo.types.PermissionCategory;
+import org.goafabric.core.organization.controller.vo.types.PermissionType;
 import org.goafabric.core.organization.logic.OrganizationLogic;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.organization.logic.PractitionerLogic;
@@ -88,9 +90,17 @@ public class DemoDataImporter implements CommandLineRunner {
     private void createUserRoles() {
         var roleController =  applicationContext.getBean(RoleController.class);
 
-        var role1 = roleController.save(new Role(null, null, "administrator"));
-        var role2 = roleController.save(new Role(null, null, "assistant"));
-        var role3 = roleController.save(new Role(null, null, "user"));
+        var permissions = Arrays.asList(
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Patient),
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Practice),
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Catalogs),
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Appointments),
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Monitoring)
+        );
+
+        var role1 = roleController.save(new Role(null, null, "administrator", permissions));
+        var role2 = roleController.save(new Role(null, null, "assistant", permissions));
+        var role3 = roleController.save(new Role(null, null, "user", permissions));
 
         applicationContext.getBean(UserController.class).save(
                 new User(null, null, "1", "user1", Collections.singletonList(role1)));
