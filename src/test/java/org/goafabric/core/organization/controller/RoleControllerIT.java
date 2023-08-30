@@ -24,8 +24,8 @@ public class RoleControllerIT {
     @Test
     public void save() {
         var permissions = permissionLogic.saveAll(Arrays.asList(
-                new Permission(null, null, PermissionCategory.VIEW, PermissionType.Patient),
-                new Permission(null, null, PermissionCategory.VIEW, PermissionType.Practice)
+                new Permission(null, null, PermissionCategory.VIEW, PermissionType.PATIENT),
+                new Permission(null, null, PermissionCategory.VIEW, PermissionType.PRACTICE)
         ));
 
         var role = controller.save(
@@ -45,8 +45,8 @@ public class RoleControllerIT {
     @Test
     public void findByName() {
         var permissions = permissionLogic.saveAll(Arrays.asList(
-                new Permission(null, null, PermissionCategory.VIEW, PermissionType.Patient),
-                new Permission(null, null, PermissionCategory.VIEW, PermissionType.Practice)
+                new Permission(null, null, PermissionCategory.VIEW, PermissionType.PATIENT),
+                new Permission(null, null, PermissionCategory.VIEW, PermissionType.PRACTICE)
                 ));
 
         var role = controller.save(

@@ -93,17 +93,25 @@ public class DemoDataImporter implements CommandLineRunner {
 
         var permissionLogic =  applicationContext.getBean(PermissionLogic.class);
 
-        var permissions = permissionLogic.saveAll(Arrays.asList(
-            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Patient),
-            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Practice),
-            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Catalogs),
-            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Appointments),
-            new Permission(null, null, PermissionCategory.VIEW, PermissionType.Monitoring)
+        var normalPermissions = permissionLogic.saveAll(Arrays.asList(
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.PATIENT),
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.PRACTICE),
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.CATALOGS),
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.FILES),
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.APPOINTMENTS),
+            new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE)
         ));
 
-        var role1 = roleController.save(new Role(null, null, "administrator", permissions));
-        var role2 = roleController.save(new Role(null, null, "assistant", permissions));
-        var role3 = roleController.save(new Role(null, null, "user", permissions));
+        var permissionMonitoring = permissionLogic.save(new Permission(null, null, PermissionCategory.VIEW, PermissionType.MONITORING));
+        var permissionRWD = permissionLogic.save(new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE_DELETE));
+
+        var adminPermissions = new ArrayList<>(normalPermissions);
+        adminPermissions.add(permissionMonitoring);
+        adminPermissions.add(permissionRWD);
+
+        var role1 = roleController.save(new Role(null, null, "administrator", adminPermissions));
+        var role2 = roleController.save(new Role(null, null, "assistant", normalPermissions));
+        var role3 = roleController.save(new Role(null, null, "user", normalPermissions));
 
         applicationContext.getBean(UserController.class).save(
                 new User(null, null, "1", "user1", Collections.singletonList(role1)));
@@ -114,7 +122,11 @@ public class DemoDataImporter implements CommandLineRunner {
         applicationContext.getBean(UserController.class).save(
                 new User(null, null, "1", "user3", Arrays.asList(role3)));
 
+        applicationContext.getBean(UserController.class).save(
+                new User(null, null, "1", "anonymousUser", Arrays.asList(role1)));
+
     }
+
 
     private void createPatients() {
         Faker faker = new Faker();
