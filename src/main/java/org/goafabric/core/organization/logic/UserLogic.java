@@ -35,9 +35,9 @@ public class UserLogic {
                 
     }
 
-    public User save(User role) {
+    public User save(User user) {
         return mapper.map(repository.save(
-                mapper.map(role)));
+                mapper.map(user)));
                 
     }
 
