@@ -36,9 +36,10 @@ public class UserLogic {
     }
 
     public User save(User user) {
-        //userEo.roles = user.roles().stream().map(role -> roleRepository.findById(role.id()).get()).toList();
         return mapper.map(repository.save(
                 mapper.map(user)));
+                
     }
+
 
 }
