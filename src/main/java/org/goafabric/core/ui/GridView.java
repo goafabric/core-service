@@ -6,6 +6,8 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBoxBase;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -90,7 +92,7 @@ public abstract class GridView<T> extends VerticalLayout {
     }
 
     private void addButtons(T item, VerticalLayout layout, Dialog dialog) {
-        var saveButton = new Button("Save");
+        var saveButton = new Button(new Icon(VaadinIcon.ARROW_BACKWARD));
         saveButton.addClickListener(event -> {
             onSave(item);
             isNewItem = false;
@@ -98,23 +100,26 @@ public abstract class GridView<T> extends VerticalLayout {
             updateList();
         });
 
-        var newButton = new Button("New");
+        var newButton = new Button(new Icon(VaadinIcon.FILE_ADD));
         newButton.addClickListener(event -> {
             isNewItem = true;
             mapDialog.values().forEach(textField -> textField.setValue(""));
         });
 
-        var deleteButton = new Button("Delete");
+        var deleteButton = new Button(new Icon(VaadinIcon.FILE_REMOVE));
         deleteButton.addClickListener(event -> {
             onDelete(item);
             dialog.close();
             updateList();
         });
 
-        var cancelButton = new Button("Cancel");
+        /*
+        var cancelButton = new Button(new Icon(VaadinIcon.CLOSE));
         cancelButton.addClickListener(event -> dialog.close());
 
-        layout.add(new HorizontalLayout(cancelButton, saveButton, newButton, deleteButton));
+         */
+
+        layout.add(new HorizontalLayout(saveButton, newButton, deleteButton));
 
         deleteButton.setEnabled(UserHolder.userHasPermission(PermissionType.READ_WRITE_DELETE.getValue()));
     }
