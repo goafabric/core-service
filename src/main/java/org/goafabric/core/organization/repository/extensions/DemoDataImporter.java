@@ -13,6 +13,7 @@ import org.goafabric.core.organization.controller.vo.types.PermissionCategory;
 import org.goafabric.core.organization.controller.vo.types.PermissionType;
 import org.goafabric.core.organization.logic.OrganizationLogic;
 import org.goafabric.core.organization.logic.PatientLogic;
+import org.goafabric.core.organization.logic.PermissionLogic;
 import org.goafabric.core.organization.logic.PractitionerLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,13 +91,15 @@ public class DemoDataImporter implements CommandLineRunner {
     private void createUserRoles() {
         var roleController =  applicationContext.getBean(RoleController.class);
 
-        var permissions = Arrays.asList(
+        var permissionLogic =  applicationContext.getBean(PermissionLogic.class);
+
+        var permissions = permissionLogic.saveAll(Arrays.asList(
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.Patient),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.Practice),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.Catalogs),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.Appointments),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.Monitoring)
-        );
+        ));
 
         var role1 = roleController.save(new Role(null, null, "administrator", permissions));
         var role2 = roleController.save(new Role(null, null, "assistant", permissions));

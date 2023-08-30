@@ -1,10 +1,16 @@
 package org.goafabric.core.organization.controller;
 
+import org.goafabric.core.organization.controller.vo.Permission;
 import org.goafabric.core.organization.controller.vo.Role;
 import org.goafabric.core.organization.controller.vo.User;
+import org.goafabric.core.organization.controller.vo.types.PermissionCategory;
+import org.goafabric.core.organization.controller.vo.types.PermissionType;
+import org.goafabric.core.organization.logic.PermissionLogic;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,14 +22,23 @@ public class UserControllerIT {
     @Autowired
     private UserController userController;
 
+    @Autowired
+    private PermissionLogic permissionLogic;
+
     @Test
     public void save() {
-        roleController.save(new Role(null, null, "administrator"));
-        roleController.save(new Role(null, null, "assistant"));
-        roleController.save(new Role(null, null, "user"));
+        var permissions = permissionLogic.saveAll(Arrays.asList(
+                new Permission(null, null, PermissionCategory.VIEW, PermissionType.Patient),
+                new Permission(null, null, PermissionCategory.VIEW, PermissionType.Practice)
+        ));
+
+        roleController.save(new Role(null, null, "administrator", permissions));
+        roleController.save(new Role(null, null, "assistant", permissions));
+        roleController.save(new Role(null, null, "user", permissions));
 
         var roles = roleController.findByName("");
         assertThat(roles).hasSize(3);
+        assertThat(roles.get(0).permissions()).hasSize(2);
 
         var user = userController.save(
                 new User(null, null, "1", "user1", roles));

@@ -16,7 +16,12 @@ public class RoleEo {
 
     public String name;
 
-    @Transient
+    @ManyToMany//(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "role_permission",
+            joinColumns = { @JoinColumn(name = "role_id") },
+            inverseJoinColumns = { @JoinColumn(name = "permission_id") }
+    )
     public List<PermissionEo> permissions;
 
     @Version //optimistic locking
