@@ -28,8 +28,8 @@ public class UserControllerIT {
     @Test
     public void save() {
         var permissions = permissionLogic.saveAll(Arrays.asList(
-                new Permission(null, null, PermissionCategory.VIEW, PermissionType.Patient),
-                new Permission(null, null, PermissionCategory.VIEW, PermissionType.Practice)
+                new Permission(null, null, PermissionCategory.VIEW, PermissionType.PATIENT),
+                new Permission(null, null, PermissionCategory.VIEW, PermissionType.PRACTICE)
         ));
 
         roleController.save(new Role(null, null, "administrator", permissions));
