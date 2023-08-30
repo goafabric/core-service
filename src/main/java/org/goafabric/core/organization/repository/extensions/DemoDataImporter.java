@@ -101,6 +101,9 @@ public class DemoDataImporter implements CommandLineRunner {
         applicationContext.getBean(UserController.class).save(
                 new User(null, null, "1", "user3", Arrays.asList(role3)));
 
+        applicationContext.getBean(UserController.class).save(
+                new User(null, null, "1", "anonymousUser", Arrays.asList(role2)));
+
     }
 
     private void createPatients() {
