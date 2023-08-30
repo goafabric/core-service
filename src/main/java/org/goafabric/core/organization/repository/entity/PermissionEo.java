@@ -14,7 +14,7 @@ public class PermissionEo {
 
     public String category;
 
-    public String name;
+    public String type;
 
     @Version //optimistic locking
     public Long version;

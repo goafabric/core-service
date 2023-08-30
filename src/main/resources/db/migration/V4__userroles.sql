@@ -33,8 +33,8 @@ create table permission
 		constraint pk_permission
 			primary key,
 
-    name varchar(255),
     category varchar(255),
+    type varchar(255),
 
 	version bigint default 0
 );

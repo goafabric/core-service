@@ -1,7 +1,12 @@
 package org.goafabric.core.organization.controller.vo.types;
 
 public enum PermissionType {
-    MONITORING("Monitoring");
+    Patient("Patient"),
+    Practice("Practice"),
+    Catalogs("Catalogs"),
+    Appointments("Appointments"),
+    Files("Files"),
+    Monitoring("Monitoring");
 
     private String value;
 
