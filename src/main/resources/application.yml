@@ -23,13 +23,14 @@ management.otlp.tracing.endpoint: "http://localhost:4318/v1/traces"
 event.dispatcher.uri: "http://localhost:50500/events/dispatch"
 
 #oidc
-security.authentication.enabled: false
+security.authentication.enabled: true
 
 spring:
   security:
     oauth2:
       base-uri: "http://127.0.0.1:30200/oidc"
       authorization-uri: "http://127.0.0.1:30200/oidc/auth"
+      logout-uri: "http://127.0.0.1:30200/logout"
 #      base-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect
 #      authorization-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/auth
 #      logout-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/logout
