@@ -3,7 +3,7 @@ package org.goafabric.core.ui;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.ComboBoxBase;
 import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.notification.Notification;
@@ -120,13 +120,13 @@ public abstract class GridView<T> extends VerticalLayout {
 
 
     protected final HashMap<String, TextField> mapDialog = new HashMap();
-    protected final HashMap<String, ComboBox> mapDialogCombo = new HashMap();
+    protected final HashMap<String, ComboBoxBase> mapDialogCombo = new HashMap();
 
     protected void put(TextField textField) {
         mapDialog.put(textField.getLabel(), textField);
     }
 
-    protected void put(ComboBox comboBox) {
+    protected void put(ComboBoxBase comboBox) {
         mapDialogCombo.put(comboBox.getLabel(), comboBox);
     }
 

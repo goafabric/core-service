@@ -33,6 +33,10 @@ public class UserView extends GridView<User> {
     protected void configureSaveDialog(User user) {
         put(new TextField("Name", user.name(), ""));
 
+        put(createRoleCombo(user));
+    }
+
+    private ComboBox<Role> createRoleCombo(User user) {
         var roles = roleAdapter.search("");
         var roleCombo = new ComboBox<Role>("Role");
         roleCombo.setItemLabelGenerator(Role::name);
@@ -40,8 +44,7 @@ public class UserView extends GridView<User> {
         if (!user.roles().isEmpty()) {
             roleCombo.setValue(user.roles().get(0));
         }
-
-        put(roleCombo);
+        return roleCombo;
     }
 
     protected void onSave(User user) {
@@ -51,7 +54,6 @@ public class UserView extends GridView<User> {
                 mapDialog.get("Name").getValue(),
                 Collections.singletonList((Role) mapDialogCombo.get("Role").getValue())
         );
-                //user.roles());
         getAdapter().save(updated);
     }
 
