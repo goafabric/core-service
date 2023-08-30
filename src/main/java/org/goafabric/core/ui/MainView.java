@@ -14,6 +14,7 @@ import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
@@ -29,6 +30,8 @@ import org.goafabric.core.ui.monitoring.MonitoringView;
 import org.goafabric.core.ui.mrc.MRCMainView;
 import org.goafabric.core.ui.practice.PracticeView;
 import org.springframework.beans.factory.annotation.Value;
+
+import java.net.URL;
 
 public class MainView extends AppLayout {
 
@@ -90,7 +93,11 @@ public class MainView extends AppLayout {
 
     private HorizontalLayout createUserIcon() {
         var userButton = new Button(new Icon(VaadinIcon.USER));
-        userButton.addClickListener(event -> getUI().get().getPage().open("/core/logout", "_self"));
+        userButton.addClickListener(event -> {
+            var page = getUI().get().getPage();
+            page.fetchCurrentURL((SerializableConsumer<URL>) url ->
+                    page.open(url.getPath().contains("/core") ? "/core/logout" : "/logout", "_self"));
+        });
         return new HorizontalLayout(userButton, new Label(UiInterceptor.getUser().name())
                 , new Button(new Icon(VaadinIcon.HOME)), new Label(HttpInterceptor.getTenantId() + "," + TenantResolver.getOrgunitId()));
     }
