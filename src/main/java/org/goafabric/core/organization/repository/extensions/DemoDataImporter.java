@@ -106,8 +106,8 @@ public class DemoDataImporter implements CommandLineRunner {
         var permissionRWD = permissionLogic.save(new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE_DELETE));
 
         var adminPermissions = new ArrayList<>(normalPermissions);
-        //adminPermissions.add(permissionMonitoring);
-        //adminPermissions.add(permissionRWD);
+        adminPermissions.add(permissionMonitoring);
+        adminPermissions.add(permissionRWD);
 
         var role1 = roleController.save(new Role(null, null, "administrator", adminPermissions));
         var role2 = roleController.save(new Role(null, null, "assistant", normalPermissions));
