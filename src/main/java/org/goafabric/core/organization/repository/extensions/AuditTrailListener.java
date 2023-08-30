@@ -72,13 +72,10 @@ public class AuditTrailListener implements ApplicationContextAware {
                 context.getBean(AuditJpaUpdater.class).findOldObject(object.getClass(), id), object);
     }
 
-    /*
     @PostRemove
     public void afterDelete(Object object) {
         insertAudit(DbOperation.DELETE, getId(object), object, null);
     }
-
-     */
 
     private void insertAudit(final DbOperation operation, String referenceId, final Object oldObject, final Object newObject) {
         try {
