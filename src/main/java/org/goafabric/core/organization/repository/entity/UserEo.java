@@ -18,7 +18,7 @@ public class UserEo {
 
     public String name;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
+    @ManyToMany//(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "user_role",
             joinColumns = { @JoinColumn(name = "user_id") },

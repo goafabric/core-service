@@ -41,7 +41,7 @@ public class UserLogic {
 
     public User save(User user) {
         var userEo = mapper.map(user);
-        userEo.roles = user.roles().stream().map(role -> roleRepository.findById(role.id()).get()).toList();
+        //userEo.roles = user.roles().stream().map(role -> roleRepository.findById(role.id()).get()).toList();
         return mapper.map(repository.save(userEo));
     }
 
