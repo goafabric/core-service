@@ -30,10 +30,5 @@ public class UiInterceptor implements VaadinServiceInitListener {
         } else {
             throw new IllegalStateException("no user in context");
         }
-        /*
-        return user.get() != null ? user.get() : new User(null, null, null, "fallback",
-                Collections.singletonList(new Role(null, null, "none")));
-
-         */
     }
 }
