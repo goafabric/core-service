@@ -1,13 +1,12 @@
 package org.goafabric.core.organization.repository.entity;
 
 import jakarta.persistence.*;
-import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
 import java.util.List;
 
 @Entity
 @Table(name = "roles")
-@EntityListeners(AuditTrailListener.class)
+//@EntityListeners(AuditTrailListener.class)
 public class RoleEo {
     @Id
     @org.springframework.data.annotation.Id
