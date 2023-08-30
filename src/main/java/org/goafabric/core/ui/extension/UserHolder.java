@@ -20,7 +20,9 @@ public class UserHolder implements VaadinServiceInitListener {
             var userName = HttpInterceptor.getUserName();
             var users = userAdapter.search(userName);
 
-            user = users.get(0);
+            if (users.size() == 1) {
+                user = users.get(0);
+            }
         });
     }
 
