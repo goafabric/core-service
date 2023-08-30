@@ -16,6 +16,7 @@ public class UserHolder implements VaadinServiceInitListener {
 
     @Override
     public void serviceInit(ServiceInitEvent event) {
+
         event.getSource().addUIInitListener(init -> {
             var userName = HttpInterceptor.getUserName();
             var users = userAdapter.search(userName);
