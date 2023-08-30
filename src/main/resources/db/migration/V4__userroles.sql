@@ -16,8 +16,13 @@ create table roles
 		constraint pk_role
 			primary key,
 
-    user_id varchar(255),
     name varchar(255),
 
 	version bigint default 0
+);
+
+create table user_role
+(
+    user_id varchar(36),
+    role_id varchar(36)
 );
