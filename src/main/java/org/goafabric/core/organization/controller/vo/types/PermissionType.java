@@ -8,9 +8,9 @@ public enum PermissionType {
     FILES("Files"),
     MONITORING("Monitoring"),
 
-    READ("READ"),
-    READ_WRITE("READ_WRITE"),
-    READ_WRITE_DELETE("READ_WRITE_DELETE"),
+    READ("Read"),
+    READ_WRITE("Read & Write"),
+    READ_WRITE_DELETE("Write & Delete"),
     ;
 
     private String value;
