@@ -47,7 +47,7 @@ public class UserView extends GridView<User> {
     protected void onSave(User user) {
         var updated = new User(
                 user.id(), user.version(),
-                user.patientId(),
+                user.practitionerId(),
                 mapDialog.get("Name").getValue(),
                 Collections.singletonList((Role) mapDialogCombo.get("Role").getValue())
         );

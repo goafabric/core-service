@@ -14,7 +14,7 @@ public class UserEo {
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
-    public String patientId;
+    public String practitionerId;
 
     public String name;
 
