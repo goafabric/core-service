@@ -23,10 +23,6 @@ create table roles
 
 create table user_role
 (
-	id varchar(36) not null
-		constraint pk_user_role
-			primary key,
-
     user_id varchar(36),
     role_id varchar(36)
 );
