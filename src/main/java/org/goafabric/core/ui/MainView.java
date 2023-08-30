@@ -24,7 +24,7 @@ import org.goafabric.core.organization.repository.extensions.TenantResolver;
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.ui.appointments.AppointmentView;
 import org.goafabric.core.ui.catalogs.CatalogView;
-import org.goafabric.core.ui.extension.UiInterceptor;
+import org.goafabric.core.ui.extension.UserHolder;
 import org.goafabric.core.ui.files.FilesView;
 import org.goafabric.core.ui.monitoring.MonitoringView;
 import org.goafabric.core.ui.mrc.MRCMainView;
@@ -70,7 +70,7 @@ public class MainView extends AppLayout {
                 new HorizontalLayout(new Icon(VaadinIcon.CALENDAR_USER), new RouterLink("Appointments", AppointmentView.class)),
                 new HorizontalLayout(new Icon(VaadinIcon.ARCHIVE), new RouterLink("Files", FilesView.class))
         );
-        if (UiInterceptor.getUser().roles().stream().anyMatch(role -> "administrator".equals(role.name()))) {
+        if (UserHolder.userIsAdmin()) {
             layout.add(new HorizontalLayout(new Icon(VaadinIcon.CHART), new RouterLink("Monitoring", MonitoringView.class)));
         }
         addToDrawer(layout);
@@ -98,7 +98,7 @@ public class MainView extends AppLayout {
             page.fetchCurrentURL((SerializableConsumer<URL>) url ->
                     page.open(url.getPath().contains("/core") ? "/core/logout" : "/logout", "_self"));
         });
-        return new HorizontalLayout(userButton, new Label(UiInterceptor.getUser().name())
+        return new HorizontalLayout(userButton, new Label(UserHolder.getUser().name())
                 , new Button(new Icon(VaadinIcon.HOME)), new Label(HttpInterceptor.getTenantId() + "," + TenantResolver.getOrgunitId()));
     }
 

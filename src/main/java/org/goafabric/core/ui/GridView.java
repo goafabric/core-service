@@ -12,6 +12,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.ui.adapter.SearchAdapter;
+import org.goafabric.core.ui.extension.UserHolder;
 
 import java.util.HashMap;
 
@@ -105,6 +106,8 @@ public abstract class GridView<T> extends VerticalLayout {
         cancelButton.addClickListener(event -> dialog.close());
 
         layout.add(new HorizontalLayout(cancelButton, saveButton, deleteButton));
+
+        deleteButton.setEnabled(UserHolder.userIsAdmin());
     }
 
 

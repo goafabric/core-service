@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UiInterceptor implements VaadinServiceInitListener {
+public class UserHolder implements VaadinServiceInitListener {
     @Autowired
     private UserAdapter userAdapter;
     private static User user = null;
@@ -30,5 +30,13 @@ public class UiInterceptor implements VaadinServiceInitListener {
         } else {
             throw new IllegalStateException("no user in context");
         }
+    }
+
+    public static boolean userHasRole(String roleName) {
+        return getUser().roles().stream().anyMatch(role -> roleName.equals(role.name()));
+    }
+
+    public static boolean userIsAdmin() {
+        return userHasRole("administrator");
     }
 }
