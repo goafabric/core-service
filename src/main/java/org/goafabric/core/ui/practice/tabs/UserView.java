@@ -47,9 +47,10 @@ public class UserView extends GridView<User> {
         return roleCombo;
     }
 
+
     protected void onSave(User user) {
         var updated = new User(
-                user.id(), user.version(),
+                isNewItem() ? null : user.id(), isNewItem() ? null : user.version(),
                 user.practitionerId(),
                 mapDialog.get("Name").getValue(),
                 Collections.singletonList((Role) mapDialogCombo.get("Role").getValue())

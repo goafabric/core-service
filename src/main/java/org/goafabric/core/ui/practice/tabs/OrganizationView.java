@@ -32,9 +32,12 @@ public class OrganizationView extends GridView<Organization> {
 
     protected void onSave(Organization organization) {
         var address = organization.address().get(0);
-        var updated = new Organization(organization.id(), organization.version(),
+        var updated = new Organization(
+                isNewItem() ? null : organization.id(), isNewItem() ? null : organization.version(),
                 mapDialog.get("Name").getValue(),
-                Collections.singletonList(new Address(address.id(), address.version(), address.use(),
+                Collections.singletonList(new Address(
+                        isNewItem() ? null : address.id(), isNewItem() ? null : address.version(),
+                        address.use(),
                         mapDialog.get("Street").getValue(), mapDialog.get("City").getValue(), address.postalCode(), address.state(), address.country())),
                 organization.contactPoint());
         getAdapter().save(updated);

@@ -21,6 +21,7 @@ public abstract class GridView<T> extends VerticalLayout {
     private final Grid<T> grid;
     private final TextField filterText = new TextField("", "search ...");
     private final SearchAdapter<T> logic;
+    private boolean isNewItem = false;
 
     public GridView(Grid<T> grid, SearchAdapter<T> logic) {
         this.grid = grid;
@@ -92,8 +93,15 @@ public abstract class GridView<T> extends VerticalLayout {
         var saveButton = new Button("Save");
         saveButton.addClickListener(event -> {
             onSave(item);
+            isNewItem = false;
             dialog.close();
             updateList();
+        });
+
+        var newButton = new Button("New");
+        newButton.addClickListener(event -> {
+            isNewItem = true;
+            mapDialog.values().forEach(textField -> textField.setValue(""));
         });
 
         var deleteButton = new Button("Delete");
@@ -106,11 +114,10 @@ public abstract class GridView<T> extends VerticalLayout {
         var cancelButton = new Button("Cancel");
         cancelButton.addClickListener(event -> dialog.close());
 
-        layout.add(new HorizontalLayout(cancelButton, saveButton, deleteButton));
+        layout.add(new HorizontalLayout(cancelButton, saveButton, newButton, deleteButton));
 
         deleteButton.setEnabled(UserHolder.userHasPermission(PermissionType.READ_WRITE_DELETE.getValue()));
     }
-
 
     protected void onSave(T item) {}
 
@@ -130,4 +137,7 @@ public abstract class GridView<T> extends VerticalLayout {
         mapDialogCombo.put(comboBox.getLabel(), comboBox);
     }
 
+    protected boolean isNewItem() {
+        return isNewItem;
+    }
 }
