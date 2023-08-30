@@ -26,7 +26,8 @@ public class RoleView extends GridView<Role> {
     protected void onSave(Role role) {
         var updated = new Role(
                 role.id(), role.version(),
-                mapDialog.get("Name").getValue());
+                mapDialog.get("Name").getValue(),
+                role.permissions());
         getAdapter().save(updated);
     }
 

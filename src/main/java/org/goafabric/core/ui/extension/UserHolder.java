@@ -41,4 +41,10 @@ public class UserHolder implements VaadinServiceInitListener {
     public static boolean userIsAdmin() {
         return userHasRole("administrator");
     }
+
+    public static boolean userHasPermission(String permissionName) {
+        return getUser().roles().stream().anyMatch(role ->
+                role.permissions().stream().anyMatch(permission ->
+                    permission.type().getValue().equals(permissionName)));
+    }
 }
