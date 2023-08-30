@@ -1,14 +1,14 @@
 package org.goafabric.core.ui.adapter;
 
+import org.goafabric.core.medicalrecords.controller.BodyMetricsController;
 import org.goafabric.core.medicalrecords.controller.vo.BodyMetrics;
-import org.goafabric.core.medicalrecords.logic.BodyMetricsLogic;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BodyMetricsAdapter {
-    private final BodyMetricsLogic bodyMetricsLogic;
+    private final BodyMetricsController bodyMetricsLogic;
 
-    public BodyMetricsAdapter(BodyMetricsLogic bodyMetricsLogic) {
+    public BodyMetricsAdapter(BodyMetricsController bodyMetricsLogic) {
         this.bodyMetricsLogic = bodyMetricsLogic;
     }
 

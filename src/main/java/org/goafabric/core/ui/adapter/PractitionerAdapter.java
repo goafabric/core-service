@@ -1,16 +1,16 @@
 package org.goafabric.core.ui.adapter;
 
+import org.goafabric.core.organization.controller.PractitionerController;
 import org.goafabric.core.organization.controller.vo.Practitioner;
-import org.goafabric.core.organization.logic.PractitionerLogic;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class PractitionerAdapter implements SearchAdapter<Practitioner> {
-    private final PractitionerLogic practitionerLogic;
+    private final PractitionerController practitionerLogic;
 
-    public PractitionerAdapter(PractitionerLogic practitionerLogic) {
+    public PractitionerAdapter(PractitionerController practitionerLogic) {
         this.practitionerLogic = practitionerLogic;
     }
 

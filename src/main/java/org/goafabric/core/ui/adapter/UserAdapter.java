@@ -1,16 +1,16 @@
 package org.goafabric.core.ui.adapter;
 
+import org.goafabric.core.organization.controller.UserController;
 import org.goafabric.core.organization.controller.vo.User;
-import org.goafabric.core.organization.logic.UserLogic;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class UserAdapter implements SearchAdapter<User> {
-    private final UserLogic logic;
+    private final UserController logic;
 
-    public UserAdapter(UserLogic practitionerLogic) {
+    public UserAdapter(UserController practitionerLogic) {
         this.logic = practitionerLogic;
     }
 

@@ -25,6 +25,7 @@ import org.goafabric.core.organization.repository.extensions.TenantResolver;
 import org.goafabric.core.ui.appointments.AppointmentView;
 import org.goafabric.core.ui.catalogs.CatalogView;
 import org.goafabric.core.ui.extension.UserHolder;
+import org.goafabric.core.ui.files.FilesView;
 import org.goafabric.core.ui.monitoring.MonitoringView;
 import org.goafabric.core.ui.mrc.MRCMainView;
 import org.goafabric.core.ui.practice.PracticeView;
@@ -77,7 +78,7 @@ public class MainView extends AppLayout {
             layout.add(new HorizontalLayout(new Icon(VaadinIcon.CALENDAR_USER), new RouterLink("Appointments", AppointmentView.class)));
         }
         if (UserHolder.userHasPermission("Files")) {
-            layout.add(new HorizontalLayout(new Icon(VaadinIcon.CALENDAR_USER), new RouterLink("Files", AppointmentView.class)));
+            layout.add(new HorizontalLayout(new Icon(VaadinIcon.ARCHIVE), new RouterLink("Files", FilesView.class)));
         }
         if (UserHolder.userHasPermission("Monitoring")) {
             layout.add(new HorizontalLayout(new Icon(VaadinIcon.CHART), new RouterLink("Monitoring", MonitoringView.class)));

@@ -1,16 +1,16 @@
 package org.goafabric.core.ui.adapter;
 
+import org.goafabric.core.organization.controller.OrganizationController;
 import org.goafabric.core.organization.controller.vo.Organization;
-import org.goafabric.core.organization.logic.OrganizationLogic;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 public class OrganizationAdapter implements SearchAdapter<Organization> {
-    private final OrganizationLogic organizationLogic;
+    private final OrganizationController organizationLogic;
 
-    public OrganizationAdapter(OrganizationLogic practitionerLogic) {
+    public OrganizationAdapter(OrganizationController practitionerLogic) {
         this.organizationLogic = practitionerLogic;
     }
 

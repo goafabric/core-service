@@ -1,15 +1,15 @@
 package org.goafabric.core.ui.adapter;
 
 
+import org.goafabric.core.medicalrecords.controller.MedicalRecordController;
 import org.goafabric.core.medicalrecords.controller.vo.MedicalRecord;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MedicalRecordAdapter {
-    private final MedicalRecordLogic medicalRecordLogic;
+    private final MedicalRecordController medicalRecordLogic;
 
-    public MedicalRecordAdapter(MedicalRecordLogic medicalRecordLogic) {
+    public MedicalRecordAdapter(MedicalRecordController medicalRecordLogic) {
         this.medicalRecordLogic = medicalRecordLogic;
     }
 

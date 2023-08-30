@@ -3,6 +3,7 @@ package org.goafabric.core.organization.controller;
 import jakarta.validation.Valid;
 import org.goafabric.core.organization.controller.vo.Patient;
 import org.goafabric.core.organization.logic.PatientLogic;
+import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,11 @@ public class PatientController {
     @GetMapping("findByFamilyName")
     public List<Patient> findByFamilyName(@RequestParam("familyName") String familyName) {
         return logic.findByFamilyName(familyName);
+    }
+
+    @GetMapping("findPatientNamesByFamilyName")
+    public List<PatientNamesOnly> findPatientNamesByFamilyName(String search) {
+        return logic.findPatientNamesByFamilyName(search);
     }
 
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
