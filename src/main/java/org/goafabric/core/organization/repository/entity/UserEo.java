@@ -1,11 +1,13 @@
 package org.goafabric.core.organization.repository.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Entity
 @Table(name = "users")
+@Document("#{@tenantIdBean.getPrefix()}users")
 //@EntityListeners(AuditTrailListener.class)
 public class UserEo {
     @Id

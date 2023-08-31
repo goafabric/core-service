@@ -1,11 +1,13 @@
 package org.goafabric.core.organization.repository.entity;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
 @Entity
 @Table(name = "roles")
+@Document("#{@tenantIdBean.getPrefix()}roles")
 //@EntityListeners(AuditTrailListener.class)
 public class RoleEo {
     @Id
