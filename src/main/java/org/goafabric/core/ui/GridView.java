@@ -35,14 +35,38 @@ public abstract class GridView<T> extends VerticalLayout {
     private void createView() {
         setSizeFull();
 
-        addFilterText();
+        addButtonBar();
         addGrid();
     }
 
-    private void addFilterText() {
+    private void addButtonBar() {
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
-        this.add(filterText);
+
+
+        var editButton = new Button(new Icon(VaadinIcon.EDIT));
+        editButton.addClickListener(event -> {
+            isNewItem = false;
+            grid.getSelectedItems().forEach(this::showSaveDialog);
+            updateList();
+        });
+
+        var addButton = new Button(new Icon(VaadinIcon.FILE_ADD));
+        addButton.addClickListener(event -> {
+            isNewItem = true;
+            grid.getSelectedItems().forEach(this::showSaveDialog);
+            isNewItem = false;
+            updateList();
+        });
+
+        var removeButton = new Button(new Icon(VaadinIcon.FILE_REMOVE));
+        removeButton.addClickListener(event -> {
+            grid.getSelectedItems().forEach(this::onDelete);
+            updateList();
+        });
+
+        removeButton.setEnabled(UserHolder.userHasPermission(PermissionType.READ_WRITE_DELETE.getValue()));
+        this.add(new HorizontalLayout(filterText, editButton, addButton, removeButton));
     }
 
     private void addGrid() {
@@ -74,11 +98,15 @@ public abstract class GridView<T> extends VerticalLayout {
     private void addSaveDialog() {
         grid.addItemDoubleClickListener(event -> {
             T item = event.getItem();
-            configureSaveDialog(item);
-            if (!mapDialog.isEmpty()) {
-                createDialog(item);
-            }
+            showSaveDialog(item);
         });
+    }
+
+    private void showSaveDialog(T item) {
+        configureSaveDialog(item);
+        if (!mapDialog.isEmpty()) {
+            createDialog(item);
+        }
     }
 
     private void createDialog(T item) {
@@ -92,36 +120,33 @@ public abstract class GridView<T> extends VerticalLayout {
     }
 
     private void addButtons(T item, VerticalLayout layout, Dialog dialog) {
-        var saveButton = new Button(new Icon(VaadinIcon.ARROW_BACKWARD));
+        var saveButton = new Button("OK");
         saveButton.addClickListener(event -> {
             onSave(item);
-            isNewItem = false;
             dialog.close();
             updateList();
         });
 
+        var cancelButton = new Button("Cancel");
+        cancelButton.addClickListener(event -> {
+            dialog.close();
+            //updateList();
+        });
+
+        /*
         var newButton = new Button(new Icon(VaadinIcon.FILE_ADD));
         newButton.addClickListener(event -> {
             isNewItem = true;
             mapDialog.values().forEach(textField -> textField.setValue(""));
         });
 
-        var deleteButton = new Button(new Icon(VaadinIcon.FILE_REMOVE));
-        deleteButton.addClickListener(event -> {
-            onDelete(item);
-            dialog.close();
-            updateList();
-        });
-
-        /*
         var cancelButton = new Button(new Icon(VaadinIcon.CLOSE));
         cancelButton.addClickListener(event -> dialog.close());
 
          */
 
-        layout.add(new HorizontalLayout(saveButton, newButton, deleteButton));
+        layout.add(new HorizontalLayout(saveButton, cancelButton));
 
-        deleteButton.setEnabled(UserHolder.userHasPermission(PermissionType.READ_WRITE_DELETE.getValue()));
     }
 
     protected void onSave(T item) {}
