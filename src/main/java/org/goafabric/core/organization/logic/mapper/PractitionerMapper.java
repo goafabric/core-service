@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface PractitionerMapper extends WorkaroundMapper {
+public interface PractitionerMapper {
     Practitioner map(PractitionerEo value);
 
     PractitionerEo map(Practitioner value);

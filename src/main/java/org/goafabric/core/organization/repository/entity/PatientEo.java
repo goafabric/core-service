@@ -6,6 +6,7 @@ import org.hibernate.annotations.TenantId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "patient")
@@ -28,13 +29,13 @@ public class PatientEo {
 
     public LocalDate birthDate;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    public AddressEo address;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "patient_id")
+    public List<AddressEo> address;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_point_id", referencedColumnName = "id")
-    public ContactPointEo contactPoint;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "patient_id")
+    public List<ContactPointEo> contactPoint;
 
     @Version //optimistic locking
     public Long version;

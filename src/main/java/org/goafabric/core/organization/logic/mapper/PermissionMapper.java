@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface PermissionMapper extends WorkaroundMapper {
+public interface PermissionMapper  {
     Permission map(PermissionEo value);
 
     PermissionEo map(Permission value);

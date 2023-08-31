@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface PatientMapper extends WorkaroundMapper {
+public interface PatientMapper {
     Patient map(PatientEo value);
 
     PatientEo map(Patient value);
