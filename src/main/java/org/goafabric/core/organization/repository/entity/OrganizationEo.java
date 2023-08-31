@@ -3,6 +3,8 @@ package org.goafabric.core.organization.repository.entity;
 import jakarta.persistence.*;
 import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
+import java.util.List;
+
 @Entity
 @Table(name = "organization")
 @EntityListeners(AuditTrailListener.class)
@@ -14,13 +16,13 @@ public class OrganizationEo {
 
     public String name;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    public AddressEo address;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "organization_id")
+    public List<AddressEo> address;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_point_id", referencedColumnName = "id")
-    public ContactPointEo contactPoint;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "organization_id")
+    public List<ContactPointEo> contactPoint;
 
     @Version //optimistic locking
     public Long version;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "practitioner")
@@ -22,13 +23,13 @@ public class PractitionerEo {
 
     public LocalDate birthDate;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    public AddressEo address;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "practitioner_id")
+    public List<AddressEo> address;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_point_id", referencedColumnName = "id")
-    public ContactPointEo contactPoint;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "practitioner_id")
+    public List<ContactPointEo> contactPoint;
 
     @Version //optimistic locking
     public Long version;
