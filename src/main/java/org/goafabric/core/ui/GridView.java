@@ -118,7 +118,7 @@ public abstract class GridView<T> extends VerticalLayout {
         var layout = new VerticalLayout();
         dialog.add(layout);
         mapDialogText.values().forEach(textField -> {
-                textField.setRequired(true);
+                //textField.setRequired(true);
                 layout.add(textField);
             }
         );
