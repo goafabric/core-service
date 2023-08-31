@@ -37,13 +37,13 @@ public class PractitionerView extends GridView<Practitioner> {
         var address = practitioner.address().get(0);
         var updated = new Practitioner(
                 isNewItem() ? null : practitioner.id(), isNewItem() ? null : practitioner.version(),
-                mapDialog.get("Given Name").getValue(),
-                mapDialog.get("Family Name").getValue(),
+                mapDialogText.get("Given Name").getValue(),
+                mapDialogText.get("Family Name").getValue(),
                 practitioner.gender(), practitioner.birthDate(),
                 Collections.singletonList(new Address(
                         isNewItem() ? null : address.id(), isNewItem() ? null : address.version(),
                         address.use(),
-                        mapDialog.get("Street").getValue(), mapDialog.get("City").getValue(), address.postalCode(), address.state(), address.country())),
+                        mapDialogText.get("Street").getValue(), mapDialogText.get("City").getValue(), address.postalCode(), address.state(), address.country())),
                 isNewItem() ? Collections.singletonList(new ContactPoint(null, null, "", "", ""))
                         :  practitioner.contactPoint());
         getAdapter().save(updated);

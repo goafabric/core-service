@@ -52,7 +52,7 @@ public class UserView extends GridView<User> {
         var updated = new User(
                 isNewItem() ? null : user.id(), isNewItem() ? null : user.version(),
                 user.practitionerId(),
-                mapDialog.get("Name").getValue(),
+                mapDialogText.get("Name").getValue(),
                 Collections.singletonList((Role) mapDialogCombo.get("Role").getValue())
         );
         getAdapter().save(updated);

@@ -16,6 +16,7 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.organization.controller.vo.types.PermissionType;
 import org.goafabric.core.ui.adapter.SearchAdapter;
 import org.goafabric.core.ui.extension.UserHolder;
+import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 
@@ -46,16 +47,14 @@ public abstract class GridView<T> extends VerticalLayout {
 
         var editButton = new Button(new Icon(VaadinIcon.EDIT));
         editButton.addClickListener(event -> {
-            isNewItem = false;
             grid.getSelectedItems().forEach(this::showSaveDialog);
             updateList();
         });
 
         var addButton = new Button(new Icon(VaadinIcon.FILE_ADD));
         addButton.addClickListener(event -> {
-            isNewItem = true;
-            grid.getSelectedItems().forEach(this::showSaveDialog);
-            isNewItem = false;
+            var item = logic.search("").get(0);
+            showSaveDialog(item, true);
             updateList();
         });
 
@@ -76,7 +75,7 @@ public abstract class GridView<T> extends VerticalLayout {
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
         this.add(grid);
 
-        addSaveDialog();
+        addDoubleClick();
     }
 
 
@@ -95,7 +94,7 @@ public abstract class GridView<T> extends VerticalLayout {
 
     /**/
 
-    private void addSaveDialog() {
+    private void addDoubleClick() {
         grid.addItemDoubleClickListener(event -> {
             T item = event.getItem();
             showSaveDialog(item);
@@ -103,8 +102,13 @@ public abstract class GridView<T> extends VerticalLayout {
     }
 
     private void showSaveDialog(T item) {
+        showSaveDialog(item, false);
+    }
+
+    private void showSaveDialog(T item, boolean isNewItem) {
+        this.isNewItem = isNewItem;
         configureSaveDialog(item);
-        if (!mapDialog.isEmpty()) {
+        if (!mapDialogText.isEmpty()) {
             createDialog(item);
         }
     }
@@ -113,7 +117,11 @@ public abstract class GridView<T> extends VerticalLayout {
         var dialog = new Dialog();
         var layout = new VerticalLayout();
         dialog.add(layout);
-        mapDialog.values().forEach(layout::add);
+        mapDialogText.values().forEach(textField -> {
+                textField.setRequired(true);
+                layout.add(textField);
+            }
+        );
         mapDialogCombo.values().forEach(layout::add);
         addButtons(item, layout, dialog);
         dialog.open();
@@ -122,9 +130,14 @@ public abstract class GridView<T> extends VerticalLayout {
     private void addButtons(T item, VerticalLayout layout, Dialog dialog) {
         var saveButton = new Button("OK");
         saveButton.addClickListener(event -> {
-            onSave(item);
-            dialog.close();
-            updateList();
+            if (mapDialogText.values().stream().anyMatch(
+                    textField -> textField.isRequired() && !StringUtils.hasText(textField.getValue())) ) {
+                Notification.show("Please enter required fields");
+            } else {
+                onSave(item);
+                dialog.close();
+                updateList();
+            }
         });
 
         var cancelButton = new Button("Cancel");
@@ -133,18 +146,10 @@ public abstract class GridView<T> extends VerticalLayout {
             //updateList();
         });
 
-        /*
-        var newButton = new Button(new Icon(VaadinIcon.FILE_ADD));
-        newButton.addClickListener(event -> {
-            isNewItem = true;
-            mapDialog.values().forEach(textField -> textField.setValue(""));
-        });
-
-        var cancelButton = new Button(new Icon(VaadinIcon.CLOSE));
-        cancelButton.addClickListener(event -> dialog.close());
-
-         */
-
+        if (isNewItem) {
+            mapDialogText.values().forEach(textField -> textField.setValue(""));
+        }
+        
         layout.add(new HorizontalLayout(saveButton, cancelButton));
 
     }
@@ -156,11 +161,11 @@ public abstract class GridView<T> extends VerticalLayout {
     protected void configureSaveDialog(T item) {}
 
 
-    protected final HashMap<String, TextField> mapDialog = new HashMap();
+    protected final HashMap<String, TextField> mapDialogText = new HashMap();
     protected final HashMap<String, ComboBoxBase> mapDialogCombo = new HashMap();
 
     protected void put(TextField textField) {
-        mapDialog.put(textField.getLabel(), textField);
+        mapDialogText.put(textField.getLabel(), textField);
     }
 
     protected void put(ComboBoxBase comboBox) {

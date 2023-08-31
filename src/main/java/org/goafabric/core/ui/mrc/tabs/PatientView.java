@@ -37,13 +37,13 @@ public class PatientView extends GridView<Patient> {
         var address = patient.address().get(0);
         var updated = new Patient(
                 isNewItem() ? null : patient.id(), isNewItem() ? null : patient.version(),
-                mapDialog.get("Given Name").getValue(),
-                mapDialog.get("Family Name").getValue(),
+                mapDialogText.get("Given Name").getValue(),
+                mapDialogText.get("Family Name").getValue(),
                 patient.gender(), patient.birthDate(),
                 Collections.singletonList(new Address(
                         isNewItem() ? null : address.id(), isNewItem() ? null : address.version(),
                         address.use(),
-                        mapDialog.get("Street").getValue(), mapDialog.get("City").getValue(), address.postalCode(), address.state(), address.country())),
+                        mapDialogText.get("Street").getValue(), mapDialogText.get("City").getValue(), address.postalCode(), address.state(), address.country())),
                 isNewItem() ? Collections.singletonList(new ContactPoint(null, null, "", "", ""))
                         : patient.contactPoint());
         getAdapter().save(updated);

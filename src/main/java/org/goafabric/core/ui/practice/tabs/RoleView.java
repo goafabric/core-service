@@ -40,7 +40,7 @@ public class RoleView extends GridView<Role> {
         var permCombo = (MultiSelectComboBox<Permission>) mapDialogCombo.get("Permissions");
         var updated = new Role(
                 isNewItem() ? null : role.id(), isNewItem() ? null : role.version(),
-                mapDialog.get("Name").getValue(),
+                mapDialogText.get("Name").getValue(),
                 permCombo.getSelectedItems().stream().toList());
 
         getAdapter().save(updated);

@@ -1,5 +1,7 @@
 package org.goafabric.core.ui.extension;
 
+import com.vaadin.flow.server.ServiceInitEvent;
+import com.vaadin.flow.server.VaadinServiceInitListener;
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.organization.controller.vo.User;
 import org.goafabric.core.ui.adapter.UserAdapter;
@@ -12,11 +14,16 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-public class UserHolder implements ApplicationContextAware {
+public class UserHolder implements ApplicationContextAware, VaadinServiceInitListener {
 
     private static ApplicationContext context;
 
     private static final Map<String, User> users = new ConcurrentHashMap<>();
+
+    @Override
+    public void serviceInit(ServiceInitEvent event) {
+        event.getSource().addUIInitListener(init -> users.clear());
+    }
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
