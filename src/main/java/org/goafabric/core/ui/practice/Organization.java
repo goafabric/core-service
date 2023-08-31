@@ -16,9 +16,9 @@ import org.goafabric.core.ui.practice.tabs.UserView;
 
 @Route(value = "practice", layout = MainView.class)
 @PageTitle("Practice")
-public class PracticeView extends VerticalLayout {
+public class Organization extends VerticalLayout {
 
-    public PracticeView(
+    public Organization(
             PractitionerAdapter practitionerAdapter, OrganizationAdapter organizationAdapter,
             UserAdapter userAdapter, RoleAdapter roleAdapter) {
         this.setSizeFull();

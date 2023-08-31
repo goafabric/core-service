@@ -95,7 +95,7 @@ public class DemoDataImporter implements CommandLineRunner {
 
         var normalPermissions = permissionLogic.saveAll(Arrays.asList(
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.PATIENT),
-            new Permission(null, null, PermissionCategory.VIEW, PermissionType.PRACTICE),
+            new Permission(null, null, PermissionCategory.VIEW, PermissionType.ORGANIZATION),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.CATALOGS),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.FILES),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.APPOINTMENTS),

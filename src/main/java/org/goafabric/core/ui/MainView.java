@@ -28,7 +28,7 @@ import org.goafabric.core.ui.extension.UserHolder;
 import org.goafabric.core.ui.files.FilesView;
 import org.goafabric.core.ui.monitoring.MonitoringView;
 import org.goafabric.core.ui.mrc.MRCMainView;
-import org.goafabric.core.ui.practice.PracticeView;
+import org.goafabric.core.ui.practice.Organization;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.net.URL;
@@ -68,8 +68,8 @@ public class MainView extends AppLayout {
         if (UserHolder.userHasPermission("Patient")) {
             layout.add(new HorizontalLayout(new Icon(VaadinIcon.USERS), new RouterLink("Patient", MRCMainView.class)));
         }
-        if (UserHolder.userHasPermission("Practice")) {
-            layout.add(new HorizontalLayout(new Icon(VaadinIcon.HOSPITAL), new RouterLink("Practice", PracticeView.class)));
+        if (UserHolder.userHasPermission("Organization")) {
+            layout.add(new HorizontalLayout(new Icon(VaadinIcon.HOSPITAL), new RouterLink("Organization", Organization.class)));
         }
         if (UserHolder.userHasPermission("Catalogs")) {
             layout.add(new HorizontalLayout(new Icon(VaadinIcon.BOOK), new RouterLink("Catalogs", CatalogView.class)));
