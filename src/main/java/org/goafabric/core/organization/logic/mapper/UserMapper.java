@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface UserMapper extends WorkaroundMapper {
+public interface UserMapper {
     User map(UserEo value);
 
     UserEo map(User value);

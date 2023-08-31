@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface OrganizationMapper extends WorkaroundMapper {
+public interface OrganizationMapper {
     Organization map(OrganizationEo value);
 
     OrganizationEo map(Organization value);
