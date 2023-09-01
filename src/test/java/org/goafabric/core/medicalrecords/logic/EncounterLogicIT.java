@@ -1,10 +1,9 @@
 package org.goafabric.core.medicalrecords.logic;
 
-import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.medicalrecords.repository.EncounterImporter;
+import org.goafabric.core.organization.logic.PatientLogic;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -22,8 +21,6 @@ class EncounterLogicIT {
     @Autowired
     private EncounterImporter encounterImporter;
 
-    @Value("${spring.profiles.active}")
-    private String profile;
 
     @Test
     public void findByText() {

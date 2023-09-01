@@ -71,13 +71,4 @@ logging.level.org.flywaydb.core: "INFO"
 logging.level.org.hibernate.SQL: "DEBUG"
 logging.level.org.springframework.data.mongodb: "DEBUG"
 
-#mongo
-spring.data.mongodb.username: mongodb
-spring.data.mongodb.password: mongodb
-spring.data.mongodb.authentication-database: admin
-spring.data.mongodb.database: core
-spring.data.mongodb.auto-index-creation: true
-de.flapdoodle.mongodb.embedded.version: "6.0.1"
-
-spring.profiles.active: "jpa" #mongodb
-
+spring.jpa.properties.hibernate.enable_lazy_load_no_trans: "true" #needed for audittrail updates

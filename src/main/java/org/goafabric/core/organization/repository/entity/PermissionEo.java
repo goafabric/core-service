@@ -1,10 +1,11 @@
 package org.goafabric.core.organization.repository.entity;
 
 import jakarta.persistence.*;
+import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
 @Entity
 @Table(name = "permission")
-//@EntityListeners(AuditTrailListener.class)
+@EntityListeners(AuditTrailListener.class)
 public class PermissionEo {
     @Id
     @org.springframework.data.annotation.Id
