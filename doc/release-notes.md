@@ -1,4 +1,7 @@
 # 1.0.5
+- refactoring and cleanups
+- enhanced user + roles
+- dependency upgrades
 
 # 1.0.4
 - upgrade to keycloak 22.2.0
