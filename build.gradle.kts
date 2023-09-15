@@ -15,10 +15,9 @@ plugins {
 	id("org.springframework.boot") version "3.1.3"
 	id("io.spring.dependency-management") version "1.1.0"
 	id("org.graalvm.buildtools.native") version "0.9.23"
-	id("com.google.cloud.tools.jib") version "3.3.1"
+	id("com.google.cloud.tools.jib") version "3.3.2"
 
 	id("com.vaadin") version "24.0.3"
-	id("com.google.cloud.tools.jib") version "3.3.2"
 }
 
 repositories {
@@ -102,7 +101,7 @@ jib {
 }
 
 buildscript { dependencies { classpath("com.google.cloud.tools:jib-native-image-extension-gradle:0.1.0") }}
-tasks.register("dockerImageNativeNoTest") {group = "build"; dependsOn("bootJar")
+tasks.register("dockerImageNativeNoTest") {group = "build"; dependsOn("bootJar", "vaadinBuildFrontend")
 	doFirst {exec { commandLine(
 		"docker", "run", "--rm", "--mount", "type=bind,source=${projectDir}/build,target=/build", "--entrypoint", "/bin/bash", graalvmBuilderImage, "-c", """ mkdir -p /build/native/nativeCompile && cp /build/libs/*-SNAPSHOT.jar /build/native/nativeCompile && cd /build/native/nativeCompile && jar -xvf *.jar &&
 		native-image -J-Xmx5500m -march=compatibility -H:Name=application --initialize-at-build-time=org.apache.commons.logging.LogFactory $([[ -f META-INF/native-image/argfile ]] && echo @META-INF/native-image/argfile) -cp .:BOOT-INF/classes:$(ls -d -1 "/build/native/nativeCompile/BOOT-INF/lib/"*.* | tr "\n" ":") && /build/native/nativeCompile/application -check-integrity """
