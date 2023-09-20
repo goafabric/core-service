@@ -1,4 +1,5 @@
 # 1.0.5
+- java21 upgrade
 - refactoring and cleanups
 - enhanced user + roles
 - dependency upgrades
