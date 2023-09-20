@@ -17,7 +17,7 @@ plugins {
 	id("org.graalvm.buildtools.native") version "0.9.24"
 	id("com.google.cloud.tools.jib") version "3.3.2"
 
-	id("com.vaadin") version "24.0.3"
+	id("com.vaadin") version "24.1.10"
 }
 
 repositories {
@@ -73,7 +73,7 @@ dependencies {
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1")
 
 	//vaadin
-	implementation("com.vaadin:vaadin-spring-boot-starter:24.0.5")
+	implementation("com.vaadin:vaadin-spring-boot-starter:24.1.10")
 
 	//devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
