@@ -3,6 +3,7 @@
 - refactoring and cleanups
 - enhanced user + roles
 - dependency upgrades
+- upgrade to spring boot 3.1.4
 
 # 1.0.4
 - upgrade to keycloak 22.2.0
