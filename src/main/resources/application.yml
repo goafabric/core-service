@@ -52,6 +52,14 @@ multi-tenancy.tenants: "0,5"
 multi-tenancy.schema-prefix: "core_"
 database.provisioning.goals: "-migrate -import-demo-data"
 demo-data.size: "20"
+spring.jpa.properties.hibernate.enable_lazy_load_no_trans: "true" #needed for audittrail updates
+
+#mongo
+spring.autoconfigure.exclude: ${mongodb.autoconfiguration}
+spring.data.mongodb.uri: "mongodb://mongodb:mongodb@localhost:27017/person?authSource=admin"
+
+mongodb.autoconfiguration: "org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration, org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration, org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration"
+jpa.autoconfiguration: "org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration, org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration, org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration"
 
 #s3
 spring.cloud.aws.s3.enabled: "false"
@@ -78,18 +86,6 @@ vaadin.whitelisted-packages: com.vaadin,org.vaadin,dev.hilla
 vaadin.url-mapping: "/frontend/*"
 
 frontend.catalog-service.uri: "http://localhost:50600"
-
 monitoring.view.tracing.url: "http://localhost:16686/search"
 monitoring.view.loki.url: "http://localhost:3000/explore"
 monitoring.view.s3.url: "http://localhost:9101/browser/objects"
-
-#mongo
-spring.data.mongodb.username: mongodb
-spring.data.mongodb.password: mongodb
-spring.data.mongodb.authentication-database: admin
-spring.data.mongodb.database: core
-spring.data.mongodb.auto-index-creation: true
-de.flapdoodle.mongodb.embedded.version: "6.0.1"
-
-spring.profiles.active: "jpa" #mongodb
-spring.jpa.properties.hibernate.enable_lazy_load_no_trans: "true" #needed for audittrail updates

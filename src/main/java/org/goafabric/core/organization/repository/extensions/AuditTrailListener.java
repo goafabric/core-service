@@ -11,11 +11,11 @@ import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -111,7 +111,7 @@ public class AuditTrailListener implements ApplicationContextAware {
     }
 
     @Component
-    @Profile("jpa")
+    @ConditionalOnExpression("#{!('${spring.autoconfigure.exclude:}'.contains('DataSourceAutoConfiguration'))}")
     static class AuditJpaUpdater {
         @PersistenceContext private EntityManager entityManager;
 
@@ -122,7 +122,7 @@ public class AuditTrailListener implements ApplicationContextAware {
     }
 
     @Component
-    @Profile("jpa")
+    @ConditionalOnExpression("#{!('${spring.autoconfigure.exclude:}'.contains('DataSourceAutoConfiguration'))}")
     @RegisterReflectionForBinding(AuditTrail.class)
     static class AuditJpaInserter {
         private final DataSource dataSource;

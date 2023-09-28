@@ -116,24 +116,6 @@ services:
     networks:
       - ${_Values_root_name}-net
 
-  mongodb:
-    profiles: ["mongodb"]
-    mem_limit: 128m
-    image: mongo:6.0.8
-    container_name: ${_Values_root_name}-mongodb
-    restart: 'no'
-    ports:
-      - 27017:27017
-    volumes:
-      - mongoconfig:/data/configdb
-      - mongodata:/data/db
-    networks:
-      - ${_Values_root_name}-net
-    environment:
-      TZ: "Europe/Berlin"
-      MONGO_INITDB_ROOT_USERNAME: "mongodb"
-      MONGO_INITDB_ROOT_PASSWORD: "mongodb"
-
   s3minio:
     container_name: s3minio
     command: server /data --console-address ':9001'

@@ -1,22 +1,19 @@
 package org.goafabric.core.organization.repository.extensions;
 
-import db.migration.V6__fulltext;
 import org.flywaydb.core.Flyway;
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernatePropertiesCustomizer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -28,17 +25,13 @@ import java.util.Map;
 // Source: https://spring.io/blog/2022/07/31/how-to-integrate-hibernates-multitenant-feature-with-spring-data-jpa-in-a-spring-boot-application
 
 @Component
-@Profile("jpa")
+@ConditionalOnExpression("#{!('${spring.autoconfigure.exclude:}'.contains('DataSourceAutoConfiguration'))}")
 @RegisterReflectionForBinding({org.hibernate.binder.internal.TenantIdBinder.class, org.hibernate.generator.internal.TenantIdGeneration.class})
 public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTenantConnectionProvider, HibernatePropertiesCustomizer {
 
     private final DataSource dataSource;
-
     private final String schemaPrefix;
-
     private final String defaultSchema;
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     public TenantResolver(DataSource dataSource,
                           @Value("${multi-tenancy.default-schema:PUBLIC}") String defaultSchema,
@@ -128,7 +121,6 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
             if (goals.contains("-migrate")) {
                 Arrays.asList(tenants.split(",")).forEach(tenant -> {
                             Flyway.configure().configuration(flyway.getConfiguration())
-                                    .javaMigrations(new V6__fulltext())
                                     .schemas(schemaPrefix + tenant).defaultSchema(schemaPrefix + tenant)
                                     .placeholders(Map.of("tenantId", tenant))
                                     .load().migrate();
