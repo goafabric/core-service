@@ -8,7 +8,7 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
-import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.NativeLabel;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -108,8 +108,8 @@ public class MainView extends AppLayout {
             page.fetchCurrentURL((SerializableConsumer<URL>) url ->
                     page.open(url.getPath().contains("/core") ? "/core/logout" : "/logout", "_self"));
         });
-        return new HorizontalLayout(userButton, new Label(UserHolder.getUser().name())
-                , new Button(new Icon(VaadinIcon.HOME)), new Label(HttpInterceptor.getTenantId() + "," + TenantResolver.getOrgunitId()));
+        return new HorizontalLayout(userButton, new NativeLabel(UserHolder.getUser().name())
+                , new Button(new Icon(VaadinIcon.HOME)), new NativeLabel(HttpInterceptor.getTenantId() + "," + TenantResolver.getOrgunitId()));
     }
 
     @Route(value = "", layout = MainView.class)
