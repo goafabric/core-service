@@ -2,13 +2,13 @@ package org.goafabric.core.medicalrecords.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.goafabric.core.medicalrecords.logic.EncounterLogic;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.medicalrecords.controller.vo.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.vo.Encounter;
 import org.goafabric.core.medicalrecords.controller.vo.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.vo.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.BodyMetricsLogic;
+import org.goafabric.core.medicalrecords.logic.EncounterLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

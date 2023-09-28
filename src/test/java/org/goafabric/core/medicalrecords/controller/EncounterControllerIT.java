@@ -1,20 +1,21 @@
 package org.goafabric.core.medicalrecords.controller;
 
 import org.goafabric.core.DataRocker;
-import org.goafabric.core.organization.controller.PatientController;
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.medicalrecords.controller.vo.Encounter;
 import org.goafabric.core.medicalrecords.controller.vo.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.vo.MedicalRecordType;
+import org.goafabric.core.organization.controller.PatientController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
-import java.util.Collections;
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.goafabric.core.DataRocker.*;
+import static org.goafabric.core.DataRocker.createAddress;
+import static org.goafabric.core.DataRocker.createContactPoint;
 
 @SpringBootTest
 class EncounterControllerIT {
@@ -36,14 +37,20 @@ class EncounterControllerIT {
                 practitionerId,
                 LocalDate.now(),
                 "Encounter Test",
-                Collections.singletonList(
-                        new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00"))
+                Arrays.asList(
+                        new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00"),
+                        new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00")
+                )
         );
         encounterController.save(encounter);
-        
-        var sut = encounterController.findByPatientIdAndDisplay(patientId, "Adipositas");
+        encounterController.save(encounter);
 
-        assertThat(sut).isNotNull().hasSize(1);
+        var encounters = encounterController.findByPatientIdAndDisplay(patientId, "Adipositas");
+
+        assertThat(encounters).isNotNull().hasSize(2);
+        assertThat(encounters.get(0).medicalRecords()).isNotNull().hasSize(2);
+        assertThat(encounters.get(1).medicalRecords()).isNotNull().hasSize(2);
+
         deletePatient(patientId);
     }
 

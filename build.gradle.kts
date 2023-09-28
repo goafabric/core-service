@@ -16,6 +16,8 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.0"
 	id("org.graalvm.buildtools.native") version "0.9.24"
 	id("com.google.cloud.tools.jib") version "3.3.2"
+
+	id("com.vaadin") version "24.1.10"
 }
 
 repositories {
@@ -63,8 +65,14 @@ dependencies {
 	implementation("org.postgresql:postgresql")
 	implementation("org.flywaydb:flyway-core")
 
+	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+	//developmentOnly("de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.7.0")
+
 	//s3
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1")
+
+	//vaadin
+	implementation("com.vaadin:vaadin-spring-boot-starter:24.1.10")
 
 	//devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
@@ -92,7 +100,7 @@ jib {
 }
 
 buildscript { dependencies { classpath("com.google.cloud.tools:jib-native-image-extension-gradle:0.1.0") }}
-tasks.register("dockerImageNativeNoTest") {group = "build"; dependsOn("bootJar")
+tasks.register("dockerImageNativeNoTest") {group = "build"; dependsOn("bootJar", "vaadinBuildFrontend")
 	jib.to.image = ""
 	doFirst {
 		exec { commandLine(

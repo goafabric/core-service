@@ -20,7 +20,7 @@ management.tracing.sampling.probability: "1.0"
 logging.level.io.opentelemetry: "OFF"
 management.otlp.tracing.endpoint: "http://localhost:4318/v1/traces"
 
-#event.dispatcher.uri: "http://localhost:50500/events/dispatch"
+event.dispatcher.uri: "http://localhost:50500/events/dispatch"
 
 #oidc
 security.authentication.enabled: false
@@ -30,6 +30,7 @@ spring:
     oauth2:
       base-uri: "http://127.0.0.1:30200/oidc"
       authorization-uri: "http://127.0.0.1:30200/oidc/auth"
+      logout-uri: "http://127.0.0.1:30200/logout"
 #      base-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect
 #      authorization-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/auth
 #      logout-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/logout
@@ -69,6 +70,26 @@ logging.level.org.springframework: "INFO"
 logging.level.org.goafabric: "INFO"
 logging.level.org.flywaydb.core: "INFO"
 logging.level.org.hibernate.SQL: "INFO"
-logging.level.org.springframework.data.mongodb: "DEBUG"
+logging.level.org.springframework.data.mongodb: "INFO"
 
+#vaadin
+spring.mustache.check-template-location: false
+vaadin.whitelisted-packages: com.vaadin,org.vaadin,dev.hilla
+vaadin.url-mapping: "/frontend/*"
+
+frontend.catalog-service.uri: "http://localhost:50600"
+
+monitoring.view.tracing.url: "http://localhost:16686/search"
+monitoring.view.loki.url: "http://localhost:3000/explore"
+monitoring.view.s3.url: "http://localhost:9101/browser/objects"
+
+#mongo
+spring.data.mongodb.username: mongodb
+spring.data.mongodb.password: mongodb
+spring.data.mongodb.authentication-database: admin
+spring.data.mongodb.database: core
+spring.data.mongodb.auto-index-creation: true
+de.flapdoodle.mongodb.embedded.version: "6.0.1"
+
+spring.profiles.active: "jpa" #mongodb
 spring.jpa.properties.hibernate.enable_lazy_load_no_trans: "true" #needed for audittrail updates

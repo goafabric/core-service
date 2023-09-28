@@ -7,6 +7,7 @@ public enum PermissionType {
     APPOINTMENTS("Appointments"),
     FILES("Files"),
     MONITORING("Monitoring"),
+    USERS("Users"),
 
     READ("Read"),
     READ_WRITE("Read & Write"),

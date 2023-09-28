@@ -23,6 +23,10 @@ public class PermissionLogic {
                 mapper.map(permission)));
     }
 
+    public List<Permission> findAll() {
+        return mapper.map(repository.findAll());
+    }
+
     public List<Permission> saveAll(List<Permission> permission) {
         return mapper.map(repository.saveAll(
                 mapper.maps(permission)));
