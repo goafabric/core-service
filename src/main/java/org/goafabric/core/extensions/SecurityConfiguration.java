@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                             .anyRequest().authenticated())
                     .oauth2Login(oauth2 -> oauth2
                             .clientRegistrationRepository(clientRegistrationRepository)
-                            //.defaultSuccessUrl("/frontend/",true)
+                            .defaultSuccessUrl("/frontend/",true)
                     )
                     .logout(l -> l.logoutSuccessHandler(logoutHandler))
                     .csrf(c -> c.disable())
