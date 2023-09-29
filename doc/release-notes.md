@@ -1,3 +1,5 @@
+# 1.0.6
+
 # 1.0.5
 - java21 upgrade
 - refactoring and cleanups
