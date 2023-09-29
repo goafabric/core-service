@@ -62,19 +62,18 @@ public class AuditTrailListener implements ApplicationContextAware {
 
     @PostPersist
     public void afterCreate(Object object)  {
-        insertAudit(DbOperation.CREATE,  getId(object), null, object);
+        //insertAudit(DbOperation.CREATE,  getId(object), null, object);
     }
 
     @PostUpdate
     public void afterUpdate(Object object) {
-        final String id = getId(object);
-        insertAudit(DbOperation.UPDATE, id,
-                context.getBean(AuditJpaUpdater.class).findOldObject(object.getClass(), id), object);
+        //final String id = getId(object);
+        //insertAudit(DbOperation.UPDATE, id, context.getBean(AuditJpaUpdater.class).findOldObject(object.getClass(), id), object);
     }
 
     @PostRemove
     public void afterDelete(Object object) {
-        insertAudit(DbOperation.DELETE, getId(object), object, null);
+        //insertAudit(DbOperation.DELETE, getId(object), object, null);
     }
 
     private void insertAudit(final DbOperation operation, String referenceId, final Object oldObject, final Object newObject) {
