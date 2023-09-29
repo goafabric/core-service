@@ -139,28 +139,6 @@ public class AuditTrailListener implements ApplicationContextAware {
         return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
     }
 
-    /*
-    private final ExecutorService executor = Executors.newFixedThreadPool(3);
-    @Autowired
-    private RestTemplate auditRestTemplate;
-    @Value("${event.dispatcher.uri:}") private String eventDispatcherUri;
-    public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail) {
-        if (!eventDispatcherUri.isEmpty()) {
-            var changeEvent = new ChangeEvent(auditTrail.id(), HttpInterceptor.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
-            var headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            executor.submit(() -> {
-                auditRestTemplate.postForEntity(eventDispatcherUri, new HttpEntity<>(changeEvent, headers), Void.class); });
-        }
-    }
-
-    @Bean
-    public RestTemplate auditRestTemplate(RestTemplateBuilder builder) {
-        return builder.setConnectTimeout(Duration.ofMillis(1000)).setReadTimeout(Duration.ofMillis(1000)).build();
-    }
-
-    record ChangeEvent (String id, String tenantId, String referenceId, String type, AuditTrailListener.DbOperation operation, String origin) {}
-    */
 }
 
 
