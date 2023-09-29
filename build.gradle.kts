@@ -47,7 +47,7 @@ dependencies {
 	implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.0.2")
 
 	//openapi
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
+	//implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
 
 	//crosscuting
 	implementation("org.springframework.boot:spring-boot-starter-aop")
@@ -68,7 +68,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
 	//s3
-	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1")
+	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1") {exclude("software.amazon.awssdk", "netty-nio-client")}
 
 	//vaadin
 	implementation("com.vaadin:vaadin-spring-boot-starter:24.1.10")
