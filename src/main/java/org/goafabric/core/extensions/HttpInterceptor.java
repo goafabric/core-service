@@ -38,7 +38,7 @@ public class HttpInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         tenantId.set(request.getHeader("X-TenantId"));
-        configureAuthenticationViaJWT(request.getHeader("Authorization"));
+        configureAuthenticationViaJWT(request.getHeader("X-Access-Token"));
         configureLogsAndTracing(request);
         if (handler instanceof HandlerMethod) {
             log.info(" {} method called for user {} ", ((HandlerMethod) handler).getShortLogMessage(), getUserName());
@@ -58,6 +58,8 @@ public class HttpInterceptor implements HandlerInterceptor {
             var payload = decodeJwt(token);
             Objects.requireNonNull(payload.get("preferred_username"), "Username in JWT is null");
             userName.set(payload.get("preferred_username").toString());
+            //while we could get the tenant from the issuer like this, we shouldn't instead either via X-TenantId passed from Api6
+            //tenantId.set(payload.get("iss").toString().split("realms/")[1].replace("tenant-", ""));
         }
     }
 
