@@ -1,4 +1,6 @@
 package org.goafabric.core.fhir.r4.controller.vo.identifier;
 
-public record Type(Coding coding)
+import java.util.List;
+
+public record Type(List<Coding> coding)
 {}

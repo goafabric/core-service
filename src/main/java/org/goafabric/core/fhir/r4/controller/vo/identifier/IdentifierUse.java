@@ -1,7 +1,7 @@
 package org.goafabric.core.fhir.r4.controller.vo.identifier;
 
 public enum IdentifierUse {
-    OFFICIAL("official");
+    official("official");
 
     private String value;
 
