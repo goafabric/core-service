@@ -25,6 +25,8 @@ public class PractitionerEo {
 
     public LocalDate birthDate;
 
+    public String lanr;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "practitioner_id")
     public List<AddressEo> address;

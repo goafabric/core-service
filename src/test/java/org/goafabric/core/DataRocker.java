@@ -28,12 +28,12 @@ public class DataRocker {
 
     public static Practitioner createPractitioner(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {
         return new Practitioner(null, null, givenName, familyName, "male", LocalDate.of(2020, 1, 8),
-                addresses, contactPoints
+                "123456667", addresses, contactPoints
         );
     }
 
     public static Organization createOrganization(String name, List<Address> addresses, List<ContactPoint> contactPoints) {
-        return new Organization(null, null, name, addresses, contactPoints);
+        return new Organization(null, null, name, "4711", addresses, contactPoints);
     }
 
     public static List<Address> createAddress(String street) {
