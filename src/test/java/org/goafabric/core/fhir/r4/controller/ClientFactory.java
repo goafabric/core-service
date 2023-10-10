@@ -1,10 +1,12 @@
 package org.goafabric.core.fhir.r4.controller;
 
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.rest.client.api.*;
+import ca.uhn.fhir.rest.client.api.IClientInterceptor;
+import ca.uhn.fhir.rest.client.api.IGenericClient;
+import ca.uhn.fhir.rest.client.api.IHttpRequest;
+import ca.uhn.fhir.rest.client.api.IHttpResponse;
 
 import java.io.IOException;
-import java.util.Base64;
 
 public class ClientFactory {
     private ClientFactory() {
@@ -17,9 +19,7 @@ public class ClientFactory {
         client.registerInterceptor(new IClientInterceptor() {
             @Override
             public void interceptRequest(IHttpRequest theRequest) {
-                //log.info("## request log " + theRequest.toString());
-                theRequest.addHeader("Authorization", "Basic "
-                        + Base64.getEncoder().encodeToString("admin:admin".getBytes()));
+                //theRequest.addHeader("Authorization", "Basic "+ Base64.getEncoder().encodeToString("admin:admin".getBytes()));
             }
 
             @Override

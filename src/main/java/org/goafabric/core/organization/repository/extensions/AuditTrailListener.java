@@ -9,29 +9,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
-import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 // Simple Audittrail that fulfills the requirements of logging content changes + user + aot support, could be db independant
 public class AuditTrailListener implements ApplicationContextAware {
@@ -39,7 +29,7 @@ public class AuditTrailListener implements ApplicationContextAware {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private enum DbOperation { CREATE, READ, UPDATE, DELETE }
+    enum DbOperation { CREATE, READ, UPDATE, DELETE }
 
     record AuditTrail(
             String id,
@@ -82,7 +72,7 @@ public class AuditTrailListener implements ApplicationContextAware {
             var auditTrail = createAuditTrail(operation, referenceId, oldObject, newObject);
             log.debug("New audit:\n{}", auditTrail);
             context.getBean(AuditJpaInserter.class).insertAudit(auditTrail, oldObject != null ? oldObject : newObject);
-            dispatchEvent(auditTrail);
+            context.getBean(AuditTrailEventDispatcher.class).dispatchEvent(auditTrail);
         } catch (Exception e) {
             log.error("Error during audit:\n{}", e.getMessage(), e);
         }
@@ -148,26 +138,6 @@ public class AuditTrailListener implements ApplicationContextAware {
     private static String getTableName(Object object) {
         return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
     }
-
-    private final ExecutorService executor = Executors.newFixedThreadPool(3);
-    @Autowired private RestTemplate auditRestTemplate;
-    @Value("${event.dispatcher.uri:}") private String eventDispatcherUri;
-    public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail) {
-        if (!eventDispatcherUri.isEmpty()) {
-            var changeEvent = new ChangeEvent(auditTrail.id(), HttpInterceptor.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
-            var headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_JSON);
-            executor.submit(() -> {
-                auditRestTemplate.postForEntity(eventDispatcherUri, new HttpEntity<>(changeEvent, headers), Void.class); });
-        }
-    }
-
-    @Bean
-    public RestTemplate auditRestTemplate(RestTemplateBuilder builder) {
-        return builder.setConnectTimeout(Duration.ofMillis(1000)).setReadTimeout(Duration.ofMillis(1000)).build();
-    }
-
-    record ChangeEvent (String id, String tenantId, String referenceId, String type, AuditTrailListener.DbOperation operation, String origin) {}
 
 }
 
