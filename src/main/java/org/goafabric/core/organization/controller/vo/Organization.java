@@ -10,6 +10,7 @@ public record Organization(
     @Null String id,
     @Null String version,
     @NotNull @Size(min = 3, max = 255) String name,
+    String bsnr,
 
     List<Address> address,
     List<ContactPoint> contactPoint

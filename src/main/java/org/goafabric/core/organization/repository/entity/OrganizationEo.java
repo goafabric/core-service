@@ -18,6 +18,8 @@ public class OrganizationEo {
 
     public String name;
 
+    public String bsnr;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "organization_id")
     public List<AddressEo> address;

@@ -1,6 +1,10 @@
 package org.goafabric.core.fhir.r4.logic.mapper;
 
 import org.goafabric.core.fhir.r4.controller.vo.HumanName;
+import org.goafabric.core.fhir.r4.controller.vo.identifier.Coding;
+import org.goafabric.core.fhir.r4.controller.vo.identifier.Identifier;
+import org.goafabric.core.fhir.r4.controller.vo.identifier.IdentifierUse;
+import org.goafabric.core.fhir.r4.controller.vo.identifier.Type;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -16,6 +20,7 @@ public interface FhirPractitionerMapper extends FhirBaseMapper {
 
     @Mapping(source = "contactPoint", target = "telecom")
     @Mapping(expression = "java(mapHumanName(value))", target = "name")
+    @Mapping(expression = "java(mapLanr(value))", target = "identifier")
     org.goafabric.core.fhir.r4.controller.vo.Practitioner map(org.goafabric.core.organization.controller.vo.Practitioner value);
 
     @Mapping(source = "contactPoint", target = "telecom")
@@ -23,5 +28,11 @@ public interface FhirPractitionerMapper extends FhirBaseMapper {
 
     default List<HumanName> mapHumanName(org.goafabric.core.organization.controller.vo.Practitioner value) {
         return Collections.singletonList(new HumanName("", value.familyName(), Collections.singletonList(value.givenName())));
+    }
+
+    default List<Identifier> mapLanr(org.goafabric.core.organization.controller.vo.Practitioner value) {
+        return Collections.singletonList(new Identifier(IdentifierUse.official,
+                new Type(Collections.singletonList(new Coding("LANR", "http://terminology.hl7.org/CodeSystem/v2-0203"))),
+                value.lanr(), "https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR"));
     }
 }
