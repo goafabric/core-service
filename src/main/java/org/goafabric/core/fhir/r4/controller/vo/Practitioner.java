@@ -5,6 +5,7 @@ import org.goafabric.core.fhir.r4.controller.vo.identifier.Identifier;
 
 import java.util.List;
 
+//https://simplifier.net/verordnungssoftware-schnittstelle/~resources?category=Example&exampletype=Practitioner
 public record Practitioner (
 
     String id,
