@@ -35,7 +35,7 @@ public class OrganizationView extends GridView<Organization> {
         var address = organization.address().get(0);
         var updated = new Organization(
                 isNewItem() ? null : organization.id(), isNewItem() ? null : organization.version(),
-                mapDialogText.get("Name").getValue(),
+                mapDialogText.get("Name").getValue(), organization.bsnr(),
                 Collections.singletonList(new Address(
                         isNewItem() ? null : address.id(), isNewItem() ? null : address.version(),
                         address.use(),
