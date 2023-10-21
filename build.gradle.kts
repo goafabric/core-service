@@ -14,7 +14,7 @@ plugins {
 	jacoco
 	id("org.springframework.boot") version "3.2.0-RC1"
 	id("io.spring.dependency-management") version "1.1.0"
-	id("org.graalvm.buildtools.native") version "0.9.24"
+	//id("org.graalvm.buildtools.native") version "0.9.24"
 	id("com.google.cloud.tools.jib") version "3.3.2"
 }
 
@@ -109,6 +109,8 @@ tasks.register("dockerImageNativeNoTest") {group = "build"; dependsOn("bootJar")
 }
 tasks.register("dockerImageNative") {group = "build"; dependsOn("clean", "dockerImageNativeNoTest"); doLast { exec { commandLine("docker", "run", "--rm", "--pull", "always", "${dockerRegistry}/${project.name}-native" + (if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else "") + ":${project.version}", "-check-integrity") } } }
 
+/*
 graalvmNative { //https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html#configuration-options
 	binaries.named("main") { quickBuild.set(true) }
 }
+*/

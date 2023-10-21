@@ -2,18 +2,17 @@ package org.goafabric.core.medicalrecords.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.medicalrecords.controller.vo.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.vo.Encounter;
 import org.goafabric.core.medicalrecords.controller.vo.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.vo.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.BodyMetricsLogic;
 import org.goafabric.core.medicalrecords.logic.EncounterLogic;
+import org.goafabric.core.organization.logic.PatientLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +29,7 @@ import java.util.stream.IntStream;
 import static org.goafabric.core.organization.repository.extensions.DemoDataImporter.*;
 
 @Component
-public class EncounterImporter implements CommandLineRunner {
+public class EncounterImporter implements Runnable {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final String goals;
@@ -56,8 +55,8 @@ public class EncounterImporter implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
-        if ((args.length > 0) && ("-check-integrity".equals(args[0]))) { return; }
+    public void run() {
+        //if ((args.length > 0) && ("-check-integrity".equals(args[0]))) { return; }
 
         if (goals.contains("-import-demo-data")) {
             log.info("Importing demo data ...");

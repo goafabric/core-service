@@ -2,6 +2,7 @@ package org.goafabric.core.organization.repository.extensions;
 
 import org.flywaydb.core.Flyway;
 import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.medicalrecords.repository.EncounterImporter;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
@@ -128,7 +129,10 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
                 );
             }
             if (goals.contains("-terminate") && !goals.contains("-import")) { SpringApplication.exit(context, () -> 0); }
-            if ((args.length == 0) || (!"-check-integrity".equals(args[0]))) { context.getBean(DemoDataImporter.class).run(); }
+            if ((args.length == 0) || (!"-check-integrity".equals(args[0]))) {
+                context.getBean(DemoDataImporter.class).run();
+                context.getBean(EncounterImporter.class).run();
+            }
         };
     }
 
