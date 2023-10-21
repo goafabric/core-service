@@ -7,7 +7,7 @@ import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
@@ -112,7 +112,7 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
     }
 
     @Bean
-    public ApplicationRunner schemaCreator(Flyway flyway,
+    public CommandLineRunner schemaCreator(Flyway flyway,
                                            @Value("${database.provisioning.goals}") String goals,
                                            @Value("${multi-tenancy.tenants}") String tenants,
                                            @Value("${multi-tenancy.schema-prefix:_}") String schemaPrefix,
@@ -128,6 +128,7 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
                 );
             }
             if (goals.contains("-terminate") && !goals.contains("-import")) { SpringApplication.exit(context, () -> 0); }
+            if ((args.length == 0) || (!"-check-integrity".equals(args[0]))) { context.getBean(DemoDataImporter.class).run(); }
         };
     }
 

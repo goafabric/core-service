@@ -21,7 +21,6 @@ import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportRuntimeHints;
@@ -36,7 +35,7 @@ import java.util.stream.IntStream;
 
 @Component
 @ImportRuntimeHints(DemoDataImporter.DbRuntimeHints.class)
-public class DemoDataImporter implements CommandLineRunner {
+public class DemoDataImporter implements Runnable {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private final String goals;
@@ -56,8 +55,8 @@ public class DemoDataImporter implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) {
-        if ((args.length > 0) && ("-check-integrity".equals(args[0]))) { return; }
+    public void run() {
+        //if ((args.length > 0) && ("-check-integrity".equals(args[0]))) { return; }
 
         if (goals.contains("-import-demo-data")) {
             log.info("Importing demo data ...");
