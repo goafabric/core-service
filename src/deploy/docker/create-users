@@ -40,7 +40,7 @@ function create-user {
     -H "Content-Type: application/json" -H "Authorization: Bearer $access_token" -d '{"emailVerified":true}'
 }
 
-while ! docker logs keycloak-application 2>&1 | grep -q "started in"; do
+while ! docker logs auth-server 2>&1 | grep -q "started in"; do
   echo "waiting for keycloak to start .."
   sleep 2
 done
