@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.controller.vo;
+package org.goafabric.core.medicalrecords.controller.dto;
 
 public record BodyMetrics(
         String id,

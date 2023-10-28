@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.controller;
 
-import org.goafabric.core.medicalrecords.controller.vo.MedicalRecord;
-import org.goafabric.core.medicalrecords.controller.vo.MedicalRecordType;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

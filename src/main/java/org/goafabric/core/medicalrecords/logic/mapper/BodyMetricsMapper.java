@@ -1,6 +1,6 @@
 package org.goafabric.core.medicalrecords.logic.mapper;
 
-import org.goafabric.core.medicalrecords.controller.vo.BodyMetrics;
+import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.repository.entity.BodyMetricsEo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.logic;
 
-import org.goafabric.core.organization.controller.vo.Permission;
+import org.goafabric.core.organization.controller.dto.Permission;
 import org.goafabric.core.organization.logic.mapper.PermissionMapper;
 import org.goafabric.core.organization.repository.PermissionRepository;
 import org.springframework.stereotype.Component;

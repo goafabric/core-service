@@ -1,8 +1,8 @@
 package org.goafabric.core.organization.controller;
 
 import org.goafabric.core.extensions.HttpInterceptor;
-import org.goafabric.core.organization.controller.vo.types.AddressUse;
-import org.goafabric.core.organization.controller.vo.types.ContactPointSystem;
+import org.goafabric.core.organization.controller.dto.types.AddressUse;
+import org.goafabric.core.organization.controller.dto.types.ContactPointSystem;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,6 +1,6 @@
 package org.goafabric.core.medicalrecords.logic.mapper;
 
-import org.goafabric.core.medicalrecords.controller.vo.Encounter;
+import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.repository.entity.EncounterEo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

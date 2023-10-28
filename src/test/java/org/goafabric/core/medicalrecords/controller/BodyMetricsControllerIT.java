@@ -1,6 +1,6 @@
 package org.goafabric.core.medicalrecords.controller;
 
-import org.goafabric.core.medicalrecords.controller.vo.BodyMetrics;
+import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

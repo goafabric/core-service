@@ -1,8 +1,8 @@
 package org.goafabric.core;
 
-import org.goafabric.core.organization.controller.vo.*;
-import org.goafabric.core.organization.controller.vo.types.AddressUse;
-import org.goafabric.core.organization.controller.vo.types.ContactPointSystem;
+import org.goafabric.core.organization.controller.dto.*;
+import org.goafabric.core.organization.controller.dto.types.AddressUse;
+import org.goafabric.core.organization.controller.dto.types.ContactPointSystem;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;

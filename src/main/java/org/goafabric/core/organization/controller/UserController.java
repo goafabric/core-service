@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.controller;
 
 import jakarta.validation.Valid;
-import org.goafabric.core.organization.controller.vo.User;
+import org.goafabric.core.organization.controller.dto.User;
 import org.goafabric.core.organization.logic.UserLogic;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
