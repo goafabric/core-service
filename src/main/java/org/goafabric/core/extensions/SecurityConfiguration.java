@@ -4,6 +4,7 @@ import io.micrometer.observation.ObservationPredicate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.server.observation.ServerRequestObservationContext;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.client.oidc.web.logout.OidcClientInitiatedLogoutSuccessHandler;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
@@ -88,9 +89,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    ObservationPredicate disableHttpServerObservationsFromName() {
-        return (name, context) -> !name.startsWith("spring.security.");
-    }
+    ObservationPredicate disableHttpServerObservationsFromName() { return (name, context) -> !name.startsWith("spring.security.") && context instanceof ServerRequestObservationContext && !((ServerRequestObservationContext) context).getCarrier().getRequestURI().startsWith("/actuator"); }
 
 }
 
