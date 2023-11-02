@@ -27,7 +27,7 @@ create table practitioner
 
 	gender varchar(255),
 	birth_date date,
-
+    lanr varchar(16),
 
     version bigint default 0
 );
@@ -39,6 +39,7 @@ create table organization
 			primary key,
 
 	name varchar(255),
+    bsnr varchar(16),
 
     version bigint default 0
 );

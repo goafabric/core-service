@@ -15,6 +15,7 @@ public record Practitioner(
 
     @NotNull String gender,
     @NotNull LocalDate birthDate,
+    String lanr,
     
     List<Address> address,
     List<ContactPoint> contactPoint

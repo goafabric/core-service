@@ -39,7 +39,7 @@ public class PractitionerView extends GridView<Practitioner> {
                 isNewItem() ? null : practitioner.id(), isNewItem() ? null : practitioner.version(),
                 mapDialogText.get("Given Name").getValue(),
                 mapDialogText.get("Family Name").getValue(),
-                practitioner.gender(), practitioner.birthDate(),
+                practitioner.gender(), practitioner.birthDate(), practitioner.lanr(),
                 Collections.singletonList(new Address(
                         isNewItem() ? null : address.id(), isNewItem() ? null : address.version(),
                         address.use(),

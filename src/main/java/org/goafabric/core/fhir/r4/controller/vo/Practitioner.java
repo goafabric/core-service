@@ -1,6 +1,8 @@
 
 package org.goafabric.core.fhir.r4.controller.vo;
 
+import org.goafabric.core.fhir.r4.controller.vo.identifier.Identifier;
+
 import java.util.List;
 
 public record Practitioner (

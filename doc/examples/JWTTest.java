@@ -33,4 +33,11 @@ public class JWTTest {
         //we need tenantId + user, role could be managed by core itself in the first step
         //tenant origin should be from url either dns or /param
     }
+
+    private void logJwtFromSpring() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof DefaultOidcUser) {
+            log.info("JWT Token: " + ((OidcUser) authentication.getPrincipal()).getIdToken().getTokenValue());
+        }
+    }
 }
