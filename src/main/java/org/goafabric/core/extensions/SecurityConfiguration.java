@@ -89,7 +89,9 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    ObservationPredicate disableHttpServerObservationsFromName() { return (name, context) -> !name.startsWith("spring.security.") && context instanceof ServerRequestObservationContext && !((ServerRequestObservationContext) context).getCarrier().getRequestURI().startsWith("/actuator"); }
+    ObservationPredicate disableHttpServerObservationsFromName() {
+        return (name, context) -> !name.startsWith("spring.security.") && context instanceof ServerRequestObservationContext && !((ServerRequestObservationContext) context).getCarrier().getRequestURI().startsWith("/actuator");
+    }
 
 }
 

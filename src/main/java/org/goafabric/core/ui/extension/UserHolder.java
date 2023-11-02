@@ -31,7 +31,8 @@ public class UserHolder implements ApplicationContextAware, VaadinServiceInitLis
     }
 
     public static User getUser() {
-        var user = users.computeIfAbsent(HttpInterceptor.getUserName(), userName -> {
+        var httpUser = HttpInterceptor.getUserName() != null ? HttpInterceptor.getUserName() : "anonymousUser";
+        var user = users.computeIfAbsent(httpUser, userName -> {
             var users = context.getBean(UserAdapter.class).search(userName);
             return users.size() == 1 ? users.get(0) : null;
         });
