@@ -18,6 +18,7 @@ import com.vaadin.flow.function.SerializableConsumer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.*;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 import org.goafabric.core.extensions.HttpInterceptor;
@@ -31,6 +32,7 @@ import org.goafabric.core.ui.mrc.MRCMainView;
 import org.goafabric.core.ui.practice.Organization;
 import org.springframework.beans.factory.annotation.Value;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class MainView extends AppLayout {
@@ -40,6 +42,14 @@ public class MainView extends AppLayout {
 
     public MainView(@Value("${monitoring.view.enabled:true}") boolean monitoringViewEnabled) {
         this.monitoringViewEnabled = monitoringViewEnabled;
+        VaadinSession.getCurrent().addRequestHandler(
+                new RequestHandler() {
+                    @Override
+                    public boolean handleRequest(VaadinSession session, VaadinRequest request, VaadinResponse response) throws IOException {
+                        HttpInterceptor.prehandle(((VaadinServletRequest) request).getHttpServletRequest());
+                        return false;
+                    }
+                });
         createHeader();
         createDrawer();
     }
