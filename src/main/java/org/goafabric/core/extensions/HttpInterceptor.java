@@ -8,9 +8,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.ServerHttpObservationFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -22,18 +24,16 @@ import java.util.Map;
 import java.util.Objects;
 
 
-//@Component
+@Component
 public class HttpInterceptor implements HandlerInterceptor {
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
     private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
     private static final ThreadLocal<String> userName = new ThreadLocal<>();
 
-    /*
     private static Boolean isAuthenticationEnabled;
     @Value("${security.authentication.enabled}") void setAuthenticationEnabled(Boolean authenticationEnabled) {
         isAuthenticationEnabled = authenticationEnabled;
     }
-     */
 
     @Configuration
     static class Configurer implements WebMvcConfigurer {
@@ -87,7 +87,6 @@ public class HttpInterceptor implements HandlerInterceptor {
         return (SecurityContextHolder.getContext().getAuthentication() != null) && !(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
                 ? SecurityContextHolder.getContext().getAuthentication().getName() : userName.get();
         //return isAuthenticationEnabled ? SecurityContextHolder.getContext().getAuthentication().getName() : userName.get();
-        //yo
     }
 
     private static Map<String, Object> decodeJwt(String token) {
