@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -30,12 +29,12 @@ public class HttpInterceptor implements HandlerInterceptor {
     private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
     private static final ThreadLocal<String> userName = new ThreadLocal<>();
 
+    /*
     private static Boolean isAuthenticationEnabled;
     @Value("${security.authentication.enabled}") void setAuthenticationEnabled(Boolean authenticationEnabled) {
         isAuthenticationEnabled = authenticationEnabled;
     }
-
-
+     */
 
     @Configuration
     static class Configurer implements WebMvcConfigurer {
