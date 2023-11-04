@@ -11,7 +11,6 @@ import org.slf4j.MDC;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.ServerHttpObservationFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -23,7 +22,7 @@ import java.util.Map;
 import java.util.Objects;
 
 
-@Component
+//@Component
 public class HttpInterceptor implements HandlerInterceptor {
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
     private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
