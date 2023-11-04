@@ -89,6 +89,7 @@ public class HttpInterceptor implements HandlerInterceptor {
         return (SecurityContextHolder.getContext().getAuthentication() != null) && !(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
                 ? SecurityContextHolder.getContext().getAuthentication().getName() : userName.get();
         //return isAuthenticationEnabled ? SecurityContextHolder.getContext().getAuthentication().getName() : userName.get();
+        //yo
     }
 
     private static Map<String, Object> decodeJwt(String token) {
