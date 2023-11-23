@@ -1,4 +1,5 @@
 # 1.0.6
+- upgrade to spring boot 3.2.0
 
 # 1.0.5
 - java21 upgrade
