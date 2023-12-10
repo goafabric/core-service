@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.r4.controller.vo.identifier;
+package org.goafabric.core.fhir.r4.controller.dto.identifier;
 
 public enum IdentifierUse {
     official("official");

@@ -1,7 +1,7 @@
 
-package org.goafabric.core.fhir.r4.controller.vo;
+package org.goafabric.core.fhir.r4.controller.dto;
 
-import org.goafabric.core.fhir.r4.controller.vo.identifier.Identifier;
+import org.goafabric.core.fhir.r4.controller.dto.identifier.Identifier;
 
 import java.util.List;
 
