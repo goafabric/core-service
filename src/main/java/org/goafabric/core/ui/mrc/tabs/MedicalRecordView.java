@@ -10,7 +10,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import org.goafabric.core.medicalrecords.controller.vo.MedicalRecordType;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.ui.adapter.PatientAdapter;
 
 public class MedicalRecordView extends VerticalLayout {

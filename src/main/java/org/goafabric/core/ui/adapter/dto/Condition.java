@@ -1,8 +1,7 @@
-package org.goafabric.core.ui.adapter.vo;
+package org.goafabric.core.ui.adapter.dto;
 
-public record Insurance (
+public record Condition(
     String id,
-
     String code,
     String display,
     String shortname

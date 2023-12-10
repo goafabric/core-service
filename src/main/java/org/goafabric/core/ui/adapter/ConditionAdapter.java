@@ -1,6 +1,6 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.ui.adapter.vo.Condition;
+import org.goafabric.core.ui.adapter.dto.Condition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;

@@ -1,4 +1,4 @@
-package org.goafabric.core.ui.adapter.vo;
+package org.goafabric.core.ui.adapter.dto;
 
 public record ChargeItem (
     String id,

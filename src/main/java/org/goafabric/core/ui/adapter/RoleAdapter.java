@@ -1,8 +1,8 @@
 package org.goafabric.core.ui.adapter;
 
 import org.goafabric.core.organization.controller.RoleController;
-import org.goafabric.core.organization.controller.vo.Permission;
-import org.goafabric.core.organization.controller.vo.Role;
+import org.goafabric.core.organization.controller.dto.Permission;
+import org.goafabric.core.organization.controller.dto.Role;
 import org.goafabric.core.organization.logic.PermissionLogic;
 import org.springframework.stereotype.Component;
 

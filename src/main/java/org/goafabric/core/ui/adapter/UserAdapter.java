@@ -1,7 +1,7 @@
 package org.goafabric.core.ui.adapter;
 
 import org.goafabric.core.organization.controller.UserController;
-import org.goafabric.core.organization.controller.vo.User;
+import org.goafabric.core.organization.controller.dto.User;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

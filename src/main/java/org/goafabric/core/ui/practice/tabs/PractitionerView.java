@@ -3,9 +3,9 @@ package org.goafabric.core.ui.practice.tabs;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
-import org.goafabric.core.organization.controller.vo.Address;
-import org.goafabric.core.organization.controller.vo.ContactPoint;
-import org.goafabric.core.organization.controller.vo.Practitioner;
+import org.goafabric.core.organization.controller.dto.Address;
+import org.goafabric.core.organization.controller.dto.ContactPoint;
+import org.goafabric.core.organization.controller.dto.Practitioner;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.adapter.SearchAdapter;
 

@@ -1,7 +1,7 @@
 package org.goafabric.core.ui.adapter;
 
 import org.goafabric.core.medicalrecords.controller.ObjectStorageController;
-import org.goafabric.core.medicalrecords.controller.vo.ObjectEntry;
+import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

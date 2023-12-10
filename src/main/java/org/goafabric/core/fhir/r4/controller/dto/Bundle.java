@@ -1,4 +1,4 @@
-package org.goafabric.core.fhir.r4.controller.vo;
+package org.goafabric.core.fhir.r4.controller.dto;
 
 import java.util.ArrayList;
 import java.util.List;

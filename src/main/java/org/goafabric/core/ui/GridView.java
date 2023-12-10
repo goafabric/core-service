@@ -13,7 +13,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
-import org.goafabric.core.organization.controller.vo.types.PermissionType;
+import org.goafabric.core.organization.controller.dto.types.PermissionType;
 import org.goafabric.core.ui.adapter.SearchAdapter;
 import org.goafabric.core.ui.extension.UserHolder;
 import org.springframework.util.StringUtils;

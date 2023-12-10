@@ -3,7 +3,7 @@ package org.goafabric.core.ui.extension;
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
 import org.goafabric.core.extensions.HttpInterceptor;
-import org.goafabric.core.organization.controller.vo.User;
+import org.goafabric.core.organization.controller.dto.User;
 import org.goafabric.core.ui.adapter.UserAdapter;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

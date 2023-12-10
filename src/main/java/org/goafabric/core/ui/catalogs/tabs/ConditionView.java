@@ -4,7 +4,7 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.router.PageTitle;
 import org.goafabric.core.ui.GridView;
 import org.goafabric.core.ui.adapter.SearchAdapter;
-import org.goafabric.core.ui.adapter.vo.Condition;
+import org.goafabric.core.ui.adapter.dto.Condition;
 
 @PageTitle("Condition")
 public class ConditionView extends GridView<Condition> {

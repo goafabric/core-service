@@ -4,7 +4,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.TabSheet;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import org.goafabric.core.organization.controller.vo.types.PermissionType;
+import org.goafabric.core.organization.controller.dto.types.PermissionType;
 import org.goafabric.core.ui.MainView;
 import org.goafabric.core.ui.adapter.OrganizationAdapter;
 import org.goafabric.core.ui.adapter.PractitionerAdapter;
