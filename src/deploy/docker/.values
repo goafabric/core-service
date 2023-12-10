@@ -1,7 +1,7 @@
 _Values_root_name="core-service"
 
 _Values_image_repository=goafabric/core-service
-_Values_image_tag=1.2.0-vaadin-SNAPSHOT
+_Values_image_tag=1.2.1-vaadin-SNAPSHOT
 
 _Values_service_port=50800
 _Values_resources_entrypoint="java -Xms256M -Xmx256M -cp /app/resources:/app/classes:/app/libs/* org.goafabric.core.Application"
