@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.logic;
 
-import org.goafabric.core.organization.controller.vo.Role;
+import org.goafabric.core.organization.controller.dto.Role;
 import org.goafabric.core.organization.logic.mapper.RoleMapper;
 import org.goafabric.core.organization.repository.RoleRepository;
 import org.springframework.stereotype.Component;

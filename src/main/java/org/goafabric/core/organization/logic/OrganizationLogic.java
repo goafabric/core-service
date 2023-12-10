@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.logic;
 
-import org.goafabric.core.organization.controller.vo.Organization;
+import org.goafabric.core.organization.controller.dto.Organization;
 import org.goafabric.core.organization.logic.mapper.OrganizationMapper;
 import org.goafabric.core.organization.repository.OrganizationRepository;
 import org.springframework.stereotype.Component;

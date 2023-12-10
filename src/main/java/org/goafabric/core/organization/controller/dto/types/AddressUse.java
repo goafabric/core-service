@@ -1,4 +1,4 @@
-package org.goafabric.core.organization.controller.vo.types;
+package org.goafabric.core.organization.controller.dto.types;
 
 public enum AddressUse {
     /**

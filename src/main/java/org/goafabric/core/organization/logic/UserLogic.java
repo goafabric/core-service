@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.logic;
 
-import org.goafabric.core.organization.controller.vo.User;
+import org.goafabric.core.organization.controller.dto.User;
 import org.goafabric.core.organization.logic.mapper.UserMapper;
 import org.goafabric.core.organization.repository.UserRepository;
 import org.springframework.stereotype.Component;

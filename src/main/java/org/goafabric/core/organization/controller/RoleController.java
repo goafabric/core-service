@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.controller;
 
 import jakarta.validation.Valid;
-import org.goafabric.core.organization.controller.vo.Role;
+import org.goafabric.core.organization.controller.dto.Role;
 import org.goafabric.core.organization.logic.RoleLogic;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

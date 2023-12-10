@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.controller;
 
 import jakarta.validation.Valid;
-import org.goafabric.core.organization.controller.vo.Patient;
+import org.goafabric.core.organization.controller.dto.Patient;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
 import org.springframework.http.MediaType;

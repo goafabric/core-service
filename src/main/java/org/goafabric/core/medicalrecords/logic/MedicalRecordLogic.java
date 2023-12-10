@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.logic;
 
 import jakarta.transaction.Transactional;
-import org.goafabric.core.medicalrecords.controller.vo.MedicalRecord;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.logic.mapper.MedicalRecordMapper;
 import org.goafabric.core.medicalrecords.repository.MedicalRecordRepository;
 import org.springframework.stereotype.Component;

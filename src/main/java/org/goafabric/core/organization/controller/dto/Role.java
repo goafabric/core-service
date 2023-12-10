@@ -1,4 +1,4 @@
-package org.goafabric.core.organization.controller.vo;
+package org.goafabric.core.organization.controller.dto;
 
 import java.util.List;
 

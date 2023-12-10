@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.goafabric.core.organization.controller.PatientController;
-import org.goafabric.core.organization.controller.vo.Patient;
+import org.goafabric.core.organization.controller.dto.Patient;
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

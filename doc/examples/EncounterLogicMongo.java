@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.logic;
 
 import io.micrometer.common.util.StringUtils;
-import org.goafabric.core.medicalrecords.controller.vo.Encounter;
+import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.repository.EncounterRepository;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Component;

@@ -1,10 +1,10 @@
 package org.goafabric.core.organization.controller;
 
-import org.goafabric.core.organization.controller.vo.Permission;
-import org.goafabric.core.organization.controller.vo.Role;
-import org.goafabric.core.organization.controller.vo.User;
-import org.goafabric.core.organization.controller.vo.types.PermissionCategory;
-import org.goafabric.core.organization.controller.vo.types.PermissionType;
+import org.goafabric.core.organization.controller.dto.Permission;
+import org.goafabric.core.organization.controller.dto.Role;
+import org.goafabric.core.organization.controller.dto.User;
+import org.goafabric.core.organization.controller.dto.types.PermissionCategory;
+import org.goafabric.core.organization.controller.dto.types.PermissionType;
 import org.goafabric.core.organization.logic.PermissionLogic;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

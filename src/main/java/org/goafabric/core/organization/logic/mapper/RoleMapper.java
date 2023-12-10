@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.logic.mapper;
 
-import org.goafabric.core.organization.controller.vo.Role;
+import org.goafabric.core.organization.controller.dto.Role;
 import org.goafabric.core.organization.repository.entity.RoleEo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

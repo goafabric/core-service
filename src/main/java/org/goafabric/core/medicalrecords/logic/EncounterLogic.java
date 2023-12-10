@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.logic;
 
 import jakarta.transaction.Transactional;
-import org.goafabric.core.medicalrecords.controller.vo.Encounter;
+import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.logic.mapper.EncounterMapper;
 import org.goafabric.core.medicalrecords.repository.EncounterRepository;
 import org.h2.util.StringUtils;

@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.controller;
 
 import jakarta.validation.Valid;
-import org.goafabric.core.medicalrecords.controller.vo.BodyMetrics;
+import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.logic.BodyMetricsLogic;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

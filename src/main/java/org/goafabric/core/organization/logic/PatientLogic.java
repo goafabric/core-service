@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.logic;
 
-import org.goafabric.core.organization.controller.vo.Patient;
+import org.goafabric.core.organization.controller.dto.Patient;
 import org.goafabric.core.organization.logic.mapper.PatientMapper;
 import org.goafabric.core.organization.repository.PatientRepository;
 import org.goafabric.core.organization.repository.entity.PatientNamesOnly;

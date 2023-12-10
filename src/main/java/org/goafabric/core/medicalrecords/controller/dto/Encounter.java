@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.controller.vo;
+package org.goafabric.core.medicalrecords.controller.dto;
 
 import java.time.LocalDate;
 import java.util.List;
