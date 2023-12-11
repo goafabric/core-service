@@ -25,10 +25,12 @@ public class AuditTrailEventDispatcher {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
-    public AuditTrailEventDispatcher(@Value("${event.dispatcher.uri:}") String eventDispatcherUri) {
-        this.auditRestTemplate = new RestTemplateBuilder().setConnectTimeout(Duration.ofMillis(1000)).setReadTimeout(Duration.ofMillis(1000)).build();
+    public AuditTrailEventDispatcher(RestTemplateBuilder builder, @Value("${event.dispatcher.uri:}") String eventDispatcherUri) {
+        this.auditRestTemplate =
+                builder.setConnectTimeout(Duration.ofMillis(1000)).setReadTimeout(Duration.ofMillis(1000))
+                        .messageConverters(Collections.singletonList(new MappingJackson2HttpMessageConverter()))
+                        .build();
         this.eventDispatcherUri = eventDispatcherUri;
-        auditRestTemplate.setMessageConverters(Collections.singletonList(new MappingJackson2HttpMessageConverter()));
     }
 
     public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail) {
