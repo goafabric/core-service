@@ -8,10 +8,12 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Duration;
+import java.util.Collections;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -26,6 +28,7 @@ public class AuditTrailEventDispatcher {
     public AuditTrailEventDispatcher(@Value("${event.dispatcher.uri:}") String eventDispatcherUri) {
         this.auditRestTemplate = new RestTemplateBuilder().setConnectTimeout(Duration.ofMillis(1000)).setReadTimeout(Duration.ofMillis(1000)).build();
         this.eventDispatcherUri = eventDispatcherUri;
+        auditRestTemplate.setMessageConverters(Collections.singletonList(new MappingJackson2HttpMessageConverter()));
     }
 
     public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail) {
