@@ -1,6 +1,8 @@
 package org.goafabric.core.organization.repository.extensions;
 
 import org.goafabric.core.extensions.HttpInterceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
@@ -19,6 +21,8 @@ public class AuditTrailEventDispatcher {
     private final RestTemplate auditRestTemplate;
     private final String eventDispatcherUri;
 
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     public AuditTrailEventDispatcher(@Value("${event.dispatcher.uri:}") String eventDispatcherUri) {
         this.auditRestTemplate = new RestTemplateBuilder().setConnectTimeout(Duration.ofMillis(1000)).setReadTimeout(Duration.ofMillis(1000)).build();
         this.eventDispatcherUri = eventDispatcherUri;
@@ -26,11 +30,14 @@ public class AuditTrailEventDispatcher {
 
     public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail) {
         if (!eventDispatcherUri.isEmpty()) {
+            log.info("publishing audit event");
             var changeEvent = new ChangeEvent(auditTrail.id(), HttpInterceptor.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
             var headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             executor.submit(() -> {
                 auditRestTemplate.postForEntity(eventDispatcherUri, new HttpEntity<>(changeEvent, headers), Void.class); });
+        } else {
+            log.info("audit dispatcher disabled");
         }
     }
 
