@@ -30,14 +30,14 @@ public class AuditTrailEventDispatcher {
 
     public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail) {
         if (!eventDispatcherUri.isEmpty()) {
-            log.info("publishing audit event");
+            log.debug("publishing audit event");
             var changeEvent = new ChangeEvent(auditTrail.id(), HttpInterceptor.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
             var headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             executor.submit(() -> {
                 auditRestTemplate.postForEntity(eventDispatcherUri, new HttpEntity<>(changeEvent, headers), Void.class); });
         } else {
-            log.info("audit dispatcher disabled");
+            log.debug("audit dispatcher disabled");
         }
     }
 
