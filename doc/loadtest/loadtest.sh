@@ -18,3 +18,5 @@ while true
 do
   dorequest
 done
+
+#docker run --pull always --name catalog-batch-service --rm -p50600:50600 -e 'management.otlp.tracing.endpoint=http://host.docker.internal:4318/v1/traces' goafabric/catalog-batch-service:1.2.0-SNAPSHOT
