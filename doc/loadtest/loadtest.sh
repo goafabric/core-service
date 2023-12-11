@@ -1,7 +1,6 @@
 #!/bin/bash
 
 baseurl=http://localhost:50800
-catalogurl=http://localhost:50600
 
 function dorequest() {
   echo .
@@ -10,8 +9,7 @@ function dorequest() {
 
   curl "${baseurl}/objects/search?search="
 
-  curl "${catalogurl}/chargeitems/findByDisplay?display=u"
-  curl "${catalogurl}/insurances/findByDisplay?display=a"
+  curl "${baseurl}/insurances/findByDisplay?display=a"
 }
 
 while true
