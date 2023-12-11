@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record Patient(
-    @Null String id,
-    @Null String version,
+    String id,
+    String version,
     @NotNull @Size(min = 3, max = 255) String givenName,
     @NotNull @Size(min = 3, max = 255) String familyName,
 

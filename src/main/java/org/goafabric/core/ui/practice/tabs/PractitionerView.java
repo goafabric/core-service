@@ -22,15 +22,16 @@ public class PractitionerView extends GridView<Practitioner> {
     protected void addColumns(Grid<Practitioner> grid) {
         grid.addColumn(p -> p.givenName()).setHeader("Given Name");
         grid.addColumn(p -> p.familyName()).setHeader("Family Name");
-        grid.addColumn(p -> p.address().get(0).street()).setHeader("Street");
-        grid.addColumn(p -> p.address().get(0).city()).setHeader("City");
+
+        grid.addColumn(p -> !p.address().isEmpty() ? p.address().get(0).street() : "").setHeader("Street");
+        grid.addColumn(p -> !p.address().isEmpty() ? p.address().get(0).city() : "").setHeader("City");
     }
 
     protected void configureSaveDialog(Practitioner practitioner) {
         put(new TextField("Given Name", practitioner.givenName(), ""));
         put(new TextField("Family Name", practitioner.familyName(), ""));
-        put(new TextField("Street", practitioner.address().get(0).street(), ""));
-        put(new TextField("City", practitioner.address().get(0).city(), ""));
+        put(new TextField("Street", !practitioner.address().isEmpty() ? practitioner.address().get(0).street() : "", ""));
+        put(new TextField("City", practitioner.address().isEmpty() ? practitioner.address().get(0).city() : "", ""));
     }
 
     protected void onSave(Practitioner practitioner) {
