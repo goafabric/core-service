@@ -3,6 +3,8 @@ package org.goafabric.core.medicalrecords.logic;
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Import;
@@ -22,7 +24,9 @@ public class ObjectStorageLogic {
     private final S3Client s3Client;
     
     private String schemaPrefix;
-    
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
+
     public ObjectStorageLogic(S3Client s3Client, @Value("${multi-tenancy.schema-prefix}") String schemaPrefix) {
         this.s3Client = s3Client;
         this.schemaPrefix = schemaPrefix;
@@ -49,11 +53,16 @@ public class ObjectStorageLogic {
     }
 
     public List<ObjectEntry> search(String search) {
-        var contents = s3Client.listObjects(builder -> builder.bucket(getBucketName())).contents();
-        return contents.stream().map(c ->
-                new ObjectEntry(c.key(), null, c.size(), null))
-                .filter(o -> o.objectName().toLowerCase().startsWith(search.toLowerCase()))
-                .toList();
+        try {
+            var contents = s3Client.listObjects(builder -> builder.bucket(getBucketName())).contents();
+            return contents.stream().map(c ->
+                            new ObjectEntry(c.key(), null, c.size(), null))
+                    .filter(o -> o.objectName().toLowerCase().startsWith(search.toLowerCase()))
+                    .toList();
+        } catch (Exception e) {
+            log.error("Error duringing listing of buckets: " + getBucketName());
+            throw e;
+        }
     }
 
     private void createBucketIfNotExists(String bucket) {
