@@ -97,6 +97,7 @@ jib {
 	from.platforms.set(listOf(amd64, arm64))
 }
 
+tasks.register("dockerImageNative") { group = "build"; dependsOn("bootBuildImage", "vaadinBuildFrontend") }
 tasks.named<BootBuildImage>("bootBuildImage") {
 	val nativeImageName = "${dockerRegistry}/${project.name}-native" + (if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else "") + ":${project.version}"
 	builder.set(nativeBuilder)
@@ -106,9 +107,7 @@ tasks.named<BootBuildImage>("bootBuildImage") {
 		exec { commandLine("/bin/sh", "-c", "docker run --rm $nativeImageName -check-integrity") }
 		exec { commandLine("/bin/sh", "-c", "docker push $nativeImageName") }
 	}
-	finalizedBy("jib")
 }
-tasks.register("dockerImageNative") {group = "build"; dependsOn("clean", "dockerImageNativeNoTest"); doLast { exec { commandLine("docker", "run", "--rm", "--pull", "always", "${dockerRegistry}/${project.name}-native" + (if (System.getProperty("os.arch").equals("aarch64")) "-arm64v8" else "") + ":${project.version}", "-check-integrity") } } }
 
 graalvmNative { //https://graalvm.github.io/native-build-tools/latest/gradle-plugin.html#configuration-options
 	binaries.named("main") { quickBuild.set(true) }
