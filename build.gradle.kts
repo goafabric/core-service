@@ -15,7 +15,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.4"
 	id("org.graalvm.buildtools.native") version "0.9.28"
 	id("com.google.cloud.tools.jib") version "3.4.0"
-	id("com.vaadin") version "24.1.10"
+	id("com.vaadin") version "24.3.1"
 }
 
 repositories {
@@ -69,7 +69,7 @@ dependencies {
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1") {exclude("software.amazon.awssdk", "netty-nio-client")}
 
 	//vaadin
-	implementation("com.vaadin:vaadin-spring-boot-starter:24.1.10")
+	implementation("com.vaadin:vaadin-spring-boot-starter:24.3.1")
 
 	//devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
