@@ -11,7 +11,7 @@ services:
       options:
         loki-url: "http://host.docker.internal:3100/loki/api/v1/push"
 
-  catalog-service:
+  catalog-service-application:
     logging:
       driver: loki
       options:
