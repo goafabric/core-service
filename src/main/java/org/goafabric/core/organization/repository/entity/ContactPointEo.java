@@ -2,11 +2,10 @@ package org.goafabric.core.organization.repository.entity;
 
 import jakarta.persistence.*;
 import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Entity
 @Table(name="contact_point")
-@Document("#{@tenantIdBean.getPrefix()}contact_point")
+//@Document("#{@tenantIdBean.getPrefix()}contact_point")
 @EntityListeners(AuditTrailListener.class)
 public class ContactPointEo {
     @Id

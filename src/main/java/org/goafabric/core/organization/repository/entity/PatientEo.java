@@ -3,14 +3,13 @@ package org.goafabric.core.organization.repository.entity;
 import jakarta.persistence.*;
 import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 import org.hibernate.annotations.TenantId;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
 @Table(name = "patient")
-@Document("#{@tenantIdBean.getPrefix()}patient")
+//@Document("#{@tenantIdBean.getPrefix()}patient")
 @EntityListeners(AuditTrailListener.class)
 public class PatientEo {
     @Id
