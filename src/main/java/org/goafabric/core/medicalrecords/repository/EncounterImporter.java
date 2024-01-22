@@ -92,13 +92,13 @@ public class EncounterImporter implements CommandLineRunner {
 
         String practitionerId = null;
 
-        //TODO: we currently need to manually synchronize body metrics data and display and record , should be one save that takes care of both
+        //BodyMetricsLogic will save its own data and create a new MedicalRecord
         var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).save(
                 new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %"));
 
         var medicalRecords = Arrays.asList(
                 new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", ""),
-                new MedicalRecord(null, null, MedicalRecordType.BODY_METRICS, bodyMetrics.toDisplay(), "", bodyMetrics.id()),
+                bodyMetrics,
                 new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", ""),
                 new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none"),
                 new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", ""),
