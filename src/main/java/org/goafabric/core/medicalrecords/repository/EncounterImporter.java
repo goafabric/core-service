@@ -104,7 +104,7 @@ public class EncounterImporter implements CommandLineRunner {
                 new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", ""),
                 new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", ""),
                 new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00"),
-                new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Üter Zörker, who tells him to set a fire", ""),
+                new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Michael Meyers, who tells him to set a fire", ""),
                 new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", ""),
                 new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1"),
                 new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1"),
