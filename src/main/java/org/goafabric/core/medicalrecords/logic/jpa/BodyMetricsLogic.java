@@ -28,6 +28,6 @@ public class BodyMetricsLogic {
     public MedicalRecord save(BodyMetrics bodyMetrics) {
         var newBodyMetrics = mapper.map(
                 repository.save(mapper.map(bodyMetrics)));
-        return new MedicalRecord(null, null, MedicalRecordType.BODY_METRICS, newBodyMetrics.toDisplay(), "", newBodyMetrics.id());
+        return new MedicalRecord(null, null, null, MedicalRecordType.BODY_METRICS, newBodyMetrics.toDisplay(), "", newBodyMetrics.id());
     }
 }
