@@ -101,7 +101,7 @@ public class EncounterImporter implements CommandLineRunner {
 
         var medicalRecords = Arrays.asList(
                 medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", "")),
-                medicalRecordLogic.save(bodyMetrics),
+                bodyMetrics,
                 medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", "")),
                 medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none")),
                 medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", "")),
