@@ -1,14 +1,15 @@
-package org.goafabric.core.medicalrecords.logic;
+package org.goafabric.core.medicalrecords.logic.jpa;
 
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
 import org.goafabric.core.medicalrecords.logic.mapper.MedicalRecordMapper;
-import org.goafabric.core.medicalrecords.repository.MedicalRecordRepository;
+import org.goafabric.core.medicalrecords.repository.jpa.MedicalRecordRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 @Transactional
-public class MedicalRecordLogic {
+public class MedicalRecordLogic implements MedicalRecordLogicAble {
 
     private final MedicalRecordMapper mapper;
 

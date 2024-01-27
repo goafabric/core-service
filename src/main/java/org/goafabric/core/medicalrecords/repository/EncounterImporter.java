@@ -2,13 +2,13 @@ package org.goafabric.core.medicalrecords.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
-import org.goafabric.core.medicalrecords.logic.BodyMetricsLogic;
-import org.goafabric.core.medicalrecords.logic.EncounterLogic;
+import org.goafabric.core.medicalrecords.logic.EncounterLogicAble;
+import org.goafabric.core.medicalrecords.logic.jpa.BodyMetricsLogic;
+import org.goafabric.core.organization.logic.PatientLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +42,7 @@ public class EncounterImporter implements CommandLineRunner {
     private final ApplicationContext applicationContext;
 
     @Autowired
-    private EncounterLogic encounterLogic;
+    private EncounterLogicAble encounterLogic;
 
     @Autowired
     private PatientLogic patientLogic;

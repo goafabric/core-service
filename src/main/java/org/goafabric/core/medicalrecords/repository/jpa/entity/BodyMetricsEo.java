@@ -1,26 +1,22 @@
-package org.goafabric.core.medicalrecords.repository.entity;
+package org.goafabric.core.medicalrecords.repository.jpa.entity;
 
 import jakarta.persistence.*;
 import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
 
 @Entity
-@Table(name="medical_record")
-//@Document("#{@tenantIdBean.getPrefix()}medical_record")
+@Table(name="body_metrics")
+//@Document("#{@tenantIdBean.getPrefix()}body_metrics")
 @EntityListeners(AuditTrailListener.class)
-public class MedicalRecordEo {
+public class BodyMetricsEo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     public String id;
 
-    public String type;
-
-    //@TextIndexed
-    public String display;
-
-    public String code;
-
-    public String relation;
+    public String bodyHeight;
+    public String bellyCircumference;
+    public String headCircumference;
+    public String bodyFat;
 
     @Version //optimistic locking
     public Long version;

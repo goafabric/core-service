@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.repository.entity;
+package org.goafabric.core.medicalrecords.repository.jpa.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.TenantId;

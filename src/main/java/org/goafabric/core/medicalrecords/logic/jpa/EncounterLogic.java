@@ -1,9 +1,10 @@
-package org.goafabric.core.medicalrecords.logic;
+package org.goafabric.core.medicalrecords.logic.jpa;
 
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
+import org.goafabric.core.medicalrecords.logic.EncounterLogicAble;
 import org.goafabric.core.medicalrecords.logic.mapper.EncounterMapper;
-import org.goafabric.core.medicalrecords.repository.EncounterRepository;
+import org.goafabric.core.medicalrecords.repository.jpa.EncounterRepository;
 import org.h2.util.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +12,7 @@ import java.util.List;
 
 @Component
 @Transactional
-public class EncounterLogic {
+public class EncounterLogic implements EncounterLogicAble {
 
     private final EncounterMapper mapper;
 
