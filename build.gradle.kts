@@ -63,6 +63,9 @@ dependencies {
 	implementation("org.postgresql:postgresql")
 	implementation("org.flywaydb:flyway-core")
 
+	//elastic
+	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
+
 	//s3
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1") {exclude("software.amazon.awssdk", "netty-nio-client")}
 

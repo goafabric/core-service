@@ -6,12 +6,14 @@ import org.goafabric.core.medicalrecords.logic.EncounterLogicAble;
 import org.goafabric.core.medicalrecords.logic.mapper.EncounterMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.EncounterRepository;
 import org.h2.util.StringUtils;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
 @Transactional
+@Profile("jpa")
 public class EncounterLogic implements EncounterLogicAble {
 
     private final EncounterMapper mapper;
