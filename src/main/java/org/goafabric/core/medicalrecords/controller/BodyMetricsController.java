@@ -2,6 +2,7 @@ package org.goafabric.core.medicalrecords.controller;
 
 import jakarta.validation.Valid;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.logic.BodyMetricsLogic;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class BodyMetricsController {
 
 
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public BodyMetrics save(@RequestBody @Valid BodyMetrics bodyMetrics) {
+    public MedicalRecord save(@RequestBody @Valid BodyMetrics bodyMetrics) {
         return logic.save(bodyMetrics);
     }
 
