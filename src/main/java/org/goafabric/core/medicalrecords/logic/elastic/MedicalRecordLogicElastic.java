@@ -44,11 +44,7 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
             criteria = criteria.subCriteria(
                     new Criteria("display").contains(display).or(new Criteria("display").fuzzy(display)
             ));
-                    /*
-            criteria = criteria.and(new Criteria("display").contains(display))
-                    .or(new Criteria("display").fuzzy(display));
 
-                     */
         }
         var hits = elasticSearchOperations.search(new CriteriaQuery(criteria), MedicalRecordElo.class);
         return mapper.map(hits.stream().map(SearchHit::getContent).toList());
