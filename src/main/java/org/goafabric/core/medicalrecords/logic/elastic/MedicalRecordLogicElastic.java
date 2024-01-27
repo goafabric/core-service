@@ -1,6 +1,7 @@
 package org.goafabric.core.medicalrecords.logic.elastic;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.MedicalRecordMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.MedicalRecordRepositoryElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.MedicalRecordElo;
@@ -19,7 +20,7 @@ import java.util.List;
 @Component
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 @Profile("elastic")
-public class MedicalRecordLogicElastic {
+public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
 
     private final MedicalRecordMapperElastic mapper;
 
@@ -40,7 +41,7 @@ public class MedicalRecordLogicElastic {
     public List<MedicalRecord> findByEncounterIdAndDisplay(String encounterId, String display) {
         var criteria = new Criteria("encounterId").is(encounterId);
         if (!StringUtils.isNullOrEmpty(display)) {
-            criteria = criteria.and(new Criteria("display").fuzzy(display));
+            criteria = criteria.and(new Criteria("display").contains(display));
         }
         var hits = elasticSearchOperations.search(
                 new CriteriaQuery(criteria), MedicalRecordElo.class);
