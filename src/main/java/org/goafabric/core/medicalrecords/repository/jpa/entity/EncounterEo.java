@@ -26,7 +26,7 @@ public class EncounterEo {
 
     public String encounterName;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany//(cascade = CascadeType.ALL)
     @JoinColumn(name = "encounter_id")
     public List<MedicalRecordEo> medicalRecords;
 

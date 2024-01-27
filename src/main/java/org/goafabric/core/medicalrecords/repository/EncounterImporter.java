@@ -7,6 +7,7 @@ import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.EncounterLogicAble;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
 import org.goafabric.core.medicalrecords.logic.jpa.BodyMetricsLogic;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.slf4j.Logger;
@@ -84,6 +85,8 @@ public class EncounterImporter implements CommandLineRunner {
         insertObservations();
     }
 
+    @Autowired
+    private MedicalRecordLogicAble medicalRecordLogic;
     private void insertObservations() {
         var patient = patientLogic.save(
                 createPatient("Monty", "Burns",
@@ -97,18 +100,18 @@ public class EncounterImporter implements CommandLineRunner {
                 new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %"));
 
         var medicalRecords = Arrays.asList(
-                new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", ""),
-                bodyMetrics,
-                new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", ""),
-                new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none"),
-                new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", ""),
-                new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", ""),
-                new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00"),
-                new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Michael Meyers, who tells him to set a fire", ""),
-                new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", ""),
-                new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1"),
-                new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1"),
-                new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", "")
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", "")),
+                medicalRecordLogic.save(bodyMetrics),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", "")),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none")),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", "")),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", "")),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00")),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Michael Meyers, who tells him to set a fire", "")),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", "")),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1")),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1")),
+                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", ""))
         );
 
         var stackedRecords = new ArrayList<MedicalRecord>();
