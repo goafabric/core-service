@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -41,10 +42,11 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
     public List<MedicalRecord> findByEncounterIdAndDisplay(String encounterId, String display) {
         var criteria = new Criteria("encounterId").is(encounterId);
         if (!StringUtils.isNullOrEmpty(display)) {
-            criteria = criteria.subCriteria(
-                    new Criteria("display").contains(display).or(new Criteria("display").fuzzy(display)
-            ));
-
+            Arrays.stream(display.split(" ")).forEach(token -> { // this is presumeably a hack
+                criteria.subCriteria(
+                        new Criteria("display").contains(token).or(new Criteria("display").fuzzy(token)
+                        ));
+            });
         }
         var hits = elasticSearchOperations.search(new CriteriaQuery(criteria), MedicalRecordElo.class);
         return mapper.map(hits.stream().map(SearchHit::getContent).toList());
