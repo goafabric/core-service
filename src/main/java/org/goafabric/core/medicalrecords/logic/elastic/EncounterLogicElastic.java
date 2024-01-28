@@ -43,6 +43,7 @@ public class EncounterLogicElastic implements EncounterLogicAble {
                 .toList();
     }
 
+    //the save operations manually manages relations, to have the possibility to update medicalrecords on their own, which is not easily possible with "nested"
     public Encounter save(Encounter encounter) {
         var enc = mapper.map(encounterRepository.save(mapper.map(encounter)));
 
