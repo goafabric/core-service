@@ -74,4 +74,4 @@ logging.level.org.hibernate.SQL: "INFO"
 #logging.level.tracer: "TRACE"
 
 #profile
-spring.profiles.active: "jpa"
+spring.profiles.active: "jpa" #elastic

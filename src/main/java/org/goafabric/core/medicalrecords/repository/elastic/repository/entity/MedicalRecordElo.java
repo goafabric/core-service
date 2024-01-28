@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.repository.elastic.repository.entity;
 
 import org.springframework.data.elasticsearch.annotations.Document;
 
-@Document(indexName = "#{@tenantIdBean.getPrefix()}medical_record", createIndex = true)
+@Document(indexName = "#{@tenantIdBean.getPrefix()}medical_record", createIndex = false)
 public class MedicalRecordElo {
     @org.springframework.data.annotation.Id
     private String recordId;
