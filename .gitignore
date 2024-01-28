@@ -16,4 +16,6 @@
 /frontend/generated
 /frontend/index.html
 /node_modules
-/*.ts
+/**/package.json
+/**/package-lock.json
+/**/node_modules/
