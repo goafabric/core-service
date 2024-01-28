@@ -8,7 +8,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.time.LocalDate;
 
-@Document(indexName = "#{@tenantIdBean.getPrefix()}encounter", createIndex = false)
+@Document(indexName = "#{@tenantIdBean.getPrefix()}encounter", createIndex = true)
 public class EncounterElo {
 
     @Id
