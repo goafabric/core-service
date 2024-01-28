@@ -95,29 +95,7 @@ public class EncounterImporter implements CommandLineRunner {
 
         String practitionerId = null;
 
-        //BodyMetricsLogic will save its own data and create a new MedicalRecord
-        var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).save(
-                new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %"));
-
-        var medicalRecords = Arrays.asList(
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", "")),
-                bodyMetrics,
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", "")),
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none")),
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", "")),
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", "")),
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00")),
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Michael Meyers, who tells him to set a fire", "")),
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", "")),
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1")),
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1")),
-                medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", ""))
-        );
-
-        var stackedRecords = new ArrayList<MedicalRecord>();
-        IntStream.range(0, 1).forEach(i -> stackedRecords.addAll(medicalRecords));
-
-        IntStream.range(0, 1).forEach(i -> {
+        IntStream.range(0, 3).forEach(i -> {
             var encounter = new Encounter(
                     null,
                     null,
@@ -125,10 +103,35 @@ public class EncounterImporter implements CommandLineRunner {
                     practitionerId,
                     LocalDate.now(),
                     "Encounter " + i,
-                    stackedRecords
+                    createStackedRecords()
             );
             encounterLogic.save(encounter);
         });
+    }
+
+    private ArrayList<MedicalRecord> createStackedRecords() {
+        var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).save(
+                new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %"));
+
+        var stackedRecords = new ArrayList<MedicalRecord>();
+        IntStream.range(0, 1).forEach(i -> {
+            var medicalRecords = Arrays.asList(
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", "")),
+                    bodyMetrics,
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Michael Meyers, who tells him to set a fire", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", ""))
+            );
+            stackedRecords.addAll(medicalRecords);
+        });
+        return stackedRecords;
     }
 
     public static void setTenantId(String tenantId) {
