@@ -2,13 +2,14 @@ package org.goafabric.core.medicalrecords.repository;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
-import org.goafabric.core.medicalrecords.logic.BodyMetricsLogic;
-import org.goafabric.core.medicalrecords.logic.EncounterLogic;
+import org.goafabric.core.medicalrecords.logic.EncounterLogicAble;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
+import org.goafabric.core.medicalrecords.logic.jpa.BodyMetricsLogic;
+import org.goafabric.core.organization.logic.PatientLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class EncounterImporter implements CommandLineRunner {
     private final ApplicationContext applicationContext;
 
     @Autowired
-    private EncounterLogic encounterLogic;
+    private EncounterLogicAble encounterLogic;
 
     @Autowired
     private PatientLogic patientLogic;
@@ -84,6 +85,8 @@ public class EncounterImporter implements CommandLineRunner {
         insertObservations();
     }
 
+    @Autowired
+    private MedicalRecordLogicAble medicalRecordLogic;
     private void insertObservations() {
         var patient = patientLogic.save(
                 createPatient("Monty", "Burns",
@@ -91,28 +94,6 @@ public class EncounterImporter implements CommandLineRunner {
                         createContactPoint("555-520")));
 
         String practitionerId = null;
-
-        //BodyMetricsLogic will save its own data and create a new MedicalRecord
-        var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).save(
-                new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %"));
-
-        var medicalRecords = Arrays.asList(
-                new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", ""),
-                bodyMetrics,
-                new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", ""),
-                new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none"),
-                new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", ""),
-                new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", ""),
-                new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00"),
-                new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Üter Zörker, who tells him to set a fire", ""),
-                new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", ""),
-                new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1"),
-                new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1"),
-                new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", "")
-        );
-
-        var stackedRecords = new ArrayList<MedicalRecord>();
-        IntStream.range(0, 1).forEach(i -> stackedRecords.addAll(medicalRecords));
 
         IntStream.range(0, 1).forEach(i -> {
             var encounter = new Encounter(
@@ -122,10 +103,35 @@ public class EncounterImporter implements CommandLineRunner {
                     practitionerId,
                     LocalDate.now(),
                     "Encounter " + i,
-                    stackedRecords
+                    createStackedRecords()
             );
             encounterLogic.save(encounter);
         });
+    }
+
+    private ArrayList<MedicalRecord> createStackedRecords() {
+        var bodyMetrics = applicationContext.getBean(BodyMetricsLogic.class).save(
+                new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %"));
+
+        var stackedRecords = new ArrayList<MedicalRecord>();
+        IntStream.range(0, 1).forEach(i -> {
+            var medicalRecords = Arrays.asList(
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the tendency to eat a lot of sweets with sugar", "")),
+                    bodyMetrics,
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "possible indication of Diabetes", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Diabetes mellitus Typ 1", "none")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "shows the behaviour to eat a lot of fast food with fat", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "clear indication of Adipositas", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Adipositas", "E66.00")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Michael Meyers, who tells him to set a fire", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", "")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", ""))
+            );
+            stackedRecords.addAll(medicalRecords);
+        });
+        return stackedRecords;
     }
 
     public static void setTenantId(String tenantId) {

@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.repository.entity;
+package org.goafabric.core.medicalrecords.repository.jpa.entity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.TenantId;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "encounter")
-////@Document("#{@tenantIdBean.getPrefix()}encounter")
+//@Document("#{@tenantIdBean.getPrefix()}encounter")
 public class EncounterEo {
 
     @Id
@@ -26,7 +26,7 @@ public class EncounterEo {
 
     public String encounterName;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany//(cascade = CascadeType.ALL)
     @JoinColumn(name = "encounter_id")
     public List<MedicalRecordEo> medicalRecords;
 

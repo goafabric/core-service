@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.repository.entity;
+package org.goafabric.core.medicalrecords.repository.jpa.entity;
 
 import jakarta.persistence.*;
 import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
@@ -6,7 +6,7 @@ import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
 @Entity
 @Table(name="body_metrics")
-////@Document("#{@tenantIdBean.getPrefix()}body_metrics")
+//@Document("#{@tenantIdBean.getPrefix()}body_metrics")
 @EntityListeners(AuditTrailListener.class)
 public class BodyMetricsEo {
     @Id

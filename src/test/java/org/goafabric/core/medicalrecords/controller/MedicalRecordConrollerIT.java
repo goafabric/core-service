@@ -22,7 +22,7 @@ class MedicalRecordConrollerIT {
         assertThat(medicalRecordController.getById(medicalRecord.id())).isNotNull();
 
         assertThat(medicalRecordController.save(
-            new MedicalRecord(medicalRecord.id(), medicalRecord.version(), medicalRecord.type(), medicalRecord.display(), medicalRecord.code(), medicalRecord.relation())
+            new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(), medicalRecord.display(), medicalRecord.code(), medicalRecord.relation())
         ).id()).isEqualTo(medicalRecord.id());
     }
 }

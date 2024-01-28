@@ -1,6 +1,6 @@
-package org.goafabric.core.medicalrecords.repository;
+package org.goafabric.core.medicalrecords.repository.jpa;
 
-import org.goafabric.core.medicalrecords.repository.entity.EncounterEo;
+import org.goafabric.core.medicalrecords.repository.jpa.entity.EncounterEo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
