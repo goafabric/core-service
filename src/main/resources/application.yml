@@ -83,4 +83,4 @@ monitoring.view.tracing.url: "http://localhost:16686/search"
 monitoring.view.loki.url: "http://localhost:3000/explore"
 monitoring.view.s3.url: "http://localhost:9101/browser/objects"
 
-spring.profiles.active: "elastic"
+spring.profiles.active: "jpa"
