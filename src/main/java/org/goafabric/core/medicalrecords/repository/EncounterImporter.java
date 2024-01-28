@@ -93,6 +93,7 @@ public class EncounterImporter implements CommandLineRunner {
                         createAddress("Springfield"),
                         createContactPoint("555-520")));
 
+        log.info("patient id of monty burns: {}", patient.id());
         String practitionerId = null;
 
         IntStream.range(0, 1).forEach(i -> {
