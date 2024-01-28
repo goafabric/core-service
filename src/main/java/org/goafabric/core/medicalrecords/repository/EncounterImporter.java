@@ -95,7 +95,7 @@ public class EncounterImporter implements CommandLineRunner {
 
         String practitionerId = null;
 
-        IntStream.range(0, 3).forEach(i -> {
+        IntStream.range(0, 1).forEach(i -> {
             var encounter = new Encounter(
                     null,
                     null,
