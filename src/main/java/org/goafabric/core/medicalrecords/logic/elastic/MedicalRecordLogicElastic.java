@@ -57,4 +57,8 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
             repository.save(mapper.map(medicalRecord))
         );
     }
+
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
 }

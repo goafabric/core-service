@@ -34,4 +34,10 @@ public class BodyMetricsLogic {
                 repository.save(mapper.map(bodyMetrics)));
         return medicalRecordLogic.save(new MedicalRecord(null, null, null, MedicalRecordType.BODY_METRICS, newBodyMetrics.toDisplay(), "", newBodyMetrics.id()));
     }
+
+    public void delete(BodyMetrics bodyMetrics) {
+        repository.deleteById(bodyMetrics.id());
+        //medicalRecordLogic.delete();
+
+    }
 }

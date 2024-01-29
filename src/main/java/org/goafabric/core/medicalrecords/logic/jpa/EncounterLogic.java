@@ -33,13 +33,6 @@ public class EncounterLogic implements EncounterLogicAble {
         return StringUtils.isNullOrEmpty(text)
                 ? mapper.map(repository.findByPatientId(patientId))
                 : mapper.map(repository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text));
-        /*
-        if (AopProxyUtils.getSingletonTarget(repository) instanceof SimpleMongoRepository) {
-            return mapper.map(repository.findByPatientId(patientId).stream().peek(
-                    e -> e.medicalRecords = e.medicalRecords.stream().filter(m -> m.display.contains(text)).toList()).toList());
-        } else {
-        }
-        */
     }
 
 }

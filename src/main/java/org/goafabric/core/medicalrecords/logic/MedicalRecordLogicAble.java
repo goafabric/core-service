@@ -6,4 +6,6 @@ public interface MedicalRecordLogicAble {
     MedicalRecord getById(String id);
 
     MedicalRecord save(MedicalRecord medicalRecord);
+
+    void delete(String id);
 }
