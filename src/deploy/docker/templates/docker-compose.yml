@@ -152,6 +152,15 @@ services:
       application:
         condition: service_started
 
+  core-fe:
+    container_name: ${_Values_root_name}-core-fe
+    image: goafabric/core-fe:1.2.0-SNAPSHOT
+    restart: 'no'
+    ports:
+      - 80
+    networks:
+      - ${_Values_root_name}-net
+
 volumes:
     tmp:
     applogs:

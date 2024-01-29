@@ -1,0 +1,3 @@
+#!/bin/bash
+npm install @goafabric/core-fe@1.0.3
+node ./node_modules/@goafabric/core-fe/src/index.js
