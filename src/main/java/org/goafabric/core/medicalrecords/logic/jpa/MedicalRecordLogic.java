@@ -26,6 +26,10 @@ public class MedicalRecordLogic implements MedicalRecordLogicAble {
         return mapper.map(repository.findById(id).get());
     }
 
+    public MedicalRecord getByRelation(String relation) {
+           return null; //todo
+    }
+
     public MedicalRecord save(MedicalRecord medicalRecord) {
         if (medicalRecord.relation() != null && medicalRecord.id() != null) {
             throw new IllegalStateException("Records with relations should not be updated directly");
