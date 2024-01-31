@@ -27,7 +27,7 @@ public class MedicalRecordLogic implements MedicalRecordLogicAble {
     }
 
     public MedicalRecord getByRelation(String relation) {
-           return null; //todo
+        return mapper.map(repository.findByRelation(relation));
     }
 
     public MedicalRecord save(MedicalRecord medicalRecord) {

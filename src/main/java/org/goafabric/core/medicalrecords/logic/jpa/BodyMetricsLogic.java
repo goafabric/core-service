@@ -37,7 +37,7 @@ public class BodyMetricsLogic {
 
     public void delete(BodyMetrics bodyMetrics) {
         repository.deleteById(bodyMetrics.id());
-        //medicalRecordLogic.delete();
-
+        var medicalRecord = medicalRecordLogic.getByRelation(bodyMetrics.id());
+        medicalRecordLogic.delete(medicalRecord.id());
     }
 }

@@ -39,6 +39,11 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
         return mapper.map(repository.findById(id).get());
     }
 
+    public MedicalRecord getByRelation(String relation) {
+        return mapper.map(repository.findByRelation(relation));
+    }
+
+
     public List<MedicalRecord> findByEncounterIdAndDisplay(String encounterId, String display) {
         var criteria = new Criteria("encounterId").is(encounterId);
         if (!StringUtils.isNullOrEmpty(display)) {
