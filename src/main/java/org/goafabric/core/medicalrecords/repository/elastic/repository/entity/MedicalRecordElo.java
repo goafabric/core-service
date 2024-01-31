@@ -15,14 +15,17 @@ public class MedicalRecordElo {
 
     private String code;
 
+    private String relation;
+
     private MedicalRecordElo() {}
 
-    public MedicalRecordElo(String recordId, String encounterId, String type, String display, String code) {
+    public MedicalRecordElo(String recordId, String encounterId, String type, String display, String code, String relation) {
         this.recordId = recordId;
         this.encounterId = encounterId;
         this.type = type;
         this.display = display;
         this.code = code;
+        this.relation = relation;
     }
 
     public String getRecordId() {
