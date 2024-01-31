@@ -8,29 +8,71 @@ import java.util.List;
 
 @Entity
 @Table(name = "encounter")
-//@Document("#{@tenantIdBean.getPrefix()}encounter")
 public class EncounterEo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public String id;
+    private String id;
 
     @TenantId
-    public String orgunitId;
+    private String orgunitId;
 
-    public String patientId;
+    private String patientId;
 
-    public String practitionerId;
+    private String practitionerId;
 
-    public LocalDate encounterDate;
+    private LocalDate encounterDate;
 
-    public String encounterName;
+    private String encounterName;
 
     @OneToMany//(cascade = CascadeType.ALL)
     @JoinColumn(name = "encounter_id")
-    public List<MedicalRecordEo> medicalRecords;
+    private List<MedicalRecordEo> medicalRecords;
 
     @Version //optimistic locking
-    public Long version;
+    private Long version;
 
+    private EncounterEo() {}
+    public EncounterEo(String id, String orgunitId, String patientId, String practitionerId, LocalDate encounterDate, String encounterName, List<MedicalRecordEo> medicalRecords, Long version) {
+        this.id = id;
+        this.orgunitId = orgunitId;
+        this.patientId = patientId;
+        this.practitionerId = practitionerId;
+        this.encounterDate = encounterDate;
+        this.encounterName = encounterName;
+        this.medicalRecords = medicalRecords;
+        this.version = version;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getOrgunitId() {
+        return orgunitId;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public String getPractitionerId() {
+        return practitionerId;
+    }
+
+    public LocalDate getEncounterDate() {
+        return encounterDate;
+    }
+
+    public String getEncounterName() {
+        return encounterName;
+    }
+
+    public List<MedicalRecordEo> getMedicalRecords() {
+        return medicalRecords;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
 }
