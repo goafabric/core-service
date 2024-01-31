@@ -1,6 +1,7 @@
 package org.goafabric.core.medicalrecords.logic.elastic;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.MedicalRecordMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.MedicalRecordRepositoryElastic;
@@ -62,6 +63,17 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
             repository.save(mapper.map(medicalRecord))
         );
     }
+
+    public MedicalRecord saveRelatedRecord(String relation, String existingId, MedicalRecordType type, String display, String code) {
+        if (existingId != null) {
+            var medicalRecord = getByRelation(existingId);
+            return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(),
+                    type, display, medicalRecord.code(), medicalRecord.relation()));
+        } else {
+            return save(new MedicalRecord(null, null, null, type, display, code, relation));
+        }
+    }
+
 
     public void delete(String id) {
         repository.deleteById(id);
