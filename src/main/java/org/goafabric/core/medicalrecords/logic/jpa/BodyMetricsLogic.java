@@ -30,8 +30,8 @@ public class BodyMetricsLogic implements RecordDeleteAble {
     }
 
     public MedicalRecord save(BodyMetrics bodyMetrics) {
-        var newId = mapper.map(repository.save(mapper.map(bodyMetrics))).id();
-        return medicalRecordLogic.saveRelatedRecord(newId, bodyMetrics);
+        return medicalRecordLogic.saveRelatedRecord(
+                repository.save(mapper.map(bodyMetrics)).getId(), bodyMetrics);
     }
 
     @Override
