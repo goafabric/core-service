@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.logic.jpa;
 
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
+import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
 import org.goafabric.core.medicalrecords.logic.mapper.MedicalRecordMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.MedicalRecordRepository;
@@ -43,14 +43,16 @@ public class MedicalRecordLogic implements MedicalRecordLogicAble {
         );
     }
 
-    public MedicalRecord saveRelatedRecord(String relation, String existingId, MedicalRecordType type, String display, String code) {
-        if (existingId != null) {
-            var medicalRecord = getByRelation(existingId);
-            return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(),
-                    type, display, medicalRecord.code(), medicalRecord.relation()));
-        } else {
-            return save(new MedicalRecord(null, null, null, type, display, code, relation));
-        }
+    public MedicalRecord saveRelatedRecord(String relation, RecordAble recordAble) {
+        return recordAble.id() != null
+                ? updateRelatedRecord(recordAble)
+                : save(new MedicalRecord(null, null, null, recordAble.type(), recordAble.toDisplay(), recordAble.code(), relation));
+    }
+
+    private MedicalRecord updateRelatedRecord(RecordAble recordAble) {
+        var medicalRecord = getByRelation(recordAble.id());
+        return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(),
+                medicalRecord.type(), recordAble.toDisplay(), medicalRecord.code(), medicalRecord.relation()));
     }
 
     public void delete(String id) {

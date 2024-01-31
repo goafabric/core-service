@@ -3,7 +3,6 @@ package org.goafabric.core.medicalrecords.logic.jpa;
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
 import org.goafabric.core.medicalrecords.logic.mapper.BodyMetricsMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.BodyMetricsRepository;
@@ -31,7 +30,7 @@ public class BodyMetricsLogic {
 
     public MedicalRecord save(BodyMetrics bodyMetrics) {
         var newId = mapper.map(repository.save(mapper.map(bodyMetrics))).id();
-        return medicalRecordLogic.saveRelatedRecord(newId, bodyMetrics.id(), MedicalRecordType.BODY_METRICS, bodyMetrics.toDisplay(), "");
+        return medicalRecordLogic.saveRelatedRecord(newId, bodyMetrics);
     }
 
     public void delete(BodyMetrics bodyMetrics) {
