@@ -30,9 +30,18 @@ public class BodyMetricsLogic {
     }
 
     public MedicalRecord save(BodyMetrics bodyMetrics) {
-        var newBodyMetrics = mapper.map(
-                repository.save(mapper.map(bodyMetrics)));
-        return medicalRecordLogic.save(new MedicalRecord(null, null, null, MedicalRecordType.BODY_METRICS, newBodyMetrics.toDisplay(), "", newBodyMetrics.id()));
+        var newId = mapper.map(repository.save(mapper.map(bodyMetrics))).id();
+        return updateMedicalRecord(newId, bodyMetrics.id(), MedicalRecordType.BODY_METRICS, bodyMetrics.toDisplay(), "");
+    }
+
+    public MedicalRecord updateMedicalRecord(String relation, String existingId, MedicalRecordType type, String display, String code) {
+        if (existingId != null) {
+            var medicalRecord = medicalRecordLogic.getByRelation(existingId);
+            return medicalRecordLogic.save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(),
+                    type, display, medicalRecord.code(), medicalRecord.relation()));
+        } else {
+            return medicalRecordLogic.save(new MedicalRecord(null, null, null, type, display, code, relation));
+        }
     }
 
     public void delete(BodyMetrics bodyMetrics) {

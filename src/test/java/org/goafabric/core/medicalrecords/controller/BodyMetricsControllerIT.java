@@ -35,14 +35,10 @@ class BodyMetricsControllerIT {
         assertThat(medicalRecordLogic.getById(medicalRecord.id())).isNotNull();
 
         //update
-        /*
         bodyMetricsController.save(
                 new BodyMetrics(bodyMetric.id(), bodyMetric.version(), "changed", "100 cm", "30 cm", "30 %")
         );
         assertThat(medicalRecordLogic.getById(medicalRecord.id()).display()).contains("changed");
-
-         */
-
 
     }
 
