@@ -3,10 +3,12 @@ package org.goafabric.core.medicalrecords.logic.elastic;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
+import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.MedicalRecordMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.MedicalRecordRepositoryElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.MedicalRecordElo;
 import org.h2.util.StringUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.SearchHit;
@@ -30,10 +32,13 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
 
     private final ElasticsearchOperations elasticSearchOperations;
 
-    public MedicalRecordLogicElastic(MedicalRecordMapperElastic mapper, MedicalRecordRepositoryElastic repository, ElasticsearchOperations elasticSearchOperations) {
+    private List<RecordDeleteAble> recordDeleteAbles;
+
+    public MedicalRecordLogicElastic(MedicalRecordMapperElastic mapper, MedicalRecordRepositoryElastic repository, ElasticsearchOperations elasticSearchOperations, @Lazy List<RecordDeleteAble> recordDeleteAbles) {
         this.mapper = mapper;
         this.repository = repository;
         this.elasticSearchOperations = elasticSearchOperations;
+        this.recordDeleteAbles = recordDeleteAbles;
     }
 
     public MedicalRecord getById(String id) {
@@ -77,6 +82,8 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
     }
 
     public void delete(String id) {
+        var medicalRecord = getById(id);
         repository.deleteById(id);
+        recordDeleteAbles.forEach(r -> r.delete(medicalRecord.relation()));
     }
 }

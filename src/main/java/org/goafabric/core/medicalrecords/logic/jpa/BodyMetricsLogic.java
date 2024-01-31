@@ -4,13 +4,14 @@ import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
+import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.mapper.BodyMetricsMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.BodyMetricsRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 @Transactional
-public class BodyMetricsLogic {
+public class BodyMetricsLogic implements RecordDeleteAble {
 
     private final BodyMetricsMapper mapper;
 
@@ -33,9 +34,8 @@ public class BodyMetricsLogic {
         return medicalRecordLogic.saveRelatedRecord(newId, bodyMetrics);
     }
 
-    public void delete(BodyMetrics bodyMetrics) {
-        repository.deleteById(bodyMetrics.id());
-        var medicalRecord = medicalRecordLogic.getByRelation(bodyMetrics.id());
-        medicalRecordLogic.delete(medicalRecord.id());
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 }

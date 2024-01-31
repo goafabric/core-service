@@ -26,4 +26,9 @@ public class MedicalRecordController {
         return logic.save(medicalRecord);
     }
 
+    @GetMapping("delete/{id}")
+    public void delete(@PathVariable("id") String id) {
+        logic.delete(id);
+    }
+
 }

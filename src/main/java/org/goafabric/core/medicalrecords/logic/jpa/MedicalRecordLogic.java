@@ -4,10 +4,14 @@ import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
+import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.mapper.MedicalRecordMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.MedicalRecordRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Transactional
@@ -18,9 +22,12 @@ public class MedicalRecordLogic implements MedicalRecordLogicAble {
 
     private final MedicalRecordRepository repository;
 
-    public MedicalRecordLogic(MedicalRecordMapper mapper, MedicalRecordRepository repository) {
+    private List<RecordDeleteAble> recordDeleteAbles;
+
+    public MedicalRecordLogic(MedicalRecordMapper mapper, MedicalRecordRepository repository, @Lazy List<RecordDeleteAble> recordDeleteAbles) {
         this.mapper = mapper;
         this.repository = repository;
+        this.recordDeleteAbles = recordDeleteAbles;
     }
 
     public MedicalRecord getById(String id) {
@@ -32,12 +39,6 @@ public class MedicalRecordLogic implements MedicalRecordLogicAble {
     }
 
     public MedicalRecord save(MedicalRecord medicalRecord) {
-        /*
-        if (medicalRecord.relation() != null && medicalRecord.id() != null) {
-            throw new IllegalStateException("Records with relations should not be updated directly");
-        }
-
-         */
         return mapper.map(
             repository.save(mapper.map(medicalRecord))
         );
@@ -56,7 +57,9 @@ public class MedicalRecordLogic implements MedicalRecordLogicAble {
     }
 
     public void delete(String id) {
+        var medicalRecord = getById(id);
         repository.deleteById(id);
+        recordDeleteAbles.forEach(r -> r.delete(medicalRecord.relation()));
     }
 
 }

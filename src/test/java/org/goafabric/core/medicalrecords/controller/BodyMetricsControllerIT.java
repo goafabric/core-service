@@ -52,9 +52,11 @@ class BodyMetricsControllerIT {
         assertThat(bodyMetric).isNotNull();
         assertThat(medicalRecordLogic.getById(medicalRecord.id())).isNotNull();
 
-        bodyMetricsLogic.delete(bodyMetric);
+        medicalRecordLogic.delete(medicalRecord.id());
 
         assertThatThrownBy(() -> bodyMetricsLogic.getById(bodyMetric.id())).isInstanceOf(NoSuchElementException.class);
         assertThatThrownBy(() -> medicalRecordLogic.getById(medicalRecord.id())).isInstanceOf(NoSuchElementException.class);
     }
+
+
 }
