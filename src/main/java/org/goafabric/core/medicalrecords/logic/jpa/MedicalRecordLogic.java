@@ -22,7 +22,7 @@ public class MedicalRecordLogic implements MedicalRecordLogicAble {
 
     private final MedicalRecordRepository repository;
 
-    private List<RecordDeleteAble> recordDeleteAbles;
+    private final List<RecordDeleteAble> recordDeleteAbles;
 
     public MedicalRecordLogic(MedicalRecordMapper mapper, MedicalRecordRepository repository, @Lazy List<RecordDeleteAble> recordDeleteAbles) {
         this.mapper = mapper;
@@ -34,16 +34,13 @@ public class MedicalRecordLogic implements MedicalRecordLogicAble {
         return mapper.map(repository.findById(id).get());
     }
 
-    public MedicalRecord getByRelation(String relation) {
-        return mapper.map(repository.findByRelation(relation));
-    }
-
     public MedicalRecord save(MedicalRecord medicalRecord) {
         return mapper.map(
             repository.save(mapper.map(medicalRecord))
         );
     }
 
+    //save related records, has to be called by related class like bodymetrics
     public MedicalRecord saveRelatedRecord(String relation, RecordAble recordAble) {
         return recordAble.id() != null
                 ? updateRelatedRecord(recordAble)
@@ -59,7 +56,20 @@ public class MedicalRecordLogic implements MedicalRecordLogicAble {
     public void delete(String id) {
         var medicalRecord = getById(id);
         repository.deleteById(id);
-        recordDeleteAbles.forEach(r -> r.delete(medicalRecord.relation()));
+        deleteRelatedRecords(medicalRecord);
+    }
+
+    //brute force deletion of all assosciated records like bodyMetrics, works but can get very slow, might be better to retrieve the specific instance by type
+    private void deleteRelatedRecords(MedicalRecord medicalRecord) {
+        recordDeleteAbles.forEach(r -> {
+            if (medicalRecord.relation() != null) {
+                r.delete(medicalRecord.relation());
+            }
+        });
+    }
+
+    private MedicalRecord getByRelation(String relation) {
+        return mapper.map(repository.findByRelation(relation));
     }
 
 }

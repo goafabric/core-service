@@ -35,4 +35,9 @@ public class EncounterLogic implements EncounterLogicAble {
                 : mapper.map(repository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text));
     }
 
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
+    }
+
 }

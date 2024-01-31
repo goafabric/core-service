@@ -8,4 +8,6 @@ public interface EncounterLogicAble {
     Encounter save(Encounter encounter);
 
     List<Encounter> findByPatientIdAndDisplay(String patientId, String text);
+
+    void delete (String id);
 }
