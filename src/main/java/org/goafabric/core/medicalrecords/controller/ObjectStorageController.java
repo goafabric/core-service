@@ -1,7 +1,6 @@
 package org.goafabric.core.medicalrecords.controller;
 
 import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
-import org.goafabric.core.medicalrecords.logic.ObjectStorageLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
