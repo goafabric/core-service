@@ -3,7 +3,7 @@ package org.goafabric.core.medicalrecords.logic.jpa;
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.mapper.BodyMetricsMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.BodyMetricsRepository;
@@ -17,9 +17,9 @@ public class BodyMetricsLogic implements RecordDeleteAble {
 
     private final BodyMetricsRepository repository;
 
-    private final MedicalRecordLogicAble medicalRecordLogic;
+    private final MedicalRecordLogic medicalRecordLogic;
 
-    public BodyMetricsLogic(BodyMetricsMapper mapper, BodyMetricsRepository repository, MedicalRecordLogicAble medicalRecordLogic) {
+    public BodyMetricsLogic(BodyMetricsMapper mapper, BodyMetricsRepository repository, MedicalRecordLogic medicalRecordLogic) {
         this.mapper = mapper;
         this.repository = repository;
         this.medicalRecordLogic = medicalRecordLogic;

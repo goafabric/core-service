@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.logic.elastic;
 
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.logic.EncounterLogicAble;
+import org.goafabric.core.medicalrecords.logic.EncounterLogic;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.EncounterMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.EncounterRepositoryElastic;
 import org.goafabric.core.organization.repository.extensions.TenantResolver;
@@ -16,7 +16,7 @@ import java.util.List;
 @Component
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 @Profile("elastic")
-public class EncounterLogicElastic implements EncounterLogicAble {
+public class EncounterLogicElastic implements EncounterLogic {
 
     private final EncounterMapperElastic mapper;
 

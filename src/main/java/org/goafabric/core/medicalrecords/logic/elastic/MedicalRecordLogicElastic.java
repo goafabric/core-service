@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.logic.elastic;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.MedicalRecordMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.MedicalRecordRepositoryElastic;
@@ -24,7 +24,7 @@ import java.util.List;
 @Component
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 @Profile("elastic")
-public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
+public class MedicalRecordLogicElastic implements MedicalRecordLogic {
 
     private final MedicalRecordMapperElastic mapper;
 

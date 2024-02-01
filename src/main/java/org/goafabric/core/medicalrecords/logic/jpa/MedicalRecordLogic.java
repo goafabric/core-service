@@ -3,7 +3,6 @@ package org.goafabric.core.medicalrecords.logic.jpa;
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
 import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.mapper.MedicalRecordMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.MedicalRecordRepository;
@@ -16,7 +15,7 @@ import java.util.List;
 @Component
 @Transactional
 @Profile("jpa")
-public class MedicalRecordLogic implements MedicalRecordLogicAble {
+public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.logic.MedicalRecordLogic {
 
     private final MedicalRecordMapper mapper;
 

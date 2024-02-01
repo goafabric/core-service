@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class GdprPatientKillerLogic {
     private final PatientLogic patientLogic;
-    private final EncounterLogicAble encounterLogic;
-    private final MedicalRecordLogicAble medicalRecordLogic;
+    private final EncounterLogic encounterLogic;
+    private final MedicalRecordLogic medicalRecordLogic;
 
-    public GdprPatientKillerLogic(PatientLogic patientLogic, EncounterLogicAble encounterLogic, MedicalRecordLogicAble medicalRecordLogic) {
+    public GdprPatientKillerLogic(PatientLogic patientLogic, EncounterLogic encounterLogic, MedicalRecordLogic medicalRecordLogic) {
         this.patientLogic = patientLogic;
         this.encounterLogic = encounterLogic;
         this.medicalRecordLogic = medicalRecordLogic;
