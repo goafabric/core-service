@@ -51,4 +51,10 @@ public class EncounterLogicElastic implements EncounterLogicAble {
                 new MedicalRecord(medicalRecord.id(), enc.id(), null, medicalRecord.type(), medicalRecord.display(), medicalRecord.code(), medicalRecord.relation())));
         return enc;
     }
+
+    @Override
+    public void delete(String id) {
+        encounterRepository.deleteById(id);
+    }
+
 }

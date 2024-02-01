@@ -35,11 +35,10 @@ class EncounterLogicIT {
         System.out.println("search took: "  + (System.currentTimeMillis() -currentTime));
 
         assertThat(encounters).isNotEmpty();
-        assertThat(encounters.get(0).medicalRecords()).isNotNull().isNotEmpty();
+        assertThat(encounters.getFirst().medicalRecords()).isNotNull().isNotEmpty();
 
-        var lst = encounters.get(0).medicalRecords();
-        lst.stream().forEach(anamnesis -> System.out.println(anamnesis.display()));
-
+        var lst = encounters.getFirst().medicalRecords();
+        lst.forEach(anamnesis -> System.out.println(anamnesis.display()));
     }
 
 }

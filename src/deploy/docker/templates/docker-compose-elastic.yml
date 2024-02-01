@@ -1,0 +1,47 @@
+services:
+  application:
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    environment:
+      spring.elasticsearch.uris: "elasticsearch:9200"
+      spring.profiles.active: "elastic"
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.1
+    container_name: ${_Values_root_name}-elasticsearch
+    restart: 'no'
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+      - esconfig:/usr/share/elasticsearch/config
+      - eslogs:/usr/share/elasticsearch/logs
+    tmpfs:
+      - /tmp:exec,mode=1777
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--noproxy", "localhost", "http://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    ports:
+      - 9200:9200
+    networks:
+      - ${_Values_root_name}-net
+    environment:
+      TZ: "Europe/Berlin"
+      ES_JAVA_OPTS: "-Xms256m -Xmx256m"
+      discovery.type: "single-node"
+      xpack.security.enabled: "false"
+      xpack.security.transport.ssl.enabled: "false"
+      xpack.security.http.ssl.enabled: "false"
+
+volumes:
+  esdata:
+    driver: local
+  esconfig:
+    driver: local
+  eslogs:
+    driver: local

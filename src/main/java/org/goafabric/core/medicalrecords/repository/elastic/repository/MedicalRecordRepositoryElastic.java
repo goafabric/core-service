@@ -5,4 +5,5 @@ import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.Me
 import org.springframework.data.repository.CrudRepository;
 
 public interface MedicalRecordRepositoryElastic extends CrudRepository<MedicalRecordElo, String> {
+    MedicalRecordElo findByRelation(String relation);
 }

@@ -3,15 +3,15 @@ package org.goafabric.core.medicalrecords.logic.jpa;
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
+import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.mapper.BodyMetricsMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.BodyMetricsRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 @Transactional
-public class BodyMetricsLogic {
+public class BodyMetricsLogic implements RecordDeleteAble {
 
     private final BodyMetricsMapper mapper;
 
@@ -30,8 +30,12 @@ public class BodyMetricsLogic {
     }
 
     public MedicalRecord save(BodyMetrics bodyMetrics) {
-        var newBodyMetrics = mapper.map(
-                repository.save(mapper.map(bodyMetrics)));
-        return medicalRecordLogic.save(new MedicalRecord(null, null, null, MedicalRecordType.BODY_METRICS, newBodyMetrics.toDisplay(), "", newBodyMetrics.id()));
+        return medicalRecordLogic.saveRelatedRecord(
+                repository.save(mapper.map(bodyMetrics)).getId(), bodyMetrics);
+    }
+
+    @Override
+    public void delete(String id) {
+        repository.deleteById(id);
     }
 }

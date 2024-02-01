@@ -11,4 +11,4 @@ _Values_health_check_disabled=false
 
 _Values_oidc_provider=auth-server #keycloak
 
-#_Values_profile=-mongodb
+#_Values_profile=-elastic
