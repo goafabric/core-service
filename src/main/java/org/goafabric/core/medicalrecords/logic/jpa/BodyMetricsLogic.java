@@ -29,11 +29,13 @@ public class BodyMetricsLogic implements RecordDeleteAble {
         return mapper.map(repository.findById(id).get());
     }
 
+    //saves or updates the specific body metrics, as well as the generic related medical_record for search
     public MedicalRecord save(BodyMetrics bodyMetrics) {
         return medicalRecordLogic.saveRelatedRecord(
                 repository.save(mapper.map(bodyMetrics)).getId(), bodyMetrics);
     }
 
+    //only deletes it's own data, will be called upon medical record deletion, not exposed via controller
     @Override
     public void delete(String id) {
         repository.deleteById(id);

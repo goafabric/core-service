@@ -27,4 +27,9 @@ public class BodyMetricsController {
         return logic.save(bodyMetrics);
     }
 
+    @GetMapping("delete/{id}")
+    public void delete(@PathVariable("id") String id) {
+        throw new IllegalStateException("Deletion not allowed here, should happen via Medical Record");
+    }
+
 }
