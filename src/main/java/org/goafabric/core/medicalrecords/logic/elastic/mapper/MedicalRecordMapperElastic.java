@@ -15,10 +15,5 @@ public interface MedicalRecordMapperElastic {
 
     MedicalRecordElo map(MedicalRecord value);
 
-    List<MedicalRecord> map(List<MedicalRecordElo> value);
-
     List<MedicalRecord> map(Iterable<MedicalRecordElo> value);
-
-    //List<MedicalRecord> map(SearchHits<MedicalRecordEo> value);
-
 }

@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
 import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
-import org.goafabric.core.medicalrecords.logic.mapper.MedicalRecordMapper;
+import org.goafabric.core.medicalrecords.logic.jpa.mapper.MedicalRecordMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.MedicalRecordRepository;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;

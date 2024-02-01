@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.logic.mapper;
+package org.goafabric.core.medicalrecords.logic.jpa.mapper;
 
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.repository.jpa.entity.BodyMetricsEo;
@@ -13,8 +13,6 @@ public interface BodyMetricsMapper {
     BodyMetrics map(BodyMetricsEo value);
 
     BodyMetricsEo map(BodyMetrics value);
-
-    List<BodyMetrics> map(List<BodyMetricsEo> value);
 
     List<BodyMetrics> map(Iterable<BodyMetricsEo> value);
 }

@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.logic.mapper;
+package org.goafabric.core.medicalrecords.logic.jpa.mapper;
 
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.repository.jpa.entity.EncounterEo;
@@ -13,8 +13,6 @@ public interface EncounterMapper {
     Encounter map(EncounterEo value);
 
     EncounterEo map(Encounter value);
-
-    List<Encounter> map(List<EncounterEo> value);
 
     List<Encounter> map(Iterable<EncounterEo> value);
 }

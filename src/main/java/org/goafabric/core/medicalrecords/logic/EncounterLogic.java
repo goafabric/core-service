@@ -10,4 +10,6 @@ public interface EncounterLogic {
     List<Encounter> findByPatientIdAndDisplay(String patientId, String text);
 
     void delete (String id);
+
+    void deleteAllByPatientId(String patientId);
 }

@@ -57,4 +57,11 @@ public class EncounterLogicElastic implements EncounterLogic {
         encounterRepository.deleteById(id);
     }
 
+    public void deleteAllByPatientId(String patientId) {
+        findByPatientIdAndDisplay(patientId, "").forEach(encounter -> {
+            encounter.medicalRecords().forEach(medicalRecord -> medicalRecordLogic.delete(medicalRecord.id()));
+            delete(encounter.id());
+        });
+    }
+
 }

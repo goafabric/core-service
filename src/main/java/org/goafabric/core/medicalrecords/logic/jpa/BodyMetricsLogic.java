@@ -5,7 +5,7 @@ import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
-import org.goafabric.core.medicalrecords.logic.mapper.BodyMetricsMapper;
+import org.goafabric.core.medicalrecords.logic.jpa.mapper.BodyMetricsMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.BodyMetricsRepository;
 import org.springframework.stereotype.Component;
 

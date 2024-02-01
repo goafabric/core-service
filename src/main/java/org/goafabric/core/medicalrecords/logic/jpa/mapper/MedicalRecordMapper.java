@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.logic.mapper;
+package org.goafabric.core.medicalrecords.logic.jpa.mapper;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.repository.jpa.entity.MedicalRecordEo;
@@ -13,8 +13,6 @@ public interface MedicalRecordMapper {
     MedicalRecord map(MedicalRecordEo value);
 
     MedicalRecordEo map(MedicalRecord value);
-
-    List<MedicalRecord> map(List<MedicalRecordEo> value);
 
     List<MedicalRecord> map(Iterable<MedicalRecordEo> value);
 }
