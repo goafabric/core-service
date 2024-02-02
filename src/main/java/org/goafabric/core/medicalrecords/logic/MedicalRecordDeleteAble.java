@@ -1,5 +1,5 @@
 package org.goafabric.core.medicalrecords.logic;
 
-public interface RecordDeleteAble {
+public interface MedicalRecordDeleteAble {
     void delete(String id);
 }

@@ -3,7 +3,7 @@ package org.goafabric.core.medicalrecords.logic.jpa;
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
-import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.jpa.mapper.MedicalRecordMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.MedicalRecordRepository;
 import org.springframework.context.annotation.Lazy;
@@ -21,12 +21,12 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
 
     private final MedicalRecordRepository repository;
 
-    private final List<RecordDeleteAble> recordDeleteAbles;
+    private final List<MedicalRecordDeleteAble> medicalRecordDeleteAbles;
 
-    public MedicalRecordLogic(MedicalRecordMapper mapper, MedicalRecordRepository repository, @Lazy List<RecordDeleteAble> recordDeleteAbles) {
+    public MedicalRecordLogic(MedicalRecordMapper mapper, MedicalRecordRepository repository, @Lazy List<MedicalRecordDeleteAble> medicalRecordDeleteAbles) {
         this.mapper = mapper;
         this.repository = repository;
-        this.recordDeleteAbles = recordDeleteAbles;
+        this.medicalRecordDeleteAbles = medicalRecordDeleteAbles;
     }
 
     public MedicalRecord getById(String id) {
@@ -59,7 +59,7 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
 
     //brute force deletion of all assosciated records like bodyMetrics, works but can get very slow, might be better to retrieve the specific instance by type
     private void deleteRelatedRecords(MedicalRecord medicalRecord) {
-        recordDeleteAbles.forEach(r -> {
+        medicalRecordDeleteAbles.forEach(r -> {
             if (medicalRecord.relation() != null) {
                 r.delete(medicalRecord.relation());
             }

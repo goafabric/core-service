@@ -4,14 +4,14 @@ import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
-import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.jpa.mapper.BodyMetricsMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.BodyMetricsRepository;
 import org.springframework.stereotype.Component;
 
 @Component
 @Transactional
-public class BodyMetricsLogic implements RecordDeleteAble {
+public class BodyMetricsLogic implements MedicalRecordDeleteAble {
 
     private final BodyMetricsMapper mapper;
 

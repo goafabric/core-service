@@ -3,7 +3,7 @@ package org.goafabric.core.medicalrecords.logic.elastic;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
-import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.MedicalRecordMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.MedicalRecordRepositoryElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.MedicalRecordElo;
@@ -32,13 +32,13 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
 
     private final ElasticsearchOperations elasticSearchOperations;
 
-    private List<RecordDeleteAble> recordDeleteAbles;
+    private List<MedicalRecordDeleteAble> medicalRecordDeleteAbles;
 
-    public MedicalRecordLogicElastic(MedicalRecordMapperElastic mapper, MedicalRecordRepositoryElastic repository, ElasticsearchOperations elasticSearchOperations, @Lazy List<RecordDeleteAble> recordDeleteAbles) {
+    public MedicalRecordLogicElastic(MedicalRecordMapperElastic mapper, MedicalRecordRepositoryElastic repository, ElasticsearchOperations elasticSearchOperations, @Lazy List<MedicalRecordDeleteAble> medicalRecordDeleteAbles) {
         this.mapper = mapper;
         this.repository = repository;
         this.elasticSearchOperations = elasticSearchOperations;
-        this.recordDeleteAbles = recordDeleteAbles;
+        this.medicalRecordDeleteAbles = medicalRecordDeleteAbles;
     }
 
     public MedicalRecord getById(String id) {
@@ -80,7 +80,7 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
     public void delete(String id) {
         var medicalRecord = getById(id);
         repository.deleteById(id);
-        recordDeleteAbles.forEach(r -> r.delete(medicalRecord.relation()));
+        medicalRecordDeleteAbles.forEach(r -> r.delete(medicalRecord.relation()));
     }
 
     private MedicalRecord getByRelation(String relation) {
