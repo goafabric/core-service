@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -77,14 +78,20 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
                 medicalRecord.type(), recordAble.toDisplay(), medicalRecord.code(), medicalRecord.relation()));
     }
 
-    public void delete(String id) {
-        var medicalRecord = getById(id);
-        repository.deleteById(id);
-        medicalRecordDeleteAbles.forEach(r -> r.delete(medicalRecord.relation()));
-    }
-
     private MedicalRecord getByRelation(String relation) {
         return mapper.map(repository.findByRelation(relation));
     }
+
+    public void delete(String id) {
+        deleteRelatedRecords(getById(id));
+        repository.deleteById(id);
+    }
+
+    //brute force deletion of all assosciated records like bodyMetrics, works but can get very slow, might be better to retrieve the specific instance by type
+    private void deleteRelatedRecords(MedicalRecord medicalRecord) {
+        Optional.ofNullable(medicalRecord.relation())
+                .ifPresent(relation -> medicalRecordDeleteAbles.forEach(record -> record.delete(relation)));
+    }
+
 
 }
