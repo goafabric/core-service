@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Transactional
@@ -52,6 +53,10 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
                 medicalRecord.type(), recordAble.toDisplay(), medicalRecord.code(), medicalRecord.relation()));
     }
 
+    private MedicalRecord getByRelation(String relation) {
+        return mapper.map(repository.findByRelation(relation));
+    }
+
     public void delete(String id) {
         deleteRelatedRecords(getById(id));
         repository.deleteById(id);
@@ -59,15 +64,8 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
 
     //brute force deletion of all assosciated records like bodyMetrics, works but can get very slow, might be better to retrieve the specific instance by type
     private void deleteRelatedRecords(MedicalRecord medicalRecord) {
-        medicalRecordDeleteAbles.forEach(r -> {
-            if (medicalRecord.relation() != null) {
-                r.delete(medicalRecord.relation());
-            }
-        });
-    }
-
-    private MedicalRecord getByRelation(String relation) {
-        return mapper.map(repository.findByRelation(relation));
+        Optional.ofNullable(medicalRecord.relation())
+                .ifPresent(relation -> medicalRecordDeleteAbles.forEach(record -> record.delete(relation)));
     }
 
 }
