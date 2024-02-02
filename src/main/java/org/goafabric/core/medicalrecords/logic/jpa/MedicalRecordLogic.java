@@ -47,10 +47,10 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
                 : save(new MedicalRecord(null, null, null, recordAble.type(), recordAble.toDisplay(), recordAble.code(), relation));
     }
 
-    private MedicalRecord updateRelatedRecord(RecordAble recordAble) {
-        var medicalRecord = getByRelation(recordAble.id());
-        return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(),
-                medicalRecord.type(), recordAble.toDisplay(), medicalRecord.code(), medicalRecord.relation()));
+    private MedicalRecord updateRelatedRecord(RecordAble updatedRecord) {
+        var medicalRecord = getByRelation(updatedRecord.id());
+        return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(),
+                updatedRecord.toDisplay(), updatedRecord.code(), updatedRecord.id()));
     }
 
     private MedicalRecord getByRelation(String relation) {
