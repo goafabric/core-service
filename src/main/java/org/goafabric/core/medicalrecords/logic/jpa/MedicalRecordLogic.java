@@ -53,9 +53,8 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
     }
 
     public void delete(String id) {
-        var medicalRecord = getById(id);
+        deleteRelatedRecords(getById(id));
         repository.deleteById(id);
-        deleteRelatedRecords(medicalRecord);
     }
 
     //brute force deletion of all assosciated records like bodyMetrics, works but can get very slow, might be better to retrieve the specific instance by type
