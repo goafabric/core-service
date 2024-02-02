@@ -3,15 +3,13 @@ package org.goafabric.core.medicalrecords.logic.jpa;
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordAble;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordDeleteAble;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.jpa.mapper.MedicalRecordMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.MedicalRecordRepository;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -23,12 +21,12 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
 
     private final MedicalRecordRepository repository;
 
-    private final List<MedicalRecordDeleteAble> medicalRecordDeleteAbles;
+    private final ApplicationContext applicationContext;
 
-    public MedicalRecordLogic(MedicalRecordMapper mapper, MedicalRecordRepository repository, @Lazy List<MedicalRecordDeleteAble> medicalRecordDeleteAbles) {
+    public MedicalRecordLogic(MedicalRecordMapper mapper, MedicalRecordRepository repository, ApplicationContext applicationContext) {
         this.mapper = mapper;
         this.repository = repository;
-        this.medicalRecordDeleteAbles = Collections.unmodifiableList(medicalRecordDeleteAbles);
+        this.applicationContext = applicationContext;
     }
 
     public MedicalRecord getById(String id) {
@@ -59,10 +57,10 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
         repository.deleteById(id);
     }
 
-    //brute force deletion of all assosciated records like bodyMetrics, works but can get very slow, might be better to retrieve the specific instance by type
     private void deleteRelatedRecords(MedicalRecord medicalRecord) {
         Optional.ofNullable(medicalRecord.relation())
-                .ifPresent(relation -> medicalRecordDeleteAbles.forEach(record -> record.delete(relation)));
+                .ifPresent(relation -> applicationContext.getBean(MedicalRecordType.getClassByType(medicalRecord.type()))
+                        .delete(relation));
     }
 
 }
