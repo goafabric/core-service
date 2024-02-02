@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +28,7 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
     public MedicalRecordLogic(MedicalRecordMapper mapper, MedicalRecordRepository repository, @Lazy List<MedicalRecordDeleteAble> medicalRecordDeleteAbles) {
         this.mapper = mapper;
         this.repository = repository;
-        this.medicalRecordDeleteAbles = medicalRecordDeleteAbles;
+        this.medicalRecordDeleteAbles = Collections.unmodifiableList(medicalRecordDeleteAbles);
     }
 
     public MedicalRecord getById(String id) {
@@ -48,13 +49,9 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
     }
 
     private MedicalRecord updateRelatedRecord(RecordAble updatedRecord) {
-        var medicalRecord = getByRelation(updatedRecord.id());
+        var medicalRecord = mapper.map(repository.findByRelation(updatedRecord.id()));
         return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(),
                 updatedRecord.toDisplay(), updatedRecord.code(), updatedRecord.id()));
-    }
-
-    private MedicalRecord getByRelation(String relation) {
-        return mapper.map(repository.findByRelation(relation));
     }
 
     public void delete(String id) {

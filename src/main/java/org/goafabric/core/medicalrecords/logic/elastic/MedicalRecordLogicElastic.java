@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +40,7 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
         this.mapper = mapper;
         this.repository = repository;
         this.elasticSearchOperations = elasticSearchOperations;
-        this.medicalRecordDeleteAbles = medicalRecordDeleteAbles;
+        this.medicalRecordDeleteAbles = Collections.unmodifiableList(medicalRecordDeleteAbles);
     }
 
     public MedicalRecord getById(String id) {
@@ -74,13 +75,9 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
     }
 
     private MedicalRecord updateRelatedRecord(RecordAble updatedRecord) {
-        var medicalRecord = getByRelation(updatedRecord.id());
+        var medicalRecord = mapper.map(repository.findByRelation(updatedRecord.id()));
         return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(),
                 updatedRecord.toDisplay(), updatedRecord.code(), updatedRecord.id()));
-    }
-
-    private MedicalRecord getByRelation(String relation) {
-        return mapper.map(repository.findByRelation(relation));
     }
 
     public void delete(String id) {
