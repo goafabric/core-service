@@ -34,12 +34,14 @@ public class EncounterLogicElastic implements EncounterLogic {
         return mapper.map(encounterRepository.findById(id).get());
     }
 
+    //manually load the relations
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
         return encounterRepository
                 .findByPatientIdAndOrgunitId(patientId, TenantResolver.getOrgunitId())
                 .stream()
-                .map(encounterEo -> new Encounter(encounterEo.getId(), String.valueOf(encounterEo.getVersion()), encounterEo.getPatientId(), encounterEo.getPractitionerId(),
-                        encounterEo.getEncounterDate(), encounterEo.getEncounterName(), medicalRecordLogic.findByEncounterIdAndDisplay(encounterEo.getId(), text)))
+                .map(encounterEo -> new Encounter(encounterEo.getId(), encounterEo.getVersion(), encounterEo.getPatientId(), encounterEo.getPractitionerId(),
+                        encounterEo.getEncounterDate(), encounterEo.getEncounterName(),
+                        medicalRecordLogic.findByEncounterIdAndDisplay(encounterEo.getId(), text)))
                 .toList();
     }
 

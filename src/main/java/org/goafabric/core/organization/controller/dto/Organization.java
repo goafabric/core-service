@@ -8,7 +8,7 @@ import java.util.List;
 
 public record Organization(
     String id,
-    String version,
+    Long version,
     @NotNull @Size(min = 3, max = 255) String name,
     String bsnr,
 

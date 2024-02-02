@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.controller.dto;
 
 public record BodyMetrics(
         String id,
-        String version,
+        Long version,
         String bodyHeight,
         String bellyCircumference,
         String headCircumference,

@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotNull;
 
 public record ContactPoint (
     String id,
-    String version,
+    Long version,
 
     @NotNull String use,
     @NotNull String system,

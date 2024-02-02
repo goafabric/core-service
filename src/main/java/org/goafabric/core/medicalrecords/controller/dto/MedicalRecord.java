@@ -3,7 +3,7 @@ package org.goafabric.core.medicalrecords.controller.dto;
 public record MedicalRecord (
         String id,
         String encounterId,
-        String version,
+        Long version,
         MedicalRecordType type,
         String display,
         String code,

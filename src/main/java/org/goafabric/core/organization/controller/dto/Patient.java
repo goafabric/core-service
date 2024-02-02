@@ -9,7 +9,7 @@ import java.util.List;
 
 public record Patient(
     String id,
-    String version,
+    Long version,
     @NotNull @Size(min = 3, max = 255) String givenName,
     @NotNull @Size(min = 3, max = 255) String familyName,
 

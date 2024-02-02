@@ -4,7 +4,7 @@ import java.util.List;
 
 public record Role(
         String id,
-        String version,
+        Long version,
         String name,
         List<Permission> permissions
 ) {}
