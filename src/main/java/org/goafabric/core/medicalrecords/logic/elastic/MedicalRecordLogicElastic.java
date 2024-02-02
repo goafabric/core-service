@@ -71,7 +71,7 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
     public MedicalRecord saveRelatedRecord(String relation, MedicalRecordAble medicalRecordAble) {
         return medicalRecordAble.id() != null
                 ? updateRelatedRecord(medicalRecordAble)
-                : save(new MedicalRecord(null, null, null, medicalRecordAble.type(), medicalRecordAble.toDisplay(), medicalRecordAble.code(), relation));
+                : save(new MedicalRecord(medicalRecordAble.type(), medicalRecordAble.toDisplay(), medicalRecordAble.code(), relation));
     }
 
     private MedicalRecord updateRelatedRecord(MedicalRecordAble updatedRecord) {
