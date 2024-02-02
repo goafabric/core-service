@@ -34,7 +34,7 @@ public class EncounterLogicElastic implements EncounterLogic {
         return mapper.map(encounterRepository.findById(id).get());
     }
 
-    //manually load the relations
+    //manually load the relations, this could be optimized by using an "in" operatin with all encounterIds
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
         return encounterRepository
                 .findByPatientIdAndOrgunitId(patientId, TenantResolver.getOrgunitId())
@@ -48,7 +48,6 @@ public class EncounterLogicElastic implements EncounterLogic {
     //the save operations manually manages relations, to have the possibility to update medicalrecords on their own, which is not easily possible with "nested"
     public Encounter save(Encounter encounter) {
         var enc = mapper.map(encounterRepository.save(mapper.map(encounter)));
-
         encounter.medicalRecords().forEach(medicalRecord -> medicalRecordLogic.save(
                 new MedicalRecord(medicalRecord.id(), enc.id(), null, medicalRecord.type(), medicalRecord.display(), medicalRecord.code(), medicalRecord.relation())));
         return enc;
