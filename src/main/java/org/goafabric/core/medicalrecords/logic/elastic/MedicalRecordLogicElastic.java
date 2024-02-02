@@ -42,7 +42,7 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
         this.medicalRecordDeleteAbles = Collections.unmodifiableList(medicalRecordDeleteAbles);
     }
     
-    public List<MedicalRecord> findByEncounterIdAndDisplay(String encounterId, String display) {
+    public List<MedicalRecord> findByEncounterIdAndDisplay(String encounterId, String display) {  //called by EncounterLogic
         var criteria = new Criteria("encounterId").is(encounterId);
         if (!StringUtils.isNullOrEmpty(display)) {
             Arrays.stream(display.split(" ")).forEach(token -> { // this is presumeably a hack
