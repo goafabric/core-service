@@ -26,6 +26,7 @@ public enum MedicalRecordType {
     public static Class<? extends MedicalRecordDeleteAble> getClassByType(MedicalRecordType type) {
         return switch (type) {
             case BODY_METRICS -> BodyMetricsLogic.class;
+            case null -> throw new IllegalArgumentException("Type should not be null");
             default -> throw new IllegalArgumentException("Unsupported MedicalRecordType: " + type);
         };
     }
