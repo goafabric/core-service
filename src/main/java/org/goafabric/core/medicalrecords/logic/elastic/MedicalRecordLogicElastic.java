@@ -2,8 +2,8 @@ package org.goafabric.core.medicalrecords.logic.elastic;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordAble;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordDeleteAble;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.MedicalRecordMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.MedicalRecordRepositoryElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.MedicalRecordElo;
@@ -11,7 +11,6 @@ import org.h2.util.StringUtils;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.query.Criteria;
 import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.stereotype.Component;
@@ -42,12 +41,7 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
         this.elasticSearchOperations = elasticSearchOperations;
         this.medicalRecordDeleteAbles = Collections.unmodifiableList(medicalRecordDeleteAbles);
     }
-
-    public MedicalRecord getById(String id) {
-        return mapper.map(repository.findById(id).get());
-    }
-
-
+    
     public List<MedicalRecord> findByEncounterIdAndDisplay(String encounterId, String display) {
         var criteria = new Criteria("encounterId").is(encounterId);
         if (!StringUtils.isNullOrEmpty(display)) {
@@ -57,8 +51,11 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
                         ));
             });
         }
-        var hits = elasticSearchOperations.search(new CriteriaQuery(criteria), MedicalRecordElo.class);
-        return mapper.map(hits.stream().map(SearchHit::getContent).toList());
+        return mapper.map(elasticSearchOperations.search(new CriteriaQuery(criteria), MedicalRecordElo.class));
+    }
+
+    public MedicalRecord getById(String id) {
+        return mapper.map(repository.findById(id).get());
     }
 
     public MedicalRecord save(MedicalRecord medicalRecord) {
