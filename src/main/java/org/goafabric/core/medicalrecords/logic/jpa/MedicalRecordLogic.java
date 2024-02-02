@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.logic.jpa;
 
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordAble;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordDeleteAble;
 import org.goafabric.core.medicalrecords.logic.jpa.mapper.MedicalRecordMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.MedicalRecordRepository;
@@ -42,13 +42,13 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
     }
 
     //save related records, has to be called by related class like bodymetrics
-    public MedicalRecord saveRelatedRecord(String relation, RecordAble recordAble) {
-        return recordAble.id() != null
-                ? updateRelatedRecord(recordAble)
-                : save(new MedicalRecord(null, null, null, recordAble.type(), recordAble.toDisplay(), recordAble.code(), relation));
+    public MedicalRecord saveRelatedRecord(String relation, MedicalRecordAble medicalRecordAble) {
+        return medicalRecordAble.id() != null
+                ? updateRelatedRecord(medicalRecordAble)
+                : save(new MedicalRecord(null, null, null, medicalRecordAble.type(), medicalRecordAble.toDisplay(), medicalRecordAble.code(), relation));
     }
 
-    private MedicalRecord updateRelatedRecord(RecordAble updatedRecord) {
+    private MedicalRecord updateRelatedRecord(MedicalRecordAble updatedRecord) {
         var medicalRecord = mapper.map(repository.findByRelation(updatedRecord.id()));
         return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(),
                 updatedRecord.toDisplay(), updatedRecord.code(), updatedRecord.id()));

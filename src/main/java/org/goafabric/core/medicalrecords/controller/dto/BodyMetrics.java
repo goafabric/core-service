@@ -7,10 +7,9 @@ public record BodyMetrics(
         String bellyCircumference,
         String headCircumference,
         String bodyFat
-) implements RecordAble {
-    public MedicalRecordType type() {
-        return MedicalRecordType.BODY_METRICS;
-    }
+) implements MedicalRecordAble {
+    public MedicalRecordType type() { return MedicalRecordType.BODY_METRICS; }
+
     public String toDisplay() {
         return "Body Height: " + bodyHeight +
                 " Belly Circumference: " + bellyCircumference +

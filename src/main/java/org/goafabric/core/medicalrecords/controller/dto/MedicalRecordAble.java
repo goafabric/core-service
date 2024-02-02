@@ -1,6 +1,6 @@
 package org.goafabric.core.medicalrecords.controller.dto;
 
-public interface RecordAble {
+public interface MedicalRecordAble {
     String id();
     MedicalRecordType type();
     String toDisplay();
