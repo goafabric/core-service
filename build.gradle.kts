@@ -76,8 +76,6 @@ dependencies {
 	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-client-okhttp:6.8.3")
 	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-structures-r4:6.8.3")
 
-	implementation("org.apache.opennlp:opennlp-tools:2.3.1")
-
 }
 
 tasks.withType<Test> {
