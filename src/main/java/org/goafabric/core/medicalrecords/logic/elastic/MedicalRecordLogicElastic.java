@@ -2,12 +2,12 @@ package org.goafabric.core.medicalrecords.logic.elastic;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordAble;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordDeleteAble;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.MedicalRecordMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.MedicalRecordRepositoryElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.MedicalRecordElo;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.Criteria;
@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,13 +32,13 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
 
     private final ElasticsearchOperations elasticSearchOperations;
 
-    private List<MedicalRecordDeleteAble> medicalRecordDeleteAbles;
+    private final ApplicationContext applicationContext;
 
-    public MedicalRecordLogicElastic(MedicalRecordMapperElastic mapper, MedicalRecordRepositoryElastic repository, ElasticsearchOperations elasticSearchOperations, @Lazy List<MedicalRecordDeleteAble> medicalRecordDeleteAbles) {
+    public MedicalRecordLogicElastic(MedicalRecordMapperElastic mapper, MedicalRecordRepositoryElastic repository, ElasticsearchOperations elasticSearchOperations, ApplicationContext applicationContext) {
         this.mapper = mapper;
         this.repository = repository;
         this.elasticSearchOperations = elasticSearchOperations;
-        this.medicalRecordDeleteAbles = Collections.unmodifiableList(medicalRecordDeleteAbles);
+        this.applicationContext = applicationContext;
     }
     
     public List<MedicalRecord> findByEncounterIdAndDisplay(String encounterId, String display) {  //called by EncounterLogic
@@ -81,10 +80,10 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
         repository.deleteById(id);
     }
 
-    //brute force deletion of all assosciated records like bodyMetrics, works but can get very slow, might be better to retrieve the specific instance by type
     private void deleteRelatedRecords(MedicalRecord medicalRecord) {
         Optional.ofNullable(medicalRecord.relation())
-                .ifPresent(relation -> medicalRecordDeleteAbles.forEach(record -> record.delete(relation)));
+                .ifPresent(relation -> applicationContext.getBean(MedicalRecordType.getClassByType(medicalRecord.type()))
+                        .delete(relation));
     }
 
 }
