@@ -5,7 +5,7 @@ import org.goafabric.core.organization.controller.dto.types.PermissionType;
 
 public record Permission(
         String id,
-        String version,
+        Long version,
         PermissionCategory category,
         PermissionType type
 ) {}

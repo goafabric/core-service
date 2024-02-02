@@ -1,14 +1,14 @@
 package org.goafabric.core.medicalrecords.logic;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordAble;
 
-public interface MedicalRecordLogicAble {
+public interface MedicalRecordLogic {
     MedicalRecord getById(String id);
 
     MedicalRecord save(MedicalRecord medicalRecord);
 
-    public MedicalRecord saveRelatedRecord(String relation, RecordAble recordAble);
+    MedicalRecord saveRelatedRecord(String relation, MedicalRecordAble medicalRecordAble);
 
     void delete(String id);
 }

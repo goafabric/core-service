@@ -5,6 +5,8 @@ import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.MedicalRecordElo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
+import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.SearchHits;
 
 import java.util.List;
 
@@ -15,10 +17,9 @@ public interface MedicalRecordMapperElastic {
 
     MedicalRecordElo map(MedicalRecord value);
 
-    List<MedicalRecord> map(List<MedicalRecordElo> value);
-
     List<MedicalRecord> map(Iterable<MedicalRecordElo> value);
 
-    //List<MedicalRecord> map(SearchHits<MedicalRecordEo> value);
-
+    default List<MedicalRecord> map(SearchHits<MedicalRecordElo> hits) {
+        return map(hits.stream().map(SearchHit::getContent).toList());
+    }
 }

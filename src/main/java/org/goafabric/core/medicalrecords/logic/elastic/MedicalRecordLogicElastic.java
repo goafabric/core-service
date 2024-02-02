@@ -1,30 +1,30 @@
 package org.goafabric.core.medicalrecords.logic.elastic;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.controller.dto.RecordAble;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
-import org.goafabric.core.medicalrecords.logic.RecordDeleteAble;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordAble;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.MedicalRecordMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.MedicalRecordRepositoryElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.MedicalRecordElo;
-import org.h2.util.StringUtils;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
-import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.query.Criteria;
 import org.springframework.data.elasticsearch.core.query.CriteriaQuery;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @Transactional(propagation = Propagation.REQUIRES_NEW)
 @Profile("elastic")
-public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
+public class MedicalRecordLogicElastic implements MedicalRecordLogic {
 
     private final MedicalRecordMapperElastic mapper;
 
@@ -32,31 +32,28 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
 
     private final ElasticsearchOperations elasticSearchOperations;
 
-    private List<RecordDeleteAble> recordDeleteAbles;
+    private final ApplicationContext applicationContext;
 
-    public MedicalRecordLogicElastic(MedicalRecordMapperElastic mapper, MedicalRecordRepositoryElastic repository, ElasticsearchOperations elasticSearchOperations, @Lazy List<RecordDeleteAble> recordDeleteAbles) {
+    public MedicalRecordLogicElastic(MedicalRecordMapperElastic mapper, MedicalRecordRepositoryElastic repository, ElasticsearchOperations elasticSearchOperations, ApplicationContext applicationContext) {
         this.mapper = mapper;
         this.repository = repository;
         this.elasticSearchOperations = elasticSearchOperations;
-        this.recordDeleteAbles = recordDeleteAbles;
+        this.applicationContext = applicationContext;
+    }
+    
+    public List<MedicalRecord> findByEncounterIdAndDisplay(String encounterId, String display) {  //called by EncounterLogic
+        var criteria = new Criteria("encounterId").is(encounterId);
+        if (StringUtils.hasText(display)) {
+            Arrays.stream(display.split(" "))
+                    .forEach(token -> criteria.subCriteria( //this is presumeably a hack
+                            new Criteria("display").contains(token).or(new Criteria("display").fuzzy(token))
+                    ));
+        }
+        return mapper.map(elasticSearchOperations.search(new CriteriaQuery(criteria), MedicalRecordElo.class));
     }
 
     public MedicalRecord getById(String id) {
         return mapper.map(repository.findById(id).get());
-    }
-
-
-    public List<MedicalRecord> findByEncounterIdAndDisplay(String encounterId, String display) {
-        var criteria = new Criteria("encounterId").is(encounterId);
-        if (!StringUtils.isNullOrEmpty(display)) {
-            Arrays.stream(display.split(" ")).forEach(token -> { // this is presumeably a hack
-                criteria.subCriteria(
-                        new Criteria("display").contains(token).or(new Criteria("display").fuzzy(token)
-                        ));
-            });
-        }
-        var hits = elasticSearchOperations.search(new CriteriaQuery(criteria), MedicalRecordElo.class);
-        return mapper.map(hits.stream().map(SearchHit::getContent).toList());
     }
 
     public MedicalRecord save(MedicalRecord medicalRecord) {
@@ -65,26 +62,28 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogicAble {
         );
     }
 
-    public MedicalRecord saveRelatedRecord(String relation, RecordAble recordAble) {
-        return recordAble.id() != null
-                ? updateRelatedRecord(recordAble)
-                : save(new MedicalRecord(null, null, null, recordAble.type(), recordAble.toDisplay(), recordAble.code(), relation));
+    //save related records, has to be called by related class like bodymetrics
+    public MedicalRecord saveRelatedRecord(String relation, MedicalRecordAble medicalRecordAble) {
+        return medicalRecordAble.id() != null
+                ? updateRelatedRecord(medicalRecordAble)
+                : save(new MedicalRecord(medicalRecordAble.type(), medicalRecordAble.toDisplay(), medicalRecordAble.code(), relation));
     }
 
-    private MedicalRecord updateRelatedRecord(RecordAble recordAble) {
-        var medicalRecord = getByRelation(recordAble.id());
-        return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(),
-                medicalRecord.type(), recordAble.toDisplay(), medicalRecord.code(), medicalRecord.relation()));
+    private MedicalRecord updateRelatedRecord(MedicalRecordAble updatedRecord) {
+        var medicalRecord = mapper.map(repository.findByRelation(updatedRecord.id()));
+        return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(),
+                updatedRecord.toDisplay(), updatedRecord.code(), updatedRecord.id()));
     }
 
     public void delete(String id) {
-        var medicalRecord = getById(id);
+        deleteRelatedRecords(getById(id));
         repository.deleteById(id);
-        recordDeleteAbles.forEach(r -> r.delete(medicalRecord.relation()));
     }
 
-    private MedicalRecord getByRelation(String relation) {
-        return mapper.map(repository.findByRelation(relation));
+    private void deleteRelatedRecords(MedicalRecord medicalRecord) {
+        Optional.ofNullable(medicalRecord.relation())
+                .ifPresent(relation -> applicationContext.getBean(MedicalRecordType.getClassByType(medicalRecord.type()))
+                        .delete(relation));
     }
 
 }

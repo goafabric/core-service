@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.controller;
 
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.goafabric.core.medicalrecords.logic.jpa.BodyMetricsLogic;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ class BodyMetricsControllerIT {
     private BodyMetricsController bodyMetricsController;
 
     @Autowired
-    private MedicalRecordLogicAble medicalRecordLogic;
+    private MedicalRecordLogic medicalRecordLogic;
 
 
     @Autowired

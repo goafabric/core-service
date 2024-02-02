@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Null;
 
 public record Address (
         String id,
-        @Null String version,
+        Long version,
 
         @NotNull String use,
         @NotNull String street,

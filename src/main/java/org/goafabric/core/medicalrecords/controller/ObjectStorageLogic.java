@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.logic;
+package org.goafabric.core.medicalrecords.controller;
 
 import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
 import org.goafabric.core.extensions.HttpInterceptor;

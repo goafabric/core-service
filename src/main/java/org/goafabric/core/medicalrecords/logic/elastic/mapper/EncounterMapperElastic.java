@@ -15,7 +15,5 @@ public interface EncounterMapperElastic {
 
     EncounterElo map(Encounter value);
 
-    List<Encounter> map(List<EncounterElo> value);
-
     List<Encounter> map(Iterable<EncounterElo> value);
 }

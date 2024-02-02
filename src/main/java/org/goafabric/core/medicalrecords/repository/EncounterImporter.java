@@ -6,8 +6,8 @@ import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
-import org.goafabric.core.medicalrecords.logic.EncounterLogicAble;
-import org.goafabric.core.medicalrecords.logic.MedicalRecordLogicAble;
+import org.goafabric.core.medicalrecords.logic.EncounterLogic;
+import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
 import org.goafabric.core.medicalrecords.logic.jpa.BodyMetricsLogic;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.slf4j.Logger;
@@ -43,7 +43,7 @@ public class EncounterImporter implements CommandLineRunner {
     private final ApplicationContext applicationContext;
 
     @Autowired
-    private EncounterLogicAble encounterLogic;
+    private EncounterLogic encounterLogic;
 
     @Autowired
     private PatientLogic patientLogic;
@@ -86,7 +86,7 @@ public class EncounterImporter implements CommandLineRunner {
     }
 
     @Autowired
-    private MedicalRecordLogicAble medicalRecordLogic;
+    private MedicalRecordLogic medicalRecordLogic;
     private void insertObservations() {
         var patient = patientLogic.save(
                 createPatient("Monty", "Burns",

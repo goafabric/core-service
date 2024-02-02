@@ -4,10 +4,12 @@ import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 
 import java.util.List;
 
-public interface EncounterLogicAble {
+public interface EncounterLogic {
     Encounter save(Encounter encounter);
 
     List<Encounter> findByPatientIdAndDisplay(String patientId, String text);
 
     void delete (String id);
+
+    void deleteAllByPatientId(String patientId);
 }

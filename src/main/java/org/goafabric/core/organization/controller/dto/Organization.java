@@ -7,8 +7,8 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 
 public record Organization(
-    @Null String id,
-    @Null String version,
+    String id,
+    Long version,
     @NotNull @Size(min = 3, max = 255) String name,
     String bsnr,
 
