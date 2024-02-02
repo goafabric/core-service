@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
-public class OpneNLPIt {
+public class OpenNLPIt {
 
     @Test
     public void test() throws IOException {
