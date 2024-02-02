@@ -66,16 +66,17 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
         );
     }
 
+    //save related records, has to be called by related class like bodymetrics
     public MedicalRecord saveRelatedRecord(String relation, RecordAble recordAble) {
         return recordAble.id() != null
                 ? updateRelatedRecord(recordAble)
                 : save(new MedicalRecord(null, null, null, recordAble.type(), recordAble.toDisplay(), recordAble.code(), relation));
     }
 
-    private MedicalRecord updateRelatedRecord(RecordAble recordAble) {
-        var medicalRecord = getByRelation(recordAble.id());
-        return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(),
-                medicalRecord.type(), recordAble.toDisplay(), medicalRecord.code(), medicalRecord.relation()));
+    private MedicalRecord updateRelatedRecord(RecordAble updatedRecord) {
+        var medicalRecord = getByRelation(updatedRecord.id());
+        return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(),
+                updatedRecord.toDisplay(), updatedRecord.code(), updatedRecord.id()));
     }
 
     private MedicalRecord getByRelation(String relation) {
@@ -92,6 +93,5 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
         Optional.ofNullable(medicalRecord.relation())
                 .ifPresent(relation -> medicalRecordDeleteAbles.forEach(record -> record.delete(relation)));
     }
-
 
 }
