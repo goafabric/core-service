@@ -21,7 +21,11 @@ public class PatientEo {
 
     private String givenName;
 
+    private String givenSoundex;
+
     private String familyName;
+
+    private String familySoundex;
 
     private String gender;
 
@@ -40,10 +44,12 @@ public class PatientEo {
 
     private PatientEo() {}
 
-    public PatientEo(String id, String givenName, String familyName, String gender, LocalDate birthDate, List<AddressEo> address, List<ContactPointEo> contactPoint, Long version) {
+    public PatientEo(String id, String givenName, String givenSoundex, String familyName, String familySoundex, String gender, LocalDate birthDate, List<AddressEo> address, List<ContactPointEo> contactPoint, Long version) {
         this.id = id;
         this.givenName = givenName;
+        this.givenSoundex = givenSoundex;
         this.familyName = familyName;
+        this.familySoundex = familySoundex;
         this.gender = gender;
         this.birthDate = birthDate;
         this.address = address;
@@ -81,6 +87,14 @@ public class PatientEo {
 
     public List<ContactPointEo> getContactPoint() {
         return contactPoint;
+    }
+
+    public String getGivenSoundex() {
+        return givenSoundex;
+    }
+
+    public String getFamilySoundex() {
+        return familySoundex;
     }
 
     public Long getVersion() {
