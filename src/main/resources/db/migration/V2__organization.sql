@@ -6,7 +6,9 @@ create table patient
     organization_id varchar(36),
 
 	given_name varchar(255),
+	given_soundex varchar(255),
 	family_name varchar(255),
+	family_soundex varchar(255),
 
 	gender varchar(255),
 	birth_date date,

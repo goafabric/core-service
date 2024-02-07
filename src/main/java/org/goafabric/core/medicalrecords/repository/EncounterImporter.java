@@ -88,6 +88,7 @@ public class EncounterImporter implements CommandLineRunner {
     @Autowired
     private MedicalRecordLogic medicalRecordLogic;
     private void insertObservations() {
+
         var patient = patientLogic.save(
                 createPatient("Monty", "Burns",
                         createAddress("Springfield"),
@@ -95,6 +96,11 @@ public class EncounterImporter implements CommandLineRunner {
 
         log.info("patient id of monty burns: {}", patient.id());
         String practitionerId = null;
+
+        patientLogic.save(
+                createPatient("Michael", "Meyers",
+                        createAddress("Elmstreet 667"),
+                        createContactPoint("666-667")));
 
         IntStream.range(0, 1).forEach(i -> {
             var encounter = new Encounter(
