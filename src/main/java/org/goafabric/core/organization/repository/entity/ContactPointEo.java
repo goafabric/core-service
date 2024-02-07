@@ -5,7 +5,6 @@ import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
 @Entity
 @Table(name="contact_point")
-//@Document("#{@tenantIdBean.getPrefix()}contact_point")
 @EntityListeners(AuditTrailListener.class)
 public class ContactPointEo {
     @Id

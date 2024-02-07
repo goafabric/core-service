@@ -5,7 +5,6 @@ import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
 @Entity
 @Table(name = "permission")
-//@Document("#{@tenantIdBean.getPrefix()}permission")
 @EntityListeners(AuditTrailListener.class)
 public class PermissionEo {
     @Id

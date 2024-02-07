@@ -7,7 +7,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "organization")
-//@Document("#{@tenantIdBean.getPrefix()}organization")
 @EntityListeners(AuditTrailListener.class)
 public class OrganizationEo {
     @Id

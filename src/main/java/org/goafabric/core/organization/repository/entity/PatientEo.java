@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "patient")
-//@Document("#{@tenantIdBean.getPrefix()}patient")
 @EntityListeners(AuditTrailListener.class)
 public class PatientEo {
     @Id
