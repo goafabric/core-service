@@ -1,6 +1,5 @@
 package org.goafabric.core.ui.adapter;
 
-import org.goafabric.core.organization.controller.PatientController;
 import org.goafabric.core.organization.controller.dto.Patient;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
@@ -10,9 +9,9 @@ import java.util.List;
 
 @Component
 public class PatientAdapter implements SearchAdapter<Patient> {
-    private final PatientController patientLogic;
+    private final PatientLogic patientLogic;
 
-    public PatientAdapter(PatientController patientLogic) {
+    public PatientAdapter(PatientLogic patientLogic) {
         this.patientLogic = patientLogic;
     }
 
@@ -21,8 +20,8 @@ public class PatientAdapter implements SearchAdapter<Patient> {
         return patientLogic.findByFamilyName(search);
     }
 
-    public List<PatientNamesOnly> findPatientNamesByFamilyName(String search) {
-        return patientLogic.findPatientNamesByFamilyName(search);
+    public List<PatientNamesOnly> findPatientNamesByFamilyName(String familyName) {
+        return patientLogic.findByFamilyNameAndGivenName(familyName, "");
     }
 
     public void save(Patient patient) {
