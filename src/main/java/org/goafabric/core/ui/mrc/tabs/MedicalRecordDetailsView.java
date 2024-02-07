@@ -42,7 +42,7 @@ public class MedicalRecordDetailsView extends Dialog {
         var buttonSave = new Button("Save");
 
         buttonSave.addClickListener(event -> {
-                var changedRecord = new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(), displayTextField.getValue(), medicalRecord.code(), medicalRecord.relation());
+                var changedRecord = new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(), displayTextField.getValue(), medicalRecord.code(), medicalRecord.specialization());
                 applicationContext.getBean(MedicalRecordAdapter.class).save(changedRecord);
                 this.close();
         });
@@ -50,7 +50,7 @@ public class MedicalRecordDetailsView extends Dialog {
     }
 
     private void addBodyMetric(MedicalRecord medicalRecord, VerticalLayout layout) {
-        var bodyMetrics = applicationContext.getBean(BodyMetricsAdapter.class).getById(medicalRecord.relation());
+        var bodyMetrics = applicationContext.getBean(BodyMetricsAdapter.class).getById(medicalRecord.specialization());
         layout.add(new TextField("Body Height", bodyMetrics.bodyHeight()));
         layout.add(new TextField("Belly Circumference ", bodyMetrics.bellyCircumference()));
         layout.add(new TextField("Head Circumference", bodyMetrics.headCircumference()));
