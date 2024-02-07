@@ -42,11 +42,7 @@ public class TenantResolver implements CurrentTenantIdentifierResolver, MultiTen
 
     @Override
     public String resolveCurrentTenantIdentifier() {
-        return getOrgunitId();
-    }
-
-    public static String getOrgunitId() {
-        return "1";
+        return HttpInterceptor.getOrganizationId();
     }
 
     @Override

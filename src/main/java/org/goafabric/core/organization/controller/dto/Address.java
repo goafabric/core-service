@@ -1,17 +1,14 @@
 package org.goafabric.core.organization.controller.dto;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
-
 public record Address (
         String id,
         Long version,
 
-        @NotNull String use,
-        @NotNull String street,
-        @NotNull String city,
-        @NotNull String postalCode,
-        @NotNull String state,
-        @NotNull String country
+        String use,
+        String street,
+        String city,
+        String postalCode,
+        String state,
+        String country
 ) {}
 

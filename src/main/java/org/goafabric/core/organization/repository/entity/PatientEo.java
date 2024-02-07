@@ -18,7 +18,7 @@ public class PatientEo {
     public String id;
 
     @TenantId
-    public String orgunitId;
+    public String organizationId;
 
     public String givenName;
 

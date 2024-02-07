@@ -1,11 +1,11 @@
 package org.goafabric.core.medicalrecords.logic.elastic;
 
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.logic.EncounterLogic;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.EncounterMapperElastic;
 import org.goafabric.core.medicalrecords.repository.elastic.repository.EncounterRepositoryElastic;
-import org.goafabric.core.organization.repository.extensions.TenantResolver;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
@@ -37,7 +37,7 @@ public class EncounterLogicElastic implements EncounterLogic {
     //manually load the relations, this could be optimized by using an "in" operatin with all encounterIds
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
         return encounterRepository
-                .findByPatientIdAndOrgunitId(patientId, TenantResolver.getOrgunitId())
+                .findByPatientIdAndOrganizationId(patientId, HttpInterceptor.getOrganizationId())
                 .stream()
                 .map(encounterEo -> new Encounter(encounterEo.getId(), encounterEo.getVersion(), encounterEo.getPatientId(), encounterEo.getPractitionerId(),
                         encounterEo.getEncounterDate(), encounterEo.getEncounterName(),

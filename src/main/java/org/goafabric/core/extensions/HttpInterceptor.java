@@ -24,7 +24,7 @@ import java.util.Objects;
 
 public class HttpInterceptor implements HandlerInterceptor {
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
-    private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
+    private static final ThreadLocal<String> organizationId = new ThreadLocal<>();
     private static final ThreadLocal<String> userName = new ThreadLocal<>();
 
     @Configuration
@@ -45,14 +45,13 @@ public class HttpInterceptor implements HandlerInterceptor {
     }
 
     public static void prehandle(HttpServletRequest request) {
-        tenantId.set(request.getHeader("X-TenantId"));
+        setOrganizationId(request.getHeader("X-OrganizationId"));
         configureAuthenticationViaJWT(request.getHeader("X-Access-Token"));
         configureLogsAndTracing(request);
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        tenantId.remove();
         userName.remove();
         MDC.remove("tenantId");
     }
@@ -72,14 +71,23 @@ public class HttpInterceptor implements HandlerInterceptor {
     }
 
     public static String getTenantId() {
+        //get TenantId via registrationId of OIDC Provider, this is subject to change and should come from a JWT Claim in the future
         var auth = SecurityContextHolder.getContext().getAuthentication();
         return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId()
                 : "0";
     }
 
+    public static String getOrganizationId() {
+        return organizationId.get() != null ? organizationId.get() : "1"; //tdo
+    }
+
     public static String getUserName() {
         return (SecurityContextHolder.getContext().getAuthentication() != null) && !(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
                 ? SecurityContextHolder.getContext().getAuthentication().getName() : userName.get();
+    }
+
+    private static void setOrganizationId(String organization) {
+        organizationId.set(organization);
     }
 
     private static Map<String, Object> decodeJwt(String token) {

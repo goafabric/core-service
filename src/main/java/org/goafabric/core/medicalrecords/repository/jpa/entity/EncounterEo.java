@@ -15,7 +15,7 @@ public class EncounterEo {
     private String id;
 
     @TenantId
-    private String orgunitId;
+    private String organizationId;
 
     private String patientId;
 
@@ -33,9 +33,9 @@ public class EncounterEo {
     private Long version;
 
     private EncounterEo() {}
-    public EncounterEo(String id, String orgunitId, String patientId, String practitionerId, LocalDate encounterDate, String encounterName, List<MedicalRecordEo> medicalRecords, Long version) {
+    public EncounterEo(String id, String organizationId, String patientId, String practitionerId, LocalDate encounterDate, String encounterName, List<MedicalRecordEo> medicalRecords, Long version) {
         this.id = id;
-        this.orgunitId = orgunitId;
+        this.organizationId = organizationId;
         this.patientId = patientId;
         this.practitionerId = practitionerId;
         this.encounterDate = encounterDate;
@@ -48,8 +48,8 @@ public class EncounterEo {
         return id;
     }
 
-    public String getOrgunitId() {
-        return orgunitId;
+    public String getOrganizationId() {
+        return organizationId;
     }
 
     public String getPatientId() {

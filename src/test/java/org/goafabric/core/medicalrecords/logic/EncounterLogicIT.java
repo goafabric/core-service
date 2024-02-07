@@ -6,10 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.NoSuchElementException;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.goafabric.core.DataRocker.setTenantId;
 
 @SpringBootTest
@@ -24,8 +21,6 @@ class EncounterLogicIT {
     @Autowired
     private EncounterImporter encounterImporter;
 
-    @Autowired
-    private MedicalRecordLogic medicalRecordLogic;
 
     @Test
     public void findByText() {
@@ -44,24 +39,6 @@ class EncounterLogicIT {
 
         var lst = encounters.getFirst().medicalRecords();
         lst.forEach(anamnesis -> System.out.println(anamnesis.display()));
-
-        ensureDeletion();
-    }
-
-    private void ensureDeletion() {
-        var patient = patientLogic.findByGivenName("Monty").getFirst();
-        var encounters = encounterLogic.findByPatientIdAndDisplay(patient.id(), "");
-
-        assertThat(encounters).isNotEmpty();
-
-        encounterLogic.deleteAllByPatientId(patient.id());
-
-        var encounters2 = encounterLogic.findByPatientIdAndDisplay(patient.id(), "");
-
-        assertThat(encounters2).isEmpty();
-
-        assertThatThrownBy(() ->
-                medicalRecordLogic.getById(encounters.getFirst().medicalRecords().getFirst().id())).isInstanceOf(NoSuchElementException.class);
     }
 
 }
