@@ -88,6 +88,11 @@ public class EncounterImporter implements CommandLineRunner {
     @Autowired
     private MedicalRecordLogic medicalRecordLogic;
     private void insertObservations() {
+        patientLogic.save(
+                createPatient("Michael", "Meyers",
+                        createAddress("Elmstreet 667"),
+                        createContactPoint("666-667")));
+
         var patient = patientLogic.save(
                 createPatient("Monty", "Burns",
                         createAddress("Springfield"),
