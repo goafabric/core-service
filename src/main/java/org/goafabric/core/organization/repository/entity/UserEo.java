@@ -7,17 +7,16 @@ import java.util.List;
 
 @Entity
 @Table(name = "users")
-//@Document("#{@tenantIdBean.getPrefix()}users")
 @EntityListeners(AuditTrailListener.class)
 public class UserEo {
     @Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public String id;
+    private String id;
 
-    public String practitionerId;
+    private String practitionerId;
 
-    public String name;
+    private String name;
 
     @ManyToMany//(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -25,9 +24,38 @@ public class UserEo {
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "role_id") }
     )
-    public List<RoleEo> roles;
+    private List<RoleEo> roles;
 
     @Version //optimistic locking
-    public Long version;
+    private Long version;
 
+    private UserEo() {}
+
+    public UserEo(String id, String practitionerId, String name, List<RoleEo> roles, Long version) {
+        this.id = id;
+        this.practitionerId = practitionerId;
+        this.name = name;
+        this.roles = roles;
+        this.version = version;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getPractitionerId() {
+        return practitionerId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<RoleEo> getRoles() {
+        return roles;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
 }

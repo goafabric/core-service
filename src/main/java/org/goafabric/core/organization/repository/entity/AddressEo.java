@@ -12,17 +12,62 @@ public class AddressEo {
     @Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public String id;
+    private String id;
 
-    public String use;
+    private String use;
 
-    public String street;
-    public String city;
+    private String street;
+    private String city;
 
-    public String postalCode;
-    public String state;
-    public String country;
+    private String postalCode;
+    private String state;
+    private String country;
 
     @Version //optimistic locking
-    public Long version;
+    private Long version;
+
+    private AddressEo() {};
+
+    public AddressEo(String id, String use, String street, String city, String postalCode, String state, String country, Long version) {
+        this.id = id;
+        this.use = use;
+        this.street = street;
+        this.city = city;
+        this.postalCode = postalCode;
+        this.state = state;
+        this.country = country;
+        this.version = version;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getUse() {
+        return use;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
 }

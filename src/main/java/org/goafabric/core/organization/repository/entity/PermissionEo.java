@@ -5,19 +5,42 @@ import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 
 @Entity
 @Table(name = "permission")
-//@Document("#{@tenantIdBean.getPrefix()}permission")
 @EntityListeners(AuditTrailListener.class)
 public class PermissionEo {
     @Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public String id;
+    private String id;
 
-    public String category;
+    private String category;
 
-    public String type;
+    private String type;
 
     @Version //optimistic locking
-    public Long version;
+    private Long version;
 
+    private PermissionEo() {}
+
+    public PermissionEo(String id, String category, String type, Long version) {
+        this.id = id;
+        this.category = category;
+        this.type = type;
+        this.version = version;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
 }

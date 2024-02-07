@@ -7,15 +7,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "roles")
-//@Document("#{@tenantIdBean.getPrefix()}roles")
 @EntityListeners(AuditTrailListener.class)
 public class RoleEo {
     @Id
     @org.springframework.data.annotation.Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    public String id;
+    private String id;
 
-    public String name;
+    private String name;
 
     @ManyToMany//(cascade = { CascadeType.ALL })
     @JoinTable(
@@ -23,9 +22,33 @@ public class RoleEo {
             joinColumns = { @JoinColumn(name = "role_id") },
             inverseJoinColumns = { @JoinColumn(name = "permission_id") }
     )
-    public List<PermissionEo> permissions;
+    private List<PermissionEo> permissions;
 
     @Version //optimistic locking
-    public Long version;
+    private Long version;
 
+    private RoleEo() {}
+
+    public RoleEo(String id, String name, List<PermissionEo> permissions, Long version) {
+        this.id = id;
+        this.name = name;
+        this.permissions = permissions;
+        this.version = version;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<PermissionEo> getPermissions() {
+        return permissions;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
 }
