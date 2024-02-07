@@ -56,7 +56,6 @@ dependencies {
 	implementation("net.datafaker:datafaker:1.8.1") { exclude("org.yaml", "snakeyaml") }
 
 	//persistence
-	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") {exclude("org.glassfish.jaxb", "jaxb-runtime")}
 	implementation("com.h2database:h2")
 	implementation("org.postgresql:postgresql")
