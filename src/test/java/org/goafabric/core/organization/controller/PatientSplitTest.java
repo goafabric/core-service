@@ -20,9 +20,7 @@ public class PatientSplitTest {
     }
 
     private String getGivenName(String name) {
-        if (name == null) {
-            return "";
-        }
+        if (name == null) { return ""; }
         String[] names = name.split(",");
         return names.length == 2 ? names[1].trim() : "";
     }
