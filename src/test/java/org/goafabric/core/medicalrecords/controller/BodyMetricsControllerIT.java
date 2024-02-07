@@ -30,7 +30,7 @@ class BodyMetricsControllerIT {
             new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %")
         );
 
-        var bodyMetric = bodyMetricsController.getById(medicalRecord.relation());
+        var bodyMetric = bodyMetricsController.getById(medicalRecord.specialization());
         assertThat(bodyMetric).isNotNull();
         assertThat(medicalRecordLogic.getById(medicalRecord.id())).isNotNull();
 
@@ -48,7 +48,7 @@ class BodyMetricsControllerIT {
                 new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %")
         );
 
-        var bodyMetric = bodyMetricsLogic.getById(medicalRecord.relation());
+        var bodyMetric = bodyMetricsLogic.getById(medicalRecord.specialization());
         assertThat(bodyMetric).isNotNull();
         assertThat(medicalRecordLogic.getById(medicalRecord.id())).isNotNull();
 

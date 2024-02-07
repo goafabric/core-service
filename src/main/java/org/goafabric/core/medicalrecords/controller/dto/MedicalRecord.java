@@ -7,13 +7,13 @@ public record MedicalRecord (
         MedicalRecordType type,
         String display,
         String code,
-        String relation) implements MedicalRecordAble {
+        String specialization) implements MedicalRecordAble {
     public MedicalRecord(MedicalRecordType type, String display, String code) {
         this(null, null, null, type, display, code, null);
     }
 
-    public MedicalRecord(MedicalRecordType type, String display, String code, String relation) {
-        this(null, null, null, type, display, code, relation);
+    public MedicalRecord(MedicalRecordType type, String display, String code, String specialization) {
+        this(null, null, null, type, display, code, specialization);
     }
 
     @Override

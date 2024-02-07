@@ -40,14 +40,14 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
     }
 
     //save related records, has to be called by related class like bodymetrics
-    public MedicalRecord saveRelatedRecord(String relation, MedicalRecordAble medicalRecordAble) {
+    public MedicalRecord saveRelatedRecord(String specialization, MedicalRecordAble medicalRecordAble) {
         return medicalRecordAble.id() != null
                 ? updateRelatedRecord(medicalRecordAble)
-                : save(new MedicalRecord(medicalRecordAble.type(), medicalRecordAble.toDisplay(), medicalRecordAble.code(), relation));
+                : save(new MedicalRecord(medicalRecordAble.type(), medicalRecordAble.toDisplay(), medicalRecordAble.code(), specialization));
     }
 
     private MedicalRecord updateRelatedRecord(MedicalRecordAble updatedRecord) {
-        var medicalRecord = mapper.map(repository.findByRelation(updatedRecord.id()));
+        var medicalRecord = mapper.map(repository.findBySpecialization(updatedRecord.id()));
         return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(),
                 updatedRecord.toDisplay(), updatedRecord.code(), updatedRecord.id()));
     }
@@ -58,9 +58,9 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
     }
 
     private void deleteRelatedRecords(MedicalRecord medicalRecord) {
-        Optional.ofNullable(medicalRecord.relation())
-                .ifPresent(relation -> applicationContext.getBean(MedicalRecordType.getClassByType(medicalRecord.type()))
-                        .delete(relation));
+        Optional.ofNullable(medicalRecord.specialization())
+                .ifPresent(specialization -> applicationContext.getBean(MedicalRecordType.getClassByType(medicalRecord.type()))
+                        .delete(specialization));
     }
 
 }

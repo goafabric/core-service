@@ -15,17 +15,17 @@ public class MedicalRecordElo {
 
     private String code;
 
-    private String relation;
+    private String specialization;
 
     private MedicalRecordElo() {}
 
-    public MedicalRecordElo(String recordId, String encounterId, String type, String display, String code, String relation) {
+    public MedicalRecordElo(String recordId, String encounterId, String type, String display, String code, String specialization) {
         this.recordId = recordId;
         this.encounterId = encounterId;
         this.type = type;
         this.display = display;
         this.code = code;
-        this.relation = relation;
+        this.specialization = specialization;
     }
 
     public String getRecordId() {
@@ -46,6 +46,10 @@ public class MedicalRecordElo {
 
     public String getCode() {
         return code;
+    }
+
+    public String getSpecialization() {
+        return specialization;
     }
 
     @Override

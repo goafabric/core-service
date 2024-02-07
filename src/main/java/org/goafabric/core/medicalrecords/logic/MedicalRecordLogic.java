@@ -8,7 +8,7 @@ public interface MedicalRecordLogic {
 
     MedicalRecord save(MedicalRecord medicalRecord);
 
-    MedicalRecord saveRelatedRecord(String relation, MedicalRecordAble medicalRecordAble);
+    MedicalRecord saveRelatedRecord(String specialization, MedicalRecordAble medicalRecordAble);
 
     void delete(String id);
 }
