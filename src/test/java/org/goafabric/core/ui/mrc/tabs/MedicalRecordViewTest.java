@@ -1,10 +1,13 @@
-package org.goafabric.core.organization.controller;
+package org.goafabric.core.ui.mrc.tabs;
 
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.goafabric.core.ui.mrc.tabs.MedicalRecordView.getFamilyName;
+import static org.goafabric.core.ui.mrc.tabs.MedicalRecordView.getGivenName;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class PatientSplitTest {
+class MedicalRecordViewTest {
     @Test
     public void patientSplit() {
         assertThat(getFamilyName("")).isEqualTo("");
@@ -15,13 +18,4 @@ public class PatientSplitTest {
         assertThat(getGivenName("Burns, Monty")).isEqualTo("Monty");
     }
 
-    private String getFamilyName(String name) {
-        return name != null ? name.split(",")[0].trim() : "";
-    }
-
-    private String getGivenName(String name) {
-        if (name == null) { return ""; }
-        String[] names = name.split(",");
-        return names.length == 2 ? names[1].trim() : "";
-    }
 }

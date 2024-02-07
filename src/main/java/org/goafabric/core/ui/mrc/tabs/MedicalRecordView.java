@@ -66,7 +66,8 @@ public class MedicalRecordView extends VerticalLayout {
             var filter = query.getFilter().get();
 
             long start = System.currentTimeMillis();
-            var lastNames = patientAdapter.findPatientNamesByFamilyName(filter).stream().map(
+            var lastNames = patientAdapter.findPatientNamesByFamilyName(
+                    getFamilyName(filter), getGivenName(filter)).stream().map(
                     name -> name.getFamilyName() + ", " + name.getGivenName()).limit(query.getLimit());
             Notification.show("Search took " + (System.currentTimeMillis() -start) + " ms");
             return lastNames;
@@ -101,12 +102,23 @@ public class MedicalRecordView extends VerticalLayout {
         this.medicalRecordType = medicalRecordType;
         showEncounter();
     }
+
     private void showEncounter() {
         medicalRecordLayout.removeAll();
-        var familyName = patientFilter.getValue() != null ? patientFilter.getValue().toString().split(",")[0] : "";
         encounterComponent.processEncounters(medicalRecordLayout,
-                patientAdapter.findPatientNamesByFamilyName(familyName), medicalRecordFilter.getValue(), medicalRecordType);
+                patientAdapter.findPatientNamesByFamilyName(getFamilyName(patientFilter.getValue()), getGivenName(patientFilter.getValue())),
+                    medicalRecordFilter.getValue(), medicalRecordType);
     }
 
+
+    static String getFamilyName(Object name) {
+        return name != null ? name.toString().split(",")[0].trim() : "";
+    }
+
+    static String getGivenName(Object name) {
+        if (name == null) { return ""; }
+        String[] names = name.toString().split(",");
+        return names.length == 2 ? names[1].trim() : "";
+    }
 
 }

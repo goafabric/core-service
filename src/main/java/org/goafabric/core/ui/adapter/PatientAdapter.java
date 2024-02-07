@@ -20,8 +20,8 @@ public class PatientAdapter implements SearchAdapter<Patient> {
         return patientLogic.findByFamilyName(search);
     }
 
-    public List<PatientNamesOnly> findPatientNamesByFamilyName(String familyName) {
-        return patientLogic.findByFamilyNameAndGivenName(familyName, "");
+    public List<PatientNamesOnly> findPatientNamesByFamilyName(String familyName, String givenName) {
+        return patientLogic.findByFamilyNameAndGivenName(familyName, givenName);
     }
 
     public void save(Patient patient) {
