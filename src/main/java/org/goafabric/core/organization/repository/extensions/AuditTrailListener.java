@@ -33,7 +33,7 @@ public class AuditTrailListener implements ApplicationContextAware {
 
     record AuditTrail(
             String id,
-            String orgunitId,
+            String organizationId,
             String objectType,
             String objectId,
             DbOperation operation,

@@ -16,7 +16,7 @@ public class EncounterElo {
 
     private Long version;
 
-    private String orgunitId;
+    private String organizationId;
 
     private String patientId;
 
@@ -38,7 +38,7 @@ public class EncounterElo {
         this.practitionerId = practitionerId;
         this.encounterName = encounterName;
         this.encounterDate = encounterDate;
-        this.orgunitId = TenantResolver.getOrgunitId();
+        this.organizationId = TenantResolver.getOrgunitId();
     }
 
     public String getId() {
@@ -50,7 +50,7 @@ public class EncounterElo {
     }
 
     public String getOrgunitId() {
-        return orgunitId;
+        return organizationId;
     }
 
     public String getPatientId() {

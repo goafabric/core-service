@@ -3,7 +3,7 @@ create table patient
 	id varchar(36) not null
 		constraint pk_patient
 			primary key,
-    orgunit_id varchar(36),
+    organization_id varchar(36),
 
 	given_name varchar(255),
 	family_name varchar(255),
@@ -14,7 +14,7 @@ create table patient
     version bigint default 0
 );
 
-create index idx_patient_orgunit_id on patient(orgunit_id);
+create index idx_patient_organization_id on patient(organization_id);
 
 create table practitioner
 (
