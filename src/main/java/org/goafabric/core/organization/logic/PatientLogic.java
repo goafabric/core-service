@@ -45,7 +45,7 @@ public class PatientLogic {
                 mapper.map(patient)));
     }
 
-    //performance optimazation if we only nead the lastnames, otherwise stupid hibernate will fetch 1:n relation with n queries
+    //performance optimazation if we only nead the lastnames, otherwise stupid hibernate will fetch 1:n specialization with n queries
     public List<PatientNamesOnly> findPatientNamesByFamilyName(String search) {
         return repository.findPatientNamesByFamilyNameStartsWithIgnoreCaseOrderByFamilyName(search);
     }

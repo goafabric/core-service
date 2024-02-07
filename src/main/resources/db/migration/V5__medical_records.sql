@@ -26,7 +26,7 @@ create table medical_record
     type varchar(255) not null,
 	display varchar(255),
 	code varchar(255),
-	relation varchar(36),
+	specialization varchar(36),
 
     version bigint default 0
 );

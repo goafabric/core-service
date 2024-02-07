@@ -21,19 +21,19 @@ public class MedicalRecordEo {
 
     private String code;
 
-    private String relation;
+    private String specialization;
 
     @Version //optimistic locking
     private Long version;
 
     private MedicalRecordEo() {}
-    public MedicalRecordEo(String id, String encounterId, String type, String display, String code, String relation, Long version) {
+    public MedicalRecordEo(String id, String encounterId, String type, String display, String code, String specialization, Long version) {
         this.id = id;
         this.encounterId = encounterId;
         this.type = type;
         this.display = display;
         this.code = code;
-        this.relation = relation;
+        this.specialization = specialization;
         this.version = version;
     }
 
@@ -57,8 +57,8 @@ public class MedicalRecordEo {
         return code;
     }
 
-    public String getRelation() {
-        return relation;
+    public String getSpecialization() {
+        return specialization;
     }
 
     public Long getVersion() {
