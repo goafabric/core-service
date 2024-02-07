@@ -8,11 +8,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.ServerHttpObservationFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -24,16 +22,10 @@ import java.util.Map;
 import java.util.Objects;
 
 
-@Component
 public class HttpInterceptor implements HandlerInterceptor {
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
-    private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
+    private static final ThreadLocal<String> organizationId = new ThreadLocal<>();
     private static final ThreadLocal<String> userName = new ThreadLocal<>();
-
-    private static Boolean isAuthenticationEnabled;
-    @Value("${security.authentication.enabled}") void setAuthenticationEnabled(Boolean authenticationEnabled) {
-        isAuthenticationEnabled = authenticationEnabled;
-    }
 
     @Configuration
     static class Configurer implements WebMvcConfigurer {
@@ -45,18 +37,21 @@ public class HttpInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        tenantId.set(request.getHeader("X-TenantId"));
-        configureAuthenticationViaJWT(request.getHeader("X-Access-Token"));
-        configureLogsAndTracing(request);
+        prehandle(request);
         if (handler instanceof HandlerMethod) {
             log.info(" {} method called for user {} ", ((HandlerMethod) handler).getShortLogMessage(), getUserName());
         }
         return true;
     }
 
+    public static void prehandle(HttpServletRequest request) {
+        setOrganizationId(request.getHeader("X-OrganizationId"));
+        configureAuthenticationViaJWT(request.getHeader("X-Access-Token"));
+        configureLogsAndTracing(request);
+    }
+
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        tenantId.remove();
         userName.remove();
         MDC.remove("tenantId");
     }
@@ -66,8 +61,6 @@ public class HttpInterceptor implements HandlerInterceptor {
             var payload = decodeJwt(token);
             Objects.requireNonNull(payload.get("preferred_username"), "Username in JWT is null");
             userName.set(payload.get("preferred_username").toString());
-            //while we could get the tenant from the issuer like this, we shouldn't instead either via X-TenantId passed from Api6
-            //tenantId.set(payload.get("iss").toString().split("realms/")[1].replace("tenant-", ""));
         }
     }
 
@@ -78,15 +71,23 @@ public class HttpInterceptor implements HandlerInterceptor {
     }
 
     public static String getTenantId() {
+        //get TenantId via registrationId of OIDC Provider, this is subject to change and should come from a JWT Claim in the future
         var auth = SecurityContextHolder.getContext().getAuthentication();
         return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId()
                 : "0";
     }
 
+    public static String getOrganizationId() {
+        return organizationId.get() != null ? organizationId.get() : "1"; //tdo
+    }
+
     public static String getUserName() {
         return (SecurityContextHolder.getContext().getAuthentication() != null) && !(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
                 ? SecurityContextHolder.getContext().getAuthentication().getName() : userName.get();
-        //return isAuthenticationEnabled ? SecurityContextHolder.getContext().getAuthentication().getName() : userName.get();
+    }
+
+    private static void setOrganizationId(String organization) {
+        organizationId.set(organization);
     }
 
     private static Map<String, Object> decodeJwt(String token) {

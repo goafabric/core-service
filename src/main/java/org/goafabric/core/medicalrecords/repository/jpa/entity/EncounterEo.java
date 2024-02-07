@@ -48,7 +48,7 @@ public class EncounterEo {
         return id;
     }
 
-    public String getOrgunitId() {
+    public String getOrganizationId() {
         return organizationId;
     }
 

@@ -1,6 +1,6 @@
 package org.goafabric.core.medicalrecords.repository.elastic.repository.entity;
 
-import org.goafabric.core.organization.repository.extensions.TenantResolver;
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -38,7 +38,7 @@ public class EncounterElo {
         this.practitionerId = practitionerId;
         this.encounterName = encounterName;
         this.encounterDate = encounterDate;
-        this.organizationId = TenantResolver.getOrgunitId();
+        this.organizationId = HttpInterceptor.getOrganizationId();
     }
 
     public String getId() {
@@ -49,7 +49,7 @@ public class EncounterElo {
         return version;
     }
 
-    public String getOrgunitId() {
+    public String getOrganizationId() {
         return organizationId;
     }
 

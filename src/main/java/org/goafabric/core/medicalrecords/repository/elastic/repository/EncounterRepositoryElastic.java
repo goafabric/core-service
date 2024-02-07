@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface EncounterRepositoryElastic extends CrudRepository<EncounterElo, String> {
-    List<EncounterElo> findByPatientIdAndOrgunitId(String patientId, String organizationId);
+    List<EncounterElo> findByPatientIdAndOrganizationId(String patientId, String organizationId);
 }
 
