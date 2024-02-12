@@ -28,7 +28,7 @@ import java.util.List;
 @Component
 public class MedicalRecordComponent {
 
-    private final EncounterAdapter encounterLogic;
+    private final EncounterAdapter encounterAdapter;
     private final MedicalRecordAdapter medicalRecordLogic;
 
     private final ConditionAdapter conditionAdapter;
@@ -39,24 +39,20 @@ public class MedicalRecordComponent {
 
     private final ApplicationContext applicationContext;
 
-    public MedicalRecordComponent(EncounterAdapter encounterLogic, MedicalRecordAdapter medicalRecordLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, ApplicationContext applicationContext) {
-        this.encounterLogic = encounterLogic;
+    public MedicalRecordComponent(EncounterAdapter encounterAdapter, MedicalRecordAdapter medicalRecordLogic, ConditionAdapter conditionAdapter, ChargeItemAdapter chargeItemAdapter, ApplicationContext applicationContext) {
+        this.encounterAdapter = encounterAdapter;
         this.medicalRecordLogic = medicalRecordLogic;
         this.conditionAdapter = conditionAdapter;
         this.chargeItemAdapter = chargeItemAdapter;
         this.applicationContext = applicationContext;
     }
 
-    public void processEncounters(VerticalLayout encounterLayout, List<PatientNamesOnly> patients, String display, MedicalRecordType recordType) {
+    public void processEncounters(VerticalLayout encounterLayout, List<PatientNamesOnly> patients, String display, List<MedicalRecordType> recordTypes) {
         if (!patients.isEmpty()) {
             long start = System.currentTimeMillis();
 
             var patientId = patients.get(0).getId();
-            var encounters = encounterLogic.findByPatientIdAndDisplay(patientId, display);
-
-            if (recordType != null) {
-                encounters = filterRecordsInMemory(recordType, encounters);
-            }
+            var encounters = encounterAdapter.findByPatientIdAndDisplayAndType(patientId, display, recordTypes);
 
             if (!encounters.isEmpty()) {
                 encounters.forEach(encounter -> {
@@ -67,12 +63,6 @@ public class MedicalRecordComponent {
 
             Notification.show("Search took " + (System.currentTimeMillis() - start) + " ms");
         }
-    }
-
-    private static List<Encounter> filterRecordsInMemory(MedicalRecordType recordType, List<Encounter> encounters) {
-        return encounters.stream().map(e ->
-                new Encounter(e.id(), e.version(), e.patientId(), e.practitionerId(), e.encounterDate(), e.encounterName(),
-                 e.medicalRecords().stream().filter(record -> record.type().equals(recordType)).toList())).toList();
     }
 
     private void addMedicalRecords(VerticalLayout encounterLayout, Encounter encounter) {

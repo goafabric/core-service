@@ -13,6 +13,9 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.ui.adapter.PatientAdapter;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class MedicalRecordView extends VerticalLayout {
     private final PatientAdapter patientAdapter;
     private final VerticalLayout medicalRecordLayout = new VerticalLayout();
@@ -107,7 +110,7 @@ public class MedicalRecordView extends VerticalLayout {
         medicalRecordLayout.removeAll();
         encounterComponent.processEncounters(medicalRecordLayout,
                 patientAdapter.findPatientNamesByFamilyName(getFamilyName(patientFilter.getValue()), getGivenName(patientFilter.getValue())),
-                    medicalRecordFilter.getValue(), medicalRecordType);
+                    medicalRecordFilter.getValue(), medicalRecordType == null ? new ArrayList<>() : Collections.singletonList(medicalRecordType));
     }
 
 

@@ -33,6 +33,7 @@ public class EncounterLogic implements org.goafabric.core.medicalrecords.logic.E
         return mapper.map(repository.save(mapper.map(encounter)));
     }
 
+    //yuck .. thats not nice
     public List<Encounter> findByPatientIdAndDisplayAndType(String patientId, String text, List<MedicalRecordType> types) {
         var encounters = findByPatientIdAndDisplay(patientId, text);
         return (!types.isEmpty()
