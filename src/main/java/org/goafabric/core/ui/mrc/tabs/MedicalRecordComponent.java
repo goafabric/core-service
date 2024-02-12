@@ -54,14 +54,18 @@ public class MedicalRecordComponent {
             var patientId = patients.get(0).getId();
             var encounters = encounterAdapter.findByPatientIdAndDisplayAndType(patientId, display, recordTypes);
 
-            if (!encounters.isEmpty()) {
-                encounters.forEach(encounter -> {
-                    encounterLayout.add(new HorizontalLayout(new DatePicker(encounter.encounterDate()), new TextField("", encounter.encounterName())));
-                    addMedicalRecords(encounterLayout, encounter);
-                });
-            }
+            processEncounters(encounterLayout, encounters);
 
             Notification.show("Search took " + (System.currentTimeMillis() - start) + " ms");
+        }
+    }
+
+    public void processEncounters(VerticalLayout encounterLayout, List<Encounter> encounters) {
+        if (!encounters.isEmpty()) {
+            encounters.forEach(encounter -> {
+                encounterLayout.add(new HorizontalLayout(new DatePicker(encounter.encounterDate()), new TextField("", encounter.encounterName())));
+                addMedicalRecords(encounterLayout, encounter);
+            });
         }
     }
 

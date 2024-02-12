@@ -11,10 +11,13 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
+import org.goafabric.core.medicalrecords.logic.chatbot.BruteChatBot;
+import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
 import org.goafabric.core.ui.adapter.PatientAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class MedicalRecordView extends VerticalLayout {
     private final PatientAdapter patientAdapter;
@@ -25,11 +28,14 @@ public class MedicalRecordView extends VerticalLayout {
 
     private final MedicalRecordComponent encounterComponent;
 
+    private final BruteChatBot chatBot;
+
     private MedicalRecordType medicalRecordType = null;
 
-    public MedicalRecordView(PatientAdapter patientAdapter, MedicalRecordComponent encounterComponent) {
+    public MedicalRecordView(PatientAdapter patientAdapter, MedicalRecordComponent encounterComponent, BruteChatBot chatBot) {
         this.patientAdapter = patientAdapter;
         this.encounterComponent = encounterComponent;
+        this.chatBot = chatBot;
 
         setSizeFull();
         addPatientsToFilter();
@@ -38,9 +44,29 @@ public class MedicalRecordView extends VerticalLayout {
         this.add(patientFilter);
         this.add(new HorizontalLayout(medicalRecordFilter, createMedicalRecordTypeButtons()));
 
+        addChatField();
+
         //addAddMedicalRecordButton();
 
         doEncounterStuff();
+    }
+
+    private void addChatField() {
+        var chatField = new TextField();
+        chatField.setWidthFull();
+        chatField.setValue("\uD83E\uDD16 Hello ...");
+        this.add(chatField);
+        chatField.addValueChangeListener(value -> {
+            var encounters = chatBot.chat(value.getValue(), getSelectedPatients().getFirst().getId());
+            if (encounters.isEmpty()) {
+                medicalRecordLayout.removeAll();
+                Notification.show("Sorry Dave .. i can't do that for you");
+            } else {
+                Notification.show("I can do that ...");
+                medicalRecordLayout.removeAll();
+                encounterComponent.processEncounters(medicalRecordLayout, encounters);
+            }
+        });
     }
 
     private HorizontalLayout createMedicalRecordTypeButtons() {
@@ -77,11 +103,14 @@ public class MedicalRecordView extends VerticalLayout {
         });
     }
 
+    /*
     private void addAddMedicalRecordButton() {
         var filterAddButton = new Button("+");
         this.add(filterAddButton);
         filterAddButton.addClickListener(event -> addMedicalRecordFilterEntries());
     }
+
+     */
 
     private void addMedicalRecordFilterEntries() {
         var typeCombo = new ComboBox<>("", "Anamnesis", "Diagnosis", "GOÄ");
@@ -109,8 +138,12 @@ public class MedicalRecordView extends VerticalLayout {
     private void showEncounter() {
         medicalRecordLayout.removeAll();
         encounterComponent.processEncounters(medicalRecordLayout,
-                patientAdapter.findPatientNamesByFamilyName(getFamilyName(patientFilter.getValue()), getGivenName(patientFilter.getValue())),
+                getSelectedPatients(),
                     medicalRecordFilter.getValue(), medicalRecordType == null ? new ArrayList<>() : Collections.singletonList(medicalRecordType));
+    }
+
+    private List<PatientNamesOnly> getSelectedPatients() {
+        return patientAdapter.findPatientNamesByFamilyName(getFamilyName(patientFilter.getValue()), getGivenName(patientFilter.getValue()));
     }
 
 
