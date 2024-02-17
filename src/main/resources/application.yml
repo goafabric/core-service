@@ -70,7 +70,7 @@ logging.level.org.springframework: "INFO"
 
 logging.level.org.goafabric: "INFO"
 logging.level.org.flywaydb.core: "INFO"
-logging.level.org.hibernate.SQL: "INFO"
+logging.level.org.hibernate.SQL: "DEBUG"
 #logging.level.tracer: "TRACE"
 
 #profile
