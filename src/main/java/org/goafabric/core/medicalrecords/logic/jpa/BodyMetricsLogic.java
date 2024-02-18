@@ -31,7 +31,7 @@ public class BodyMetricsLogic implements MedicalRecordDeleteAble {
 
     //saves or updates the specific body metrics, as well as the generic related medical_record for search
     public MedicalRecord save(BodyMetrics bodyMetrics) {
-        return medicalRecordLogic.saveRelatedRecord(
+        return medicalRecordLogic.saveSpecializedRecord(
                 repository.save(mapper.map(bodyMetrics)).getId(), bodyMetrics);
     }
 
