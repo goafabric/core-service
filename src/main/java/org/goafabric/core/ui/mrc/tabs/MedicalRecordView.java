@@ -184,7 +184,9 @@ public class MedicalRecordView extends VerticalLayout implements BeforeEnterObse
 
 
     static String getFamilyName(Object name) {
-        return name != null ? name.toString().split(",")[0].trim() : "";
+        if (name == null) { return ""; }
+        String[] names = name.toString().split(",");
+        return names.length > 0 ? names[0].trim() : "";
     }
 
     static String getGivenName(Object name) {
