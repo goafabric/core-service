@@ -20,7 +20,7 @@ public class LockLogic {
 
     public Lock acquireLockByKey(String lockKey) {
         var lockFound = repository.findByLockKey(lockKey);
-        if (lockFound.isPresent()) {  //TDO: check if lock has expired after a certain amount of time and remove or overwrite
+        if (lockFound.isPresent()) {  //we could check here if lock has expired after certain amount of time and overwrite, yet this is dangerous
             var lock = lockFound.get();
             return new Lock(lock.getId(), true, lock.getLockKey(), lock.getLockTime(), lock.getUserName());
         } else {
@@ -28,8 +28,8 @@ public class LockLogic {
             return new Lock(lock.getId(), false, lock.getLockKey(), lock.getLockTime(), lock.getUserName());
         }
     }
-    
-    public void removeLockById(String id) { //its much saver to removed by  id, to avoid unpriviliged views to remove lock
+
+    public void removeLockById(String id) { //its much saver to be removed by id, to avoid unpriviliged views to remove lock
         repository.deleteById(id);
     }
 }
