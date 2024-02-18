@@ -19,6 +19,8 @@ import org.goafabric.core.medicalrecords.logic.chatbot.BruteChatBot;
 import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
 import org.goafabric.core.ui.adapter.LockAdapter;
 import org.goafabric.core.ui.adapter.PatientAdapter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +40,10 @@ public class MedicalRecordView extends VerticalLayout implements BeforeEnterObse
     private final LockAdapter lockAdapter;
 
     private MedicalRecordType medicalRecordType = null;
+
+    private String lockId = null;
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     public MedicalRecordView(PatientAdapter patientAdapter, MedicalRecordComponent encounterComponent, BruteChatBot chatBot, LockAdapter lockAdapter) {
         this.patientAdapter = patientAdapter;
@@ -61,18 +67,23 @@ public class MedicalRecordView extends VerticalLayout implements BeforeEnterObse
     }
 
     public void beforeEnter(BeforeEnterEvent event) {
-        System.err.println("acquire lock");
+        log.info("acquire lock");
         var lock = lockAdapter.acquireLock("MedicalRecordView");
         if (lock.isLocked()) {
-            Notification.show("View is Locked");
+            Notification.show("View is Locked by user: " + lock.userName());
             this.setEnabled(false);
+        } else {
+            lockId = lock.id();
         }
     }
 
     public void beforeLeave(BeforeLeaveEvent event) {
-        if (this.isEnabled()) { //only remove lock if we set it
-            System.err.println("remove lock");
-            lockAdapter.removeLock("MedicalRecordView");
+        if (lockId != null) { //only remove lock if we set it
+            log.info("remove lock");
+            lockAdapter.removeLock(lockId);
+            lockId = null;
+        } else {
+            log.info("lock cannot be removed is null");
         }
     }
 

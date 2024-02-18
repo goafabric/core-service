@@ -13,14 +13,14 @@ public class LockControllerIT {
 
     @Test
     public void acquireLock() {
-        assertThat(lockController.acquireLock("myLock").isLocked()).isFalse();
+        assertThat(lockController.acquireLockByKey("myLock").isLocked()).isFalse();
 
-        var lock = lockController.acquireLock("myLock");
+        var lock = lockController.acquireLockByKey("myLock");
         assertThat(lock).isNotNull();
         assertThat(lock.lockKey()).isEqualTo("myLock");
         assertThat(lock.isLocked()).isTrue();
 
-        lockController.removeLock("myLock");
-        assertThat(lockController.acquireLock("myLock").isLocked()).isFalse();
+        lockController.removeLockById(lock.id());
+        assertThat(lockController.acquireLockByKey("myLock").isLocked()).isFalse();
     }
 }
