@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import org.goafabric.core.organization.repository.extensions.AuditTrailListener;
 import org.hibernate.annotations.TenantId;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "locks")
@@ -18,13 +18,13 @@ public class LockEo {
     @TenantId
     private String organizationId;
 
-    private String      lockKey;
-    private LocalDate   lockTime;
-    private String      userName;
+    private String          lockKey;
+    private LocalDateTime   lockTime;
+    private String          userName;
 
     private LockEo() {}
 
-    public LockEo(String id, String lockKey, LocalDate lockTime, String userName) {
+    public LockEo(String id, String lockKey, LocalDateTime lockTime, String userName) {
         this.id = id;
         this.lockKey = lockKey;
         this.lockTime = lockTime;
@@ -43,15 +43,11 @@ public class LockEo {
         return lockKey;
     }
 
-    public LocalDate getLockTime() {
+    public LocalDateTime getLockTime() {
         return lockTime;
     }
 
     public String getUserName() {
         return userName;
-    }
-
-    public Boolean getIsLocked() {
-        return id != null;
     }
 }

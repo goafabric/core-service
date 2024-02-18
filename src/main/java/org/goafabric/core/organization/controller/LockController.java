@@ -15,11 +15,11 @@ public class LockController {
         this.logic = logic;
     }
 
-    public Lock acquireLock(String lockKey) {
-        return logic.acquireLock(lockKey);
+    public Lock acquireLockByKey(String lockKey) {
+        return logic.acquireLockByKey(lockKey);
     }
 
-    public void removeLock(String lockKey) {
-        logic.removeLock(lockKey);
+    public void removeLockById(String lockKey) {
+        logic.removeLockById(lockKey);
     }
 }
