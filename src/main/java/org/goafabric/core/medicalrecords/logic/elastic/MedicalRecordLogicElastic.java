@@ -62,25 +62,25 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
         );
     }
 
-    //save related records, has to be called by related class like bodymetrics
-    public MedicalRecord saveRelatedRecord(String specialization, MedicalRecordAble medicalRecordAble) {
+    //save Specialized records, has to be called by Specialized class like bodymetrics
+    public MedicalRecord saveSpecializedRecord(String specialization, MedicalRecordAble medicalRecordAble) {
         return medicalRecordAble.id() != null
-                ? updateRelatedRecord(medicalRecordAble)
+                ? updateSpecializedRecord(medicalRecordAble)
                 : save(new MedicalRecord(medicalRecordAble.type(), medicalRecordAble.toDisplay(), medicalRecordAble.code(), specialization));
     }
 
-    private MedicalRecord updateRelatedRecord(MedicalRecordAble updatedRecord) {
+    private MedicalRecord updateSpecializedRecord(MedicalRecordAble updatedRecord) {
         var medicalRecord = mapper.map(repository.findBySpecialization(updatedRecord.id()));
         return save(new MedicalRecord(medicalRecord.id(), medicalRecord.encounterId(), medicalRecord.version(), medicalRecord.type(),
                 updatedRecord.toDisplay(), updatedRecord.code(), updatedRecord.id()));
     }
 
     public void delete(String id) {
-        deleteRelatedRecords(getById(id));
+        deleteSpecializedRecords(getById(id));
         repository.deleteById(id);
     }
 
-    private void deleteRelatedRecords(MedicalRecord medicalRecord) {
+    private void deleteSpecializedRecords(MedicalRecord medicalRecord) {
         Optional.ofNullable(medicalRecord.specialization())
                 .ifPresent(specialization -> applicationContext.getBean(MedicalRecordType.getClassByType(medicalRecord.type()))
                         .delete(specialization));
