@@ -20,7 +20,7 @@ public class LockLogic {
 
     public Lock acquireLockByKey(String lockKey) {
         var lockFound = repository.findByLockKey(lockKey);
-        if (lockFound.isPresent()) {  //TDO: check if lock has expired after a certain amount of time and remove or overwrite
+        if (lockFound.isPresent()) {  //we could check here if lock has expired after certain amount of time and overwrite, yet this is dangerous
             var lock = lockFound.get();
             return new Lock(lock.getId(), true, lock.getLockKey(), lock.getLockTime(), lock.getUserName());
         } else {
