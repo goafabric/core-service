@@ -29,7 +29,7 @@ public class LockLogic {
         }
     }
 
-    public void removeLockById(String id) { //its much saver to removed by  id, to avoid unpriviliged views to remove lock
+    public void removeLockById(String id) { //its much saver to be removed by id, to avoid unpriviliged views to remove lock
         repository.deleteById(id);
     }
 }
