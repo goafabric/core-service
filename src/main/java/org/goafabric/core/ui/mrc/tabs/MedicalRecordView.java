@@ -10,16 +10,21 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.provider.CallbackDataProvider;
 import com.vaadin.flow.data.value.ValueChangeMode;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.BeforeLeaveEvent;
+import com.vaadin.flow.router.BeforeLeaveObserver;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.chatbot.BruteChatBot;
 import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
+import org.goafabric.core.ui.adapter.LockAdapter;
 import org.goafabric.core.ui.adapter.PatientAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MedicalRecordView extends VerticalLayout {
+public class MedicalRecordView extends VerticalLayout implements BeforeEnterObserver, BeforeLeaveObserver {
     private final PatientAdapter patientAdapter;
     private final VerticalLayout medicalRecordLayout = new VerticalLayout();
 
@@ -30,12 +35,16 @@ public class MedicalRecordView extends VerticalLayout {
 
     private final BruteChatBot chatBot;
 
+    private final LockAdapter lockAdapter;
+
     private MedicalRecordType medicalRecordType = null;
 
-    public MedicalRecordView(PatientAdapter patientAdapter, MedicalRecordComponent encounterComponent, BruteChatBot chatBot) {
+    public MedicalRecordView(PatientAdapter patientAdapter, MedicalRecordComponent encounterComponent, BruteChatBot chatBot, LockAdapter lockAdapter) {
         this.patientAdapter = patientAdapter;
         this.encounterComponent = encounterComponent;
         this.chatBot = chatBot;
+        this.lockAdapter = lockAdapter;
+
 
         setSizeFull();
         addPatientsToFilter();
@@ -49,6 +58,22 @@ public class MedicalRecordView extends VerticalLayout {
         //addAddMedicalRecordButton();
 
         doEncounterStuff();
+    }
+
+    public void beforeEnter(BeforeEnterEvent event) {
+        System.err.println("acquire lock");
+        var lock = lockAdapter.acquireLock("MedicalRecordView");
+        if (lock.isLocked()) {
+            Notification.show("View is Locked");
+            this.setEnabled(false);
+        }
+    }
+
+    public void beforeLeave(BeforeLeaveEvent event) {
+        if (this.isEnabled()) { //only remove lock if we set it
+            System.err.println("remove lock");
+            lockAdapter.removeLock("MedicalRecordView");
+        }
     }
 
     private void addChatField() {
