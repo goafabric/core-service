@@ -70,7 +70,7 @@ dependencies {
 	implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1") {exclude("software.amazon.awssdk", "netty-nio-client")}
 
 	//vaadin
-	implementation("com.vaadin:vaadin-spring-boot-starter:24.3.1")
+	implementation("com.vaadin:vaadin-spring-boot-starter:24.3.5")
 
 	//devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
