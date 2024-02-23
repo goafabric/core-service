@@ -5,7 +5,7 @@ version = "1.2.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 val dockerRegistry = "goafabric"
-val nativeBuilder = "dashaun/builder:20231204"
+val nativeBuilder = "dashaun/builder:20240205"
 val baseImage = "ibm-semeru-runtimes:open-21.0.1_12-jre-focal@sha256:24d43669156684f7bc28536b22537a7533ab100bf0a5a89702b987ebb53215be"
 
 plugins {
@@ -29,7 +29,7 @@ dependencies {
 		implementation("org.mapstruct:mapstruct:1.5.5.Final")
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.5.5.Final")
 		implementation("io.github.resilience4j:resilience4j-spring-boot3:2.1.0")
-		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.0.2")
+		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.0.3")
 	}
 }
 dependencies {
