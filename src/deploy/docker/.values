@@ -4,8 +4,7 @@ _Values_image_repository=goafabric/core-service
 _Values_image_tag=1.2.3-SNAPSHOT
 
 _Values_service_port=50800
-_Values_resources_entrypoint="java -Xms256M -Xmx256M -cp /app/resources:/app/classes:/app/libs/* org.goafabric.core.Application"
-_Values_resources_entrypoint_native="/app/application -Xmx64m"
+_Values_resources_requests_memory=64M
 
 _Values_health_check_disabled=false
 
