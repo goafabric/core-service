@@ -1,6 +1,5 @@
 package org.goafabric.core;
 
-import io.awspring.cloud.autoconfigure.core.AwsAutoConfiguration;
 import io.micrometer.observation.ObservationPredicate;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +13,7 @@ import org.springframework.http.server.observation.ServerRequestObservationConte
  * Created by amautsch on 26.06.2015.
  */
 
-@SpringBootApplication(exclude = AwsAutoConfiguration.class)
+@SpringBootApplication
 public class Application {
 
     public static void main(String[] args){
