@@ -17,19 +17,19 @@ import java.util.List;
 
 @Component
 @RegisterReflectionForBinding({ListBucketResult.class, ListBucketsResult.class}) //implementation("am.ik.s3:simple-s3-client:0.1.1") {exclude("org.springframework", "spring-web")}
-public class ObjectStorageLogicNative {
+public class ObjectStorageLogic {
 
     private final Boolean   s3Enabled;
     private final String    schemaPrefix;
     private final S3Client  s3Client;
     private final List<ObjectEntry> objectEntriesInMem = new ArrayList<>();
 
-    public ObjectStorageLogicNative(@Value("${spring.cloud.aws.s3.enabled}") Boolean s3Enabled,
-                                    @Value("${multi-tenancy.schema-prefix:}") String schemaPrefix,
-                                    @Value("${spring.cloud.aws.s3.endpoint}") String endPoint,
-                                    @Value("${spring.cloud.aws.region.static}") String region,
-                                    @Value("${spring.cloud.aws.credentials.access-key}") String accessKey,
-                                    @Value("${spring.cloud.aws.credentials.secret-key}") String secretKey) {
+    public ObjectStorageLogic(@Value("${spring.cloud.aws.s3.enabled}") Boolean s3Enabled,
+                              @Value("${multi-tenancy.schema-prefix:}") String schemaPrefix,
+                              @Value("${spring.cloud.aws.s3.endpoint}") String endPoint,
+                              @Value("${spring.cloud.aws.region.static}") String region,
+                              @Value("${spring.cloud.aws.credentials.access-key}") String accessKey,
+                              @Value("${spring.cloud.aws.credentials.secret-key}") String secretKey) {
         this.s3Enabled = s3Enabled;
         this.schemaPrefix = schemaPrefix;
         this.s3Client = new S3Client(new RestTemplate(), URI.create(endPoint), region, accessKey, secretKey);
