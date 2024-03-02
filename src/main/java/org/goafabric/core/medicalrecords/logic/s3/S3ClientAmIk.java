@@ -30,7 +30,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-public class AmIkS3Client {
+public class S3ClientAmIk {
 
 	private final RestTemplate restTemplate;
 
@@ -48,8 +48,8 @@ public class AmIkS3Client {
 
 	private Clock clock = Clock.systemUTC();
 
-	public AmIkS3Client(RestTemplate restTemplate, URI endpoint, String region, String accessKeyId,
-                        String secretAccessKey) {
+	public S3ClientAmIk(RestTemplate restTemplate, URI endpoint, String region, String accessKeyId,
+						String secretAccessKey) {
 		this.restTemplate = restTemplate;
 		this.endpoint = endpoint;
 		this.region = region;
