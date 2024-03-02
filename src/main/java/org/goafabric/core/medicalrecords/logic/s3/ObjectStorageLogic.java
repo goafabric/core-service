@@ -41,7 +41,6 @@ public class ObjectStorageLogic {
         return new ObjectEntry(id, response.getHeaders().getFirst("Content-Type"), (long) data.length, data);
     }
 
-
     public List<ObjectEntry> search(String search) {
         if (!s3Enabled) { return objectEntriesInMem.stream().filter(o -> o.objectName().startsWith(search)).toList(); }
 
