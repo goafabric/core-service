@@ -104,7 +104,6 @@ public class AmIkS3Client {
 		RequestEntity<Void> request = this.requestEntity(HttpMethod.GET,
 				"/%s/%s".formatted(bucketName, encodePath(key)), "");
 		return restTemplate.exchange(request, byte[].class);
-		//var contentType = response.getHeaders().get("Content-Type").getFirst();
 	}
 
 	public void deleteObject(String bucketName, String key) {
