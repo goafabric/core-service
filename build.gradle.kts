@@ -67,7 +67,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
 	//s3
-	//implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1") {exclude("software.amazon.awssdk", "netty-nio-client")}
 	//implementation("am.ik.s3:simple-s3-client:0.1.1") {exclude("org.springframework", "spring-web")}
 	implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 
