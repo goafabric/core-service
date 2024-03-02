@@ -33,13 +33,14 @@ public class ObjectStorageLogic {
         this.s3Client = new AmIkS3Client(new RestTemplate(), URI.create(endPoint), region, accessKey, secretKey);
     }
 
-
     public ObjectEntry getById(String id) {
         if (!s3Enabled) { return objectEntriesInMem.stream().filter(o -> o.objectName().equals(id)).findFirst().get(); }
 
-        var data = s3Client.getObject(getBucketName(), id);
-        return new ObjectEntry(id, null, (long) data.length, data);
+        var response = s3Client.getObjectAndMetadata(getBucketName(), id);
+        var data = response.getBody();
+        return new ObjectEntry(id, response.getHeaders().getFirst("Content-Type"), (long) data.length, data);
     }
+
 
     public List<ObjectEntry> search(String search) {
         if (!s3Enabled) { return objectEntriesInMem.stream().filter(o -> o.objectName().startsWith(search)).toList(); }
