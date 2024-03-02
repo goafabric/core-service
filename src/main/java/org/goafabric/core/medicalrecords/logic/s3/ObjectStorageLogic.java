@@ -1,8 +1,6 @@
-package org.goafabric.core.medicalrecords.controller;
+package org.goafabric.core.medicalrecords.logic.s3;
 
-import am.ik.s3.ListBucketResult;
-import am.ik.s3.ListBucketsResult;
-import am.ik.s3.S3Client;
+
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
@@ -16,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@RegisterReflectionForBinding({ListBucketResult.class, ListBucketsResult.class}) //implementation("am.ik.s3:simple-s3-client:0.1.1") {exclude("org.springframework", "spring-web")}
+@RegisterReflectionForBinding({AmIkS3Client.ListBucketResult.class, AmIkS3Client.ListBucketsResult.class}) //implementation("am.ik.s3:simple-s3-client:0.1.1") {exclude("org.springframework", "spring-web")}
 public class ObjectStorageLogic {
 
     private final Boolean   s3Enabled;
     private final String    schemaPrefix;
-    private final S3Client  s3Client;
+    private final AmIkS3Client  s3Client;
     private final List<ObjectEntry> objectEntriesInMem = new ArrayList<>();
 
     public ObjectStorageLogic(@Value("${spring.cloud.aws.s3.enabled}") Boolean s3Enabled,
@@ -32,7 +30,7 @@ public class ObjectStorageLogic {
                               @Value("${spring.cloud.aws.credentials.secret-key}") String secretKey) {
         this.s3Enabled = s3Enabled;
         this.schemaPrefix = schemaPrefix;
-        this.s3Client = new S3Client(new RestTemplate(), URI.create(endPoint), region, accessKey, secretKey);
+        this.s3Client = new AmIkS3Client(new RestTemplate(), URI.create(endPoint), region, accessKey, secretKey);
     }
 
 
