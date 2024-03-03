@@ -1,8 +1,6 @@
 package org.goafabric.core.medicalrecords.logic.s3;
 
-import am.ik.s3.ListBucketResult;
-import am.ik.s3.ListBucketsResult;
-import am.ik.s3.S3Client;
+
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
@@ -16,12 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@RegisterReflectionForBinding({ListBucketResult.class, ListBucketsResult.class}) //implementation("am.ik.s3:simple-s3-client:0.1.1") {exclude("org.springframework", "spring-web")}
+@RegisterReflectionForBinding({S3ClientAmIk.ListBucketResult.class, S3ClientAmIk.ListBucketsResult.class}) //implementation("am.ik.s3:simple-s3-client:0.1.1") {exclude("org.springframework", "spring-web")}
 public class ObjectStorageLogic {
 
     private final Boolean   s3Enabled;
     private final String    schemaPrefix;
-    private final S3Client  s3Client;
+    private final S3ClientAmIk s3Client;
     private final List<ObjectEntry> objectEntriesInMem = new ArrayList<>();
 
     public ObjectStorageLogic(@Value("${spring.cloud.aws.s3.enabled}") Boolean s3Enabled,
@@ -32,15 +30,15 @@ public class ObjectStorageLogic {
                               @Value("${spring.cloud.aws.credentials.secret-key}") String secretKey) {
         this.s3Enabled = s3Enabled;
         this.schemaPrefix = schemaPrefix;
-        this.s3Client = new S3Client(new RestTemplate(), URI.create(endPoint), region, accessKey, secretKey);
+        this.s3Client = new S3ClientAmIk(new RestTemplate(), URI.create(endPoint), region, accessKey, secretKey);
     }
-
 
     public ObjectEntry getById(String id) {
         if (!s3Enabled) { return objectEntriesInMem.stream().filter(o -> o.objectName().equals(id)).findFirst().get(); }
 
-        var data = s3Client.getObject(getBucketName(), id);
-        return new ObjectEntry(id, null, (long) data.length, data);
+        var response = s3Client.getObjectAndMetadata(getBucketName(), id);
+        var data = response.getBody();
+        return new ObjectEntry(id, response.getHeaders().getFirst("Content-Type"), (long) data.length, data);
     }
 
     public List<ObjectEntry> search(String search) {

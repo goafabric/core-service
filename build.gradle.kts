@@ -1,7 +1,7 @@
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
 group = "org.goafabric"
-version = "1.2.3-vaadin-SNAPSHOT"
+version = "1.2.3-vaadin-s3-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_21
 
 val dockerRegistry = "goafabric"
@@ -67,8 +67,8 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
 	//s3
-	//implementation("io.awspring.cloud:spring-cloud-aws-starter-s3:3.0.1") {exclude("software.amazon.awssdk", "netty-nio-client")}
-	implementation("am.ik.s3:simple-s3-client:0.1.1") {exclude("org.springframework", "spring-web")}
+	//implementation("am.ik.s3:simple-s3-client:0.1.1") {exclude("org.springframework", "spring-web")}
+	implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
 
 	//vaadin
 	implementation("com.vaadin:vaadin-spring-boot-starter:24.3.5")
