@@ -24,7 +24,7 @@ create table roles
 create table user_role
 (
     -- PRIMARY KEY (user_id, role_id),
-    CONSTRAINT unique_user_role UNIQUE (user_id, role_id),
+    constraint unique_user_role unique (user_id, role_id),
     user_id varchar(36),
     role_id varchar(36)
 );
