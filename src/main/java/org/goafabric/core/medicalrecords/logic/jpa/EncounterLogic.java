@@ -2,6 +2,7 @@ package org.goafabric.core.medicalrecords.logic.jpa;
 
 import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
+import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.jpa.mapper.EncounterMapper;
 import org.goafabric.core.medicalrecords.repository.jpa.EncounterRepository;
 import org.h2.util.StringUtils;
@@ -30,6 +31,16 @@ public class EncounterLogic implements org.goafabric.core.medicalrecords.logic.E
 
     public Encounter save(Encounter encounter) {
         return mapper.map(repository.save(mapper.map(encounter)));
+    }
+
+    //yuck .. thats not nice
+    public List<Encounter> findByPatientIdAndDisplayAndType(String patientId, String text, List<MedicalRecordType> types) {
+        var encounters = findByPatientIdAndDisplay(patientId, text);
+        return (!types.isEmpty()
+                ? encounters.stream().map(e ->
+                new Encounter(e.id(), e.version(), e.patientId(), e.practitionerId(), e.encounterDate(), e.encounterName(),
+                        e.medicalRecords().stream().filter(record -> types.contains(record.type())).toList())).toList()
+                : encounters);
     }
 
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
