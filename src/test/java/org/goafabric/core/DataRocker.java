@@ -1,23 +1,17 @@
 package org.goafabric.core;
 
+import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.organization.controller.dto.*;
 import org.goafabric.core.organization.controller.dto.types.AddressUse;
 import org.goafabric.core.organization.controller.dto.types.ContactPointSystem;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 public class DataRocker {
     public static void setTenantId(String tenantId) {
-        SecurityContextHolder.getContext().setAuthentication(
-                new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name")
-                        , new ArrayList<>(), tenantId));
+        HttpInterceptor.setTenantId(tenantId);
     }
 
     public static Patient createPatient(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {

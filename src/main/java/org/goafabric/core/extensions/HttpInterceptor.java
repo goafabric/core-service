@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.web.filter.ServerHttpObservationFilter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -24,6 +23,7 @@ import java.util.Objects;
 
 public class HttpInterceptor implements HandlerInterceptor {
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
+    private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
     private static final ThreadLocal<String> organizationId = new ThreadLocal<>();
     private static final ThreadLocal<String> userName = new ThreadLocal<>();
 
@@ -45,6 +45,7 @@ public class HttpInterceptor implements HandlerInterceptor {
     }
 
     public static void prehandle(HttpServletRequest request) {
+        setTenantId(request.getHeader("X-TenantId"));
         setOrganizationId(request.getHeader("X-OrganizationId"));
         configureAuthenticationViaJWT(request.getHeader("X-Access-Token"));
         configureLogsAndTracing(request);
@@ -52,7 +53,7 @@ public class HttpInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        userName.remove();
+        tenantId.remove();
         organizationId.remove();
         MDC.remove("tenantId");
     }
@@ -72,10 +73,9 @@ public class HttpInterceptor implements HandlerInterceptor {
     }
 
     public static String getTenantId() {
-        //get TenantId via registrationId of OIDC Provider, this is subject to change and should come from a JWT Claim in the future
-        var auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId()
-                : "0";
+        return tenantId.get() != null ? tenantId.get() : "0"; //tdo
+        //var auth = SecurityContextHolder.getContext().getAuthentication();
+        //return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId() : "0";
     }
 
     public static String getOrganizationId() {
@@ -85,6 +85,11 @@ public class HttpInterceptor implements HandlerInterceptor {
     public static String getUserName() {
         return (SecurityContextHolder.getContext().getAuthentication() != null) && !(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
                 ? SecurityContextHolder.getContext().getAuthentication().getName() : userName.get();
+    }
+
+    public static void setTenantId(String tenant) {
+        tenantId.set(tenant);
+        //SecurityContextHolder.getContext().setAuthentication(new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name"), new ArrayList<>(), tenant));
     }
 
     private static void setOrganizationId(String organization) {
