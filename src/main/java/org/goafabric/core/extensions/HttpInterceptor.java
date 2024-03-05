@@ -83,7 +83,7 @@ public class HttpInterceptor implements HandlerInterceptor {
     }
 
     public static String getUserName() {
-        return (SecurityContextHolder.getContext().getAuthentication() != null)
+        return (SecurityContextHolder.getContext().getAuthentication() != null) && !(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
                 ? SecurityContextHolder.getContext().getAuthentication().getName() : userName.get();
     }
 
