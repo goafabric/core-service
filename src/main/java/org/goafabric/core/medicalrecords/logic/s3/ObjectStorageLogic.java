@@ -54,7 +54,7 @@ public class ObjectStorageLogic {
     }
 
     public void save(ObjectEntry objectEntry) {
-        if (!s3Enabled) { objectEntriesInMem.add(objectEntry); }
+        if (!s3Enabled) { objectEntriesInMem.add(objectEntry); return; }
 
         createBucketIfNotExists(getBucketName());
         s3Client.putObject(getBucketName(), objectEntry.objectName(), objectEntry.data(),
