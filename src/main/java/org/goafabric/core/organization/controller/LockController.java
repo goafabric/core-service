@@ -5,7 +5,7 @@ import org.goafabric.core.organization.logic.LockLogic;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping(value = "/lock", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/locks", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class LockController {
     private final LockLogic logic;
@@ -20,7 +20,7 @@ public class LockController {
     }
 
     @DeleteMapping("removeLockById")
-    public void removeLockById(@RequestParam String lockKey) {
-        logic.removeLockById(lockKey);
+    public void removeLockById(@RequestParam String lockId) {
+        logic.removeLockById(lockId);
     }
 }
