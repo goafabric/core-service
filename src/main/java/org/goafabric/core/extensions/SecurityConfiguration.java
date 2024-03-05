@@ -30,14 +30,14 @@ public class SecurityConfiguration {
     @Value("${spring.security.oauth2.client-secret}") private String clientSecret;
     @Value("${spring.security.oauth2.user-name-attribute:}") private String userNameAttribute;
 
-    private static final String REGISTRATION_ID = "0"; //we are always using a fixed Registration ID here
+    private static final String TENANT_ID = "0"; //we are always using a fixed Registration ID here
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         if (isAuthenticationEnabled) {
             var clientRegistrationRepository = new TenantClientRegistrationRepository();
             var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
-            logoutHandler.setPostLogoutRedirectUri("{baseUrl}/oauth2/authorization/" + REGISTRATION_ID); //yeah that's right, we need baseUrl here, because it's an absolute url and below its a relative url - WTF
+            logoutHandler.setPostLogoutRedirectUri("{baseUrl}/oauth2/authorization/" + TENANT_ID); //yeah that's right, we need baseUrl here, because it's an absolute url and below its a relative url - WTF
             http
                     .authorizeHttpRequests(authorize -> authorize
                             .requestMatchers(new MvcRequestMatcher(introspector, "/"), new MvcRequestMatcher(introspector, "actuator/**"), new MvcRequestMatcher(introspector, "/login.html")).permitAll()
@@ -49,7 +49,7 @@ public class SecurityConfiguration {
                     .logout(l -> l.logoutSuccessHandler(logoutHandler))
                     .csrf(c -> c.disable())
                     .exceptionHandling(exception ->
-                            exception.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/oauth2/authorization/" + REGISTRATION_ID)));
+                            exception.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/oauth2/authorization/" + TENANT_ID)));
         } else {
             http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).csrf(csrf -> csrf.disable());
         }
@@ -62,7 +62,7 @@ public class SecurityConfiguration {
         
         @Override
         public ClientRegistration findByRegistrationId(String registrationId) {
-            return clientRegistrations.computeIfAbsent(REGISTRATION_ID, this::buildClientRegistration);
+            return clientRegistrations.computeIfAbsent(TENANT_ID, this::buildClientRegistration);
         }
 
         private ClientRegistration buildClientRegistration(String tenantId) {
