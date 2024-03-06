@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/roles", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class RoleController {
     private final RoleLogic logic;
