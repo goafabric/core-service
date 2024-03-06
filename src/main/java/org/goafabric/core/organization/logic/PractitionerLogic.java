@@ -2,7 +2,7 @@ package org.goafabric.core.organization.logic;
 
 import org.goafabric.core.organization.controller.dto.Practitioner;
 import org.goafabric.core.organization.logic.mapper.PractitionerMapper;
-import org.goafabric.core.organization.repository.PractitionerRepository;
+import org.goafabric.core.organization.persistence.PractitionerRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

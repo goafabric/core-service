@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.logic.mapper;
 
 import org.goafabric.core.organization.controller.dto.Lock;
-import org.goafabric.core.organization.repository.entity.LockEo;
+import org.goafabric.core.organization.persistence.entity.LockEo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

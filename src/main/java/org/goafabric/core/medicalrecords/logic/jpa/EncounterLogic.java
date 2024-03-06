@@ -4,7 +4,7 @@ import jakarta.transaction.Transactional;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.jpa.mapper.EncounterMapper;
-import org.goafabric.core.medicalrecords.repository.jpa.EncounterRepository;
+import org.goafabric.core.medicalrecords.persistence.jpa.EncounterRepository;
 import org.h2.util.StringUtils;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

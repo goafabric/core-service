@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.logic.mapper;
 
 import org.goafabric.core.organization.controller.dto.Practitioner;
-import org.goafabric.core.organization.repository.entity.PractitionerEo;
+import org.goafabric.core.organization.persistence.entity.PractitionerEo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

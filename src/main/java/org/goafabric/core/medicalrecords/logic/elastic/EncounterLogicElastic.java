@@ -6,7 +6,7 @@ import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.EncounterLogic;
 import org.goafabric.core.medicalrecords.logic.elastic.mapper.EncounterMapperElastic;
-import org.goafabric.core.medicalrecords.repository.elastic.repository.EncounterRepositoryElastic;
+import org.goafabric.core.medicalrecords.persistence.elastic.repository.EncounterRepositoryElastic;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
