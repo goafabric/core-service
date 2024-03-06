@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.persistence;
 
-import org.goafabric.core.organization.persistence.entity.PatientEo;
 import org.goafabric.core.organization.persistence.entity.PatientNamesOnly;
+import org.goafabric.core.organization.persistence.entity.PatientEo;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 

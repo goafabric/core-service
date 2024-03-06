@@ -3,10 +3,9 @@ package org.goafabric.core.organization.controller;
 import org.goafabric.core.organization.controller.dto.Lock;
 import org.goafabric.core.organization.logic.LockLogic;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RequestMapping(value = "/lock", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/locks", produces = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 public class LockController {
     private final LockLogic logic;
@@ -15,11 +14,13 @@ public class LockController {
         this.logic = logic;
     }
 
-    public Lock acquireLockByKey(String lockKey) {
+    @GetMapping("acquireLockByKey")
+    public Lock acquireLockByKey(@RequestParam String lockKey) {
         return logic.acquireLockByKey(lockKey);
     }
 
-    public void removeLockById(String lockKey) {
-        logic.removeLockById(lockKey);
+    @DeleteMapping("removeLockById")
+    public void removeLockById(@RequestParam String lockId) {
+        logic.removeLockById(lockId);
     }
 }
