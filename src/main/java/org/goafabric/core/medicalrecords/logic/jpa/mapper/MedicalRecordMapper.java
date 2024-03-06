@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.logic.jpa.mapper;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.repository.jpa.entity.MedicalRecordEo;
+import org.goafabric.core.medicalrecords.persistence.jpa.entity.MedicalRecordEo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

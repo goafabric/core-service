@@ -6,7 +6,7 @@ import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.MedicalRecordLogic;
-import org.goafabric.core.medicalrecords.repository.jpa.EncounterRepository;
+import org.goafabric.core.medicalrecords.persistence.jpa.EncounterRepository;
 import org.goafabric.core.organization.controller.PatientController;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;

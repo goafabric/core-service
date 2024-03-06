@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.logic.chatbot;
 
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
-import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
+import org.goafabric.core.organization.persistence.entity.PatientNamesOnly;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.logic.elastic.mapper;
 
 
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
-import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.EncounterElo;
+import org.goafabric.core.medicalrecords.persistence.elastic.repository.entity.EncounterElo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

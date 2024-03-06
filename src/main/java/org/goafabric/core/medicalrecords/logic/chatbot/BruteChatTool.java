@@ -5,7 +5,7 @@ import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.jpa.EncounterLogic;
 import org.goafabric.core.organization.logic.PatientLogic;
-import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
+import org.goafabric.core.organization.persistence.entity.PatientNamesOnly;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -16,7 +16,7 @@ import com.vaadin.flow.router.BeforeLeaveEvent;
 import com.vaadin.flow.router.BeforeLeaveObserver;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.chatbot.BruteChatBot;
-import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
+import org.goafabric.core.organization.persistence.entity.PatientNamesOnly;
 import org.goafabric.core.ui.adapter.LockAdapter;
 import org.goafabric.core.ui.adapter.PatientAdapter;
 import org.slf4j.Logger;

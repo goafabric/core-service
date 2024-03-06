@@ -2,7 +2,7 @@ package org.goafabric.core.ui.adapter;
 
 import org.goafabric.core.organization.controller.dto.Patient;
 import org.goafabric.core.organization.logic.PatientLogic;
-import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
+import org.goafabric.core.organization.persistence.entity.PatientNamesOnly;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

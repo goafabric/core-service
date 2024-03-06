@@ -2,8 +2,8 @@ package org.goafabric.core.organization.logic;
 
 import org.goafabric.core.extensions.HttpInterceptor;
 import org.goafabric.core.organization.controller.dto.Lock;
-import org.goafabric.core.organization.repository.LockRepository;
-import org.goafabric.core.organization.repository.entity.LockEo;
+import org.goafabric.core.organization.persistence.LockRepository;
+import org.goafabric.core.organization.persistence.entity.LockEo;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
