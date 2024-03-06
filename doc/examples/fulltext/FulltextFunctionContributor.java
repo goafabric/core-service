@@ -1,4 +1,4 @@
-package org.goafabric.core.medicalrecords.repository;
+package org.goafabric.core.medicalrecords.persistence;
 
 import org.hibernate.boot.model.FunctionContributions;
 import org.hibernate.boot.model.FunctionContributor;

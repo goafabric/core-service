@@ -3,7 +3,7 @@ package org.goafabric.core.organization.controller;
 import jakarta.validation.Valid;
 import org.goafabric.core.organization.controller.dto.Patient;
 import org.goafabric.core.organization.logic.PatientLogic;
-import org.goafabric.core.organization.repository.entity.PatientNamesOnly;
+import org.goafabric.core.organization.persistence.entity.PatientNamesOnly;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 

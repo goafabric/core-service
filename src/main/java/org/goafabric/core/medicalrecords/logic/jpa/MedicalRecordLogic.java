@@ -5,7 +5,7 @@ import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordAble;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
 import org.goafabric.core.medicalrecords.logic.jpa.mapper.MedicalRecordMapper;
-import org.goafabric.core.medicalrecords.repository.jpa.MedicalRecordRepository;
+import org.goafabric.core.medicalrecords.persistence.jpa.MedicalRecordRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;

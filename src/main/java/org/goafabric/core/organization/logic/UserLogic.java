@@ -2,7 +2,7 @@ package org.goafabric.core.organization.logic;
 
 import org.goafabric.core.organization.controller.dto.User;
 import org.goafabric.core.organization.logic.mapper.UserMapper;
-import org.goafabric.core.organization.repository.UserRepository;
+import org.goafabric.core.organization.persistence.UserRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

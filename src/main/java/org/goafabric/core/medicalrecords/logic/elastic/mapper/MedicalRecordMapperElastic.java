@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.logic.elastic.mapper;
 
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
-import org.goafabric.core.medicalrecords.repository.elastic.repository.entity.MedicalRecordElo;
+import org.goafabric.core.medicalrecords.persistence.elastic.repository.entity.MedicalRecordElo;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.springframework.data.elasticsearch.core.SearchHit;

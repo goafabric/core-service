@@ -1,6 +1,6 @@
 package org.goafabric.core.medicalrecords.logic;
 
-import org.goafabric.core.medicalrecords.repository.EncounterImporter;
+import org.goafabric.core.medicalrecords.persistence.EncounterImporter;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
