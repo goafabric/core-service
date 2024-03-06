@@ -2,7 +2,8 @@ package org.goafabric.core.organization.controller.dto.types;
 
 public enum PermissionCategory {
     VIEW("VIEW"),
-    CRUD("CRUD");
+    CRUD("CRUD"),
+    PROCESS("PROCESS");
 
     private String value;
 

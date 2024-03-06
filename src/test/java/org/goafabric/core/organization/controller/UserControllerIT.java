@@ -48,6 +48,8 @@ public class UserControllerIT {
         assertThat(userController.getById(user.id()).roles())
                 .hasSize(3);
 
+        assertThat(userController.hasPermission("user1", PermissionCategory.VIEW, PermissionType.PATIENT)).isTrue();
+        assertThat(userController.hasPermission("user1", PermissionCategory.VIEW, PermissionType.INVOICE)).isFalse();
         userController.deleteById(user.id());
 
     }

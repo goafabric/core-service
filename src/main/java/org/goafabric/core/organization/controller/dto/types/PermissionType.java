@@ -8,6 +8,7 @@ public enum PermissionType {
     FILES("Files"),
     MONITORING("Monitoring"),
     USERS("Users"),
+    INVOICE("Invoice"),
 
     READ("Read"),
     READ_WRITE("Read & Write"),
