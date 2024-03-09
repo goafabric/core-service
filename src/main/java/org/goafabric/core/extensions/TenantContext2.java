@@ -43,19 +43,26 @@ public class TenantContext2 {
     }
 
     /**/
-    private static String getTenantId(String token, String tenantId) {
+    private static String getTenantId(String userInfotoken, String tenantId) {
+        if (userInfotoken != null) {
+            var payload = decodeJwt(userInfotoken);
+            Object claim = getAttributeFromJwt(userInfotoken, "urn:goafabric:claims:institution");
+            int x = 5;
+        }
+
         return tenantId;
     }
 
     private static String getUserName(String authToken) {
-        return getAttributeFromJwt(authToken, "preferred_username");
+        var userName = getAttributeFromJwt(authToken, "preferred_username");
+        return userName != null ? userName.toString() : null;
     }
 
-    private static String getAttributeFromJwt(String token, String attribute) {
+    private static Object getAttributeFromJwt(String token, String attribute) {
         if (token != null) {
             var payload = decodeJwt(token);
             Objects.requireNonNull(payload.get(attribute), attribute + " in JWT is null");
-            return payload.get(attribute).toString();
+            return payload.get(attribute);
         }
         return null;
     }

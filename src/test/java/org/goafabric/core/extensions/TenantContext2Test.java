@@ -41,6 +41,10 @@ class TenantContext2Test {
 
     }
 
-    //"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiSm9obiBEb2VYIiwiaWF0IjoxNTE2MjM5MDIyfQ.p0AyXKhUgzn2FhcgB7xeGVqUbYZRfL_Gdo6xk2uf3rY";
+    @Test
+    public void userInfo() {
+        var userInfo = "eyJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidXJuOmdvYWZhYnJpYzpjbGFpbXM6aW5zdGl0dXRpb24iOlt7ImlkIjoiNSIsInJvbGVzIjpbIk1FTUJFUiIsIkFETUlOIl0sIm5hbWUiOiJUZXN0In1dLCJuYW1lIjoiSm9obiBEb2UiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqb2huLmRvZUB1bmtub3duLmNvbSIsImVtYWlsIjoiam9obi5kb2VAdW5rbm93bi5jb20iLCJhbGciOiJIUzI1NiJ9.e30.Eo5oEgkDJITGZ23MXXW4Car87_qcLqBKuE-KvFuEYJU";
+        TenantContext2.setContext(new TenantContext2.TenantContextRecord(null, null, userInfo, null));
+    }
 
 }
