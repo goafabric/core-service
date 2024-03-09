@@ -1,6 +1,7 @@
 package org.goafabric.core.extensions;
 
 import com.nimbusds.jose.JOSEObject;
+import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.JWTParser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -45,9 +46,14 @@ public class TenantContext2 {
     /**/
     private static String getTenantId(String userInfotoken, String tenantId) {
         if (userInfotoken != null) {
-            var payload = decodeJwt(userInfotoken);
-            Object claim = getAttributeFromJwt(userInfotoken, "urn:goafabric:claims:institution");
-            int x = 5;
+            try {
+                JWTClaimsSet claims = JWTParser.parse(userInfotoken).getJWTClaimsSet();
+                Object x = claims.getClaim("urn:goafabric:claims:institution");
+                int y = 5;
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+
         }
 
         return tenantId;
