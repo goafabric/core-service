@@ -47,7 +47,7 @@ public class HttpInterceptor implements HandlerInterceptor {
     public static void prehandle(HttpServletRequest request) {
         setTenantId(request.getHeader("X-TenantId"));
         setOrganizationId(request.getHeader("X-OrganizationId"));
-        configureAuthenticationViaJWT(request.getHeader("X-Access-Token"));
+        configureAuthenticationViaJWT(request.getHeader("Authorization"));
         configureLogsAndTracing(request);
     }
 
@@ -60,7 +60,7 @@ public class HttpInterceptor implements HandlerInterceptor {
 
     private static void configureAuthenticationViaJWT(String token) {
         if (token != null) {
-            var payload = decodeJwt(token);
+            var payload = decodeJwt(token.substring(7));
             Objects.requireNonNull(payload.get("preferred_username"), "Username in JWT is null");
             userName.set(payload.get("preferred_username").toString());
         }

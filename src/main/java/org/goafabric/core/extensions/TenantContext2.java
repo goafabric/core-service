@@ -15,13 +15,13 @@ public class TenantContext2 {
 
     public record TenantContextRecord(String organizationId, String tenantId, String userInfoToken, String authToken, String userName)  {
         TenantContextRecord(String organizationId, String tenantId, String userInfoToken, String authToken) {
-            this(organizationId, tenantId, userInfoToken, authToken, getAttributeFromJwt(authToken, "preferred_username"));
+            this(organizationId, getTenantId(userInfoToken, tenantId), userInfoToken, authToken, getUserName(authToken));
         }
     }
 
     public static void setContext(HttpServletRequest request) {
         tenantContext.set(new TenantContextRecord(request.getHeader("X-OrganizationId"), request.getHeader("X-TenantId"),
-                request.getHeader("X-UserInfo"), request.getHeader("X-Access-Token")));
+                request.getHeader("X-UserInfo"), request.getHeader("Authorization").substring(7)));
     }
 
     public static void setContext(TenantContextRecord tenantContextRecord) {
@@ -40,6 +40,15 @@ public class TenantContext2 {
     public static String getUserName() {
         return tenantContext.get().userName != null ? tenantContext.get().userName
                 : SecurityContextHolder.getContext().getAuthentication() != null ? SecurityContextHolder.getContext().getAuthentication().getName() : "";
+    }
+
+    /**/
+    private static String getTenantId(String token, String tenantId) {
+        return tenantId;
+    }
+
+    private static String getUserName(String authToken) {
+        return getAttributeFromJwt(authToken, "preferred_username");
     }
 
     private static String getAttributeFromJwt(String token, String attribute) {
