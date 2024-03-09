@@ -3,6 +3,7 @@ package org.goafabric.core.extensions;
 import com.nimbusds.jose.JOSEObject;
 import com.nimbusds.jwt.JWTParser;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 
@@ -31,26 +32,29 @@ public class TenantContext {
     }
 
     public static String getTenantId() {
-        var auth = SecurityContextHolder.getContext().getAuthentication();
-        return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId()
+        return getAuthentication() instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)getAuthentication()).getAuthorizedClientRegistrationId()
                 : tenantContext.get().tenantId() != null ? tenantContext.get().tenantId() : "0";
+    }
+
+
+    public static String getUserName() {
+        return (getAuthentication() != null) && !(getAuthentication().getName().equals("anonymousUser"))
+                ? getAuthentication().getName() : tenantContext.get().userName;
     }
 
     public static String getOrganizationId() {
         return tenantContext.get().organizationId() != null ? tenantContext.get().organizationId() : "1";
     }
 
-    public static String getUserName() {
-        return (SecurityContextHolder.getContext().getAuthentication() != null) && !(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
-                ? SecurityContextHolder.getContext().getAuthentication().getName() : tenantContext.get().userName;
+    private static Authentication getAuthentication() {
+        return SecurityContextHolder.getContext().getAuthentication();
     }
-    
+
     private static String getUserNameFromToken(String token) {
-        var attribute = "preferred_username";
         if (token != null) {
             var payload = decodeJwt(token);
-            Objects.requireNonNull(payload.get(attribute), attribute + " in JWT is null");
-            return payload.get(attribute).toString();
+            Objects.requireNonNull(payload.get("preferred_username"), "preferred_username in JWT is null");
+            return payload.get("preferred_username").toString();
         }
         return null;
     }
