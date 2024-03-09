@@ -1,10 +1,12 @@
 package org.goafabric.core.extensions;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+@SpringBootTest
 class TenantContextTest {
 
     @Test
@@ -18,7 +20,6 @@ class TenantContextTest {
 
     @Test
     public void getOrganaizationId() {
-
         TenantContext.setContext(new TenantContext.TenantContextRecord(null, "44", null));
         assertThat(TenantContext.getOrganizationId()).isEqualTo("44");
 
@@ -34,7 +35,7 @@ class TenantContextTest {
         assertThat(TenantContext.getUserName()).isEqualTo("John DoeX");
 
         TenantContext.setContext(new TenantContext.TenantContextRecord(null, null, null));
-        assertThat(TenantContext.getUserName()).isEqualTo("");
+        assertThat(TenantContext.getUserName()).isEqualTo(null);
 
         assertThatThrownBy(() ->
                 TenantContext.setContext(new TenantContext.TenantContextRecord(null, null, "invalidtoken"))
