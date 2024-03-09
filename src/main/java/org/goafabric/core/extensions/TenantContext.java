@@ -16,13 +16,13 @@ public class TenantContext {
     public record TenantContextRecord(String tenantId, String organizationId, String authToken, String userName)  {
 
         TenantContextRecord(String tenantId, String organizationId, String authToken) {
-            this(tenantId, organizationId, authToken, getUserName(authToken));
+            this(tenantId, organizationId, authToken, getUserNameFromToken(authToken));
         }
     }
 
     public static void setContext(HttpServletRequest request) {
         tenantContext.set(new TenantContextRecord(request.getHeader("X-OrganizationId"), request.getHeader("X-TenantId"),
-                request.getHeader("X-UserInfo"), request.getHeader("Authorization").substring(7)));
+                request.getHeader("Authorization").substring(7)));
     }
 
     static void setContext(TenantContextRecord tenantContextRecord) {
@@ -38,16 +38,15 @@ public class TenantContext {
     }
 
     public static String getUserName() {
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        return tenantContext.get().userName != null ? tenantContext.get().userName
-                : authentication != null ? authentication.getName() : "";
+        return (SecurityContextHolder.getContext().getAuthentication() != null) && !(SecurityContextHolder.getContext().getAuthentication().getName().equals("anonymousUser"))
+                ? SecurityContextHolder.getContext().getAuthentication().getName() : tenantContext.get().userName;
     }
     
-    private static String getUserName(String token) {
+    private static String getUserNameFromToken(String token) {
         var attribute = "preferred_username";
         if (token != null) {
             var payload = decodeJwt(token);
-            Objects.requireNonNull(payload.get("preferred_username"), "preferred_username" + " in JWT is null");
+            Objects.requireNonNull(payload.get(attribute), attribute + " in JWT is null");
             return payload.get(attribute).toString();
         }
         return null;
