@@ -4,6 +4,7 @@ import com.nimbusds.jose.JOSEObject;
 import com.nimbusds.jwt.JWTParser;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 
 import java.text.ParseException;
 import java.util.Map;
@@ -30,7 +31,9 @@ public class TenantContext {
     }
 
     public static String getTenantId() {
-        return tenantContext.get().tenantId() != null ? tenantContext.get().tenantId() : "0";
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)auth).getAuthorizedClientRegistrationId()
+                : tenantContext.get().tenantId() != null ? tenantContext.get().tenantId() : "0";
     }
 
     public static String getOrganizationId() {
