@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.persistence.extensions;
 
-import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.TenantContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
@@ -31,7 +31,7 @@ public class AuditTrailEventDispatcher {
 
     public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail) {
         if (!eventDispatcherUri.isEmpty()) {
-            var changeEvent = new ChangeEvent(auditTrail.id(), HttpInterceptor.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
+            var changeEvent = new ChangeEvent(auditTrail.id(), TenantContext.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core");
             var headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             executor.submit(() -> {

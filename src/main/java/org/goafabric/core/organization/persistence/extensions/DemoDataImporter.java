@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.persistence.extensions;
 
 import net.datafaker.Faker;
-import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.medicalrecords.controller.ObjectStorageController;
 import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
 import org.goafabric.core.organization.controller.RoleController;
@@ -198,7 +198,7 @@ public class DemoDataImporter implements CommandLineRunner {
 
     public static List<Address> createAddress(String street) {
         return Collections.singletonList(
-                new Address(null, null,  AddressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()
+                new Address(null, null,  AddressUse.HOME.getValue(),street, "Springfield " + TenantContext.getTenantId()
                         , "555", "Florida", "US"));
     }
 
@@ -227,7 +227,7 @@ public class DemoDataImporter implements CommandLineRunner {
     }
 
     public static void setTenantId(String tenantId) {
-        HttpInterceptor.setTenantId(tenantId);
+        TenantContext.setTenantId(tenantId);
     }
 
     static class DbRuntimeHints implements RuntimeHintsRegistrar {

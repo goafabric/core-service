@@ -16,7 +16,6 @@ public class TenantContext {
             = ThreadLocal.withInitial(() -> new TenantContextRecord(null, null, null, null));
 
     public record TenantContextRecord(String tenantId, String organizationId, String authToken, String userName)  {
-
         TenantContextRecord(String tenantId, String organizationId, String authToken) {
             this(tenantId, organizationId, authToken, getUserNameFromToken(authToken));
         }
@@ -24,11 +23,19 @@ public class TenantContext {
 
     public static void setContext(HttpServletRequest request) {
         tenantContext.set(new TenantContextRecord(request.getHeader("X-OrganizationId"), request.getHeader("X-TenantId"),
-                request.getHeader("Authorization").substring(7)));
+                request.getHeader("X-Token"))); //request.getHeader("Authorization").substring(7)));
+    }
+
+    public static void removeContext() {
+        tenantContext.remove();
     }
 
     static void setContext(TenantContextRecord tenantContextRecord) {
         tenantContext.set(tenantContextRecord);
+    }
+
+    public static void setTenantId(String tenantId) {
+        setContext(new TenantContextRecord(tenantId, tenantContext.get().organizationId, tenantContext.get().authToken));
     }
 
     public static String getTenantId() {
