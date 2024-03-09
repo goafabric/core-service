@@ -20,9 +20,8 @@ public class TenantContext2 {
     }
 
     public static void setContext(HttpServletRequest request) {
-        var authToken = request.getHeader("X-Access-Token");
         tenantContext.set(new TenantContextRecord(request.getHeader("X-OrganizationId"), request.getHeader("X-TenantId"),
-                request.getHeader("X-UserInfo"), authToken));
+                request.getHeader("X-UserInfo"), request.getHeader("X-Access-Token")));
     }
 
     public static void setContext(TenantContextRecord tenantContextRecord) {
