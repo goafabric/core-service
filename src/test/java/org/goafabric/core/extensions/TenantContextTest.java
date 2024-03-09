@@ -41,5 +41,16 @@ class TenantContextTest {
 
     }
 
+    /*
+    @Test
+    public void userINfo() throws ParseException {
+        var userInfo = "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidXJuOmdvYWZhYnJpYzpjbGFpbXM6aW5zdGl0dXRpb24iOlt7ImlkIjoiODJmYWNkZGUtMTk1Yy00NzhlLTg3M2EtMjNjMzQwZmZmMmVkIiwicm9sZXMiOlsiTUVNQkVSIiwiQURNSU4iXSwibmFtZSI6IlRlc3QifV0sIm5hbWUiOiJKb2huIERvZSIsInByZWZlcnJlZF91c2VybmFtZSI6ImpvaG4uZG9lQHVua25vd24uY29tIiwiZW1haWwiOiJqb2huLmRvZUB1bmtub3duLmNvbSIsImFsZyI6IkhTMjU2In0.srccIrNps9i093rcqTKEVLzWUuoJMcEjrmdKjhNFlPE";
+        JWTClaimsSet claimsSet = JWTParser.parse(userInfo).getJWTClaimsSet();
+        List claim = (List) claimsSet.getClaim("urn:goafabric:claims:institution");
+        String id = ((Map) claim.getFirst()).get("id").toString();
+        int x = 5;
+    }
+
+     */
 
 }
