@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.controller;
 
 import org.goafabric.core.DataRocker;
-import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
@@ -72,7 +72,7 @@ class EncounterControllerIT {
     private String createPatient() {
         return patientController.save(
                 DataRocker.createPatient("Homer", "Simpson",
-                        createAddress("Evergreen Terrace " + HttpInterceptor.getTenantId()),
+                        createAddress("Evergreen Terrace " + TenantContext.getTenantId()),
                         createContactPoint("555-444"))
         ).id();
     }
