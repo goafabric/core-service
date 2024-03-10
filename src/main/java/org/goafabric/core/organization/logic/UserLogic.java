@@ -1,6 +1,10 @@
 package org.goafabric.core.organization.logic;
 
+import org.goafabric.core.organization.controller.dto.Permission;
+import org.goafabric.core.organization.controller.dto.Role;
 import org.goafabric.core.organization.controller.dto.User;
+import org.goafabric.core.organization.controller.dto.types.PermissionCategory;
+import org.goafabric.core.organization.controller.dto.types.PermissionType;
 import org.goafabric.core.organization.logic.mapper.UserMapper;
 import org.goafabric.core.organization.persistence.UserRepository;
 import org.springframework.stereotype.Component;
@@ -41,5 +45,17 @@ public class UserLogic {
                 
     }
 
+    public Boolean hasPermission(String name, PermissionCategory category, PermissionType type) {
+        var users = findByName(name);
+        var roles = users.getFirst().roles();
+        for (Role role : roles) {
+            for (Permission permission : role.permissions()) {
+                if (permission.category().equals(category) && (permission.type().equals(type))) {
+                    return true;
+                }
+            }
+        }
+        return false;
 
+    }
 }

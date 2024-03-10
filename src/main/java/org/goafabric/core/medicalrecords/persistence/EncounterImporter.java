@@ -2,6 +2,7 @@ package org.goafabric.core.medicalrecords.persistence;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
@@ -17,15 +18,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.stream.IntStream;
 
 import static org.goafabric.core.organization.persistence.extensions.DemoDataImporter.*;
@@ -142,9 +139,7 @@ public class EncounterImporter implements CommandLineRunner {
     }
 
     public static void setTenantId(String tenantId) {
-        SecurityContextHolder.getContext().setAuthentication(
-                new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name")
-                        , new ArrayList<>(), tenantId));
+        TenantContext.setTenantId(tenantId);
     }
 
 

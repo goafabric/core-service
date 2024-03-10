@@ -1,6 +1,6 @@
 package org.goafabric.core.medicalrecords.logic.elastic;
 
-import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
@@ -47,7 +47,7 @@ public class EncounterLogicElastic implements EncounterLogic {
     //manually load the specializations, this could be optimized by using an "in" operatin with all encounterIds
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
         return encounterRepository
-                .findByPatientIdAndOrganizationId(patientId, HttpInterceptor.getOrganizationId())
+                .findByPatientIdAndOrganizationId(patientId, TenantContext.getOrganizationId())
                 .stream()
                 .map(encounterEo -> new Encounter(encounterEo.getId(), encounterEo.getVersion(), encounterEo.getPatientId(), encounterEo.getPractitionerId(),
                         encounterEo.getEncounterDate(), encounterEo.getEncounterName(),

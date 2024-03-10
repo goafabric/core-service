@@ -41,13 +41,15 @@ public class UserControllerIT {
         assertThat(roles.get(0).permissions()).hasSize(2);
 
         var user = userController.save(
-                new User(null, null, "1", "user1", roles));
+                new User(null, null, "0", "user1", roles));
 
         assertThat(userController.getById(user.id()).name())
                 .isEqualTo("user1");
         assertThat(userController.getById(user.id()).roles())
                 .hasSize(3);
 
+        assertThat(userController.hasPermission("user1", PermissionCategory.VIEW, PermissionType.PATIENT)).isTrue();
+        assertThat(userController.hasPermission("user1", PermissionCategory.VIEW, PermissionType.INVOICE)).isFalse();
         userController.deleteById(user.id());
 
     }

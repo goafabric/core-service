@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.controller;
 
-import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ class PatientControllerSearchIT {
     private String create(String givenName, String familyName) {
         return controller.save(
                 createPatient(givenName, familyName,
-                        createAddress("Evergreen Terrace " + HttpInterceptor.getTenantId()),
+                        createAddress("Evergreen Terrace " + TenantContext.getTenantId()),
                         createContactPoint("555-444"))
         ).id();
     }
