@@ -28,7 +28,8 @@ class TenantContextTest {
 
     @Test
     public void getUserName() {
-        var authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiSm9obiBEb2VYIiwiaWF0IjoxNTE2MjM5MDIyfQ.p0AyXKhUgzn2FhcgB7xeGVqUbYZRfL_Gdo6xk2uf3rY";
+        var authToken = "Bearer "
+                + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiSm9obiBEb2VYIiwiaWF0IjoxNTE2MjM5MDIyfQ.p0AyXKhUgzn2FhcgB7xeGVqUbYZRfL_Gdo6xk2uf3rY";
 
         TenantContext.setContext(new TenantContext.TenantContextRecord(null, null, authToken, TenantContext.getUserNameFromToken(authToken)));
         assertThat(TenantContext.getUserName()).isEqualTo("John DoeX");
