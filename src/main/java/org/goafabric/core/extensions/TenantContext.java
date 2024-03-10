@@ -21,8 +21,8 @@ public class TenantContext {
         tenantContext.set(new TenantContextRecord(
                 getTenantIdFromTokenOrTenant(request.getHeader("X-Userinfo"), request.getHeader("X-TenantId")),
                 request.getHeader("X-OrganizationId"),
-                request.getHeader("X-Token"),
-                getUserNameFromToken(request.getHeader("X-Token"))
+                request.getHeader("X-Access-Token"),
+                getUserNameFromToken(request.getHeader("X-Access-Token"))
                 )); //request.getHeader("Authorization").substring(7)));
     }
 
