@@ -22,16 +22,17 @@ public class TenantContext {
     }
 
     public static void setContext(HttpServletRequest request) {
-        tenantContext.set(new TenantContextRecord(request.getHeader("X-TenantId"), request.getHeader("X-OrganizationId"),
+        tenantContext.set(new TenantContextRecord(request.getHeader("X-TenantId")
+                , request.getHeader("X-OrganizationId"),
                 request.getHeader("X-Token"))); //request.getHeader("Authorization").substring(7)));
-    }
-
-    public static void removeContext() {
-        tenantContext.remove();
     }
 
     static void setContext(TenantContextRecord tenantContextRecord) {
         tenantContext.set(tenantContextRecord);
+    }
+
+    public static void removeContext() {
+        tenantContext.remove();
     }
 
     public static void setTenantId(String tenantId) {
@@ -43,14 +44,13 @@ public class TenantContext {
                 : tenantContext.get().tenantId() != null ? tenantContext.get().tenantId() : "0";
     }
 
-
-    public static String getUserName() {
-        return (getAuthentication() != null) && !(getAuthentication().getName().equals("anonymousUser"))
-                ? getAuthentication().getName() : tenantContext.get().userName;
-    }
-
     public static String getOrganizationId() {
         return tenantContext.get().organizationId() != null ? tenantContext.get().organizationId() : "1";
+    }
+
+    public static String getUserName() {
+        return (getAuthentication() != null) && !(getAuthentication().getName().equals("anonymousUser")) ? getAuthentication().getName()
+                : tenantContext.get().userName != null ? tenantContext.get().userName : "anonymous";
     }
 
     private static Authentication getAuthentication() {

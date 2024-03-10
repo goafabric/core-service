@@ -33,7 +33,7 @@ class TenantContextTest {
         assertThat(TenantContext.getUserName()).isEqualTo("John DoeX");
 
         TenantContext.setContext(new TenantContext.TenantContextRecord(null, null, null));
-        assertThat(TenantContext.getUserName()).isEqualTo(null);
+        assertThat(TenantContext.getUserName()).isEqualTo("anonymous");
 
         assertThatThrownBy(() ->
                 TenantContext.setContext(new TenantContext.TenantContextRecord(null, null, "invalidtoken"))
