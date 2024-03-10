@@ -2,7 +2,7 @@ package org.goafabric.core.ui.extension;
 
 import com.vaadin.flow.server.ServiceInitEvent;
 import com.vaadin.flow.server.VaadinServiceInitListener;
-import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.organization.controller.dto.User;
 import org.goafabric.core.ui.adapter.UserAdapter;
 import org.springframework.beans.BeansException;
@@ -31,7 +31,7 @@ public class UserHolder implements ApplicationContextAware, VaadinServiceInitLis
     }
 
     public static User getUser() {
-        var httpUser = HttpInterceptor.getUserName() != null ? HttpInterceptor.getUserName() : "anonymousUser";
+        var httpUser = TenantContext.getUserName() != null ? TenantContext.getUserName() : "anonymousUser";
         var user = users.computeIfAbsent(httpUser, userName -> {
             var users = context.getBean(UserAdapter.class).search(userName);
             return users.size() == 1 ? users.get(0) : null;

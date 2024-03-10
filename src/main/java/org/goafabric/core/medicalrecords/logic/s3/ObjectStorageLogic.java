@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.logic.s3;
 
 
-import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,7 +67,7 @@ public class ObjectStorageLogic {
     }
 
     private String getBucketName() {
-        return schemaPrefix.replaceAll("_", "-") + HttpInterceptor.getTenantId();
+        return schemaPrefix.replaceAll("_", "-") + TenantContext.getTenantId();
     }
 
 }

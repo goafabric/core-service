@@ -20,7 +20,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.theme.lumo.Lumo;
 import com.vaadin.flow.theme.lumo.LumoUtility;
-import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.ui.appointments.AppointmentView;
 import org.goafabric.core.ui.catalogs.CatalogView;
 import org.goafabric.core.ui.extension.UserHolder;
@@ -119,7 +119,7 @@ public class MainView extends AppLayout {
                     page.open(url.getPath().contains("/core") ? "/core/logout" : "/logout", "_self"));
         });
         return new HorizontalLayout(userButton, new NativeLabel(UserHolder.getUser().name())
-                , new Button(new Icon(VaadinIcon.HOME)), new NativeLabel(HttpInterceptor.getTenantId() + "," + HttpInterceptor.getOrganizationId()));
+                , new Button(new Icon(VaadinIcon.HOME)), new NativeLabel(TenantContext.getTenantId() + "," + TenantContext.getOrganizationId()));
     }
 
     @Route(value = "", layout = MainView.class)
@@ -128,7 +128,7 @@ public class MainView extends AppLayout {
         public SubView() {
             setSizeFull();
             this.setDefaultHorizontalComponentAlignment(Alignment.CENTER);
-            if (HttpInterceptor.getTenantId().equals("0")) {
+            if (TenantContext.getTenantId().equals("0")) {
                 this.add(new Text("Hibbert's Hospital"));
                 this.add(new Image("./images/hibbert.jpg", ""));
             } else {
