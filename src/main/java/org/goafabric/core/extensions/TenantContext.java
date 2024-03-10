@@ -18,7 +18,7 @@ public class TenantContext {
     public record TenantContextRecord(String tenantId, String organizationId, String authToken, String userName)  {}
 
     public static void setContext(HttpServletRequest request) {
-        tenantContext.set(new TenantContextRecord(
+        setContext(new TenantContextRecord(
                 getTenantIdFromTokenOrTenant(request.getHeader("X-Userinfo"), request.getHeader("X-TenantId")),
                 request.getHeader("X-OrganizationId"),
                 request.getHeader("X-Access-Token"),
