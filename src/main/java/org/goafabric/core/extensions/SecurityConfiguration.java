@@ -58,7 +58,7 @@ public class SecurityConfiguration {
     class TenantClientRegistrationRepository implements ClientRegistrationRepository {
 
         private static final Map<String, ClientRegistration> clientRegistrations = new ConcurrentHashMap<>();
-        
+
         @Override
         public ClientRegistration findByRegistrationId(String registrationId) {
             return clientRegistrations.computeIfAbsent(registrationId, this::buildClientRegistration);

@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.organization.controller.PatientController;
 import org.goafabric.core.organization.controller.dto.Patient;
-import org.goafabric.core.extensions.HttpInterceptor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,7 +49,7 @@ class ExportControllerIT {
     private String create() {
         return patientController.save(
                 createPatient("Homer", "Simpson",
-                        createAddress("Evergreen Terrace " + HttpInterceptor.getTenantId()),
+                        createAddress("Evergreen Terrace " + TenantContext.getTenantId()),
                         createContactPoint("555-444"))
         ).id();
     }

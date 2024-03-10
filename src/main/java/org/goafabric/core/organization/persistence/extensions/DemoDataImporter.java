@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.persistence.extensions;
 
 import net.datafaker.Faker;
-import org.goafabric.core.extensions.HttpInterceptor;
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.medicalrecords.controller.ObjectStorageController;
 import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
 import org.goafabric.core.organization.controller.RoleController;
@@ -25,13 +25,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ImportRuntimeHints;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.IntStream;
 
 @Component
@@ -99,9 +99,7 @@ public class DemoDataImporter implements CommandLineRunner {
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.CATALOGS),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.FILES),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.APPOINTMENTS),
-            new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE),
-
-            new Permission(null, null, PermissionCategory.PROCESS, PermissionType.INVOICE)
+            new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE)
         ));
 
         var permissionMonitoring = permissionLogic.save(new Permission(null, null, PermissionCategory.VIEW, PermissionType.MONITORING));
@@ -115,19 +113,19 @@ public class DemoDataImporter implements CommandLineRunner {
 
         var role1 = roleController.save(new Role(null, null, "administrator", adminPermissions));
         var role2 = roleController.save(new Role(null, null, "assistant", normalPermissions));
-        var role3 = roleController.save(new Role(null, null, "user", new ArrayList<>()));
+        var role3 = roleController.save(new Role(null, null, "user", normalPermissions));
 
         applicationContext.getBean(UserController.class).save(
-                new User(null, null, "1", "user1", Collections.singletonList(role1)));
+                new User(null, null, "0", "user1", Collections.singletonList(role1)));
 
         applicationContext.getBean(UserController.class).save(
-                new User(null, null, "1", "user2", Arrays.asList(role2)));
+                new User(null, null, "0", "user2", Arrays.asList(role2)));
 
         applicationContext.getBean(UserController.class).save(
-                new User(null, null, "1", "user3", new ArrayList<>()));
+                new User(null, null, "0", "user3", Arrays.asList(role3)));
 
         applicationContext.getBean(UserController.class).save(
-                new User(null, null, "1", "anonymousUser", Arrays.asList(role3)));
+                new User(null, null, "0", "anonymousUser", Arrays.asList(role1)));
 
     }
 
@@ -200,7 +198,7 @@ public class DemoDataImporter implements CommandLineRunner {
 
     public static List<Address> createAddress(String street) {
         return Collections.singletonList(
-                new Address(null, null,  AddressUse.HOME.getValue(),street, "Springfield " + HttpInterceptor.getTenantId()
+                new Address(null, null,  AddressUse.HOME.getValue(),street, "Springfield " + TenantContext.getTenantId()
                         , "555", "Florida", "US"));
     }
 
@@ -229,9 +227,7 @@ public class DemoDataImporter implements CommandLineRunner {
     }
 
     public static void setTenantId(String tenantId) {
-        SecurityContextHolder.getContext().setAuthentication(
-                new OAuth2AuthenticationToken(new DefaultOAuth2User(new ArrayList<>(), new HashMap<>() {{ put("name", "import");}}, "name")
-                        , new ArrayList<>(), tenantId));
+        TenantContext.setTenantId(tenantId);
     }
 
     static class DbRuntimeHints implements RuntimeHintsRegistrar {
