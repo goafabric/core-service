@@ -15,16 +15,15 @@ public class TenantContext {
     private static final ThreadLocal<TenantContextRecord> tenantContext
             = ThreadLocal.withInitial(() -> new TenantContextRecord(null, null, null, null));
 
-    public record TenantContextRecord(String tenantId, String organizationId, String authToken, String userName)  {
-        TenantContextRecord(String tenantId, String organizationId, String authToken) {
-            this(tenantId, organizationId, authToken, getUserNameFromToken(authToken));
-        }
-    }
+    public record TenantContextRecord(String tenantId, String organizationId, String authToken, String userName)  {}
 
     public static void setContext(HttpServletRequest request) {
-        tenantContext.set(new TenantContextRecord(request.getHeader("X-TenantId")
-                , request.getHeader("X-OrganizationId"),
-                request.getHeader("X-Token"))); //request.getHeader("Authorization").substring(7)));
+        tenantContext.set(new TenantContextRecord(
+                getTenantIdFromTokenOrTenant(request.getHeader("X-Userinfo"), request.getHeader("X-TenantId")),
+                request.getHeader("X-OrganizationId"),
+                request.getHeader("X-Token"),
+                getUserNameFromToken(request.getHeader("X-Token"))
+                )); //request.getHeader("Authorization").substring(7)));
     }
 
     static void setContext(TenantContextRecord tenantContextRecord) {
@@ -36,7 +35,7 @@ public class TenantContext {
     }
 
     public static void setTenantId(String tenantId) {
-        setContext(new TenantContextRecord(tenantId, tenantContext.get().organizationId, tenantContext.get().authToken));
+        setContext(new TenantContextRecord(tenantId, tenantContext.get().organizationId, tenantContext.get().authToken, tenantContext.get().userName));
     }
 
     public static String getTenantId() {
@@ -57,9 +56,14 @@ public class TenantContext {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-    private static String getUserNameFromToken(String token) {
-        if (token != null) {
-            var payload = decodeJwt(token);
+    private static String getTenantIdFromTokenOrTenant(String userInfoToken, String tenantId) {
+        String tenantFromUserInfo = null; //todo retrieve tenant from Userinfo
+        return tenantFromUserInfo != null ? tenantFromUserInfo  : tenantId;
+    }
+
+    static String getUserNameFromToken(String authToken) {
+        if (authToken != null) {
+            var payload = decodeJwt(authToken);
             Objects.requireNonNull(payload.get("preferred_username"), "preferred_username in JWT is null");
             return payload.get("preferred_username").toString();
         }
