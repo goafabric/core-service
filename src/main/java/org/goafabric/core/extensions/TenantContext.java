@@ -22,7 +22,7 @@ public class TenantContext {
     }
 
     public static void setContext(HttpServletRequest request) {
-        tenantContext.set(new TenantContextRecord(request.getHeader("X-OrganizationId"), request.getHeader("X-TenantId"),
+        tenantContext.set(new TenantContextRecord(request.getHeader("X-TenantId"), request.getHeader("X-OrganizationId"),
                 request.getHeader("X-Token"))); //request.getHeader("Authorization").substring(7)));
     }
 
