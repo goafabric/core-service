@@ -48,7 +48,6 @@ public class HttpInterceptor implements HandlerInterceptor {
         MDC.remove("tenantId");
     }
 
-
     private static void configureLogsAndTracing(HttpServletRequest request) {
         MDC.put("tenantId", TenantContext.getTenantId());
         ServerHttpObservationFilter.findObservationContext(request).ifPresent(

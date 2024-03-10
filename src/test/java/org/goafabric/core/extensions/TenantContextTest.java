@@ -22,7 +22,7 @@ class TenantContextTest {
         assertThat(TenantContext.getOrganizationId()).isEqualTo("44");
 
         TenantContext.setContext(new TenantContext.TenantContextRecord(null, null, null, null));
-        assertThat(TenantContext.getOrganizationId()).isEqualTo("1");
+        assertThat(TenantContext.getOrganizationId()).isEqualTo("0");
     }
 
     @Test
