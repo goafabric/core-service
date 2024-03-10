@@ -1,5 +1,6 @@
 package org.goafabric.core.extensions;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -38,6 +39,17 @@ class TenantContextTest {
         assertThatThrownBy(() ->
                 TenantContext.setContext(new TenantContext.TenantContextRecord(null, null, "invalidtoken", TenantContext.getUserNameFromToken("invalid")))
         ).isInstanceOf(IllegalStateException.class);
+
+    }
+
+    @Test
+    public void getAll() {
+        TenantContext.setContext(new TenantContext.TenantContextRecord("42", "44", "token", "user"));
+
+        Assertions.assertThat(TenantContext.getTenantId()).isEqualTo("42");
+        Assertions.assertThat(TenantContext.getOrganizationId()).isEqualTo("44");
+        Assertions.assertThat(TenantContext.getUserName()).isEqualTo("user");
+        Assertions.assertThat(TenantContext.getAdapterHeaderMap()).isNotNull().isNotEmpty();
 
     }
 

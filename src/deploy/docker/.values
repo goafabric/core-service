@@ -1,7 +1,7 @@
 _Values_root_name="core-service"
 
 _Values_image_repository=goafabric/core-service
-_Values_image_tag=1.2.3-oidc-SNAPSHOT
+_Values_image_tag=1.2.3-SNAPSHOT
 
 _Values_service_port=50800
 _Values_resources_requests_memory=64M

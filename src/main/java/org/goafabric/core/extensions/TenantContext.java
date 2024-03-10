@@ -16,7 +16,7 @@ public class TenantContext {
             = ThreadLocal.withInitial(() -> new TenantContextRecord(null, null, null, null));
 
     public record TenantContextRecord(String tenantId, String organizationId, String authToken, String userName)  {
-        public Map<String, String> toMap() { //can be used to simply forward the headers for adapters
+        public Map<String, String> getAdapterHeaderMap() { //can be used to simply forward the headers for adapters
             return Map.of("X-TenantId", tenantId, "X-OrganizationId", organizationId, "X-Access-Token", authToken);
         }
     }
@@ -56,12 +56,16 @@ public class TenantContext {
                 : tenantContext.get().userName != null ? tenantContext.get().userName : "anonymous";
     }
 
+    public static Map<String, String> getAdapterHeaderMap() {
+        return tenantContext.get().getAdapterHeaderMap();
+    }
+
     private static Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
     private static String getTenantIdFromTokenOrTenant(String userInfoToken, String tenantId) {
-        String tenantFromUserInfo = null; //todo retrieve tenant from Userinfo
+        String tenantFromUserInfo = null; //todo retrieve tenant from Userinfo, claim name should be configurable
         return tenantFromUserInfo != null ? tenantFromUserInfo  : tenantId;
     }
 
