@@ -66,4 +66,14 @@ class TenantContextTest {
 
      */
 
+    /*
+    @Test
+    public void createSimpleToken() {
+        var token = new PlainJWT(new JWTClaimsSet.Builder().claim("preferred_username", TenantContext.getUserName()).build()).serialize();
+        System.err.println(token);
+        System.err.println(TenantContext.getUserNameFromToken("Bearer " + token));
+
+    }
+     */
+
 }
