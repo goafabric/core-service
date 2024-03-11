@@ -76,4 +76,30 @@ class TenantContextTest {
     }
      */
 
+    //https://spring.io/blog/2018/03/06/using-spring-security-5-to-integrate-with-oauth-2-secured-services-such-as-facebook-and-github
+    /*
+    @Test
+    public void token() {
+        getToken();
+    }
+
+    @Autowired OAuth2AuthorizedClientService clientService;
+    private void getToken() {
+        Authentication authentication =
+                SecurityContextHolder
+                        .getContext()
+                        .getAuthentication();
+
+        OAuth2AuthenticationToken oauthToken =
+                (OAuth2AuthenticationToken) authentication;
+
+        OAuth2AuthorizedClient client =
+                clientService.loadAuthorizedClient(
+                        oauthToken.getAuthorizedClientRegistrationId(),
+                        oauthToken.getName());
+
+        String accessToken = client.getAccessToken().getTokenValue();
+    }
+    */
+
 }
