@@ -34,15 +34,14 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         if (isAuthenticationEnabled) {
-            var clientRegistrationRepository = new TenantClientRegistrationRepository();
-            var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
+            var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository());
             logoutHandler.setPostLogoutRedirectUri("{baseUrl}/login.html"); //yeah that's right, we need baseUrl here, because it's an absolute url and below its a relative url - WTF
             http
                     .authorizeHttpRequests(authorize -> authorize
                             .requestMatchers(new MvcRequestMatcher(introspector, "/"), new MvcRequestMatcher(introspector, "actuator/**"), new MvcRequestMatcher(introspector, "/login.html")).permitAll()
                             .anyRequest().authenticated())
                     .oauth2Login(oauth2 -> oauth2
-                            .clientRegistrationRepository(clientRegistrationRepository)
+                            .clientRegistrationRepository(clientRegistrationRepository())
                             //.defaultSuccessUrl("/frontend/",true)
                     )
                     .logout(l -> l.logoutSuccessHandler(logoutHandler))
@@ -82,6 +81,11 @@ public class SecurityConfiguration {
                     .providerConfigurationMetadata(providerDetails)
                     .build();
         }
+    }
+
+    @Bean
+    ClientRegistrationRepository clientRegistrationRepository() {
+        return new TenantClientRegistrationRepository();
     }
 
 }

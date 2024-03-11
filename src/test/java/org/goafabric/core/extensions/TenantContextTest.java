@@ -2,10 +2,12 @@ package org.goafabric.core.extensions;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+@SpringBootTest
 class TenantContextTest {
 
     @Test
@@ -83,23 +85,15 @@ class TenantContextTest {
         getToken();
     }
 
-    @Autowired OAuth2AuthorizedClientService clientService;
+    @Autowired
+    private OAuth2AuthorizedClientService clientService;
     private void getToken() {
-        Authentication authentication =
-                SecurityContextHolder
-                        .getContext()
-                        .getAuthentication();
-
-        OAuth2AuthenticationToken oauthToken =
-                (OAuth2AuthenticationToken) authentication;
-
-        OAuth2AuthorizedClient client =
-                clientService.loadAuthorizedClient(
-                        oauthToken.getAuthorizedClientRegistrationId(),
-                        oauthToken.getName());
-
-        String accessToken = client.getAccessToken().getTokenValue();
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication instanceof OAuth2AuthenticationToken) {
+            var client = clientService.loadAuthorizedClient(((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId(), authentication.getName());
+            String accessToken = client.getAccessToken().getTokenValue();
+            System.err.println(accessToken);
+        }
     }
-    */
-
+     */
 }
