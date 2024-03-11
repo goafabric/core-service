@@ -2,12 +2,10 @@ package org.goafabric.core.extensions;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-@SpringBootTest
 class TenantContextTest {
 
     @Test
@@ -65,35 +63,21 @@ class TenantContextTest {
         String id = ((Map) claim.getFirst()).get("id").toString();
         int x = 5;
     }
-
-     */
-
-    /*
-    @Test
-    public void createSimpleToken() {
-        var token = new PlainJWT(new JWTClaimsSet.Builder().claim("preferred_username", TenantContext.getUserName()).build()).serialize();
-        System.err.println(token);
-        System.err.println(TenantContext.getUserNameFromToken("Bearer " + token));
-
-    }
-     */
+    */
 
     //https://spring.io/blog/2018/03/06/using-spring-security-5-to-integrate-with-oauth-2-secured-services-such-as-facebook-and-github
     /*
     @Test
     public void token() {
-        getToken();
+        System.err.println();getToken();
     }
 
     @Autowired
     private OAuth2AuthorizedClientService clientService;
-    private void getToken() {
+    private String getToken() {
         var authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication instanceof OAuth2AuthenticationToken) {
-            var client = clientService.loadAuthorizedClient(((OAuth2AuthenticationToken) authentication).getAuthorizedClientRegistrationId(), authentication.getName());
-            String accessToken = client.getAccessToken().getTokenValue();
-            System.err.println(accessToken);
-        }
+        return authentication instanceof OAuth2AuthenticationToken ? clientService.loadAuthorizedClient(((OAuth2AuthenticationToken) authentication)
+                .getAuthorizedClientRegistrationId(), authentication.getName()).getAccessToken().getTokenValue() : null;
     }
      */
 }
