@@ -99,7 +99,8 @@ public class DemoDataImporter implements CommandLineRunner {
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.CATALOGS),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.FILES),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.APPOINTMENTS),
-            new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE)
+            new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE),
+            new Permission(null, null, PermissionCategory.PROCESS, PermissionType.INVOICE)
         ));
 
         var permissionMonitoring = permissionLogic.save(new Permission(null, null, PermissionCategory.VIEW, PermissionType.MONITORING));
@@ -125,7 +126,7 @@ public class DemoDataImporter implements CommandLineRunner {
                 new User(null, null, "0", "user3", Arrays.asList(role3)));
 
         applicationContext.getBean(UserController.class).save(
-                new User(null, null, "0", "anonymousUser", Arrays.asList(role1)));
+                new User(null, null, "0", "anonymous", new ArrayList<>()));
 
     }
 
