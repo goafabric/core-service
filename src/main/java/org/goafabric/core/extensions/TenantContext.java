@@ -17,7 +17,7 @@ public class TenantContext {
 
     public record TenantContextRecord(String tenantId, String organizationId, String authToken, String userName)  {
         public Map<String, String> getAdapterHeaderMap() { //can be used to simply forward the headers for adapters
-            return Map.of("X-TenantId", tenantId, "X-OrganizationId", organizationId, "Authorization", authToken);
+            return Map.of("X-TenantId", tenantId, "X-OrganizationId", organizationId, "X-Access-Token", authToken);
         }
     }
 
@@ -25,8 +25,8 @@ public class TenantContext {
         setContext(new TenantContextRecord(
                 getTenantIdFromTokenOrTenant(request.getHeader("X-Userinfo"), request.getHeader("X-TenantId")),
                 request.getHeader("X-OrganizationId"),
-                request.getHeader("Authorization"), //X-Access-Token
-                getUserNameFromToken(request.getHeader("Authorization"))
+                request.getHeader("X-Access-Token"),
+                getUserNameFromToken(request.getHeader("X-Access-Token"))
                 ));
     }
 
@@ -71,8 +71,7 @@ public class TenantContext {
 
     static String getUserNameFromToken(String authToken) {
         if (authToken != null) {
-            if (!authToken.startsWith("Bearer")) { throw new IllegalStateException("No Bearer Token provided"); } 
-            var payload = decodeJwt(authToken.substring(7));
+            var payload = decodeJwt(authToken);
             Objects.requireNonNull(payload.get("preferred_username"), "preferred_username in JWT is null");
             return payload.get("preferred_username").toString();
         }
