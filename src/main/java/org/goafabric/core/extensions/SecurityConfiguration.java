@@ -11,7 +11,6 @@ import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import java.util.HashMap;
@@ -33,17 +32,17 @@ public class SecurityConfiguration {
     @Value("${spring.security.oauth2.user-name-attribute:}") private String userNameAttribute;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, TenantClientRegistrationRepository clientRegistrationRepository, HandlerMappingIntrospector introspector) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http, HandlerMappingIntrospector introspector) throws Exception {
         if (isAuthenticationEnabled) {
-            var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository);
+            var logoutHandler = new OidcClientInitiatedLogoutSuccessHandler(clientRegistrationRepository());
             logoutHandler.setPostLogoutRedirectUri("{baseUrl}/login.html"); //yeah that's right, we need baseUrl here, because it's an absolute url and below its a relative url - WTF
             http
                     .authorizeHttpRequests(authorize -> authorize
                             .requestMatchers(new MvcRequestMatcher(introspector, "/"), new MvcRequestMatcher(introspector, "actuator/**"), new MvcRequestMatcher(introspector, "/login.html")).permitAll()
                             .anyRequest().authenticated())
                     .oauth2Login(oauth2 -> oauth2
-                            .clientRegistrationRepository(clientRegistrationRepository)
-                            .defaultSuccessUrl("/frontend/",true)
+                            .clientRegistrationRepository(clientRegistrationRepository())
+                            //.defaultSuccessUrl("/frontend/",true)
                     )
                     .logout(l -> l.logoutSuccessHandler(logoutHandler))
                     .csrf(c -> c.disable())
@@ -55,11 +54,9 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-    @Component
     class TenantClientRegistrationRepository implements ClientRegistrationRepository {
 
         private static final Map<String, ClientRegistration> clientRegistrations = new ConcurrentHashMap<>();
-
 
         @Override
         public ClientRegistration findByRegistrationId(String registrationId) {
@@ -84,6 +81,11 @@ public class SecurityConfiguration {
                     .providerConfigurationMetadata(providerDetails)
                     .build();
         }
+    }
+
+    @Bean
+    ClientRegistrationRepository clientRegistrationRepository() {
+        return new TenantClientRegistrationRepository();
     }
 
 }

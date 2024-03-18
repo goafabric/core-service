@@ -28,8 +28,8 @@ class TenantContextTest {
 
     @Test
     public void getUserName() {
-        var authToken = "Bearer "
-                + "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiSm9obiBEb2VYIiwiaWF0IjoxNTE2MjM5MDIyfQ.p0AyXKhUgzn2FhcgB7xeGVqUbYZRfL_Gdo6xk2uf3rY";
+        var authToken = //"Bearer " +
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiSm9obiBEb2VYIiwiaWF0IjoxNTE2MjM5MDIyfQ.p0AyXKhUgzn2FhcgB7xeGVqUbYZRfL_Gdo6xk2uf3rY";
 
         TenantContext.setContext(new TenantContext.TenantContextRecord(null, null, authToken, TenantContext.getUserNameFromToken(authToken)));
         assertThat(TenantContext.getUserName()).isEqualTo("John DoeX");
@@ -63,7 +63,21 @@ class TenantContextTest {
         String id = ((Map) claim.getFirst()).get("id").toString();
         int x = 5;
     }
+    */
 
+    //https://spring.io/blog/2018/03/06/using-spring-security-5-to-integrate-with-oauth-2-secured-services-such-as-facebook-and-github
+    /*
+    @Test
+    public void token() {
+        System.err.println();getToken();
+    }
+
+    @Autowired
+    private OAuth2AuthorizedClientService clientService;
+    private String getToken() {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication instanceof OAuth2AuthenticationToken ? clientService.loadAuthorizedClient(((OAuth2AuthenticationToken) authentication)
+                .getAuthorizedClientRegistrationId(), authentication.getName()).getAccessToken().getTokenValue() : null;
+    }
      */
-
 }
