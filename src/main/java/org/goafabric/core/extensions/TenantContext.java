@@ -17,7 +17,7 @@ public class TenantContext {
 
     public record TenantContextRecord(String tenantId, String organizationId, String authToken, String userName)  {
         public Map<String, String> getAdapterHeaderMap() { //can be used to simply forward the headers for adapters
-            return Map.of("X-TenantId", tenantId, "X-OrganizationId", organizationId, "X-Access-Token", authToken);
+            return Map.of("X-TenantId", getTenantId(), "X-OrganizationId", getOrganizationId(), "X-Access-Token", authToken != null ? authToken : "");
         }
     }
 
