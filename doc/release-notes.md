@@ -1,4 +1,4 @@
-# 1.2.3
+# 1.2.4
 - upgrade to Spring Boot 3.2.3
 - upgrade to springdoc 2.3.0
 
