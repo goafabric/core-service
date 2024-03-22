@@ -7,6 +7,8 @@ import org.goafabric.core.organization.controller.dto.types.PermissionCategory;
 import org.goafabric.core.organization.controller.dto.types.PermissionType;
 import org.goafabric.core.organization.logic.mapper.UserMapper;
 import org.goafabric.core.organization.persistence.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +20,8 @@ public class UserLogic {
     private final UserMapper mapper;
 
     private final UserRepository repository;
+
+    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     public UserLogic(UserMapper mapper, UserRepository repository) {
         this.mapper = mapper;
@@ -39,6 +43,7 @@ public class UserLogic {
                 
     }
 
+
     public User save(User user) {
         return mapper.map(repository.save(
                 mapper.map(user)));
@@ -46,12 +51,14 @@ public class UserLogic {
     }
 
     public Boolean hasPermission(String name, PermissionCategory category, PermissionType type) {
-        var users = findByName(name);
-        var roles = users.getFirst().roles();
-        for (Role role : roles) {
-            for (Permission permission : role.permissions()) {
-                if (permission.category().equals(category) && (permission.type().equals(type))) {
-                    return true;
+        var user = mapper.map(repository.findByName(name));
+        if (user.size() == 1) {
+            var roles = user.getFirst().roles();
+            for (Role role : roles) {
+                for (Permission permission : role.permissions()) {
+                    if (permission.category().equals(category) && (permission.type().equals(type))) {
+                        return true;
+                    }
                 }
             }
         }

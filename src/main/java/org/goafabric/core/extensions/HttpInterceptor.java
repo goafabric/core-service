@@ -16,9 +16,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class HttpInterceptor implements HandlerInterceptor {
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
-    private static final ThreadLocal<String> tenantId = new ThreadLocal<>();
-    private static final ThreadLocal<String> organizationId = new ThreadLocal<>();
-    private static final ThreadLocal<String> userName = new ThreadLocal<>();
 
     @Configuration
     static class Configurer implements WebMvcConfigurer {

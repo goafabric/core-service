@@ -40,7 +40,7 @@ spring:
       user-name-attribute: "preferred_username"
 
 #persistence
-spring.datasource.url: jdbc:h2:mem:person;DATABASE_TO_UPPER=FALSE
+spring.datasource.url: jdbc:h2:mem:core;DATABASE_TO_UPPER=FALSE
 #spring.datasource.url: jdbc:postgresql://localhost:5432/postgres
 spring.datasource.username: postgres
 spring.datasource.password: postgres
