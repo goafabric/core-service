@@ -48,6 +48,7 @@ public class SecurityConfiguration {
                     .csrf(c -> c.disable())
                     .exceptionHandling(exception ->
                             exception.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login.html")));
+                    //.sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.NEVER));
         } else {
             http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll()).csrf(csrf -> csrf.disable());
         }
