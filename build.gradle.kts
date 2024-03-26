@@ -15,7 +15,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.4"
 	id("org.graalvm.buildtools.native") version "0.9.28"
 	id("com.google.cloud.tools.jib") version "3.4.0"
-	id("com.vaadin") version "24.3.5"
+	id("com.vaadin") version "24.3.8"
 }
 
 repositories {
