@@ -2,7 +2,7 @@
 - release plugin added
 
 # 1.2.4
-- upgrade to Spring Boot 3.2.5
+- upgrade to Spring Boot 3.2.4
 - upgrade to springdoc 2.3.0
 
 # 1.2.0
