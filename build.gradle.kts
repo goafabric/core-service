@@ -66,7 +66,7 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
 	//s3
-	implementation("am.ik.s3:simple-s3-client:0.1.1") {exclude("org.springframework", "spring-web")}
+	implementation("am.ik.s3:simple-s3-client:0.2.1") {exclude("org.springframework", "spring-web")}
 
 	//devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
