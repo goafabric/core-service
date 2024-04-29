@@ -68,7 +68,7 @@ public class MainView extends AppLayout {
                 LumoUtility.Padding.Vertical.NONE,
                 LumoUtility.Padding.Horizontal.MEDIUM);
 
-        addToNavbar(header, createUserIcon());
+        addToNavbar(header); //, createUserIcon());
 
     }
 
