@@ -56,7 +56,7 @@ services:
       monitoring.view.s3.url: "http://localhost:9101/browser/objects"
 
       #sec
-      security.authentication.enabled: "true"
+      security.authentication.enabled: "false"
 
       #s3
       spring.cloud.aws.s3.endpoint: "http://s3minio:9000"
