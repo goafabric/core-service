@@ -53,8 +53,8 @@ jobs:
           gradle-version: 8.7
           
       - name: Container Images
-        run: gradle jib dockerImageNative
-          
+        run: gradle vaadinBuildFrontend jib dockerImageNative
+
   release:
     runs-on: ubuntu-latest
     needs: snapshot

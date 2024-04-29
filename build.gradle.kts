@@ -48,7 +48,6 @@ dependencies {
 
 	//crosscuting
 	implementation("org.springframework.boot:spring-boot-starter-aop")
-	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
 
 	//code generation
 	implementation("org.mapstruct:mapstruct")
