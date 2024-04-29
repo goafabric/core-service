@@ -15,6 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 
 public class HttpInterceptor implements HandlerInterceptor {
+
     private final Logger log = LoggerFactory.getLogger(this.getClass().getName());
 
     @Configuration
@@ -27,16 +28,13 @@ public class HttpInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        prehandle(request);
-        if (handler instanceof HandlerMethod) {
-            log.info(" {} method called for user {} ", ((HandlerMethod) handler).getShortLogMessage(), TenantContext.getUserName());
-        }
-        return true;
-    }
-
-    public static void prehandle(HttpServletRequest request) {
         TenantContext.setContext(request);
         configureLogsAndTracing(request);
+
+        if (handler instanceof HandlerMethod handlerMethod) {
+            log.info(" {} method called for user {} ", handlerMethod.getShortLogMessage(), TenantContext.getUserName());
+        }
+        return true;
     }
 
     @Override

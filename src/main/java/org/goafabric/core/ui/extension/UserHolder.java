@@ -31,6 +31,7 @@ public class UserHolder implements ApplicationContextAware, VaadinServiceInitLis
     }
 
     public static User getUser() {
+        //Todo: we should do a restcall here without the userName, which will be provided via the HTTP Context, and that can return the user
         var httpUser = TenantContext.getUserName() != null ? TenantContext.getUserName() : "anonymousUser";
         var user = users.computeIfAbsent(httpUser, userName -> {
             var users = context.getBean(UserAdapter.class).search(userName);
