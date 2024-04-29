@@ -1,89 +1,68 @@
 package org.goafabric.core.extensions;
 
-import com.nimbusds.jose.JOSEObject;
-import com.nimbusds.jwt.JWTParser;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 
-import java.text.ParseException;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.Map;
-import java.util.Objects;
 
 public class TenantContext {
-    private static final ThreadLocal<TenantContextRecord> tenantContext
-            = ThreadLocal.withInitial(() -> new TenantContextRecord(null, null, null, null));
-
-    public record TenantContextRecord(String tenantId, String organizationId, String authToken, String userName)  {
-        public Map<String, String> getAdapterHeaderMap() { //can be used to simply forward the headers for adapters
-            return Map.of("X-TenantId", getTenantId(), "X-OrganizationId", getOrganizationId(), "X-Access-Token", authToken != null ? authToken : "");
+    record TenantContextRecord(String tenantId, String organizationId, String userName) {
+        public Map<String, String> toAdapterHeaderMap() {
+            return Map.of("X-TenantId", tenantId, "X-OrganizationId", organizationId, "X-Auth-Request-Preferred-Username", userName);
         }
     }
 
+    private static final ThreadLocal<TenantContextRecord> CONTEXT =
+            ThreadLocal.withInitial(() -> new TenantContextRecord("0", "0", "anonymous"));
+
     public static void setContext(HttpServletRequest request) {
-        setContext(new TenantContextRecord(
-                getTenantIdFromTokenOrTenant(request.getHeader("X-Userinfo"), request.getHeader("X-TenantId")),
-                request.getHeader("X-OrganizationId"),
-                request.getHeader("X-Access-Token"),
-                getUserNameFromToken(request.getHeader("X-Access-Token"))
-                ));
+        setContext(request.getHeader("X-TenantId"), request.getHeader("X-OrganizationId"),
+                request.getHeader("X-Auth-Request-Preferred-Username"), request.getHeader("X-UserInfo"));
     }
 
-    static void setContext(TenantContextRecord tenantContextRecord) {
-        tenantContext.set(tenantContextRecord);
+    static void setContext(String tenantId, String organizationId, String userName, String userInfo) {
+        CONTEXT.set(new TenantContextRecord(
+                getValue(tenantId, "0"),
+                getValue(organizationId, "0"),
+                getValue(getUserNameFromUserInfo(userInfo), getValue(userName, "anonymous"))
+        ));
     }
 
     public static void removeContext() {
-        tenantContext.remove();
+        CONTEXT.remove();
     }
 
-    public static void setTenantId(String tenantId) {
-        setContext(new TenantContextRecord(tenantId, tenantContext.get().organizationId, tenantContext.get().authToken, tenantContext.get().userName));
+    private static String getValue(String value, String defaultValue) {
+        return value != null ? value : defaultValue;
     }
 
     public static String getTenantId() {
-        return getAuthentication() instanceof OAuth2AuthenticationToken ? ((OAuth2AuthenticationToken)getAuthentication()).getAuthorizedClientRegistrationId()
-                : tenantContext.get().tenantId() != null ? tenantContext.get().tenantId() : "0";
+        return CONTEXT.get().tenantId();
     }
 
     public static String getOrganizationId() {
-        return tenantContext.get().organizationId() != null ? tenantContext.get().organizationId() : "0";
+        return CONTEXT.get().organizationId();
     }
 
     public static String getUserName() {
-        return (getAuthentication() != null) && !(getAuthentication().getName().equals("anonymousUser")) ? getAuthentication().getName()
-                : tenantContext.get().userName != null ? tenantContext.get().userName : "anonymous";
+        return CONTEXT.get().userName();
     }
 
     public static Map<String, String> getAdapterHeaderMap() {
-        return tenantContext.get().getAdapterHeaderMap();
+        return CONTEXT.get().toAdapterHeaderMap();
     }
 
-    private static Authentication getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
+    public static void setTenantId(String tenant) {
+        CONTEXT.set(new TenantContextRecord(tenant, CONTEXT.get().organizationId, CONTEXT.get().userName));
     }
 
-    private static String getTenantIdFromTokenOrTenant(String userInfoToken, String tenantId) {
-        String tenantFromUserInfo = null; //todo retrieve tenant from Userinfo, claim name should be configurable
-        return tenantFromUserInfo != null ? tenantFromUserInfo  : tenantId;
-    }
-
-    static String getUserNameFromToken(String authToken) {
-        if (authToken != null) {
-            var payload = decodeJwt(authToken);
-            Objects.requireNonNull(payload.get("preferred_username"), "preferred_username in JWT is null");
-            return payload.get("preferred_username").toString();
-        }
-        return null;
-    }
-
-    private static Map<String, Object> decodeJwt(String token) {
+    private static String getUserNameFromUserInfo(String userInfo) {
         try {
-            return ((JOSEObject) JWTParser.parse(token)).getPayload().toJSONObject();
-        } catch (ParseException e) {
+            return userInfo != null ? (String) new ObjectMapper().readValue(Base64.getUrlDecoder().decode(userInfo), Map.class).get("preferred_username") : null;
+        } catch (IOException e) {
             throw new IllegalStateException(e);
         }
     }
-
 }
