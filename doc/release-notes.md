@@ -1,4 +1,4 @@
-# 1.2.5
+# 1.2.10
 - release plugin added
 - upgrade to Spring Boot 3.2.5
 
