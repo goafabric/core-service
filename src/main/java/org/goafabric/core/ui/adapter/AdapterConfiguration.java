@@ -26,7 +26,7 @@ public class AdapterConfiguration {
         restTemplate.setMessageConverters(Collections.singletonList(new MappingJackson2HttpMessageConverter()));
         restTemplate.getInterceptors().add((request, body, execution) -> {
             request.getHeaders().set(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-            request.getHeaders().setBasicAuth("admin", "admin");
+            //TenantContext.getAdapterHeaderMap().forEach((key, value) -> request.getHeaders().set(key, value));
             return execution.execute(request, body);
         });
         return restTemplate;
