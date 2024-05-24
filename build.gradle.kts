@@ -66,6 +66,7 @@ dependencies {
 	implementation("com.h2database:h2")
 	implementation("org.postgresql:postgresql")
 	implementation("org.flywaydb:flyway-core")
+	implementation("org.flywaydb:flyway-database-postgresql")
 
 	//elastic
 	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
