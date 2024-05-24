@@ -99,31 +99,32 @@ public class DemoDataImporter implements CommandLineRunner {
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.CATALOGS),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.FILES),
             new Permission(null, null, PermissionCategory.VIEW, PermissionType.APPOINTMENTS),
-            new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE),
-            new Permission(null, null, PermissionCategory.PROCESS, PermissionType.INVOICE)
+            new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE)
         ));
 
         var permissionMonitoring = permissionLogic.save(new Permission(null, null, PermissionCategory.VIEW, PermissionType.MONITORING));
         var permissionUsers = permissionLogic.save(new Permission(null, null, PermissionCategory.VIEW, PermissionType.USERS));
         var permissionRWD = permissionLogic.save(new Permission(null, null, PermissionCategory.CRUD, PermissionType.READ_WRITE_DELETE));
+        var permissionInvoice = permissionLogic.save(new Permission(null, null, PermissionCategory.PROCESS, PermissionType.INVOICE));
 
         var adminPermissions = new ArrayList<>(normalPermissions);
         adminPermissions.add(permissionMonitoring);
         adminPermissions.add(permissionUsers);
         adminPermissions.add(permissionRWD);
+        adminPermissions.add(permissionInvoice);
 
-        var role1 = roleController.save(new Role(null, null, "administrator", adminPermissions));
-        var role2 = roleController.save(new Role(null, null, "assistant", normalPermissions));
-        var role3 = roleController.save(new Role(null, null, "user", normalPermissions));
-
-        applicationContext.getBean(UserController.class).save(
-                new User(null, null, "0", "user1", Collections.singletonList(role1)));
+        var adminRole = roleController.save(new Role(null, null, "administrator", adminPermissions));
+        var assistantRole = roleController.save(new Role(null, null, "assistant", normalPermissions));
+        var userRole = roleController.save(new Role(null, null, "user", normalPermissions));
 
         applicationContext.getBean(UserController.class).save(
-                new User(null, null, "0", "user2", Arrays.asList(role2)));
+                new User(null, null, "0", "user1", Collections.singletonList(adminRole)));
 
         applicationContext.getBean(UserController.class).save(
-                new User(null, null, "0", "user3", Arrays.asList(role3)));
+                new User(null, null, "0", "user2", Collections.singletonList(assistantRole)));
+
+        applicationContext.getBean(UserController.class).save(
+                new User(null, null, "0", "user3", Collections.singletonList(userRole)));
 
         applicationContext.getBean(UserController.class).save(
                 new User(null, null, "0", "anonymous", new ArrayList<>()));
