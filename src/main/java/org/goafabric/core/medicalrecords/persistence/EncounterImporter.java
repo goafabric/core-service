@@ -130,7 +130,7 @@ public class EncounterImporter implements CommandLineRunner {
                     medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.ANAMNESIS, "hears strange voices of Michael Meyers, who tells him to set a fire", "")),
                     medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.FINDING,  "psychological disorder", "")),
                     medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CONDITION, "Pyromanie", "F63.1")),
-                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOÄ1")),
+                    medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.CHARGEITEM, "normal examination", "GOAE1")),
                     medicalRecordLogic.save(new MedicalRecord(MedicalRecordType.THERAPY, "We recommend a sugar and fat free diet", ""))
             );
             stackedRecords.addAll(medicalRecords);
