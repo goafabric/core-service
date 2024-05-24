@@ -22,8 +22,10 @@ management.otlp.tracing.endpoint: "http://localhost:4318/v1/traces"
 
 #event.dispatcher.uri: "http://localhost:50500/events/dispatch"
 
-#oidc
+#security
 security.authentication.enabled: false
+spring.security.user.name: "admin"
+spring.security.user.password: "admin"
 
 spring:
   security:
