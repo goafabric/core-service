@@ -46,13 +46,6 @@ services:
       multi-tenancy.schema-prefix: "core_"
       database.provisioning.goals: "-migrate -import-demo-data"
 
-      #frontend
-      frontend.catalog-service.uri: "http://catalog-service-application:8080"
-
-      monitoring.view.tracing.url: "http://localhost:16686/search"
-      monitoring.view.loki.url: "http://localhost:3000/explore"
-      monitoring.view.s3.url: "http://localhost:9101/browser/objects"
-
       #sec
       security.authentication.enabled: "false"
 
