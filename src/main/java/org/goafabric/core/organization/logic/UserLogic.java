@@ -1,8 +1,10 @@
 package org.goafabric.core.organization.logic;
 
+import org.goafabric.core.extensions.TenantContext;
 import org.goafabric.core.organization.controller.dto.Permission;
 import org.goafabric.core.organization.controller.dto.Role;
 import org.goafabric.core.organization.controller.dto.User;
+import org.goafabric.core.organization.controller.dto.UserInfo;
 import org.goafabric.core.organization.controller.dto.types.PermissionCategory;
 import org.goafabric.core.organization.controller.dto.types.PermissionType;
 import org.goafabric.core.organization.logic.mapper.UserMapper;
@@ -64,5 +66,9 @@ public class UserLogic {
         }
         return false;
 
+    }
+
+    public UserInfo getUserInfo() {
+        return new UserInfo(TenantContext.getUserName(), TenantContext.getTenantId());
     }
 }
