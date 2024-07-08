@@ -20,7 +20,7 @@ management.tracing.sampling.probability: "1.0"
 logging.level.io.opentelemetry: "OFF"
 management.otlp.tracing.endpoint: "http://localhost:4318/v1/traces"
 
-event.dispatcher.uri: "http://localhost:50500/events/dispatch"
+#event.dispatcher.uri: "http://localhost:50500/events/dispatch"
 
 #security
 security.authentication.enabled: false
