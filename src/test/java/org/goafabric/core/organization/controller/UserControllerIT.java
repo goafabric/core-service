@@ -51,6 +51,12 @@ public class UserControllerIT {
         assertThat(userController.hasPermission("user1", PermissionCategory.VIEW, PermissionType.PATIENT)).isTrue();
         assertThat(userController.hasPermission("user1", PermissionCategory.VIEW, PermissionType.INVOICE)).isFalse();
         userController.deleteById(user.id());
+    }
 
+    @Test
+    public void getUserInfo() {
+        var userInfo = userController.getUserInfo();
+        assertThat(userInfo.userName()).isEqualTo("anonymous");
+        assertThat(userInfo.tenantId()).isEqualTo("0");
     }
 }
