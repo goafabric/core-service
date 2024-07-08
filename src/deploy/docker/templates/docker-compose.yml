@@ -56,7 +56,7 @@ services:
 
   core-fe:
     container_name: ${_Values_root_name}-core-fe
-    image: goafabric/core-fe:3.3.1-SNAPSHOT
+    image: goafabric/core-fe:3.3.1
     restart: 'no'
     ports:
       - 80
