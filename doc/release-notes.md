@@ -1,5 +1,6 @@
 # 3.3.1
 - upgrade to Spring Boot 3.3.1
+- payload stuff and userinfo endpoint added
 
 # 3.3.0
 - upgrade to Spring Boot 3.3.0
