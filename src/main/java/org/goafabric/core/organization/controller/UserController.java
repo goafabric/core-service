@@ -2,6 +2,7 @@ package org.goafabric.core.organization.controller;
 
 import jakarta.validation.Valid;
 import org.goafabric.core.organization.controller.dto.User;
+import org.goafabric.core.organization.controller.dto.UserInfo;
 import org.goafabric.core.organization.controller.dto.types.PermissionCategory;
 import org.goafabric.core.organization.controller.dto.types.PermissionType;
 import org.goafabric.core.organization.logic.UserLogic;
@@ -39,10 +40,14 @@ public class UserController {
         return logic.hasPermission(name, category, type);
     }
 
-
     @PostMapping(value = "save", consumes = MediaType.APPLICATION_JSON_VALUE)
     public User save(@RequestBody @Valid User user) {
         return logic.save(user);
+    }
+
+    @GetMapping("getUserInfo")
+    public UserInfo getUserInfo() {
+        return logic.getUserInfo();
     }
 
 }
