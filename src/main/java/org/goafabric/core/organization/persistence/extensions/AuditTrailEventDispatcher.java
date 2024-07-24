@@ -5,6 +5,7 @@ import org.goafabric.core.medicalrecords.persistence.jpa.entity.MedicalRecordEo;
 import org.goafabric.event.EventData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Component
+@RegisterReflectionForBinding(EventData.class)
 public class AuditTrailEventDispatcher {
     private final ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
@@ -28,9 +30,14 @@ public class AuditTrailEventDispatcher {
     public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail, Object payload) {
         if (!kafkaServers.isEmpty()) {
             executor.submit(() -> {
-                String topic = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
-                log.info("prdoducing event for topic {}", topic);
-                kafkaTemplate.send(topic, auditTrail.objectId(), new EventData(TenantContext.getAdapterHeaderMap(), auditTrail.objectId(), auditTrail.operation().toString(), payload));
+                try {
+                    String topic = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
+                    log.info("producing event for topic {}", topic);
+                    kafkaTemplate.send(topic, auditTrail.objectId(), new EventData(TenantContext.getAdapterHeaderMap(), auditTrail.objectId(), auditTrail.operation().toString(), payload));
+                } catch (Exception e) {
+                    log.warn(e.getMessage(), e);
+                    throw e;
+                }
             });
         }
     }
