@@ -1,4 +1,6 @@
 # 3.3.2
+- upgrade to Spring Boot 3.3.1
+- direct kafka support
 
 # 3.3.1
 - upgrade to Spring Boot 3.3.1
