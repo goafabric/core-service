@@ -70,6 +70,10 @@ dependencies {
 	implementation("org.flywaydb:flyway-core")
 	implementation("org.flywaydb:flyway-database-postgresql")
 
+	//kafka
+	implementation("org.springframework.kafka:spring-kafka")
+
+
 	//elastic
 	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 

@@ -1,12 +1,15 @@
 package org.goafabric.core.organization.persistence.extensions;
 
 import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.event.EventData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClient;
 
@@ -20,6 +23,12 @@ public class AuditTrailEventDispatcher {
     private final RestClient auditRestClient;
     private final String eventDispatcherUri;
     private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
+
+    @Value("${spring.kafka.bootstrap-servers:}")
+    private String kafkaServers;
 
     public AuditTrailEventDispatcher(RestClient.Builder builder, @Value("${event.dispatcher.uri:}") String eventDispatcherUri) {
         this.eventDispatcherUri = eventDispatcherUri;
@@ -39,6 +48,10 @@ public class AuditTrailEventDispatcher {
     }
 
     public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail, Object payload) {
+        if (!kafkaServers.isEmpty()) {
+            kafkaTemplate.send(auditTrail.objectType(), auditTrail.objectId(), new EventData(TenantContext.getAdapterHeaderMap(), auditTrail.objectId(), auditTrail.operation().toString(), payload));
+        }
+
         if (!eventDispatcherUri.isEmpty()) {
             var changeEvent = new ChangeEvent(auditTrail.id(), TenantContext.getTenantId(), auditTrail.objectId(), auditTrail.objectType(), auditTrail.operation(), "core", payload);
             executor.submit(() -> {

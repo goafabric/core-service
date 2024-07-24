@@ -27,19 +27,6 @@ security.authentication.enabled: false
 spring.security.user.name: "admin"
 spring.security.user.password: "admin"
 
-spring:
-  security:
-    oauth2:
-      base-uri: "http://127.0.0.1:30200/oidc"
-      authorization-uri: "http://127.0.0.1:30200/oidc/auth"
-      logout-uri: "http://127.0.0.1:30200/logout"
-#      base-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect
-#      authorization-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/auth
-#      logout-uri: http://localhost:8080/oidc/realms/tenant-{tenantId}/protocol/openid-connect/logout
-  
-      client-id: "oauth2-proxy"
-      client-secret: "none"
-      user-name-attribute: "preferred_username"
 
 #persistence
 spring.datasource.url: jdbc:h2:mem:core;DATABASE_TO_UPPER=FALSE
@@ -63,6 +50,20 @@ spring.cloud.aws.s3.endpoint: "http://localhost:9100"
 spring.cloud.aws.credentials.access-key: "minioadmin"
 spring.cloud.aws.credentials.secret-key: "minioadmin"
 spring.cloud.aws.region.static: "eu"
+
+#kafka
+spring:
+  kafka:
+    #bootstrap-servers: "localhost:9092"
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      properties.spring.json.trusted.packages: "*"
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+    template:
+      observation-enabled: true
+    listener:
+      observation-enabled: true
 
 #logging
 logging.pattern.level: "%5p tenantId=%X{tenantId:-}" #"%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}] tenantId=%X{tenantId:-}"
