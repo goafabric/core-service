@@ -57,6 +57,9 @@ services:
       spring.datasource.username: "core-service"
       spring.datasource.password: "core-service"
 
+      #kafka off
+      spring.kafka.bootstrap-servers: ""
+
       #log levels
       logging.level.root: "WARN"
       logging.level.org.goafabric: "INFO"
