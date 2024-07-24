@@ -68,6 +68,8 @@ volumes:
     applogs:
     tmp_catalog:
     applogs_catalog:
+    tmp_invoice:
+    applogs_invoice:
     pgdata:
     kcdata:
     miniodata:
