@@ -29,6 +29,7 @@ public class AuditTrailEventDispatcher {
         if (!kafkaServers.isEmpty()) {
             executor.submit(() -> {
                 String topic = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
+                log.info("prdoducing event for topic {}", topic);
                 kafkaTemplate.send(topic, auditTrail.objectId(), new EventData(TenantContext.getAdapterHeaderMap(), auditTrail.objectId(), auditTrail.operation().toString(), payload));
             });
         }
