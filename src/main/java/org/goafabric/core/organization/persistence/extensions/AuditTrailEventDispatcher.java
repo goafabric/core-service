@@ -10,15 +10,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 @Component
 @RegisterReflectionForBinding(EventData.class)
 public class AuditTrailEventDispatcher {
-    private final ExecutorService executor = Executors.newVirtualThreadPerTaskExecutor();
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-
     private final KafkaTemplate kafkaTemplate;
     private final String kafkaServers;
 
@@ -29,16 +24,9 @@ public class AuditTrailEventDispatcher {
 
     public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail, Object payload) {
         if (!kafkaServers.isEmpty()) {
-            executor.submit(() -> {
-                try {
-                    String topic = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
-                    log.info("producing event for topic {}", topic);
-                    kafkaTemplate.send(topic, auditTrail.objectId(), new EventData(TenantContext.getAdapterHeaderMap(), auditTrail.objectId(), auditTrail.operation().toString(), payload));
-                } catch (Exception e) {
-                    log.warn(e.getMessage(), e);
-                    throw e;
-                }
-            });
+            String topic = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
+            log.info("producing event for topic {}", topic);
+            kafkaTemplate.send(topic, auditTrail.objectId(), new EventData(TenantContext.getAdapterHeaderMap(), auditTrail.objectId(), auditTrail.operation().toString(), payload));
         }
     }
 
