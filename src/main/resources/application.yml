@@ -20,12 +20,6 @@ management.tracing.sampling.probability: "1.0"
 logging.level.io.opentelemetry: "OFF"
 management.otlp.tracing.endpoint: "http://localhost:4318/v1/traces"
 
-#security
-security.authentication.enabled: false
-spring.security.user.name: "admin"
-spring.security.user.password: "admin"
-
-
 #persistence
 spring.datasource.url: jdbc:h2:mem:core;DATABASE_TO_UPPER=FALSE
 #spring.datasource.url: jdbc:postgresql://localhost:5432/postgres

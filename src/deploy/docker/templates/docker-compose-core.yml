@@ -43,9 +43,6 @@ services:
       multi-tenancy.schema-prefix: "core_"
       database.provisioning.goals: "-migrate -import-demo-data"
 
-      #sec
-      security.authentication.enabled: "false"
-
       #s3
       spring.cloud.aws.s3.endpoint: "http://s3minio:9000"
       spring.cloud.aws.s3.enabled: "true"
