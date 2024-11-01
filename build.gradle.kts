@@ -17,7 +17,7 @@ plugins {
 
 	id("com.google.cloud.tools.jib") version "3.4.4"
 	id("net.researchgate.release") version "3.0.2"
-	id("org.sonarqube") version "5.0.0.4638"
+	id("org.sonarqube") version "5.1.0.4882"
 
 	id("org.cyclonedx.bom") version "1.10.0"
 }
@@ -32,9 +32,9 @@ dependencies {
 	constraints {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.2")
 		implementation("org.mapstruct:mapstruct:1.6.2")
-		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0")
-		implementation("io.github.resilience4j:resilience4j-spring-boot3:2.1.0")
-		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.0.3")
+		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+		implementation("io.github.resilience4j:resilience4j-spring-boot3:2.2.0")
+		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.0.5")
 	}
 }
 
@@ -58,7 +58,7 @@ dependencies {
 	//code generation
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")
-	implementation("net.datafaker:datafaker:1.8.1") { exclude("org.yaml", "snakeyaml") }
+	implementation("net.datafaker:datafaker:1.9.0") { exclude("org.yaml", "snakeyaml") }
 
 	//persistence
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") {exclude("org.glassfish.jaxb", "jaxb-runtime")}
@@ -75,15 +75,15 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
 	//s3
-	implementation("am.ik.s3:simple-s3-client:0.2.1") {exclude("org.springframework", "spring-web")}
+	implementation("am.ik.s3:simple-s3-client:0.2.2") {exclude("org.springframework", "spring-web")}
 
 	//devtools
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 	//test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-client-okhttp:6.8.3")
-	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-structures-r4:6.8.3")
+	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-client-okhttp:6.10.5")
+	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-structures-r4:6.10.5")
 
 }
 
