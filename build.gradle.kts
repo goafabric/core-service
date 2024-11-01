@@ -82,7 +82,7 @@ dependencies {
 
 	//test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-client-okhttp:6.10.5")
+	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-client-okhttp:7.4.5")
 	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-structures-r4:6.10.5")
 
 }
