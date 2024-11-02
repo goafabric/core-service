@@ -7,7 +7,6 @@ java.sourceCompatibility = JavaVersion.VERSION_21
 val dockerRegistry = "goafabric"
 val nativeBuilder = "paketobuildpacks/java-native-image:10.1.0"
 val baseImage = "ibm-semeru-runtimes:open-21.0.4.1_7-jre-focal@sha256:8b94f8b14fd1d4660f9dc777b1ad3630f847b8e3dc371203bcb857a5e74d6c39"
-val hapiFhirVersion = "7.4.5"
 
 plugins {
 	java
@@ -38,6 +37,8 @@ dependencies {
 		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.0.5")
 	}
 }
+
+val hapiFhirVersion = "7.4.5"
 
 dependencies {
 	//web
