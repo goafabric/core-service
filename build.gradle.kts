@@ -60,7 +60,7 @@ dependencies {
 	//code generation
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")
-	implementation("net.datafaker:datafaker:2.4.1") { exclude("org.yaml", "snakeyaml") }
+	implementation("net.datafaker:datafaker:2.4.2") { exclude("org.yaml", "snakeyaml") }
 
 	//persistence
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") {exclude("org.glassfish.jaxb", "jaxb-runtime")}
