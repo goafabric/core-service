@@ -17,7 +17,7 @@ plugins {
 
 	id("com.google.cloud.tools.jib") version "3.4.4"
 	id("net.researchgate.release") version "3.0.2"
-	id("org.sonarqube") version "6.0.0.5145"
+	id("org.sonarqube") version "6.0.1.5171"
 
 	id("org.cyclonedx.bom") version "1.10.0"
 }
@@ -32,13 +32,13 @@ dependencies {
 	constraints {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
-		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0")
+		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.7.0")
 		implementation("io.github.resilience4j:resilience4j-spring-boot3:2.2.0")
 		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.0.6")
 	}
 }
 
-val hapiFhirVersion = "7.4.5"
+val hapiFhirVersion = "7.6.0"
 
 dependencies {
 	//web
