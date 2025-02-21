@@ -11,4 +11,4 @@ docker run --pull always --name core-service --rm -p50800:50800 goafabric/core-s
 docker run --pull always --name core-service-native --rm -p50800:50800 goafabric/core-service-native:$(grep '^version=' gradle.properties | cut -d'=' -f2) -Xmx64m
 
 # run native image arm
-docker run --pull always --name core-service-native --rm -p50800:50800 goafabric/core-service-native-arm64v8:$(grep '^version=' gradle.properties | cut -d'=' -f2) -Xmx64m
+docker run --pull always --name core-service-native --rm -p50800:50800 goafabric/core-service-native-arm64v8:$(grep '^version=' gradle.properties | cut -d'=' -f2) -Xmx92m
