@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.persistence.extensions;
 
 import org.flywaydb.core.Flyway;
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.hibernate.cfg.AvailableSettings;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
@@ -42,7 +42,7 @@ public class TenantResolver implements CurrentTenantIdentifierResolver<String>, 
 
     @Override
     public String resolveCurrentTenantIdentifier() {
-        return TenantContext.getOrganizationId();
+        return UserContext.getOrganizationId();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class TenantResolver implements CurrentTenantIdentifierResolver<String>, 
     @Override
     public Connection getConnection(String schema) throws SQLException {
         var connection = dataSource.getConnection();
-        connection.setSchema(defaultSchema.equals(schema) ? defaultSchema : schemaPrefix + TenantContext.getTenantId());
+        connection.setSchema(defaultSchema.equals(schema) ? defaultSchema : schemaPrefix + UserContext.getTenantId());
         return connection;
     }
 

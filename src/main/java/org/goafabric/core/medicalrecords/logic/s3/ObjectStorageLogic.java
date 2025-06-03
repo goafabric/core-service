@@ -4,7 +4,7 @@ import am.ik.s3.ListBucketResult;
 import am.ik.s3.ListBucketsResult;
 import am.ik.s3.S3Content;
 import am.ik.s3.S3RequestBuilders;
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.beans.factory.annotation.Value;
@@ -113,7 +113,7 @@ public class ObjectStorageLogic {
     }
 
     private String getBucketName() {
-        return schemaPrefix.replaceAll("_", "-") + TenantContext.getTenantId();
+        return schemaPrefix.replaceAll("_", "-") + UserContext.getTenantId();
     }
 
 }

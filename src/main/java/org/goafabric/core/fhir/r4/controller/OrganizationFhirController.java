@@ -21,7 +21,6 @@ public class OrganizationFhirController implements FhirProjector<Organization> {
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
     public void create(Organization organization) {
         throw new IllegalStateException("NYI");
-        //logic.save(mapper.map(organization));
     }
 
     @DeleteMapping("/{id}")

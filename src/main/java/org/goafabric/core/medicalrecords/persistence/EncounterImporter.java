@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.persistence;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
@@ -139,7 +139,7 @@ public class EncounterImporter implements CommandLineRunner {
     }
 
     public static void setTenantId(String tenantId) {
-        TenantContext.setTenantId(tenantId);
+        UserContext.setTenantId(tenantId);
     }
 
 

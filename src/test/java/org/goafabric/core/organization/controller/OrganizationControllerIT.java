@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.controller;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.organization.controller.dto.types.AddressUse;
 import org.goafabric.core.organization.controller.dto.types.ContactPointSystem;
 import org.junit.jupiter.api.Test;
@@ -58,7 +58,7 @@ class OrganizationControllerIT {
     private String create() {
         return controller.save(
                 createOrganization("Practice Dr. Monroe",
-                        createAddress("Psych Street " + TenantContext.getTenantId()),
+                        createAddress("Psych Street " + UserContext.getTenantId()),
                         createContactPoint("555-222"))
         ).id();
     }

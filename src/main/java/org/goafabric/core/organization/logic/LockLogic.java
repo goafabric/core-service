@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.logic;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.organization.controller.dto.Lock;
 import org.goafabric.core.organization.persistence.LockRepository;
 import org.goafabric.core.organization.persistence.entity.LockEo;
@@ -24,7 +24,7 @@ public class LockLogic {
             var lock = lockFound.get();
             return new Lock(lock.getId(), true, lock.getLockKey(), lock.getLockTime(), lock.getUserName());
         } else {
-            var lock = repository.save(new LockEo(null, lockKey, LocalDateTime.now(), TenantContext.getUserName()));
+            var lock = repository.save(new LockEo(null, lockKey, LocalDateTime.now(), UserContext.getUserName()));
             return new Lock(lock.getId(), false, lock.getLockKey(), lock.getLockTime(), lock.getUserName());
         }
     }

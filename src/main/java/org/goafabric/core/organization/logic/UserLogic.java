@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.logic;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.organization.controller.dto.Permission;
 import org.goafabric.core.organization.controller.dto.Role;
 import org.goafabric.core.organization.controller.dto.User;
@@ -69,6 +69,6 @@ public class UserLogic {
     }
 
     public UserInfo getUserInfo() {
-        return new UserInfo(TenantContext.getUserName(), TenantContext.getTenantId());
+        return new UserInfo(UserContext.getUserName(), UserContext.getTenantId());
     }
 }
