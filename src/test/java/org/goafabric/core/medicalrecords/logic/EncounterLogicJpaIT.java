@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.goafabric.core.DataRocker.setTenantId;
 
 @SpringBootTest
-class EncounterLogicIT {
+class EncounterLogicJpaIT {
 
     @Autowired
     private EncounterLogic encounterLogic;
