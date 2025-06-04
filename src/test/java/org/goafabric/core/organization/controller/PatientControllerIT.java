@@ -86,18 +86,4 @@ class PatientControllerIT {
         controller.deleteById(id);
     }
 
-    /*
-    @Autowired
-    private MongoTemplate mongoTemplate;
-
-    @Test
-    void search() {
-        var id = create();
-        List<PatientEo> patients = mongoTemplate.find(new BasicQuery("{ familyName : 'Simpson' givenName : 'Homer' }"), PatientEo.class);
-        System.out.println(patients.get(0).familyName);
-        delete(id);
-    }
-
-     */
-
 }

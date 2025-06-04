@@ -38,15 +38,6 @@ class PatientControllerSearchIT {
 
         assertThat(findBy("Müll", "Han")).isNotEmpty();
 
-        /*
-        assertThat(findBy("Mei", "")).isEmpty();
-        assertThat(findBy("Muell", "")).isEmpty();
-
-        assertThat(findBy("Hans", "Müller")).isEmpty();
-        assertThat(findBy("Michael", "Meyers")).isEmpty();
-
-         */
-
         delete(michael);
         delete(hans);
     }
