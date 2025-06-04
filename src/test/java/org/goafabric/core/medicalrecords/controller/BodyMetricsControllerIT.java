@@ -43,7 +43,7 @@ class BodyMetricsControllerIT {
     }
 
     @Test
-    public void delete() {
+    void delete() {
         var medicalRecord = bodyMetricsLogic.save(
                 new BodyMetrics(null, null, "170 cm", "100 cm", "30 cm", "30 %")
         );

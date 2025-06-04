@@ -18,7 +18,7 @@ class PractitionerControllerIT {
     private PractitionerController controller;
 
     @Test
-    public void getById() {
+    void getById() {
         setTenantId("0");
         var id = create();
         var practitioner = controller.getById(id);
@@ -43,7 +43,7 @@ class PractitionerControllerIT {
     }
 
     @Test
-    public void findByGivenName() {
+    void findByGivenName() {
         setTenantId("0");
         var id0 = create();
         assertThat(controller.findByGivenName("Marvin")).isNotNull().hasSize(1);
@@ -57,7 +57,7 @@ class PractitionerControllerIT {
     }
 
     @Test
-    public void findByFamilyName() {
+    void findByFamilyName() {
         setTenantId("0");
         var id0 = create();
         assertThat(controller.findByFamilyName("Monroe")).isNotNull().hasSize(1);

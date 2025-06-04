@@ -19,7 +19,7 @@ class PatientControllerSearchIT {
     private PatientLogic patientLogic;
 
     @Test
-    public void test() {
+    void test() {
         setTenantId("0");
         var michael = create("Michael", "Meyers");
         var hans = create("Hans", "Müller");

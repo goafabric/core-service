@@ -18,7 +18,7 @@ class PatientControllerIT {
     private PatientController controller;
 
     @Test
-    public void getById() {
+    void getById() {
         setTenantId("0");
         var id = create();
         var patient = controller.getById(id);
@@ -41,7 +41,7 @@ class PatientControllerIT {
     }
 
     @Test
-    public void findByGivenName() {
+    void findByGivenName() {
         setTenantId("0");
         var id0 = create();
         assertThat(controller.findByGivenName("Homer")).isNotNull().isNotEmpty();
@@ -55,7 +55,7 @@ class PatientControllerIT {
     }
 
     @Test
-    public void findByFamilyName() {
+    void findByFamilyName() {
         setTenantId("0");
         var id0 = create();
         assertThat(controller.findByFamilyName("Simpson")).isNotNull().isNotEmpty();

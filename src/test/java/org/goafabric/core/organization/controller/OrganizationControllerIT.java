@@ -18,7 +18,7 @@ class OrganizationControllerIT {
     private OrganizationController controller;
 
     @Test
-    public void getById() {
+    void getById() {
         setTenantId("0");
         var id = create();
         var organization = controller.getById(id);
@@ -42,7 +42,7 @@ class OrganizationControllerIT {
     }
 
     @Test
-    public void findByGivenName() {
+    void findByGivenName() {
         setTenantId("0");
         var id0 = create();
         assertThat(controller.findByName("Practice Dr. Monroe")).isNotNull().hasSize(1);

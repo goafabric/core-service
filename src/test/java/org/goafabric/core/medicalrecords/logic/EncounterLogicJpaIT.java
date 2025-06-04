@@ -23,7 +23,7 @@ class EncounterLogicJpaIT {
 
 
     @Test
-    public void findByText() {
+    void findByText() {
         setTenantId("0");
         encounterImporter.importDemoData();
 

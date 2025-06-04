@@ -15,7 +15,7 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class UserControllerIT {
+ class UserControllerIT {
     @Autowired
     private RoleController roleController;
 
@@ -26,7 +26,7 @@ public class UserControllerIT {
     private PermissionLogic permissionLogic;
 
     @Test
-    public void save() {
+    void save() {
         var permissions = permissionLogic.saveAll(Arrays.asList(
                 new Permission(null, null, PermissionCategory.VIEW, PermissionType.PATIENT),
                 new Permission(null, null, PermissionCategory.VIEW, PermissionType.ORGANIZATION)
@@ -54,7 +54,7 @@ public class UserControllerIT {
     }
 
     @Test
-    public void getUserInfo() {
+    void getUserInfo() {
         var userInfo = userController.getUserInfo();
         assertThat(userInfo.userName()).isEqualTo("anonymous");
         assertThat(userInfo.tenantId()).isEqualTo("0");

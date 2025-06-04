@@ -8,11 +8,11 @@ import ca.uhn.fhir.rest.client.api.IHttpResponse;
 
 import java.io.IOException;
 
-public class ClientFactory {
+ class ClientFactory {
     private ClientFactory() {
     }
 
-    public static IGenericClient createClient(String port) {
+     static IGenericClient createClient(String port) {
         final IGenericClient client = FhirContext.forR4().newRestfulGenericClient(
                 "http://localhost:" + port + "/fhir/r4");
 
