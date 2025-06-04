@@ -29,7 +29,7 @@ class PractitionerControllerIT {
 
         assertThat(practitioner.address()).isNotNull().isNotEmpty();
         assertThat(practitioner.address().getFirst().city()).isEqualTo("Springfield");
-        assertThat(practitioner.address().getFirst().street()).isEqualTo("Monroe Street 0");
+        assertThat(practitioner.address().getFirst().street()).hasToString("Monroe Street 0");
 
         assertThat(practitioner.contactPoint()).isNotNull().isNotEmpty();
         assertThat(practitioner.contactPoint()).isNotNull().isNotEmpty();

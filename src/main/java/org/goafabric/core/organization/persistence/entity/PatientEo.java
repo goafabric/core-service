@@ -10,7 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "patient")
 @EntityListeners(AuditTrailListener.class)
-@SuppressWarnings("java:S1104")
+@SuppressWarnings("java:S107")
 public class PatientEo {
     @Id
     @org.springframework.data.annotation.Id

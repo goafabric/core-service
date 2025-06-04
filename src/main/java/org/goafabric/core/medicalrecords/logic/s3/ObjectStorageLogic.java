@@ -98,7 +98,7 @@ public class ObjectStorageLogic {
         var response = restClient.get().uri(request.uri()).headers(request.headers()).retrieve()
                 .toEntity(ListBucketsResult.class).getBody();
 
-        if (response.buckets().stream().noneMatch(b -> b.name().equals(bucket))) { //this could be slow
+        if (response != null && response.buckets().stream().noneMatch(b -> b.name().equals(bucket))) { //this could be slow
             var request2 = s3RequestPath(HttpMethod.PUT, null).build();
             restClient.put().uri(request2.uri()).headers(request2.headers()).retrieve().toBodilessEntity();
         }

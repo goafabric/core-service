@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RegisterReflectionForBinding(EventData.class)
 public class AuditTrailEventDispatcher {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate<String, EventData> kafkaTemplate;
     private final String kafkaServers;
 
     public AuditTrailEventDispatcher(KafkaTemplate kafkaTemplate, @Value("${spring.kafka.bootstrap-servers:}") String kafkaServers) {

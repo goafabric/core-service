@@ -45,7 +45,7 @@ class OrganizationFhirControllerIT {
         assertThat(address.getUse().toCode()).isEqualTo("home");
 
         assertThat(address.getLine()).hasSize(1);
-        assertThat(address.getLine().getFirst().toString()).isEqualTo("Psych Street");
+        assertThat(address.getLine().getFirst()).hasToString("Psych Street");
 
         assertThat(organization.getTelecom()).hasSize(1);
         var contactPoint = organization.getTelecom().getFirst();
