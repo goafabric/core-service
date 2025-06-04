@@ -8,6 +8,7 @@ import org.goafabric.core.organization.persistence.extensions.AuditTrailListener
 @Table(name="address")
 //@Document("#{@tenantIdBean.getPrefix()}address")
 @EntityListeners(AuditTrailListener.class)
+@SuppressWarnings("java:S107")
 public class AddressEo {
     @Id
     @org.springframework.data.annotation.Id
@@ -26,7 +27,7 @@ public class AddressEo {
     @Version //optimistic locking
     private Long version;
 
-    private AddressEo() {};
+    private AddressEo() {}
 
     public AddressEo(String id, String use, String street, String city, String postalCode, String state, String country, Long version) {
         this.id = id;
