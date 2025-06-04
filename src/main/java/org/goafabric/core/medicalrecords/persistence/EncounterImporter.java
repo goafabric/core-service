@@ -33,8 +33,6 @@ public class EncounterImporter implements CommandLineRunner {
 
     private final String goals;
 
-    private final Integer demoDataSize;
-
     private final String tenants;
 
     private final ApplicationContext applicationContext;
@@ -45,10 +43,9 @@ public class EncounterImporter implements CommandLineRunner {
     @Autowired
     private PatientLogic patientLogic;
 
-    public EncounterImporter(@Value("${database.provisioning.goals:}")String goals, @Value("${demo-data.size}") Integer demoDataSize, @Value("${multi-tenancy.tenants}") String tenants,
+    public EncounterImporter(@Value("${database.provisioning.goals:}")String goals, @Value("${multi-tenancy.tenants}") String tenants,
                              ApplicationContext applicationContext) {
         this.goals = goals;
-        this.demoDataSize = demoDataSize;
         this.tenants = tenants;
         this.applicationContext = applicationContext;
     }

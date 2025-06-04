@@ -53,7 +53,7 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
     }
 
     public MedicalRecord getById(String id) {
-        return mapper.map(repository.findById(id).get());
+        return mapper.map(repository.findById(id).orElseThrow());
     }
 
     public MedicalRecord save(MedicalRecord medicalRecord) {

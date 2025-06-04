@@ -25,7 +25,7 @@ import static am.ik.s3.S3RequestBuilder.s3Request;
 @RegisterReflectionForBinding({ListBucketResult.class, ListBucketsResult.class})
 public class ObjectStorageLogic {
 
-    private final Boolean    s3Enabled;
+    private final boolean    s3Enabled;
     private final String     schemaPrefix;
     private final RestClient restClient;
     private final String     endPoint;
@@ -34,7 +34,7 @@ public class ObjectStorageLogic {
     private final String     secretKey;
     private final List<ObjectEntry> objectEntriesInMem = new ArrayList<>();
 
-    public ObjectStorageLogic(@Value("${spring.cloud.aws.s3.enabled}") Boolean s3Enabled,
+    public ObjectStorageLogic(@Value("${spring.cloud.aws.s3.enabled}") boolean s3Enabled,
                               @Value("${multi-tenancy.schema-prefix:}") String schemaPrefix,
                               @Value("${spring.cloud.aws.s3.endpoint}") String endPoint,
                               @Value("${spring.cloud.aws.region.static}") String region,
@@ -50,7 +50,7 @@ public class ObjectStorageLogic {
     }
 
     public ObjectEntry getById(String id) {
-        if (!s3Enabled) { return objectEntriesInMem.stream().filter(o -> o.objectName().equals(id)).findFirst().get(); }
+        if (!s3Enabled) { return objectEntriesInMem.stream().filter(o -> o.objectName().equals(id)).findFirst().orElseThrow(); }
 
         var request = s3RequestPath(HttpMethod.GET, id).build();
         var response = restClient.get().uri(request.uri()).headers(request.headers()).retrieve().toEntity(byte[].class);
@@ -67,6 +67,10 @@ public class ObjectStorageLogic {
         var request = s3RequestPath(HttpMethod.GET, null).build();
         var response = restClient.get().uri(request.uri()).headers(request.headers()).retrieve()
                 .toEntity(ListBucketResult.class).getBody();
+
+        if (response == null) {
+            return new ArrayList<>();
+        }
 
         return response.contents().stream().map(c ->
                         new ObjectEntry(c.key(), null, c.size(), null))
@@ -112,7 +116,7 @@ public class ObjectStorageLogic {
                     .secretAccessKey(secretKey)
                     .method(httpMethod);
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 

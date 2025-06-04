@@ -26,7 +26,6 @@ public class EncounterLogicJpa implements org.goafabric.core.medicalrecords.logi
         this.mapper = encounterMapper;
         this.repository = encounterRepository;
         this.medicalRecordLogicJpa = medicalRecordLogicJpa;
-        ;
     }
 
     public Encounter save(Encounter encounter) {
@@ -39,7 +38,7 @@ public class EncounterLogicJpa implements org.goafabric.core.medicalrecords.logi
         return (!types.isEmpty()
                 ? encounters.stream().map(e ->
                 new Encounter(e.id(), e.version(), e.patientId(), e.practitionerId(), e.encounterDate(), e.encounterName(),
-                        e.medicalRecords().stream().filter(record -> types.contains(record.type())).toList())).toList()
+                        e.medicalRecords().stream().filter(medicalRecord -> types.contains(medicalRecord.type())).toList())).toList()
                 : encounters);
     }
 

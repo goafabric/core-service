@@ -32,7 +32,7 @@ public class EncounterLogicElastic implements EncounterLogic {
     }
 
     public Encounter getById(String id) {
-        return mapper.map(encounterRepository.findById(id).get());
+        return mapper.map(encounterRepository.findById(id).orElseThrow());
     }
 
     public List<Encounter> findByPatientIdAndDisplayAndType(String patientId, String text, List<MedicalRecordType> types) {
@@ -40,7 +40,7 @@ public class EncounterLogicElastic implements EncounterLogic {
         return (!types.isEmpty()
                 ? encounters.stream().map(e ->
                 new Encounter(e.id(), e.version(), e.patientId(), e.practitionerId(), e.encounterDate(), e.encounterName(),
-                        e.medicalRecords().stream().filter(record -> types.contains(record.type())).toList())).toList()
+                        e.medicalRecords().stream().filter(medicalRecord -> types.contains(medicalRecord.type())).toList())).toList()
                 : encounters);
     }
 

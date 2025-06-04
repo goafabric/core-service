@@ -30,7 +30,7 @@ public class MedicalRecordLogicJpa implements org.goafabric.core.medicalrecords.
     }
 
     public MedicalRecord getById(String id) {
-        return mapper.map(repository.findById(id).get());
+        return mapper.map(repository.findById(id).orElseThrow());
     }
 
     public MedicalRecord save(MedicalRecord medicalRecord) {
