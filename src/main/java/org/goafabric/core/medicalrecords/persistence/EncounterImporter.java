@@ -13,7 +13,6 @@ import org.goafabric.core.medicalrecords.logic.jpa.BodyMetricsLogic;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -37,17 +36,22 @@ public class EncounterImporter implements CommandLineRunner {
 
     private final ApplicationContext applicationContext;
 
-    @Autowired
     private EncounterLogic encounterLogic;
 
-    @Autowired
     private PatientLogic patientLogic;
 
+    private MedicalRecordLogic medicalRecordLogic;
+
+
     public EncounterImporter(@Value("${database.provisioning.goals:}")String goals, @Value("${multi-tenancy.tenants}") String tenants,
-                             ApplicationContext applicationContext) {
+                             ApplicationContext applicationContext,
+                             EncounterLogic encounterLogic, PatientLogic patientLogic, MedicalRecordLogic medicalRecordLogic) {
         this.goals = goals;
         this.tenants = tenants;
         this.applicationContext = applicationContext;
+        this.encounterLogic = encounterLogic;
+        this.patientLogic = patientLogic;
+        this.medicalRecordLogic = medicalRecordLogic;
     }
 
     @Override
@@ -79,8 +83,6 @@ public class EncounterImporter implements CommandLineRunner {
         insertObservations();
     }
 
-    @Autowired
-    private MedicalRecordLogic medicalRecordLogic;
     private void insertObservations() {
 
         var patient = patientLogic.save(
@@ -144,7 +146,7 @@ public class EncounterImporter implements CommandLineRunner {
         try {
             return new ObjectMapper().writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 

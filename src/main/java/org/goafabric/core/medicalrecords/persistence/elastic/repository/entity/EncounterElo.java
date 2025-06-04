@@ -26,10 +26,7 @@ public class EncounterElo {
     private LocalDate encounterDate;
 
     private String encounterName;
-
-    //@Field(type = FieldType.Nested, includeInParent = false)
-    //private List<org.goafabric.personservice.syncmedicalrecords.elastic.repository.entity.MedicalRecordEo> medicalRecords;
-
+    
     private EncounterElo() {}
     public EncounterElo(String id, Long version, String patientId, String practitionerId, String encounterName, LocalDate encounterDate) {
         this.id = id;

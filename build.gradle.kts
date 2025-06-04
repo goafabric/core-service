@@ -125,3 +125,10 @@ openApi {
 	customBootRun { args.set(listOf("--server.port=8080")) }
 	tasks.forkedSpringBootRun { dependsOn("compileAotJava", "processAotResources") }
 }
+
+sonarqube {
+	properties {
+		property("sonar.exclusions", "**/*Cologne*.java")
+	}
+}
+

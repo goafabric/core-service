@@ -1,7 +1,5 @@
 package org.goafabric.core.organization.controller.dto;
 
-import jakarta.validation.constraints.Size;
-
 import java.time.LocalDate;
 import java.util.List;
 

@@ -35,7 +35,7 @@ public class ColognePhonetic {
             this.length = data.length;
         }
 
-        public CologneBuffer(final int buffSize) {
+        protected CologneBuffer(final int buffSize) {
             this.data = new char[buffSize];
             this.length = 0;
         }
