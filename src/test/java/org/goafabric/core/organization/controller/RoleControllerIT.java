@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         assertThat(controller.getById(role.id()).name())
                 .isEqualTo("administrator");
 
-        assertThat(controller.findByName("administrator").get(0).name())
+        assertThat(controller.findByName("administrator").getFirst().name())
                 .isEqualTo("administrator");
 
         assertThat(role.permissions()).hasSize(2);
@@ -52,7 +52,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         var role = controller.save(
                 new Role(null, null, "administrator", permissions));
         
-        assertThat(controller.findByName("administrator").get(0).name())
+        assertThat(controller.findByName("administrator").getFirst().name())
                 .isEqualTo("administrator");
 
         assertThat(role.permissions()).hasSize(2);

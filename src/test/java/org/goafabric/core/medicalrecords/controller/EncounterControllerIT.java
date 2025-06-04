@@ -44,7 +44,7 @@ class EncounterControllerIT {
         var encounters = encounterController.findByPatientIdAndDisplay(patientId, "Adipositas");
 
         assertThat(encounters).isNotNull().hasSize(2);
-        assertThat(encounters.get(0).medicalRecords()).isNotNull().hasSize(2);
+        assertThat(encounters.getFirst().medicalRecords()).isNotNull().hasSize(2);
         assertThat(encounters.get(1).medicalRecords()).isNotNull().hasSize(2);
 
         deletePatient(patientId);

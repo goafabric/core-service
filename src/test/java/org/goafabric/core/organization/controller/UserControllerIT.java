@@ -38,7 +38,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
         var roles = roleController.findByName("");
         assertThat(roles).hasSize(3);
-        assertThat(roles.get(0).permissions()).hasSize(2);
+        assertThat(roles.getFirst().permissions()).hasSize(2);
 
         var user = userController.save(
                 new User(null, null, "0", "user1", roles));

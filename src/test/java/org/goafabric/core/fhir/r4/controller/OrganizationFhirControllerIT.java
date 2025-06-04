@@ -32,12 +32,12 @@ class OrganizationFhirControllerIT {
                         .execute();
         assertThat(bundle).isNotNull();
 
-        var organization = (Organization) bundle.getEntry().get(0).getResource();
+        var organization = (Organization) bundle.getEntry().getFirst().getResource();
 
         assertThat(organization.getName()).isEqualTo("Practice Dr. Monroe");
 
         assertThat(organization.getAddress()).hasSize(1);
-        var address = organization.getAddress().get(0);
+        var address = organization.getAddress().getFirst();
         assertThat(address.getCity()).isEqualTo("Springfield");
         assertThat(address.getPostalCode()).isEqualTo("555");
         assertThat(address.getCountry()).isEqualTo("US");
@@ -45,10 +45,10 @@ class OrganizationFhirControllerIT {
         assertThat(address.getUse().toCode()).isEqualTo("home");
 
         assertThat(address.getLine()).hasSize(1);
-        assertThat(address.getLine().get(0).toString()).isEqualTo("Psych Street");
+        assertThat(address.getLine().getFirst().toString()).isEqualTo("Psych Street");
 
         assertThat(organization.getTelecom()).hasSize(1);
-        var contactPoint = organization.getTelecom().get(0);
+        var contactPoint = organization.getTelecom().getFirst();
         assertThat(contactPoint.getValue()).isEqualTo("555-222");
         assertThat(contactPoint.getUse().toCode()).isEqualTo("home");
         assertThat(contactPoint.getSystem().toCode()).isEqualTo("phone");

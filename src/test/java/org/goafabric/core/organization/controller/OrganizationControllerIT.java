@@ -27,14 +27,14 @@ class OrganizationControllerIT {
         assertThat(organization.name()).isEqualTo("Practice Dr. Monroe");
 
         assertThat(organization.address()).isNotNull().isNotEmpty();
-        assertThat(organization.address().get(0).city()).isEqualTo("Springfield");
-        assertThat(organization.address().get(0).street()).isEqualTo("Psych Street 0");
+        assertThat(organization.address().getFirst().city()).isEqualTo("Springfield");
+        assertThat(organization.address().getFirst().street()).isEqualTo("Psych Street 0");
 
         assertThat(organization.contactPoint()).isNotNull().isNotEmpty();
         assertThat(organization.contactPoint()).isNotNull().isNotEmpty();
-        assertThat(organization.contactPoint().get(0).use()).isEqualTo(AddressUse.HOME.getValue());
-        assertThat(organization.contactPoint().get(0).system()).isEqualTo(ContactPointSystem.PHONE.getValue());
-        assertThat(organization.contactPoint().get(0).value()).isEqualTo("555-222");
+        assertThat(organization.contactPoint().getFirst().use()).isEqualTo(AddressUse.HOME.getValue());
+        assertThat(organization.contactPoint().getFirst().system()).isEqualTo(ContactPointSystem.PHONE.getValue());
+        assertThat(organization.contactPoint().getFirst().value()).isEqualTo("555-222");
 
 
         delete(id);

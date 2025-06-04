@@ -33,12 +33,12 @@ class PractitionerFhirControllerIT {
                         .execute();
         assertThat(bundle).isNotNull();
 
-        var practitioner  = (Practitioner) bundle.getEntry().get(0).getResource();
-        assertThat(practitioner.getName().get(0).getGiven().get(0).toString()).isEqualTo("Marvin");
-        assertThat(practitioner.getName().get(0).getFamily()).isEqualTo("Monroe");
+        var practitioner  = (Practitioner) bundle.getEntry().getFirst().getResource();
+        assertThat(practitioner.getName().getFirst().getGiven().getFirst()).hasToString("Marvin");
+        assertThat(practitioner.getName().getFirst().getFamily()).isEqualTo("Monroe");
 
         assertThat(practitioner.getAddress()).hasSize(1);
-        var address = practitioner.getAddress().get(0);
+        var address = practitioner.getAddress().getFirst();
         assertThat(address.getCity()).isEqualTo("Springfield");
         assertThat(address.getPostalCode()).isEqualTo("555");
         assertThat(address.getCountry()).isEqualTo("US");
@@ -46,10 +46,10 @@ class PractitionerFhirControllerIT {
         assertThat(address.getUse().toCode()).isEqualTo("home");
 
         assertThat(address.getLine()).hasSize(1);
-        assertThat(address.getLine().get(0).toString()).isEqualTo("Monroe Street");
+        assertThat(address.getLine().getFirst().toString()).isEqualTo("Monroe Street");
 
         assertThat(practitioner.getTelecom()).hasSize(1);
-        var contactPoint = practitioner.getTelecom().get(0);
+        var contactPoint = practitioner.getTelecom().getFirst();
         assertThat(contactPoint.getValue()).isEqualTo("555-333");
         assertThat(contactPoint.getUse().toCode()).isEqualTo("home");
         assertThat(contactPoint.getSystem().toCode()).isEqualTo("phone");

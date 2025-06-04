@@ -53,12 +53,7 @@ class PatientControllerSearchIT {
     private String findBy(String familyName, String givenName) {
         return patientLogic.findByFamilyNameAndGivenName(familyName, givenName).toString();
     }
-
-    private void delete(String id, String tenantId) {
-        setTenantId(tenantId);
-        delete(id);
-    }
-
+    
     private void delete(String id) {
         controller.deleteById(id);
     }

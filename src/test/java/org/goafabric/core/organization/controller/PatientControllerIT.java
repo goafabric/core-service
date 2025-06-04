@@ -28,13 +28,13 @@ class PatientControllerIT {
         assertThat(patient.familyName()).isEqualTo("Simpson");
 
         assertThat(patient.address()).isNotNull().isNotEmpty();
-        assertThat(patient.address().get(0).city()).isEqualTo("Springfield");
-        assertThat(patient.address().get(0).street()).isEqualTo("Evergreen Terrace 0");
+        assertThat(patient.address().getFirst().city()).isEqualTo("Springfield");
+        assertThat(patient.address().getFirst().street()).isEqualTo("Evergreen Terrace 0");
 
         assertThat(patient.contactPoint()).isNotNull().isNotEmpty();
-        assertThat(patient.contactPoint().get(0).use()).isEqualTo(AddressUse.HOME.getValue());
-        assertThat(patient.contactPoint().get(0).system()).isEqualTo(ContactPointSystem.PHONE.getValue());
-        assertThat(patient.contactPoint().get(0).value()).isEqualTo("555-444");
+        assertThat(patient.contactPoint().getFirst().use()).isEqualTo(AddressUse.HOME.getValue());
+        assertThat(patient.contactPoint().getFirst().system()).isEqualTo(ContactPointSystem.PHONE.getValue());
+        assertThat(patient.contactPoint().getFirst().value()).isEqualTo("555-444");
 
         delete(id);
         assertThatThrownBy(() -> controller.getById(id)).isInstanceOf(Exception.class);
