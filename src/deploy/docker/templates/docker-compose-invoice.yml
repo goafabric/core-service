@@ -1,7 +1,7 @@
 services:
   invoice-process-application:
     container_name: invoice-process-application
-    image:  goafabric/invoice-process-native${_Values_server_arch}:3.3.0
+    image:  goafabric/invoice-process-native:3.5.0
     restart: 'no'
     command: "-Xmx32m"
 

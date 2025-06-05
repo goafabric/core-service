@@ -41,7 +41,7 @@ public class ExportLogic {
         var patients = patientLogic.findByFamilyName("");
         Files.writeString(Paths.get(path + "/patient.json"),
                 getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(patients)
-                        .replaceAll("\"id\"", "\"erased\""));
+                        .replace("\"id\"", "\"erased\""));
     }
 
     private void exportPractitioners(String path) throws IOException {
@@ -49,14 +49,14 @@ public class ExportLogic {
         var practitioners = practitionerLogic.findByFamilyName("");
         Files.writeString(Paths.get(path + "/practitioner.json"),
                 getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(practitioners)
-                        .replaceAll("\"id\"", "\"erased\""));
+                        .replace("\"id\"", "\"erased\""));
     }
 
     private void exportOrganizations(String path) throws IOException {
         var organizations = organizationLogic.findByName("");
         Files.writeString(Paths.get(path + "/organization.json"),
                 getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(organizations)
-                        .replaceAll("\"id\"", "\"erased\""));
+                        .replace("\"id\"", "\"erased\""));
     }
 
     private static ObjectMapper getObjectMapper() {

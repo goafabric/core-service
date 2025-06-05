@@ -1,6 +1,6 @@
 package org.goafabric.core.medicalrecords.logic.elastic;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
@@ -32,7 +32,7 @@ public class EncounterLogicElastic implements EncounterLogic {
     }
 
     public Encounter getById(String id) {
-        return mapper.map(encounterRepository.findById(id).get());
+        return mapper.map(encounterRepository.findById(id).orElseThrow());
     }
 
     public List<Encounter> findByPatientIdAndDisplayAndType(String patientId, String text, List<MedicalRecordType> types) {
@@ -40,14 +40,14 @@ public class EncounterLogicElastic implements EncounterLogic {
         return (!types.isEmpty()
                 ? encounters.stream().map(e ->
                 new Encounter(e.id(), e.version(), e.patientId(), e.practitionerId(), e.encounterDate(), e.encounterName(),
-                        e.medicalRecords().stream().filter(record -> types.contains(record.type())).toList())).toList()
+                        e.medicalRecords().stream().filter(medicalRecord -> types.contains(medicalRecord.type())).toList())).toList()
                 : encounters);
     }
 
     //manually load the specializations, this could be optimized by using an "in" operatin with all encounterIds
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
         return encounterRepository
-                .findByPatientIdAndOrganizationId(patientId, TenantContext.getOrganizationId())
+                .findByPatientIdAndOrganizationId(patientId, UserContext.getOrganizationId())
                 .stream()
                 .map(encounterEo -> new Encounter(encounterEo.getId(), encounterEo.getVersion(), encounterEo.getPatientId(), encounterEo.getPractitionerId(),
                         encounterEo.getEncounterDate(), encounterEo.getEncounterName(),

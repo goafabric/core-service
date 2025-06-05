@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.persistence.extensions;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.medicalrecords.persistence.jpa.entity.MedicalRecordEo;
 import org.goafabric.event.EventData;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @RegisterReflectionForBinding(EventData.class)
 public class AuditTrailEventDispatcher {
     private final Logger log = LoggerFactory.getLogger(this.getClass());
-    private final KafkaTemplate kafkaTemplate;
+    private final KafkaTemplate<String, EventData> kafkaTemplate;
     private final String kafkaServers;
 
     public AuditTrailEventDispatcher(KafkaTemplate kafkaTemplate, @Value("${spring.kafka.bootstrap-servers:}") String kafkaServers) {
@@ -26,7 +26,7 @@ public class AuditTrailEventDispatcher {
         if (!kafkaServers.isEmpty()) {
             String topic = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
             log.info("producing event for topic {}", topic);
-            kafkaTemplate.send(topic, auditTrail.objectId(), new EventData(TenantContext.getAdapterHeaderMap(), auditTrail.objectId(), auditTrail.operation().toString(), payload));
+            kafkaTemplate.send(topic, auditTrail.objectId(), new EventData(UserContext.getAdapterHeaderMap(), auditTrail.objectId(), auditTrail.operation().toString(), payload));
         }
     }
 

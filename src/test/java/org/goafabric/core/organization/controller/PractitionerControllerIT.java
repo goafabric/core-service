@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.controller;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.organization.controller.dto.types.AddressUse;
 import org.goafabric.core.organization.controller.dto.types.ContactPointSystem;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class PractitionerControllerIT {
     private PractitionerController controller;
 
     @Test
-    public void getById() {
+    void getById() {
         setTenantId("0");
         var id = create();
         var practitioner = controller.getById(id);
@@ -28,14 +28,14 @@ class PractitionerControllerIT {
         assertThat(practitioner.familyName()).isEqualTo("Monroe");
 
         assertThat(practitioner.address()).isNotNull().isNotEmpty();
-        assertThat(practitioner.address().get(0).city()).isEqualTo("Springfield");
-        assertThat(practitioner.address().get(0).street()).isEqualTo("Monroe Street 0");
+        assertThat(practitioner.address().getFirst().city()).isEqualTo("Springfield");
+        assertThat(practitioner.address().getFirst().street()).hasToString("Monroe Street 0");
 
         assertThat(practitioner.contactPoint()).isNotNull().isNotEmpty();
         assertThat(practitioner.contactPoint()).isNotNull().isNotEmpty();
-        assertThat(practitioner.contactPoint().get(0).use()).isEqualTo(AddressUse.HOME.getValue());
-        assertThat(practitioner.contactPoint().get(0).system()).isEqualTo(ContactPointSystem.PHONE.getValue());
-        assertThat(practitioner.contactPoint().get(0).value()).isEqualTo("555-333");
+        assertThat(practitioner.contactPoint().getFirst().use()).isEqualTo(AddressUse.HOME.getValue());
+        assertThat(practitioner.contactPoint().getFirst().system()).isEqualTo(ContactPointSystem.PHONE.getValue());
+        assertThat(practitioner.contactPoint().getFirst().value()).isEqualTo("555-333");
 
 
         delete(id);
@@ -43,7 +43,7 @@ class PractitionerControllerIT {
     }
 
     @Test
-    public void findByGivenName() {
+    void findByGivenName() {
         setTenantId("0");
         var id0 = create();
         assertThat(controller.findByGivenName("Marvin")).isNotNull().hasSize(1);
@@ -57,7 +57,7 @@ class PractitionerControllerIT {
     }
 
     @Test
-    public void findByFamilyName() {
+    void findByFamilyName() {
         setTenantId("0");
         var id0 = create();
         assertThat(controller.findByFamilyName("Monroe")).isNotNull().hasSize(1);
@@ -74,7 +74,7 @@ class PractitionerControllerIT {
     private String create() {
         return controller.save(
                 createPractitioner("Marvin", "Monroe",
-                        createAddress("Monroe Street " + TenantContext.getTenantId()),
+                        createAddress("Monroe Street " + UserContext.getTenantId()),
                         createContactPoint("555-333"))
         ).id();
     }

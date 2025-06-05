@@ -10,7 +10,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.goafabric.core.DataRocker.setTenantId;
 
 @SpringBootTest
-class EncounterLogicIT {
+class EncounterLogicJpaIT {
 
     @Autowired
     private EncounterLogic encounterLogic;
@@ -23,13 +23,13 @@ class EncounterLogicIT {
 
 
     @Test
-    public void findByText() {
+    void findByText() {
         setTenantId("0");
         encounterImporter.importDemoData();
 
         long currentTime = System.currentTimeMillis();
 
-        var patient = patientLogic.findByGivenName("Monty").get(0);
+        var patient = patientLogic.findByGivenName("Monty").getFirst();
         var encounters = encounterLogic.findByPatientIdAndDisplay(patient.id(), "eat");
 
         System.out.println("search took: "  + (System.currentTimeMillis() -currentTime));

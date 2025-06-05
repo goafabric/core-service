@@ -31,14 +31,14 @@ class PatientFhirControllerIT {
                         .execute();
 
         assertThat(bundle).isNotNull();
-        var patient = (Patient) bundle.getEntry().get(0).getResource();
+        var patient = (Patient) bundle.getEntry().getFirst().getResource();
 
         assertThat(patient.getName()).hasSize(1);
-        assertThat(patient.getName().get(0).getGiven().get(0).toString()).isEqualTo("Homer");
-        assertThat(patient.getName().get(0).getFamily()).isEqualTo("Simpson");
+        assertThat(patient.getName().getFirst().getGiven().getFirst()).hasToString("Homer");
+        assertThat(patient.getName().getFirst().getFamily()).isEqualTo("Simpson");
 
         assertThat(patient.getAddress()).hasSize(1);
-        var address = patient.getAddress().get(0);
+        var address = patient.getAddress().getFirst();
         assertThat(address.getCity()).isEqualTo("Springfield");
         assertThat(address.getPostalCode()).isEqualTo("555");
         assertThat(address.getCountry()).isEqualTo("US");
@@ -46,10 +46,10 @@ class PatientFhirControllerIT {
         assertThat(address.getUse().toCode()).isEqualTo("home");
 
         assertThat(address.getLine()).hasSize(1);
-        assertThat(address.getLine().get(0).toString()).isEqualTo("Evergreen Terrace");
+        assertThat(address.getLine().getFirst()).hasToString("Evergreen Terrace");
 
         assertThat(patient.getTelecom()).hasSize(1);
-        var contactPoint = patient.getTelecom().get(0);
+        var contactPoint = patient.getTelecom().getFirst();
         assertThat(contactPoint.getValue()).isEqualTo("555-444");
         assertThat(contactPoint.getUse().toCode()).isEqualTo("home");
         assertThat(contactPoint.getSystem().toCode()).isEqualTo("phone");
@@ -58,19 +58,7 @@ class PatientFhirControllerIT {
 
         delete(id);
     }
-
-    /*
-    @Test
-    void create() {
-        final IGenericClient client = ClientFactory.createClient(port);
-        var patient = new Patient();
-        patient.setName(Collections.singletonList(new HumanName().setFamily("Simpson")));
-        patient.setAddress(Collections.singletonList(new Address()));
-        patient.setContact(Collections.singletonList(new Patient.ContactComponent()));
-        client.create().resource(patient).execute();
-    }
-
-     */
+    
 
     @Autowired
     private PatientController controller;

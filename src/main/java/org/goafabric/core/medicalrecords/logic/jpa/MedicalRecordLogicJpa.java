@@ -15,7 +15,7 @@ import java.util.Optional;
 @Component
 @Transactional
 @Profile("jpa")
-public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.logic.MedicalRecordLogic {
+public class MedicalRecordLogicJpa implements org.goafabric.core.medicalrecords.logic.MedicalRecordLogic {
 
     private final MedicalRecordMapper mapper;
 
@@ -23,14 +23,14 @@ public class MedicalRecordLogic implements org.goafabric.core.medicalrecords.log
 
     private final ApplicationContext applicationContext;
 
-    public MedicalRecordLogic(MedicalRecordMapper mapper, MedicalRecordRepository repository, ApplicationContext applicationContext) {
+    public MedicalRecordLogicJpa(MedicalRecordMapper mapper, MedicalRecordRepository repository, ApplicationContext applicationContext) {
         this.mapper = mapper;
         this.repository = repository;
         this.applicationContext = applicationContext;
     }
 
     public MedicalRecord getById(String id) {
-        return mapper.map(repository.findById(id).get());
+        return mapper.map(repository.findById(id).orElseThrow());
     }
 
     public MedicalRecord save(MedicalRecord medicalRecord) {

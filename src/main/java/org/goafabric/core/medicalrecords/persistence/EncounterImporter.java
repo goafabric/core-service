@@ -2,7 +2,7 @@ package org.goafabric.core.medicalrecords.persistence;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.medicalrecords.controller.dto.BodyMetrics;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
@@ -13,7 +13,6 @@ import org.goafabric.core.medicalrecords.logic.jpa.BodyMetricsLogic;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -33,24 +32,26 @@ public class EncounterImporter implements CommandLineRunner {
 
     private final String goals;
 
-    private final Integer demoDataSize;
-
     private final String tenants;
 
     private final ApplicationContext applicationContext;
 
-    @Autowired
     private EncounterLogic encounterLogic;
 
-    @Autowired
     private PatientLogic patientLogic;
 
-    public EncounterImporter(@Value("${database.provisioning.goals:}")String goals, @Value("${demo-data.size}") Integer demoDataSize, @Value("${multi-tenancy.tenants}") String tenants,
-                             ApplicationContext applicationContext) {
+    private MedicalRecordLogic medicalRecordLogic;
+
+
+    public EncounterImporter(@Value("${database.provisioning.goals:}")String goals, @Value("${multi-tenancy.tenants}") String tenants,
+                             ApplicationContext applicationContext,
+                             EncounterLogic encounterLogic, PatientLogic patientLogic, MedicalRecordLogic medicalRecordLogic) {
         this.goals = goals;
-        this.demoDataSize = demoDataSize;
         this.tenants = tenants;
         this.applicationContext = applicationContext;
+        this.encounterLogic = encounterLogic;
+        this.patientLogic = patientLogic;
+        this.medicalRecordLogic = medicalRecordLogic;
     }
 
     @Override
@@ -82,8 +83,6 @@ public class EncounterImporter implements CommandLineRunner {
         insertObservations();
     }
 
-    @Autowired
-    private MedicalRecordLogic medicalRecordLogic;
     private void insertObservations() {
 
         var patient = patientLogic.save(
@@ -139,7 +138,7 @@ public class EncounterImporter implements CommandLineRunner {
     }
 
     public static void setTenantId(String tenantId) {
-        TenantContext.setTenantId(tenantId);
+        UserContext.setTenantId(tenantId);
     }
 
 
@@ -147,7 +146,7 @@ public class EncounterImporter implements CommandLineRunner {
         try {
             return new ObjectMapper().writeValueAsString(value);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 

@@ -32,7 +32,7 @@ public class PatientLogic {
 
     public Patient getById(String id) {
         return mapper.map(
-                repository.findById(id).get());
+                repository.findById(id).orElseThrow());
     }
 
     public List<Patient> findByGivenName(String givenName) {

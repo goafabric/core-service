@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.controller;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.organization.logic.PatientLogic;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ class PatientControllerSearchIT {
     private PatientLogic patientLogic;
 
     @Test
-    public void test() {
+    void test() {
         setTenantId("0");
         var michael = create("Michael", "Meyers");
         var hans = create("Hans", "Müller");
@@ -38,15 +38,6 @@ class PatientControllerSearchIT {
 
         assertThat(findBy("Müll", "Han")).isNotEmpty();
 
-        /*
-        assertThat(findBy("Mei", "")).isEmpty();
-        assertThat(findBy("Muell", "")).isEmpty();
-
-        assertThat(findBy("Hans", "Müller")).isEmpty();
-        assertThat(findBy("Michael", "Meyers")).isEmpty();
-
-         */
-
         delete(michael);
         delete(hans);
     }
@@ -54,7 +45,7 @@ class PatientControllerSearchIT {
     private String create(String givenName, String familyName) {
         return controller.save(
                 createPatient(givenName, familyName,
-                        createAddress("Evergreen Terrace " + TenantContext.getTenantId()),
+                        createAddress("Evergreen Terrace " + UserContext.getTenantId()),
                         createContactPoint("555-444"))
         ).id();
     }
@@ -62,12 +53,7 @@ class PatientControllerSearchIT {
     private String findBy(String familyName, String givenName) {
         return patientLogic.findByFamilyNameAndGivenName(familyName, givenName).toString();
     }
-
-    private void delete(String id, String tenantId) {
-        setTenantId(tenantId);
-        delete(id);
-    }
-
+    
     private void delete(String id) {
         controller.deleteById(id);
     }

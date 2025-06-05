@@ -14,7 +14,7 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-public class RoleControllerIT {
+ class RoleControllerIT {
     @Autowired
     private RoleController controller;
 
@@ -22,7 +22,7 @@ public class RoleControllerIT {
     private PermissionLogic permissionLogic;
 
     @Test
-    public void save() {
+    void save() {
         var permissions = permissionLogic.saveAll(Arrays.asList(
                 new Permission(null, null, PermissionCategory.VIEW, PermissionType.PATIENT),
                 new Permission(null, null, PermissionCategory.VIEW, PermissionType.ORGANIZATION)
@@ -34,7 +34,7 @@ public class RoleControllerIT {
         assertThat(controller.getById(role.id()).name())
                 .isEqualTo("administrator");
 
-        assertThat(controller.findByName("administrator").get(0).name())
+        assertThat(controller.findByName("administrator").getFirst().name())
                 .isEqualTo("administrator");
 
         assertThat(role.permissions()).hasSize(2);
@@ -43,7 +43,7 @@ public class RoleControllerIT {
     }
 
     @Test
-    public void findByName() {
+    void findByName() {
         var permissions = permissionLogic.saveAll(Arrays.asList(
                 new Permission(null, null, PermissionCategory.VIEW, PermissionType.PATIENT),
                 new Permission(null, null, PermissionCategory.VIEW, PermissionType.ORGANIZATION)
@@ -52,7 +52,7 @@ public class RoleControllerIT {
         var role = controller.save(
                 new Role(null, null, "administrator", permissions));
         
-        assertThat(controller.findByName("administrator").get(0).name())
+        assertThat(controller.findByName("administrator").getFirst().name())
                 .isEqualTo("administrator");
 
         assertThat(role.permissions()).hasSize(2);

@@ -1,6 +1,6 @@
 package org.goafabric.core.medicalrecords.persistence.elastic.repository.entity;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
@@ -26,10 +26,7 @@ public class EncounterElo {
     private LocalDate encounterDate;
 
     private String encounterName;
-
-    //@Field(type = FieldType.Nested, includeInParent = false)
-    //private List<org.goafabric.personservice.syncmedicalrecords.elastic.repository.entity.MedicalRecordEo> medicalRecords;
-
+    
     private EncounterElo() {}
     public EncounterElo(String id, Long version, String patientId, String practitionerId, String encounterName, LocalDate encounterDate) {
         this.id = id;
@@ -38,7 +35,7 @@ public class EncounterElo {
         this.practitionerId = practitionerId;
         this.encounterName = encounterName;
         this.encounterDate = encounterDate;
-        this.organizationId = TenantContext.getOrganizationId();
+        this.organizationId = UserContext.getOrganizationId();
     }
 
     public String getId() {

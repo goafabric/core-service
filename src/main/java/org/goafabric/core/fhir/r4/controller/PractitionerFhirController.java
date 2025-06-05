@@ -21,7 +21,6 @@ public class PractitionerFhirController {
 	@PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, "application/fhir+json"})
 	public void create(Practitioner practitioner) {
 		throw new IllegalStateException("NYI");
-		//logic.save(mapper.map(practitioner));
 	}
 
 	@DeleteMapping("/{id}")

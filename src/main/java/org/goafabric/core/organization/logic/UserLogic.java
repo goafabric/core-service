@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.logic;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.organization.controller.dto.Permission;
 import org.goafabric.core.organization.controller.dto.Role;
 import org.goafabric.core.organization.controller.dto.User;
@@ -9,8 +9,6 @@ import org.goafabric.core.organization.controller.dto.types.PermissionCategory;
 import org.goafabric.core.organization.controller.dto.types.PermissionType;
 import org.goafabric.core.organization.logic.mapper.UserMapper;
 import org.goafabric.core.organization.persistence.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,9 +20,7 @@ public class UserLogic {
     private final UserMapper mapper;
 
     private final UserRepository repository;
-
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
-
+    
     public UserLogic(UserMapper mapper, UserRepository repository) {
         this.mapper = mapper;
         this.repository = repository;
@@ -32,7 +28,7 @@ public class UserLogic {
 
     public User getById(String id) {
         return mapper.map(
-                repository.findById(id).get());
+                repository.findById(id).orElseThrow());
     }
 
     public void deleteById(String id) {
@@ -69,6 +65,6 @@ public class UserLogic {
     }
 
     public UserInfo getUserInfo() {
-        return new UserInfo(TenantContext.getUserName(), TenantContext.getTenantId());
+        return new UserInfo(UserContext.getUserName(), UserContext.getTenantId());
     }
 }

@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.persistence.extensions;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
 import org.springframework.stereotype.Component;
 
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 @RegisterReflectionForBinding(TenantIdBean.class)
 public class TenantIdBean {
     public String getPrefix() {
-        return "core-" + TenantContext.getTenantId() + "-";
+        return "core-" + UserContext.getTenantId() + "-";
     }
 }

@@ -22,7 +22,7 @@ public class RoleLogic {
 
     public Role getById(String id) {
         return mapper.map(
-                repository.findById(id).get());
+                repository.findById(id).orElseThrow());
     }
 
     public void deleteById(String id) {

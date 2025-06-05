@@ -1,7 +1,7 @@
 package org.goafabric.core.organization.persistence.extensions;
 
 import net.datafaker.Faker;
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.medicalrecords.controller.ObjectStorageController;
 import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
 import org.goafabric.core.organization.controller.RoleController;
@@ -19,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -47,12 +46,16 @@ public class DemoDataImporter implements CommandLineRunner {
 
     private final ApplicationContext applicationContext;
 
+    private ObjectStorageController objectStorageController;
+
+
     public DemoDataImporter(@Value("${database.provisioning.goals:}")String goals, @Value("${demo-data.size}") Integer demoDataSize, @Value("${multi-tenancy.tenants}") String tenants,
-                            ApplicationContext applicationContext) {
+                            ApplicationContext applicationContext, ObjectStorageController objectStorageController) {
         this.goals = goals;
         this.demoDataSize = demoDataSize;
         this.tenants = tenants;
         this.applicationContext = applicationContext;
+        this.objectStorageController = objectStorageController;
     }
 
     @Override
@@ -131,6 +134,7 @@ public class DemoDataImporter implements CommandLineRunner {
 
     }
 
+    private static final String PHONE_555_501 = "555-501";
 
     private void createPatients() {
         Faker faker = new Faker();
@@ -161,7 +165,7 @@ public class DemoDataImporter implements CommandLineRunner {
         applicationContext.getBean(PractitionerLogic.class).save(
                 createPractitioner("Dr. Nick", "Riveria",
                         createAddress("Nickstreet 221"),
-                        createContactPoint("555-501")
+                        createContactPoint(PHONE_555_501)
                 )
         );
     }
@@ -200,7 +204,7 @@ public class DemoDataImporter implements CommandLineRunner {
 
     public static List<Address> createAddress(String street) {
         return Collections.singletonList(
-                new Address(null, null,  AddressUse.HOME.getValue(),street, "Springfield " + TenantContext.getTenantId()
+                new Address(null, null,  AddressUse.HOME.getValue(),street, "Springfield " + UserContext.getTenantId()
                         , "555", "Florida", "US"));
     }
 
@@ -208,28 +212,22 @@ public class DemoDataImporter implements CommandLineRunner {
         return Collections.singletonList(new ContactPoint(null, null, AddressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
     }
 
-
-    @Autowired
-    private ObjectStorageController objectStorageController;
-
     private void createArchiveFiles() {
         try {
-            //if (objectStorageController.search("").isEmpty()) {
-                objectStorageController.save(
-                        new ObjectEntry("hello_world.txt", "text/plain",
-                                Long.valueOf("hello world".length()), "hello world".getBytes()));
+            objectStorageController.save(
+                    new ObjectEntry("hello_world.txt", "text/plain",
+                            Long.valueOf("hello world".length()), "hello world".getBytes()));
 
-                objectStorageController.save(
-                        new ObjectEntry("top_secret.txt", "text/plain",
-                                Long.valueOf("top secret".length()), "top secret".getBytes()));
-            //}
+            objectStorageController.save(
+                    new ObjectEntry("top_secret.txt", "text/plain",
+                            Long.valueOf("top secret".length()), "top secret".getBytes()));
         } catch (Exception e) { //to have low coupling it's ok to not have demodate if s3 is not started
-            log.warn("Could not S3 Demo Data: " + e.getMessage());
+            log.warn("Could not S3 Demo Data: {}", e.getMessage());
         }
     }
 
     public static void setTenantId(String tenantId) {
-        TenantContext.setTenantId(tenantId);
+        UserContext.setTenantId(tenantId);
     }
 
     static class DbRuntimeHints implements RuntimeHintsRegistrar {

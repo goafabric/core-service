@@ -26,7 +26,7 @@ public class BodyMetricsLogic implements MedicalRecordDeleteAble {
     }
 
     public BodyMetrics getById(String id) {
-        return mapper.map(repository.findById(id).get());
+        return mapper.map(repository.findById(id).orElseThrow());
     }
 
     //saves or updates the specific body metrics, as well as the generic related medical_record for search

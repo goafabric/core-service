@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "patient")
 @EntityListeners(AuditTrailListener.class)
+@SuppressWarnings("java:S107")
 public class PatientEo {
     @Id
     @org.springframework.data.annotation.Id
@@ -29,7 +30,7 @@ public class PatientEo {
 
     private String gender;
 
-    public LocalDate birthDate;
+    private LocalDate birthDate;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "patient_id")

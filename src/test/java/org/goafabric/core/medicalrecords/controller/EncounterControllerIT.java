@@ -1,7 +1,7 @@
 package org.goafabric.core.medicalrecords.controller;
 
 import org.goafabric.core.DataRocker;
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.medicalrecords.controller.dto.Encounter;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecordType;
@@ -44,7 +44,7 @@ class EncounterControllerIT {
         var encounters = encounterController.findByPatientIdAndDisplay(patientId, "Adipositas");
 
         assertThat(encounters).isNotNull().hasSize(2);
-        assertThat(encounters.get(0).medicalRecords()).isNotNull().hasSize(2);
+        assertThat(encounters.getFirst().medicalRecords()).isNotNull().hasSize(2);
         assertThat(encounters.get(1).medicalRecords()).isNotNull().hasSize(2);
 
         deletePatient(patientId);
@@ -72,7 +72,7 @@ class EncounterControllerIT {
     private String createPatient() {
         return patientController.save(
                 DataRocker.createPatient("Homer", "Simpson",
-                        createAddress("Evergreen Terrace " + TenantContext.getTenantId()),
+                        createAddress("Evergreen Terrace " + UserContext.getTenantId()),
                         createContactPoint("555-444"))
         ).id();
     }

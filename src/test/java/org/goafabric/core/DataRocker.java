@@ -1,6 +1,6 @@
 package org.goafabric.core;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.organization.controller.dto.*;
 import org.goafabric.core.organization.controller.dto.types.AddressUse;
 import org.goafabric.core.organization.controller.dto.types.ContactPointSystem;
@@ -11,7 +11,7 @@ import java.util.List;
 
 public class DataRocker {
     public static void setTenantId(String tenantId) {
-        TenantContext.setTenantId(tenantId);
+        UserContext.setTenantId(tenantId);
     }
 
     public static Patient createPatient(String givenName, String familyName, List<Address> addresses, List<ContactPoint> contactPoints) {

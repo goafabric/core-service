@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.persistence.*;
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aot.hint.annotation.RegisterReflectionForBinding;
@@ -46,6 +46,7 @@ public class AuditTrailListener implements ApplicationContextAware {
     ) {}
 
     @Override
+    @SuppressWarnings("java:S2696")
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         context = applicationContext;
     }
@@ -71,7 +72,7 @@ public class AuditTrailListener implements ApplicationContextAware {
         try {
             var auditTrail = createAuditTrail(operation, referenceId, oldObject, newObject);
             log.debug("New audit:\n{}", auditTrail);
-            context.getBean(AuditJpaInserter.class).insertAudit(auditTrail, oldObject != null ? oldObject : newObject);
+            context.getBean(AuditJpaInserter.class).insertAudit(auditTrail);
             context.getBean(AuditTrailEventDispatcher.class).dispatchEvent(auditTrail, oldObject != null ? oldObject : newObject);
         } catch (Exception e) {
             log.error("Error during audit:\n{}", e.getMessage(), e);
@@ -83,13 +84,13 @@ public class AuditTrailListener implements ApplicationContextAware {
         final Date date = new Date(System.currentTimeMillis());
         return new AuditTrail(
                 UUID.randomUUID().toString(),
-                TenantContext.getOrganizationId(),
+                UserContext.getOrganizationId(),
                 getTableName(newObject != null ? newObject : oldObject),
                 referenceId,
                 dbOperation,
-                (dbOperation == DbOperation.CREATE ? TenantContext.getUserName() : null),
+                (dbOperation == DbOperation.CREATE ? UserContext.getUserName() : null),
                 (dbOperation == DbOperation.CREATE ? date : null),
-                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? TenantContext.getUserName() : null),
+                ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? UserContext.getUserName() : null),
                 ((dbOperation == DbOperation.UPDATE || dbOperation == DbOperation.DELETE) ? date : null),
                 (oldObject == null ? null : getJsonValue(oldObject)),
                 (newObject == null ? null : getJsonValue(newObject))
@@ -123,9 +124,9 @@ public class AuditTrailListener implements ApplicationContextAware {
             this.schemaPrefix = schemaPrefix;
         }
 
-        public void insertAudit(AuditTrail auditTrail, Object object) { //we cannot use jpa because of the dynamic table name
+        public void insertAudit(AuditTrail auditTrail) { //we cannot use jpa because of the dynamic table name
             new SimpleJdbcInsert(dataSource)
-                    .withSchemaName(schemaPrefix + TenantContext.getTenantId())
+                    .withSchemaName(schemaPrefix + UserContext.getTenantId())
                     .withTableName("audit_trail")
                     .execute(new BeanPropertySqlParameterSource(auditTrail));
         }
@@ -136,9 +137,8 @@ public class AuditTrailListener implements ApplicationContextAware {
     }
 
     private static String getTableName(Object object) {
-        return object.getClass().getSimpleName().replaceAll("Eo", "").toLowerCase();
+        return object.getClass().getSimpleName().replace("Eo", "").toLowerCase();
     }
-
 }
 
 

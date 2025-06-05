@@ -12,8 +12,6 @@ public class MetaDataController {
 
     @GetMapping
     public MetaData getMetadata() {
-        var metaData = new MetaData("CapabilityStatement", "core-service");
-        return metaData;
-
+        return new MetaData("CapabilityStatement", "core-service");
     }
 }

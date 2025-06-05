@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "practitioner")
 @EntityListeners(AuditTrailListener.class)
+@SuppressWarnings("java:S107")
 public class PractitionerEo {
     @Id
     @org.springframework.data.annotation.Id
@@ -21,7 +22,7 @@ public class PractitionerEo {
 
     private String gender;
 
-    public LocalDate birthDate;
+    private LocalDate birthDate;
 
     private String lanr;
 

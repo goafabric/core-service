@@ -1,6 +1,6 @@
 package org.goafabric.core.organization.controller;
 
-import org.goafabric.core.extensions.TenantContext;
+import org.goafabric.core.extensions.UserContext;
 import org.goafabric.core.organization.controller.dto.types.AddressUse;
 import org.goafabric.core.organization.controller.dto.types.ContactPointSystem;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class PatientControllerIT {
     private PatientController controller;
 
     @Test
-    public void getById() {
+    void getById() {
         setTenantId("0");
         var id = create();
         var patient = controller.getById(id);
@@ -28,20 +28,20 @@ class PatientControllerIT {
         assertThat(patient.familyName()).isEqualTo("Simpson");
 
         assertThat(patient.address()).isNotNull().isNotEmpty();
-        assertThat(patient.address().get(0).city()).isEqualTo("Springfield");
-        assertThat(patient.address().get(0).street()).isEqualTo("Evergreen Terrace 0");
+        assertThat(patient.address().getFirst().city()).isEqualTo("Springfield");
+        assertThat(patient.address().getFirst().street()).isEqualTo("Evergreen Terrace 0");
 
         assertThat(patient.contactPoint()).isNotNull().isNotEmpty();
-        assertThat(patient.contactPoint().get(0).use()).isEqualTo(AddressUse.HOME.getValue());
-        assertThat(patient.contactPoint().get(0).system()).isEqualTo(ContactPointSystem.PHONE.getValue());
-        assertThat(patient.contactPoint().get(0).value()).isEqualTo("555-444");
+        assertThat(patient.contactPoint().getFirst().use()).isEqualTo(AddressUse.HOME.getValue());
+        assertThat(patient.contactPoint().getFirst().system()).isEqualTo(ContactPointSystem.PHONE.getValue());
+        assertThat(patient.contactPoint().getFirst().value()).isEqualTo("555-444");
 
         delete(id);
         assertThatThrownBy(() -> controller.getById(id)).isInstanceOf(Exception.class);
     }
 
     @Test
-    public void findByGivenName() {
+    void findByGivenName() {
         setTenantId("0");
         var id0 = create();
         assertThat(controller.findByGivenName("Homer")).isNotNull().isNotEmpty();
@@ -55,7 +55,7 @@ class PatientControllerIT {
     }
 
     @Test
-    public void findByFamilyName() {
+    void findByFamilyName() {
         setTenantId("0");
         var id0 = create();
         assertThat(controller.findByFamilyName("Simpson")).isNotNull().isNotEmpty();
@@ -72,7 +72,7 @@ class PatientControllerIT {
     private String create() {
         return controller.save(
                 createPatient("Homer", "Simpson",
-                        createAddress("Evergreen Terrace " + TenantContext.getTenantId()),
+                        createAddress("Evergreen Terrace " + UserContext.getTenantId()),
                         createContactPoint("555-444"))
         ).id();
     }
@@ -85,19 +85,5 @@ class PatientControllerIT {
     private void delete(String id) {
         controller.deleteById(id);
     }
-
-    /*
-    @Autowired
-    private MongoTemplate mongoTemplate;
-
-    @Test
-    void search() {
-        var id = create();
-        List<PatientEo> patients = mongoTemplate.find(new BasicQuery("{ familyName : 'Simpson' givenName : 'Homer' }"), PatientEo.class);
-        System.out.println(patients.get(0).familyName);
-        delete(id);
-    }
-
-     */
 
 }

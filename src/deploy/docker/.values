@@ -2,7 +2,7 @@ _Values_root_name="core-service"
 
 _Values_image_repository=goafabric/core-service
 
-_Values_resources_requests_memory=64M
+_Values_resources_requests_memory=92M
 
 _Values_health_check_disabled=false
 

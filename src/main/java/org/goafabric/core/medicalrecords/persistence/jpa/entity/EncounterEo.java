@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "encounter")
+@SuppressWarnings("java:S107")
 public class EncounterEo {
 
     @Id
