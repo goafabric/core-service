@@ -1922,13 +1922,13 @@
       "PatientNamesOnly": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "givenName": {
             "type": "string"
           },
           "familyName": {
-            "type": "string"
-          },
-          "id": {
             "type": "string"
           }
         }
