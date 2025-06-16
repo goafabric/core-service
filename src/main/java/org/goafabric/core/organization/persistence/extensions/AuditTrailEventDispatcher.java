@@ -22,7 +22,7 @@ public class AuditTrailEventDispatcher {
         this.kafkaServers = kafkaServers;
     }
 
-    public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail, Object payload) {
+    public void dispatchEvent(AuditTrail auditTrail, Object payload) {
         if (!kafkaServers.isEmpty()) {
             String topic = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
             log.info("producing event for topic {}", topic);
