@@ -214,29 +214,6 @@
         }
       }
     },
-    "/imports/run": {
-      "post": {
-        "tags": [
-          "import-controller"
-        ],
-        "operationId": "run",
-        "parameters": [
-          {
-            "name": "path",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/fhir/r4/Practitioner": {
       "get": {
         "tags": [
@@ -395,29 +372,6 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/Organization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/exports/run": {
-      "post": {
-        "tags": [
-          "export-controller"
-        ],
-        "operationId": "run_1",
-        "parameters": [
-          {
-            "name": "path",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
