@@ -50,12 +50,12 @@ public class ImportLogic {
     }
 
     private void importPractitioners(String path) throws IOException {
-        var practitioners = getObjectMapper().readValue(new File(path + "/practitioner.json"), new TypeReference<List<Practitioner>>() {});
+        var practitioners = getObjectMapper().readValue(Paths.get(path + "/practitioner.json").normalize().toFile(), new TypeReference<List<Practitioner>>() {});
         practitioners.forEach(practitionerLogic::save);
     }
 
     private void importPatients(String path) throws IOException {
-        var patients = getObjectMapper().registerModule(new JavaTimeModule()).readValue(new File(path + "/patient.json"), new TypeReference<List<Patient>>() {});
+        var patients = getObjectMapper().registerModule(new JavaTimeModule()).readValue(Paths.get(path + "/patient.json").normalize().toFile(), new TypeReference<List<Patient>>() {});
         patients.forEach(patientLogic::save);
     }
 
