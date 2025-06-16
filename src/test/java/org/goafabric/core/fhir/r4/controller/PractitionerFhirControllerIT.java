@@ -46,7 +46,7 @@ class PractitionerFhirControllerIT {
         assertThat(address.getUse().toCode()).isEqualTo("home");
 
         assertThat(address.getLine()).hasSize(1);
-        assertThat(address.getLine().getFirst().toString()).isEqualTo("Monroe Street");
+        assertThat(address.getLine().getFirst()).hasToString("Monroe Street");
 
         assertThat(practitioner.getTelecom()).hasSize(1);
         var contactPoint = practitioner.getTelecom().getFirst();

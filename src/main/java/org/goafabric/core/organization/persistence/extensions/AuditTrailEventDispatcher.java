@@ -17,7 +17,7 @@ public class AuditTrailEventDispatcher {
     private final KafkaTemplate<String, EventData> kafkaTemplate;
     private final String kafkaServers;
 
-    public AuditTrailEventDispatcher(KafkaTemplate kafkaTemplate, @Value("${spring.kafka.bootstrap-servers:}") String kafkaServers) {
+    public AuditTrailEventDispatcher(KafkaTemplate<String, EventData> kafkaTemplate, @Value("${spring.kafka.bootstrap-servers:}") String kafkaServers) {
         this.kafkaTemplate = kafkaTemplate;
         this.kafkaServers = kafkaServers;
     }

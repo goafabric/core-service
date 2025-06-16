@@ -13,6 +13,8 @@ import java.nio.file.Paths;
 
 @Component
 public class ExportLogic {
+    public static final String ERASED = "\"erased\"";
+    public static final String ID = "\"id\"";
     private final PatientLogic patientLogic;
     private final PractitionerLogic practitionerLogic;
     private final OrganizationLogic organizationLogic;
@@ -41,7 +43,7 @@ public class ExportLogic {
         var patients = patientLogic.findByFamilyName("");
         Files.writeString(Paths.get(path + "/patient.json"),
                 getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(patients)
-                        .replace("\"id\"", "\"erased\""));
+                        .replace(ID, ERASED));
     }
 
     private void exportPractitioners(String path) throws IOException {
@@ -49,14 +51,14 @@ public class ExportLogic {
         var practitioners = practitionerLogic.findByFamilyName("");
         Files.writeString(Paths.get(path + "/practitioner.json"),
                 getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(practitioners)
-                        .replace("\"id\"", "\"erased\""));
+                        .replace(ID, "\"erased\""));
     }
 
     private void exportOrganizations(String path) throws IOException {
         var organizations = organizationLogic.findByName("");
         Files.writeString(Paths.get(path + "/organization.json"),
                 getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(organizations)
-                        .replace("\"id\"", "\"erased\""));
+                        .replace(ID, "\"erased\""));
     }
 
     private static ObjectMapper getObjectMapper() {
