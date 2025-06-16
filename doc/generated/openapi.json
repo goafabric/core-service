@@ -1936,14 +1936,14 @@
           "id": {
             "type": "string"
           },
-          "resourceType": {
-            "type": "string"
-          },
           "entry": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BundleEntryComponentPractitioner"
             }
+          },
+          "resourceType": {
+            "type": "string"
           }
         }
       },
@@ -1964,14 +1964,14 @@
           "id": {
             "type": "string"
           },
-          "resourceType": {
-            "type": "string"
-          },
           "entry": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BundleEntryComponentPatient"
             }
+          },
+          "resourceType": {
+            "type": "string"
           }
         }
       },
@@ -1992,14 +1992,14 @@
           "id": {
             "type": "string"
           },
-          "resourceType": {
-            "type": "string"
-          },
           "entry": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BundleEntryComponentOrganization"
             }
+          },
+          "resourceType": {
+            "type": "string"
           }
         }
       }
