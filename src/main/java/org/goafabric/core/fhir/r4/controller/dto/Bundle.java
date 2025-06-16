@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Bundle<T> {
     public String id;
-    public final String resourceType = "Bundle";
+    public static final String resourceType = "Bundle";
 
     public List<BundleEntryComponent<T>> entry = new ArrayList<>();
 
