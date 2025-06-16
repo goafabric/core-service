@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Bundle<T> {
     public String id;
-    public static final String resourceType = "Bundle";
 
     public List<BundleEntryComponent<T>> entry = new ArrayList<>();
 
@@ -27,4 +26,7 @@ public class Bundle<T> {
         public String fullUrl;
     }
 
+    public String getResourceType() {
+        return "Bundle";
+    }
 }
