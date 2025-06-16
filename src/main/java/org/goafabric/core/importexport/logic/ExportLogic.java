@@ -35,13 +35,13 @@ public class ExportLogic {
             exportPractitioners(path);
             exportOrganizations(path);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 
     private void exportPatient(String path) throws IOException {
         var patients = patientLogic.findByFamilyName("");
-        Files.writeString(Paths.get(path + "/patient.json"),
+        Files.writeString(Paths.get(path + "/patient.json").normalize(),
                 getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(patients)
                         .replace(ID, ERASED));
     }
@@ -49,14 +49,14 @@ public class ExportLogic {
     private void exportPractitioners(String path) throws IOException {
         new ObjectMapper().registerModule(new JavaTimeModule()).registerModule(new JavaTimeModule());
         var practitioners = practitionerLogic.findByFamilyName("");
-        Files.writeString(Paths.get(path + "/practitioner.json"),
+        Files.writeString(Paths.get(path + "/practitioner.json").normalize(),
                 getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(practitioners)
                         .replace(ID, "\"erased\""));
     }
 
     private void exportOrganizations(String path) throws IOException {
         var organizations = organizationLogic.findByName("");
-        Files.writeString(Paths.get(path + "/organization.json"),
+        Files.writeString(Paths.get(path + "/organization.json").normalize(),
                 getObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(organizations)
                         .replace(ID, "\"erased\""));
     }
