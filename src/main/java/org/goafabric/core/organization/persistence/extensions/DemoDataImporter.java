@@ -174,14 +174,14 @@ public class DemoDataImporter implements CommandLineRunner {
         applicationContext.getBean(OrganizationLogic.class).save(
                 createOrganization("Practice Dr Hibbert",
                         createAddress("Hibbertstreet 4"),
-                        createContactPoint("555-501")
+                        createContactPoint(PHONE_555_501)
                 )
         );
 
         applicationContext.getBean(OrganizationLogic.class).save(
                 createOrganization("Practice Dr Nick",
                         createAddress("Nickstreet 54"),
-                        createContactPoint("555-501")
+                        createContactPoint(PHONE_555_501)
                 )
         );
     }

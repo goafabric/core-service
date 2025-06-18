@@ -214,29 +214,6 @@
         }
       }
     },
-    "/imports/run": {
-      "post": {
-        "tags": [
-          "import-controller"
-        ],
-        "operationId": "run",
-        "parameters": [
-          {
-            "name": "path",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/fhir/r4/Practitioner": {
       "get": {
         "tags": [
@@ -395,29 +372,6 @@
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/Organization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/exports/run": {
-      "post": {
-        "tags": [
-          "export-controller"
-        ],
-        "operationId": "run_1",
-        "parameters": [
-          {
-            "name": "path",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
             }
           }
         ],
@@ -1922,13 +1876,13 @@
       "PatientNamesOnly": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string"
+          },
           "givenName": {
             "type": "string"
           },
           "familyName": {
-            "type": "string"
-          },
-          "id": {
             "type": "string"
           }
         }
@@ -1982,14 +1936,14 @@
           "id": {
             "type": "string"
           },
-          "resourceType": {
-            "type": "string"
-          },
           "entry": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BundleEntryComponentPractitioner"
             }
+          },
+          "resourceType": {
+            "type": "string"
           }
         }
       },
@@ -2010,14 +1964,14 @@
           "id": {
             "type": "string"
           },
-          "resourceType": {
-            "type": "string"
-          },
           "entry": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BundleEntryComponentPatient"
             }
+          },
+          "resourceType": {
+            "type": "string"
           }
         }
       },
@@ -2038,14 +1992,14 @@
           "id": {
             "type": "string"
           },
-          "resourceType": {
-            "type": "string"
-          },
           "entry": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BundleEntryComponentOrganization"
             }
+          },
+          "resourceType": {
+            "type": "string"
           }
         }
       }
