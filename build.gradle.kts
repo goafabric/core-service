@@ -74,7 +74,7 @@ dependencies {
 	implementation("am.ik.s3:simple-s3-client:0.2.2") {exclude("org.springframework", "spring-web")}
 
 	//code generation
-	implementation("net.datafaker:datafaker:2.4.3") { exclude("org.yaml", "snakeyaml") }
+	implementation("net.datafaker:datafaker:2.4.4") { exclude("org.yaml", "snakeyaml") }
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")
 
