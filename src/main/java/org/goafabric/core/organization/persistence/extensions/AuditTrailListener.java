@@ -31,19 +31,6 @@ public class AuditTrailListener implements ApplicationContextAware {
 
     enum DbOperation { CREATE, READ, UPDATE, DELETE }
 
-    record AuditTrail(
-            String id,
-            String organizationId,
-            String objectType,
-            String objectId,
-            DbOperation operation,
-            String createdBy,
-            Date createdAt,
-            String modifiedBy,
-            Date   modifiedAt,
-            String oldValue,
-            String newValue
-    ) {}
 
     @Override
     @SuppressWarnings("java:S2696")

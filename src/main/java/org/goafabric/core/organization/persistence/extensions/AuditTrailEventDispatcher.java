@@ -17,12 +17,12 @@ public class AuditTrailEventDispatcher {
     private final KafkaTemplate<String, EventData> kafkaTemplate;
     private final String kafkaServers;
 
-    public AuditTrailEventDispatcher(KafkaTemplate kafkaTemplate, @Value("${spring.kafka.bootstrap-servers:}") String kafkaServers) {
+    public AuditTrailEventDispatcher(KafkaTemplate<String, EventData> kafkaTemplate, @Value("${spring.kafka.bootstrap-servers:}") String kafkaServers) {
         this.kafkaTemplate = kafkaTemplate;
         this.kafkaServers = kafkaServers;
     }
 
-    public void dispatchEvent(AuditTrailListener.AuditTrail auditTrail, Object payload) {
+    public void dispatchEvent(AuditTrail auditTrail, Object payload) {
         if (!kafkaServers.isEmpty()) {
             String topic = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
             log.info("producing event for topic {}", topic);

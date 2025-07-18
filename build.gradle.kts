@@ -10,7 +10,7 @@ val baseImage = "ibm-semeru-runtimes:open-21.0.4.1_7-jre-focal@sha256:8b94f8b14f
 plugins {
 	java
 	jacoco
-	id("org.springframework.boot") version "3.5.0"
+	id("org.springframework.boot") version "3.5.3"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("org.graalvm.buildtools.native") version "0.10.6"
 
@@ -32,9 +32,9 @@ dependencies {
 	constraints {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
-		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
+		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.9")
 		implementation("io.github.resilience4j:resilience4j-spring-boot3:2.3.0")
-		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.1.1")
+		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.1.2")
 	}
 }
 
@@ -74,7 +74,7 @@ dependencies {
 	implementation("am.ik.s3:simple-s3-client:0.2.2") {exclude("org.springframework", "spring-web")}
 
 	//code generation
-	implementation("net.datafaker:datafaker:2.4.3") { exclude("org.yaml", "snakeyaml") }
+	implementation("net.datafaker:datafaker:2.4.4") { exclude("org.yaml", "snakeyaml") }
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")
 
