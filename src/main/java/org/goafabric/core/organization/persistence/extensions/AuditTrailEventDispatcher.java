@@ -24,9 +24,9 @@ public class AuditTrailEventDispatcher {
 
     public void dispatchEvent(AuditTrail auditTrail, Object payload) {
         if (!kafkaServers.isEmpty()) {
-            String topic = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
-            log.info("producing event for topic {}", topic);
-            kafkaTemplate.send(topic, auditTrail.objectId(), new EventData(UserContext.getAdapterHeaderMap(), auditTrail.objectId(), auditTrail.operation().toString(), payload));
+            String type = payload instanceof MedicalRecordEo medicalRecordEo ? medicalRecordEo.getType().toLowerCase() : auditTrail.objectType();
+            log.info("producing event for type {}", type);
+            kafkaTemplate.send("patient.core", auditTrail.objectId(), new EventData(type, auditTrail.operation().toString(), payload, UserContext.getAdapterHeaderMap()));
         }
     }
 
