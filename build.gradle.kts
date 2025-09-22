@@ -10,7 +10,7 @@ val baseImage = "ibm-semeru-runtimes:open-21.0.8_9-jre@sha256:551139c6639d176c95
 plugins {
 	java
 	jacoco
-	id("org.springframework.boot") version "3.5.5"
+	id("org.springframework.boot") version "3.5.6"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("org.graalvm.buildtools.native") version "0.11.0"
 
@@ -18,7 +18,7 @@ plugins {
 	id("net.researchgate.release") version "3.1.0"
 	id("org.sonarqube") version "6.3.1.5724"
 
-	id("org.cyclonedx.bom") version "2.3.1"
+	id("org.cyclonedx.bom") version "2.4.1"
 	id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
 }
 
@@ -74,7 +74,7 @@ dependencies {
 	implementation("am.ik.s3:simple-s3-client:0.2.2") {exclude("org.springframework", "spring-web")}
 
 	//code generation
-	implementation("net.datafaker:datafaker:2.4.4") { exclude("org.yaml", "snakeyaml") }
+	implementation("net.datafaker:datafaker:2.5.0") { exclude("org.yaml", "snakeyaml") }
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")
 
