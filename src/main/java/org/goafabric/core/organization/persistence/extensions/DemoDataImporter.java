@@ -235,7 +235,7 @@ public class DemoDataImporter implements CommandLineRunner {
         @Override
         public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
             hints.resources().registerPattern("en/*.yml"); //needed for stupid faker
-            hints.reflection().registerType(net.datafaker.providers.base.Name.class, MemberCategory.INTROSPECT_DECLARED_METHODS);
+            hints.reflection().registerType(net.datafaker.providers.base.Name.class, MemberCategory.INVOKE_DECLARED_METHODS);
         }
     }
 
