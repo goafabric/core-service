@@ -6,8 +6,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface PractitionerRepository extends CrudRepository<PractitionerEo, String> {
-    List<PractitionerEo> findByGivenNameStartsWithIgnoreCase(String givenName);
+    List<PractitionerEo> findByGivenNameStartsWith(String givenName);
 
-    List<PractitionerEo> findByFamilyNameStartsWithIgnoreCase(String familyName);
+    List<PractitionerEo> findByFamilyNameStartsWith(String familyName);
 }
 

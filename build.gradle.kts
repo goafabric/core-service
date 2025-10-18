@@ -10,7 +10,7 @@ val baseImage = "eclipse-temurin:25-jre@sha256:74d5c631e5db5a44e7f5a2dd49f93f0c6
 plugins {
 	java
 	jacoco
-	id("org.springframework.boot") version "3.5.6"
+	id("org.springframework.boot") version "4.0.0-M3"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("org.graalvm.buildtools.native") version "0.11.2"
 
@@ -20,6 +20,7 @@ plugins {
 
 	id("org.cyclonedx.bom") version "3.0.1"
 	id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+    id("org.openrewrite.rewrite") version "7.16.0"
 }
 
 repositories {
@@ -34,7 +35,7 @@ dependencies {
 		implementation("org.mapstruct:mapstruct:1.6.3")
 		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.13")
 		implementation("io.github.resilience4j:resilience4j-spring-boot3:2.3.0")
-		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.2.0")
+		//implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.2.0")
 	}
 }
 
@@ -45,30 +46,31 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 
 	//monitoring
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("io.micrometer:micrometer-registry-prometheus")
-	implementation("io.micrometer:micrometer-tracing-bridge-otel")
-	implementation("io.opentelemetry:opentelemetry-exporter-otlp")
-	implementation("net.ttddyy.observation:datasource-micrometer-spring-boot")
+	//implementation("net.ttddyy.observation:datasource-micrometer-spring-boot")
 
 	//openapi
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
 
 	//crosscuting
-	implementation("org.springframework.boot:spring-boot-starter-aop")
+	implementation("org.springframework.boot:spring-boot-starter-aspectj")
 
 	//persistence
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") {exclude("org.glassfish.jaxb", "jaxb-runtime")}
-	implementation("com.h2database:h2")
+	implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
+    implementation("org.springframework.boot:spring-boot-starter-restclient")
+    implementation("com.h2database:h2")
 	implementation("org.postgresql:postgresql")
-	implementation("org.flywaydb:flyway-core")
+	implementation("org.springframework.boot:spring-boot-starter-flyway")
 	implementation("org.flywaydb:flyway-database-postgresql")
 
 	//kafka
-	implementation("org.springframework.kafka:spring-kafka")
+	implementation("org.springframework.boot:spring-boot-starter-kafka")
 
 	//elastic
-	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
+	//implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
 	//s3
 	implementation("am.ik.s3:simple-s3-client:0.2.2") {exclude("org.springframework", "spring-web")}
@@ -133,3 +135,4 @@ sonarqube {
 }
 
 buildscript { configurations.all { resolutionStrategy { force("org.ow2.asm:asm:9.9") } } } //TODO: workaround for jib + java24, https://github.com/GoogleContainerTools/jib/pull/4252
+rewrite { activeRecipe("UpgradeSpringBoot_4_0", "UpgradeSpringBatch_6_0") }

@@ -1,3 +1,4 @@
+/*
 package org.goafabric.core.medicalrecords.persistence.elastic.repository;
 
 
@@ -9,4 +10,6 @@ import java.util.List;
 public interface EncounterRepositoryElastic extends CrudRepository<EncounterElo, String> {
     List<EncounterElo> findByPatientIdAndOrganizationId(String patientId, String organizationId);
 }
+
+ */
 

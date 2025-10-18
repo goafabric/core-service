@@ -31,7 +31,7 @@ public class RoleLogic {
 
     public List<Role> findByName(String name) {
         return mapper.map(
-                repository.findByNameStartsWithIgnoreCase(name));
+                repository.findByNameStartsWith(name));
                 
     }
 

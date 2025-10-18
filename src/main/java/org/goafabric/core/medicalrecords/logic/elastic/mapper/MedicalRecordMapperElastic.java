@@ -1,3 +1,4 @@
+/*
 package org.goafabric.core.medicalrecords.logic.elastic.mapper;
 
 
@@ -23,3 +24,5 @@ public interface MedicalRecordMapperElastic {
         return map(hits.stream().map(SearchHit::getContent).toList());
     }
 }
+
+ */

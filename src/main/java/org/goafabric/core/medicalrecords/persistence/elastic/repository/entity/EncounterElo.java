@@ -1,3 +1,4 @@
+/*
 package org.goafabric.core.medicalrecords.persistence.elastic.repository.entity;
 
 import org.goafabric.core.extensions.UserContext;
@@ -66,3 +67,4 @@ public class EncounterElo {
         return encounterDate;
     }
 }
+*/
