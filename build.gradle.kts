@@ -20,7 +20,6 @@ plugins {
 
 	id("org.cyclonedx.bom") version "3.0.1"
 	id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
-    id("org.openrewrite.rewrite") version "7.16.0"
 }
 
 repositories {
@@ -52,7 +51,7 @@ dependencies {
 	implementation("net.ttddyy.observation:datasource-micrometer-spring-boot")
 
 	//openapi
-	//implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
 
 	//crosscuting
 	implementation("org.springframework.boot:spring-boot-starter-aspectj")
@@ -112,7 +111,7 @@ tasks.named<BootBuildImage>("bootBuildImage") {
 	imageName.set(nativeImageName)
 	environment.set(mapOf("BP_NATIVE_IMAGE" to "true", "BP_JVM_VERSION" to javaVersion, "BP_NATIVE_IMAGE_BUILD_ARGUMENTS" to "-J-Xmx8000m -march=compatibility"))
 	doLast {
-		project.objects.newInstance<InjectedExecOps>().execOps.exec { commandLine("/bin/sh", "-c", "docker run --rm $nativeImageName -check-integrity") }
+		project.objects.newInstance<InjectedExecOps>().execOps.exec { commandLine("/bin/sh", "-c", "docker run --rm $nativeImageName -Dspring.context.exit=onRefresh") }
 		project.objects.newInstance<InjectedExecOps>().execOps.exec { commandLine("/bin/sh", "-c", "docker push $nativeImageName") }
 	}
 }
@@ -133,6 +132,3 @@ sonarqube {
 		property("sonar.exclusions", "**/*Cologne*.java")
 	}
 }
-
-buildscript { configurations.all { resolutionStrategy { force("org.ow2.asm:asm:9.9") } } } //TODO: workaround for jib + java24, https://github.com/GoogleContainerTools/jib/pull/4252
-rewrite { activeRecipe("UpgradeSpringBoot_4_0", "UpgradeSpringBatch_6_0") }
