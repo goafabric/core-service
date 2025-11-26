@@ -37,7 +37,7 @@ public class UserLogic {
 
     public List<User> findByName(String name) {
         return mapper.map(
-                repository.findByNameStartsWithIgnoreCase(name));
+                repository.findByNameStartsWith(name));
                 
     }
 

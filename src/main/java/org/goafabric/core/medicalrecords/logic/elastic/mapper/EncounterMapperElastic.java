@@ -1,3 +1,4 @@
+/*
 package org.goafabric.core.medicalrecords.logic.elastic.mapper;
 
 
@@ -17,3 +18,6 @@ public interface EncounterMapperElastic {
 
     List<Encounter> map(Iterable<EncounterElo> value);
 }
+
+
+ */

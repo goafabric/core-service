@@ -1,3 +1,4 @@
+/*
 package org.goafabric.core.medicalrecords.logic.elastic;
 
 import org.goafabric.core.extensions.UserContext;
@@ -77,3 +78,5 @@ public class EncounterLogicElastic implements EncounterLogic {
     }
 
 }
+
+*/

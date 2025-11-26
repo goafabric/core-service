@@ -47,6 +47,7 @@ public class ObjectStorageLogic {
         this.accessKey = accessKey;
         this.secretKey = secretKey;
         this.restClient = RestClient.builder().messageConverters(httpMessageConverters -> httpMessageConverters.add(new MappingJackson2XmlHttpMessageConverter())).build();
+        //        this.restClient = RestClient.builder().configureMessageConverters(httpMessageConverters -> httpMessageConverters.addCustomConverter(new JacksonXmlHttpMessageConverter())).build();
     }
 
     public ObjectEntry getById(String id) {

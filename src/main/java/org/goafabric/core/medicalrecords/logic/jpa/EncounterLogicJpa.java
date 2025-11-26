@@ -45,7 +45,7 @@ public class EncounterLogicJpa implements org.goafabric.core.medicalrecords.logi
     public List<Encounter> findByPatientIdAndDisplay(String patientId, String text) {
         return StringUtils.isNullOrEmpty(text)
                 ? mapper.map(repository.findByPatientId(patientId))
-                : mapper.map(repository.findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(patientId, text));
+                : mapper.map(repository.findByPatientIdAndMedicalRecords_DisplayContains(patientId, text));
     }
 
     @Override

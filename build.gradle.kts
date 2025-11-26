@@ -10,15 +10,15 @@ val baseImage = "eclipse-temurin:25-jre@sha256:74d5c631e5db5a44e7f5a2dd49f93f0c6
 plugins {
 	java
 	jacoco
-	id("org.springframework.boot") version "3.5.8"
+	id("org.springframework.boot") version "4.0.0"
 	id("io.spring.dependency-management") version "1.1.7"
 	id("org.graalvm.buildtools.native") version "0.11.3"
 
 	id("com.google.cloud.tools.jib") version "3.5.1"
 	id("net.researchgate.release") version "3.1.0"
-	id("org.sonarqube") version "7.1.0.6387"
+	id("org.sonarqube") version "7.0.0.6105"
 
-	id("org.cyclonedx.bom") version "3.0.2"
+	id("org.cyclonedx.bom") version "3.0.1"
 	id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
 }
 
@@ -32,49 +32,50 @@ dependencies {
 	constraints {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
-		implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.14")
+        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.0")
 		implementation("io.github.resilience4j:resilience4j-spring-boot3:2.3.0")
-		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:1.2.0")
+		implementation("net.ttddyy.observation:datasource-micrometer-spring-boot:2.0.0")
 	}
 }
 
-val hapiFhirVersion = "8.6.0"
+val hapiFhirVersion = "8.4.0"
 
 dependencies {
 	//web
 	implementation("org.springframework.boot:spring-boot-starter-web")
 
 	//monitoring
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("io.micrometer:micrometer-registry-prometheus")
-	implementation("io.micrometer:micrometer-tracing-bridge-otel")
-	implementation("io.opentelemetry:opentelemetry-exporter-otlp")
 	implementation("net.ttddyy.observation:datasource-micrometer-spring-boot")
 
 	//openapi
 	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
 
 	//crosscuting
-	implementation("org.springframework.boot:spring-boot-starter-aop")
+	implementation("org.springframework.boot:spring-boot-starter-aspectj")
 
 	//persistence
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") {exclude("org.glassfish.jaxb", "jaxb-runtime")}
-	implementation("com.h2database:h2")
+	implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
+    implementation("org.springframework.boot:spring-boot-starter-restclient")
+    implementation("com.h2database:h2")
 	implementation("org.postgresql:postgresql")
-	implementation("org.flywaydb:flyway-core")
+	implementation("org.springframework.boot:spring-boot-starter-flyway")
 	implementation("org.flywaydb:flyway-database-postgresql")
 
 	//kafka
-	implementation("org.springframework.kafka:spring-kafka")
+	implementation("org.springframework.boot:spring-boot-starter-kafka")
 
 	//elastic
-	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
+	//implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
 	//s3
 	implementation("am.ik.s3:simple-s3-client:0.2.2") {exclude("org.springframework", "spring-web")}
 
 	//code generation
-	implementation("net.datafaker:datafaker:2.5.3") { exclude("org.yaml", "snakeyaml") }
+	implementation("net.datafaker:datafaker:2.5.2") { exclude("org.yaml", "snakeyaml") }
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")
 
@@ -108,9 +109,9 @@ tasks.register("dockerImageNative") { description= "Native Image"; group = "buil
 tasks.named<BootBuildImage>("bootBuildImage") {
 	val nativeImageName = "${dockerRegistry}/${project.name}-native:${project.version}"
 	imageName.set(nativeImageName)
-	environment.set(mapOf("BP_NATIVE_IMAGE" to "true", "BP_JVM_VERSION" to javaVersion, "BP_NATIVE_IMAGE_BUILD_ARGUMENTS" to "-J-Xmx7000m -march=compatibility"))
+	environment.set(mapOf("BP_NATIVE_IMAGE" to "true", "BP_JVM_VERSION" to javaVersion, "BP_NATIVE_IMAGE_BUILD_ARGUMENTS" to "-J-Xmx8000m -march=compatibility"))
 	doLast {
-		project.objects.newInstance<InjectedExecOps>().execOps.exec { commandLine("/bin/sh", "-c", "docker run --rm $nativeImageName -check-integrity") }
+		project.objects.newInstance<InjectedExecOps>().execOps.exec { commandLine("/bin/sh", "-c", "docker run --rm $nativeImageName -Dspring.context.exit=onRefresh") }
 		project.objects.newInstance<InjectedExecOps>().execOps.exec { commandLine("/bin/sh", "-c", "docker push $nativeImageName") }
 	}
 }
@@ -131,5 +132,3 @@ sonarqube {
 		property("sonar.exclusions", "**/*Cologne*.java")
 	}
 }
-
-buildscript { configurations.all { resolutionStrategy { force("org.ow2.asm:asm:9.9") } } } //TODO: workaround for jib + java24, https://github.com/GoogleContainerTools/jib/pull/4252

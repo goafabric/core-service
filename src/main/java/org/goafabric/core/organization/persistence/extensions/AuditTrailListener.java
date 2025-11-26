@@ -1,8 +1,5 @@
 package org.goafabric.core.organization.persistence.extensions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.persistence.*;
 import org.goafabric.core.extensions.UserContext;
 import org.slf4j.Logger;
@@ -18,6 +15,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import tools.jackson.databind.json.JsonMapper;
 
 import javax.sql.DataSource;
 import java.util.Date;
@@ -29,8 +27,23 @@ public class AuditTrailListener implements ApplicationContextAware {
 
     private final Logger log = LoggerFactory.getLogger(this.getClass());
 
+    private static final JsonMapper jsonMapper = JsonMapper.builder().build();
+
     enum DbOperation { CREATE, READ, UPDATE, DELETE }
 
+    record AuditTrail(
+            String id,
+            String organizationId,
+            String objectType,
+            String objectId,
+            DbOperation operation,
+            String createdBy,
+            Date createdAt,
+            String modifiedBy,
+            Date   modifiedAt,
+            String oldValue,
+            String newValue
+    ) {}
 
     @Override
     @SuppressWarnings("java:S2696")
@@ -60,14 +73,13 @@ public class AuditTrailListener implements ApplicationContextAware {
             var auditTrail = createAuditTrail(operation, referenceId, oldObject, newObject);
             log.debug("New audit:\n{}", auditTrail);
             context.getBean(AuditJpaInserter.class).insertAudit(auditTrail);
-            context.getBean(AuditTrailEventDispatcher.class).dispatchEvent(auditTrail, oldObject != null ? oldObject : newObject);
         } catch (Exception e) {
             log.error("Error during audit:\n{}", e.getMessage(), e);
         }
     }
 
     private AuditTrail createAuditTrail(
-            DbOperation dbOperation, String referenceId, final Object oldObject, final Object newObject) throws JsonProcessingException {
+            DbOperation dbOperation, String referenceId, final Object oldObject, final Object newObject) {
         final Date date = new Date(System.currentTimeMillis());
         return new AuditTrail(
                 UUID.randomUUID().toString(),
@@ -84,8 +96,8 @@ public class AuditTrailListener implements ApplicationContextAware {
         );
     }
 
-    private String getJsonValue(final Object object) throws JsonProcessingException {
-        return new ObjectMapper().registerModule(new JavaTimeModule()).writerWithDefaultPrettyPrinter().writeValueAsString(object);
+    private String getJsonValue(final Object object)  {
+        return jsonMapper.writerWithDefaultPrettyPrinter().writeValueAsString(object);
     }
 
     @Component
