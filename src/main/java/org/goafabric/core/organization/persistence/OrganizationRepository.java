@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface OrganizationRepository extends CrudRepository<OrganizationEo, String> {
-    List<OrganizationEo> findByNameStartsWithIgnoreCase(String name);
+    List<OrganizationEo> findByNameStartsWith(String name);
 }
 

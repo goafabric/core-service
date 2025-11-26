@@ -1,3 +1,4 @@
+/*
 package org.goafabric.core.medicalrecords.logic.elastic;
 
 import org.goafabric.core.medicalrecords.controller.dto.MedicalRecord;
@@ -87,3 +88,5 @@ public class MedicalRecordLogicElastic implements MedicalRecordLogic {
     }
 
 }
+
+ */

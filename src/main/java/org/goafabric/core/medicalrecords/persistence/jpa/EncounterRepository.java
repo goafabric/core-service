@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface EncounterRepository extends CrudRepository<EncounterEo, String> {
     @Query("SELECT e FROM EncounterEo e JOIN FETCH e.medicalRecords m WHERE e.patientId = :patientId AND UPPER(m.display) LIKE UPPER(concat('%', :display, '%'))")
-    List<EncounterEo> findByPatientIdAndMedicalRecords_DisplayContainsIgnoreCase(String patientId, String display);
+    List<EncounterEo> findByPatientIdAndMedicalRecords_DisplayContains(String patientId, String display);
 
     @Query("SELECT e FROM EncounterEo e JOIN FETCH e.medicalRecords m WHERE e.patientId = :patientId")
     List<EncounterEo> findByPatientId(String patientId);

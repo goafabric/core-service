@@ -17,6 +17,7 @@ import org.goafabric.core.organization.logic.PermissionLogic;
 import org.goafabric.core.organization.logic.PractitionerLogic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.aot.hint.MemberCategory;
 import org.springframework.aot.hint.RuntimeHints;
 import org.springframework.aot.hint.RuntimeHintsRegistrar;
 import org.springframework.beans.factory.annotation.Value;
@@ -234,6 +235,7 @@ public class DemoDataImporter implements CommandLineRunner {
         @Override
         public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
             hints.resources().registerPattern("en/*.yml"); //needed for stupid faker
+            hints.reflection().registerType(net.datafaker.providers.base.Name.class, MemberCategory.INVOKE_DECLARED_METHODS);
         }
     }
 

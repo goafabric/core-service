@@ -42,7 +42,7 @@ services:
 
   nginx:
     container_name: ${_Values_root_name}-nginx
-    image: nginx:1.22.1
+    image: nginx:1.28-alpine3.21
     restart: 'no'
     ports:
       - 8080:80
@@ -56,7 +56,7 @@ services:
 
   core-fe:
     container_name: ${_Values_root_name}-core-fe
-    image: goafabric/core-fe:3.3.1
+    image: goafabric/core-fe:3.3.2-SNAPSHOT
     restart: 'no'
     ports:
       - 80

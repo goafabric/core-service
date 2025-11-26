@@ -1,3 +1,4 @@
+/*
 package org.goafabric.core.medicalrecords.persistence.elastic.repository.entity;
 
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -63,4 +64,6 @@ public class MedicalRecordElo {
                 '}';
     }
 }
+
+ */
 

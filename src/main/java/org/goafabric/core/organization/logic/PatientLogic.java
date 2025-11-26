@@ -37,12 +37,12 @@ public class PatientLogic {
 
     public List<Patient> findByGivenName(String givenName) {
         return mapper.map(
-                repository.findByGivenNameStartsWithIgnoreCase(givenName));
+                repository.findByGivenNameStartsWith(givenName));
     }
 
     public List<Patient> findByFamilyName(String familyName) {
         return mapper.map(
-                repository.findByFamilyNameStartsWithIgnoreCase(familyName));
+                repository.findByFamilyNameStartsWith(familyName));
     }
 
     public Patient save(Patient patient) {

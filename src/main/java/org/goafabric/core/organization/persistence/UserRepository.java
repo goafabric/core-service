@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<UserEo, String> {
     List<UserEo> findByName(String name);
-    List<UserEo> findByNameStartsWithIgnoreCase(String name);
+    List<UserEo> findByNameStartsWith(String name);
 }
 

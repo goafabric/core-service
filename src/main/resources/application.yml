@@ -72,3 +72,5 @@ logging.level.org.hibernate.SQL: "INFO"
 
 #profile
 spring.profiles.active: "jpa" #elastic
+springdoc.enable-kotlin: false
+logging.level.io.micrometer.registry.otlp: "OFF"
