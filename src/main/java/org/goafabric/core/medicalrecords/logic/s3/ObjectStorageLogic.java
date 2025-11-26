@@ -22,7 +22,7 @@ import java.util.List;
 import static am.ik.s3.S3RequestBuilder.s3Request;
 
 @Component
-@RegisterReflectionForBinding({ListBucketResult.class, ListBucketsResult.class})
+@RegisterReflectionForBinding({ListBucketResult.class, ListBucketsResult.class, org.springframework.http.HttpHeaders.class})
 public class ObjectStorageLogic {
 
     private final boolean    s3Enabled;
