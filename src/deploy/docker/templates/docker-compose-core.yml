@@ -45,12 +45,9 @@ services:
 
       #s3
       spring.cloud.aws.s3.endpoint: "http://s3minio:9000"
-      spring.cloud.aws.s3.enabled: "true"
+      spring.cloud.aws.s3.enabled: "false"
 
       #secrets
-      spring.security.oauth2.client-id: "oauth2-proxy"
-      spring.security.oauth2.client-secret: "none"
-
       spring.datasource.username: "core-service"
       spring.datasource.password: "core-service"
 
