@@ -20,7 +20,7 @@ management:
 spring.application.name: core-service
 management.tracing.sampling.probability: "1.0"
 logging.level.io.opentelemetry: "OFF"
-management.otlp.tracing.endpoint: "http://localhost:4318/v1/traces"
+management.opentelemetry.tracing.export.otlp.endpoint: "http://localhost:4318/v1/traces"
 
 #persistence
 spring.datasource.url: jdbc:h2:mem:core;DATABASE_TO_UPPER=FALSE
