@@ -1,3 +1,4 @@
+/*
 package org.goafabric.core.medicalrecords.logic.s3;
 
 import am.ik.s3.*;
@@ -134,4 +135,6 @@ public class ObjectStorageLogic {
     }
 
 }
+
+ */
 
