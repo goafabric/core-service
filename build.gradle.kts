@@ -133,4 +133,4 @@ sonarqube {
 	}
 }
 
-sonar { properties { property("sonar.coverage.exclusions", "**/ApplicationBaseRuntimeHints.java"); property("sonar.cpd.exclusions", "**/ApplicationBaseRuntimeHints.java") } }
+sonar { properties { property("sonar.exclusions", "**/ApplicationBaseRuntimeHints.java") } }
