@@ -132,3 +132,5 @@ sonarqube {
 		property("sonar.exclusions", "**/*Cologne*.java")
 	}
 }
+
+sonar { properties { property("sonar.coverage.exclusions", "**/ApplicationBaseRuntimeHints.java"); property("sonar.cpd.exclusions", "**/ApplicationBaseRuntimeHints.java") } }
