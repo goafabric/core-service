@@ -16,9 +16,9 @@ plugins {
 
 	id("com.google.cloud.tools.jib") version "3.5.1"
 	id("net.researchgate.release") version "3.1.0"
-	id("org.sonarqube") version "7.0.0.6105"
+	id("org.sonarqube") version "7.1.0.6387"
 
-	id("org.cyclonedx.bom") version "3.0.1"
+	id("org.cyclonedx.bom") version "3.1.0"
 	id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
 }
 
@@ -38,7 +38,7 @@ dependencies {
 	}
 }
 
-val hapiFhirVersion = "8.4.0"
+val hapiFhirVersion = "8.6.0"
 
 dependencies {
 	//web
@@ -75,7 +75,7 @@ dependencies {
 	implementation("am.ik.s3:simple-s3-client:0.2.2") {exclude("org.springframework", "spring-web")}
 
 	//code generation
-	implementation("net.datafaker:datafaker:2.5.2") { exclude("org.yaml", "snakeyaml") }
+	implementation("net.datafaker:datafaker:2.5.3") { exclude("org.yaml", "snakeyaml") }
 	implementation("org.mapstruct:mapstruct")
 	annotationProcessor("org.mapstruct:mapstruct-processor")
 
@@ -132,3 +132,5 @@ sonarqube {
 		property("sonar.exclusions", "**/*Cologne*.java")
 	}
 }
+
+sonar { properties { property("sonar.exclusions", "**/ApplicationBaseRuntimeHints.*") } }
