@@ -36,7 +36,7 @@ dependencies {
 	}
 }
 
-val hapiFhirVersion = "8.8.0"
+val hapiFhirVersion = "8.8.1"
 
 dependencies {
 	//web
