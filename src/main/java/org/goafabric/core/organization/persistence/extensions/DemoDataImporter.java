@@ -2,8 +2,6 @@ package org.goafabric.core.organization.persistence.extensions;
 
 import net.datafaker.Faker;
 import org.goafabric.core.extensions.UserContext;
-import org.goafabric.core.medicalrecords.controller.ObjectStorageController;
-import org.goafabric.core.medicalrecords.controller.dto.ObjectEntry;
 import org.goafabric.core.organization.controller.RoleController;
 import org.goafabric.core.organization.controller.UserController;
 import org.goafabric.core.organization.controller.dto.*;
@@ -47,16 +45,14 @@ public class DemoDataImporter implements CommandLineRunner {
 
     private final ApplicationContext applicationContext;
 
-    private ObjectStorageController objectStorageController;
 
 
     public DemoDataImporter(@Value("${database.provisioning.goals:}")String goals, @Value("${demo-data.size}") Integer demoDataSize, @Value("${multi-tenancy.tenants}") String tenants,
-                            ApplicationContext applicationContext, ObjectStorageController objectStorageController) {
+                            ApplicationContext applicationContext) {
         this.goals = goals;
         this.demoDataSize = demoDataSize;
         this.tenants = tenants;
         this.applicationContext = applicationContext;
-        this.objectStorageController = objectStorageController;
     }
 
     @Override
@@ -89,7 +85,6 @@ public class DemoDataImporter implements CommandLineRunner {
         createPractitioners();
         createOrganizations();
         createUserRoles();
-        createArchiveFiles();
     }
 
     private void createUserRoles() {
@@ -213,19 +208,6 @@ public class DemoDataImporter implements CommandLineRunner {
         return Collections.singletonList(new ContactPoint(null, null, AddressUse.HOME.getValue(), ContactPointSystem.PHONE.getValue(), phone));
     }
 
-    private void createArchiveFiles() {
-        try {
-            objectStorageController.save(
-                    new ObjectEntry("hello_world.txt", "text/plain",
-                            Long.valueOf("hello world".length()), "hello world".getBytes()));
-
-            objectStorageController.save(
-                    new ObjectEntry("top_secret.txt", "text/plain",
-                            Long.valueOf("top secret".length()), "top secret".getBytes()));
-        } catch (Exception e) { //to have low coupling it's ok to not have demodate if s3 is not started
-            log.warn("Could not S3 Demo Data: {}", e.getMessage());
-        }
-    }
 
     public static void setTenantId(String tenantId) {
         UserContext.setTenantId(tenantId);
