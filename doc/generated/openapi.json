@@ -1,2008 +1,2100 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "OpenAPI definition",
-    "version": "v0"
-  },
-  "servers": [
-    {
-      "url": "http://localhost:8080",
-      "description": "Generated server url"
-    }
-  ],
-  "paths": {
-    "/users/save": {
-      "post": {
-        "tags": [
-          "user-controller"
-        ],
-        "operationId": "save",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/User"
-              }
+  "openapi" : "3.1.0",
+  "components" : {
+    "schemas" : {
+      "Address" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "use" : {
+            "type" : [ "string", "null" ]
+          },
+          "line" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
             }
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/roles/save": {
-      "post": {
-        "tags": [
-          "role-controller"
-        ],
-        "operationId": "save_1",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Role"
-              }
-            }
+          "city" : {
+            "type" : [ "string", "null" ]
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Role"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/practitioners/save": {
-      "post": {
-        "tags": [
-          "practitioner-controller"
-        ],
-        "operationId": "save_2",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Practitioner"
-              }
-            }
+          "postalCode" : {
+            "type" : [ "string", "null" ]
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Practitioner"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/patients/save": {
-      "post": {
-        "tags": [
-          "patient-controller"
-        ],
-        "operationId": "save_3",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Patient"
-              }
-            }
+          "state" : {
+            "type" : [ "string", "null" ]
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Patient"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/organizations/save": {
-      "post": {
-        "tags": [
-          "organization-controller"
-        ],
-        "operationId": "save_4",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Organization"
-              }
-            }
+          "country" : {
+            "type" : [ "string", "null" ]
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Organization"
-                }
-              }
-            }
+          "street" : {
+            "type" : "string"
           }
         }
-      }
-    },
-    "/objects/save": {
-      "post": {
-        "tags": [
-          "object-storage-controller"
-        ],
-        "operationId": "save_5",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ObjectEntry"
-              }
-            }
+      },
+      "Address1" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/medicalrecords/save": {
-      "post": {
-        "tags": [
-          "medical-record-controller"
-        ],
-        "operationId": "save_6",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MedicalRecord"
-              }
-            }
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MedicalRecord"
-                }
-              }
-            }
+          "use" : {
+            "type" : [ "string", "null" ]
+          },
+          "street" : {
+            "type" : [ "string", "null" ]
+          },
+          "city" : {
+            "type" : [ "string", "null" ]
+          },
+          "postalCode" : {
+            "type" : [ "string", "null" ]
+          },
+          "state" : {
+            "type" : [ "string", "null" ]
+          },
+          "country" : {
+            "type" : [ "string", "null" ]
           }
         }
-      }
-    },
-    "/fhir/r4/Practitioner": {
-      "get": {
-        "tags": [
-          "practitioner-fhir-controller"
-        ],
-        "operationId": "search",
-        "parameters": [
-          {
-            "name": "family",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
+      },
+      "BodyMetrics" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "bodyHeight" : {
+            "type" : [ "string", "null" ]
+          },
+          "bellyCircumference" : {
+            "type" : [ "string", "null" ]
+          },
+          "headCircumference" : {
+            "type" : [ "string", "null" ]
+          },
+          "bodyFat" : {
+            "type" : [ "string", "null" ]
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BundlePractitioner"
-                }
-              },
-              "application/fhir+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BundlePractitioner"
+        }
+      },
+      "BundleOrganization" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "resourceType" : {
+            "type" : "string"
+          },
+          "entry" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "required" : [ "resource", "fullUrl" ],
+              "properties" : {
+                "resource" : {
+                  "$ref" : "#/components/schemas/Organization"
+                },
+                "fullUrl" : {
+                  "type" : "string"
                 }
               }
             }
           }
         }
       },
-      "post": {
-        "tags": [
-          "practitioner-fhir-controller"
-        ],
-        "operationId": "create",
-        "parameters": [
-          {
-            "name": "practitioner",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Practitioner"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/fhir/r4/Patient": {
-      "get": {
-        "tags": [
-          "patient-fhir-controller"
-        ],
-        "operationId": "search_1",
-        "parameters": [
-          {
-            "name": "family",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BundlePatient"
-                }
-              },
-              "application/fhir+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BundlePatient"
+      "BundlePatient" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "resourceType" : {
+            "type" : "string"
+          },
+          "entry" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "required" : [ "resource", "fullUrl" ],
+              "properties" : {
+                "resource" : {
+                  "$ref" : "#/components/schemas/Patient"
+                },
+                "fullUrl" : {
+                  "type" : "string"
                 }
               }
             }
           }
         }
       },
-      "post": {
-        "tags": [
-          "patient-fhir-controller"
-        ],
-        "operationId": "create_1",
-        "parameters": [
-          {
-            "name": "patient",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Patient"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/fhir/r4/Organization": {
-      "get": {
-        "tags": [
-          "organization-fhir-controller"
-        ],
-        "operationId": "search_2",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BundleOrganization"
-                }
-              },
-              "application/fhir+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BundleOrganization"
+      "BundlePractitioner" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "resourceType" : {
+            "type" : "string"
+          },
+          "entry" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "required" : [ "resource", "fullUrl" ],
+              "properties" : {
+                "resource" : {
+                  "$ref" : "#/components/schemas/Practitioner"
+                },
+                "fullUrl" : {
+                  "type" : "string"
                 }
               }
             }
           }
         }
       },
-      "post": {
-        "tags": [
-          "organization-fhir-controller"
-        ],
-        "operationId": "create_2",
-        "parameters": [
-          {
-            "name": "organization",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/Organization"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/encounters/save": {
-      "post": {
-        "tags": [
-          "encounter-controller"
-        ],
-        "operationId": "save_7",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Encounter"
-              }
-            }
+      "Coding" : {
+        "type" : "object",
+        "required" : [ "code", "system" ],
+        "properties" : {
+          "code" : {
+            "type" : "string"
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Encounter"
-                }
-              }
-            }
+          "system" : {
+            "type" : "string"
           }
         }
-      }
-    },
-    "/bodymetrics/save": {
-      "post": {
-        "tags": [
-          "body-metrics-controller"
-        ],
-        "operationId": "save_8",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/BodyMetrics"
-              }
-            }
+      },
+      "ContactPoint" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
           },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MedicalRecord"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/hasPermission": {
-      "get": {
-        "tags": [
-          "user-controller"
-        ],
-        "operationId": "hasPermission",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
           },
-          {
-            "name": "category",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "VIEW",
-                "CRUD",
-                "PROCESS"
-              ]
-            }
+          "use" : {
+            "type" : [ "string", "null" ]
           },
-          {
-            "name": "type",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "PATIENT",
-                "ORGANIZATION",
-                "CATALOGS",
-                "APPOINTMENTS",
-                "FILES",
-                "MONITORING",
-                "USERS",
-                "INVOICE",
-                "READ",
-                "READ_WRITE",
-                "READ_WRITE_DELETE"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "boolean"
-                }
-              }
-            }
+          "system" : {
+            "type" : [ "string", "null" ]
+          },
+          "value" : {
+            "type" : [ "string", "null" ]
           }
         }
-      }
-    },
-    "/users/getUserInfo": {
-      "get": {
-        "tags": [
-          "user-controller"
-        ],
-        "operationId": "getUserInfo",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserInfo"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/getById/{id}": {
-      "get": {
-        "tags": [
-          "user-controller"
-        ],
-        "operationId": "getById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/User"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/findByName": {
-      "get": {
-        "tags": [
-          "user-controller"
-        ],
-        "operationId": "findByName",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/User"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/roles/getById/{id}": {
-      "get": {
-        "tags": [
-          "role-controller"
-        ],
-        "operationId": "getById_1",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Role"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/roles/findByName": {
-      "get": {
-        "tags": [
-          "role-controller"
-        ],
-        "operationId": "findByName_1",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Role"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/practitioners/getById/{id}": {
-      "get": {
-        "tags": [
-          "practitioner-controller"
-        ],
-        "operationId": "getById_2",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Practitioner"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/practitioners/findByGivenName": {
-      "get": {
-        "tags": [
-          "practitioner-controller"
-        ],
-        "operationId": "findByGivenName",
-        "parameters": [
-          {
-            "name": "givenName",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Practitioner"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/practitioners/findByFamilyName": {
-      "get": {
-        "tags": [
-          "practitioner-controller"
-        ],
-        "operationId": "findByFamilyName",
-        "parameters": [
-          {
-            "name": "familyName",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Practitioner"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/patients/getById/{id}": {
-      "get": {
-        "tags": [
-          "patient-controller"
-        ],
-        "operationId": "getById_3",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Patient"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/patients/findPatientNamesByFamilyName": {
-      "get": {
-        "tags": [
-          "patient-controller"
-        ],
-        "operationId": "findPatientNamesByFamilyName",
-        "parameters": [
-          {
-            "name": "search",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/PatientNamesOnly"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/patients/findByGivenName": {
-      "get": {
-        "tags": [
-          "patient-controller"
-        ],
-        "operationId": "findByGivenName_1",
-        "parameters": [
-          {
-            "name": "givenName",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Patient"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/patients/findByFamilyName": {
-      "get": {
-        "tags": [
-          "patient-controller"
-        ],
-        "operationId": "findByFamilyName_1",
-        "parameters": [
-          {
-            "name": "familyName",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Patient"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/organizations/getById/{id}": {
-      "get": {
-        "tags": [
-          "organization-controller"
-        ],
-        "operationId": "getById_4",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Organization"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/organizations/findByName": {
-      "get": {
-        "tags": [
-          "organization-controller"
-        ],
-        "operationId": "findByName_2",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Organization"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/objects/search": {
-      "get": {
-        "tags": [
-          "object-storage-controller"
-        ],
-        "operationId": "search_3",
-        "parameters": [
-          {
-            "name": "search",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ObjectEntry"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/objects/getById/{name}": {
-      "get": {
-        "tags": [
-          "object-storage-controller"
-        ],
-        "operationId": "getByName",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ObjectEntry"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/medicalrecords/getById/{id}": {
-      "get": {
-        "tags": [
-          "medical-record-controller"
-        ],
-        "operationId": "getById_5",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MedicalRecord"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/medicalrecords/delete/{id}": {
-      "get": {
-        "tags": [
-          "medical-record-controller"
-        ],
-        "operationId": "delete",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/locks/acquireLockByKey": {
-      "get": {
-        "tags": [
-          "lock-controller"
-        ],
-        "operationId": "acquireLockByKey",
-        "parameters": [
-          {
-            "name": "lockKey",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Lock"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/fhir/r4/metadata": {
-      "get": {
-        "tags": [
-          "meta-data-controller"
-        ],
-        "operationId": "getMetadata",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MetaData"
-                }
-              },
-              "application/fhir+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MetaData"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/fhir/r4/Practitioner/{id}": {
-      "get": {
-        "tags": [
-          "practitioner-fhir-controller"
-        ],
-        "operationId": "getById_6",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Practitioner"
-                }
-              },
-              "application/fhir+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Practitioner"
-                }
-              }
+      },
+      "Encounter" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "patientId" : {
+            "type" : [ "string", "null" ]
+          },
+          "practitionerId" : {
+            "type" : [ "string", "null" ]
+          },
+          "encounterDate" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/LocalDate"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "encounterName" : {
+            "type" : [ "string", "null" ]
+          },
+          "medicalRecords" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/MedicalRecord"
             }
           }
         }
       },
-      "delete": {
-        "tags": [
-          "practitioner-fhir-controller"
-        ],
-        "operationId": "delete_1",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/fhir/r4/Patient/{id}": {
-      "get": {
-        "tags": [
-          "patient-fhir-controller"
-        ],
-        "operationId": "getById_7",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Patient"
-                }
-              },
-              "application/fhir+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Patient"
-                }
-              }
+      "HumanName" : {
+        "type" : "object",
+        "properties" : {
+          "use" : {
+            "type" : [ "string", "null" ]
+          },
+          "family" : {
+            "type" : [ "string", "null" ]
+          },
+          "given" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
             }
           }
         }
       },
-      "delete": {
-        "tags": [
-          "patient-fhir-controller"
-        ],
-        "operationId": "delete_2",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/fhir/r4/Organization/{id}": {
-      "get": {
-        "tags": [
-          "organization-fhir-controller"
-        ],
-        "operationId": "getById_8",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Organization"
-                }
-              },
-              "application/fhir+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Organization"
-                }
-              }
-            }
+      "Identifier" : {
+        "type" : "object",
+        "properties" : {
+          "use" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/IdentifierUse"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "type" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/Type"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "value" : {
+            "type" : [ "string", "null" ]
+          },
+          "system" : {
+            "type" : [ "string", "null" ]
           }
         }
       },
-      "delete": {
-        "tags": [
-          "organization-fhir-controller"
-        ],
-        "operationId": "delete_3",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+      "IdentifierUse" : {
+        "type" : "string",
+        "enum" : [ "official" ]
+      },
+      "LocalDate" : {
+        "type" : "string",
+        "format" : "date",
+        "examples" : [ "2022-03-10" ]
+      },
+      "LocalDateTime" : {
+        "type" : "string",
+        "format" : "date-time",
+        "examples" : [ "2022-03-10T12:15:50" ]
+      },
+      "Lock" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "isLocked" : {
+            "type" : [ "boolean", "null" ]
+          },
+          "lockKey" : {
+            "type" : [ "string", "null" ]
+          },
+          "lockTime" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/LocalDateTime"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "userName" : {
+            "type" : [ "string", "null" ]
           }
         }
-      }
-    },
-    "/encounters/findByPatientIdAndDisplay": {
-      "get": {
-        "tags": [
-          "encounter-controller"
-        ],
-        "operationId": "findByPatientIdAndDisplay",
-        "parameters": [
-          {
-            "name": "patientId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
+      },
+      "MedicalRecord" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "encounterId" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "type" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/MedicalRecordType"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "display" : {
+            "type" : [ "string", "null" ]
+          },
+          "code" : {
+            "type" : [ "string", "null" ]
+          },
+          "specialization" : {
+            "type" : [ "string", "null" ]
+          }
+        }
+      },
+      "MedicalRecordType" : {
+        "type" : "string",
+        "enum" : [ "ANAMNESIS", "CONDITION", "CHARGEITEM", "FINDING", "THERAPY", "BODY_METRICS" ]
+      },
+      "Meta" : {
+        "type" : "object",
+        "properties" : {
+          "versionId" : {
+            "type" : [ "string", "null" ]
+          },
+          "lastUpdated" : {
+            "type" : [ "string", "null" ]
+          },
+          "source" : {
+            "type" : [ "string", "null" ]
+          }
+        }
+      },
+      "MetaData" : {
+        "type" : "object",
+        "required" : [ "resourceType", "name" ],
+        "properties" : {
+          "resourceType" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Organization" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "resourceType" : {
+            "type" : "string"
+          },
+          "meta" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/Meta"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "active" : {
+            "type" : [ "boolean", "null" ]
+          },
+          "identifier" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Identifier"
             }
           },
-          {
-            "name": "display",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
+          "name" : {
+            "type" : [ "string", "null" ]
+          },
+          "telecom" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Telecom"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Encounter"
-                  }
-                }
-              }
+          },
+          "address" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Address"
             }
           }
         }
-      }
-    },
-    "/bodymetrics/getById/{id}": {
-      "get": {
-        "tags": [
-          "body-metrics-controller"
-        ],
-        "operationId": "getById_9",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
+      },
+      "Organization1" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : [ "string", "null" ]
+          },
+          "bsnr" : {
+            "type" : [ "string", "null" ]
+          },
+          "address" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Address1"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/BodyMetrics"
-                }
-              }
+          },
+          "contactPoint" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ContactPoint"
             }
           }
         }
-      }
-    },
-    "/bodymetrics/delete/{id}": {
-      "get": {
-        "tags": [
-          "body-metrics-controller"
-        ],
-        "operationId": "delete_4",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
+      },
+      "Patient" : {
+        "type" : "object",
+        "properties" : {
+          "resourceType" : {
+            "type" : "string"
+          },
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "meta" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/Meta"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "active" : {
+            "type" : [ "boolean", "null" ]
+          },
+          "identifier" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Identifier"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+          },
+          "gender" : {
+            "type" : [ "string", "null" ]
+          },
+          "birthDate" : {
+            "type" : [ "string", "null" ]
+          },
+          "name" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/HumanName"
+            }
+          },
+          "telecom" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Telecom"
+            }
+          },
+          "address" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Address"
+            }
           }
         }
-      }
-    },
-    "/users/deleteById/{id}": {
-      "delete": {
-        "tags": [
-          "user-controller"
-        ],
-        "operationId": "deleteById",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
+      },
+      "Patient1" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "givenName" : {
+            "type" : [ "string", "null" ]
+          },
+          "familyName" : {
+            "type" : [ "string", "null" ]
+          },
+          "gender" : {
+            "type" : [ "string", "null" ]
+          },
+          "birthDate" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/LocalDate"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "address" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Address1"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+          },
+          "contactPoint" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ContactPoint"
+            }
           }
         }
-      }
-    },
-    "/roles/deleteById/{id}": {
-      "delete": {
-        "tags": [
-          "role-controller"
-        ],
-        "operationId": "deleteById_1",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/practitioners/deleteById/{id}": {
-      "delete": {
-        "tags": [
-          "practitioner-controller"
-        ],
-        "operationId": "deleteById_2",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+      },
+      "Permission" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "category" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/PermissionCategory"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "type" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/PermissionType"
+            }, {
+              "type" : "null"
+            } ]
           }
         }
-      }
-    },
-    "/patients/deleteById/{id}": {
-      "delete": {
-        "tags": [
-          "patient-controller"
-        ],
-        "operationId": "deleteById_3",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
+      },
+      "PermissionCategory" : {
+        "type" : "string",
+        "enum" : [ "VIEW", "CRUD", "PROCESS" ]
+      },
+      "PermissionType" : {
+        "type" : "string",
+        "enum" : [ "PATIENT", "ORGANIZATION", "CATALOGS", "APPOINTMENTS", "FILES", "MONITORING", "USERS", "INVOICE", "READ", "READ_WRITE", "READ_WRITE_DELETE" ]
+      },
+      "Practitioner" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "meta" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/Meta"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "resourceType" : {
+            "type" : "string"
+          },
+          "active" : {
+            "type" : [ "boolean", "null" ]
+          },
+          "identifier" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Identifier"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+          },
+          "gender" : {
+            "type" : [ "string", "null" ]
+          },
+          "birthDate" : {
+            "type" : [ "string", "null" ]
+          },
+          "name" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/HumanName"
+            }
+          },
+          "telecom" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Telecom"
+            }
+          },
+          "address" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Address"
+            }
           }
         }
-      }
-    },
-    "/organizations/deleteById/{id}": {
-      "delete": {
-        "tags": [
-          "organization-controller"
-        ],
-        "operationId": "deleteById_4",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
+      },
+      "Practitioner1" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "givenName" : {
+            "type" : [ "string", "null" ]
+          },
+          "familyName" : {
+            "type" : [ "string", "null" ]
+          },
+          "gender" : {
+            "type" : [ "string", "null" ]
+          },
+          "birthDate" : {
+            "anyOf" : [ {
+              "$ref" : "#/components/schemas/LocalDate"
+            }, {
+              "type" : "null"
+            } ]
+          },
+          "lanr" : {
+            "type" : [ "string", "null" ]
+          },
+          "address" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Address1"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+          },
+          "contactPoint" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/ContactPoint"
+            }
           }
         }
-      }
-    },
-    "/locks/removeLockById": {
-      "delete": {
-        "tags": [
-          "lock-controller"
-        ],
-        "operationId": "removeLockById",
-        "parameters": [
-          {
-            "name": "lockId",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
+      },
+      "Role" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "name" : {
+            "type" : [ "string", "null" ]
+          },
+          "permissions" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Permission"
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
+        }
+      },
+      "Telecom" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "system" : {
+            "type" : [ "string", "null" ]
+          },
+          "value" : {
+            "type" : [ "string", "null" ]
+          },
+          "use" : {
+            "type" : [ "string", "null" ]
+          }
+        }
+      },
+      "Type" : {
+        "type" : "object",
+        "properties" : {
+          "coding" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Coding"
+            }
+          }
+        }
+      },
+      "User" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : [ "string", "null" ]
+          },
+          "version" : {
+            "type" : [ "integer", "null" ],
+            "format" : "int64"
+          },
+          "practitionerId" : {
+            "type" : [ "string", "null" ]
+          },
+          "name" : {
+            "type" : [ "string", "null" ]
+          },
+          "roles" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "#/components/schemas/Role"
+            }
+          }
+        }
+      },
+      "UserInfo" : {
+        "type" : "object",
+        "required" : [ "userName", "tenantId" ],
+        "properties" : {
+          "userName" : {
+            "type" : "string"
+          },
+          "tenantId" : {
+            "type" : "string"
           }
         }
       }
     }
   },
-  "components": {
-    "schemas": {
-      "Permission": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "category": {
-            "type": "string",
-            "enum": [
-              "VIEW",
-              "CRUD",
-              "PROCESS"
-            ]
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "PATIENT",
-              "ORGANIZATION",
-              "CATALOGS",
-              "APPOINTMENTS",
-              "FILES",
-              "MONITORING",
-              "USERS",
-              "INVOICE",
-              "READ",
-              "READ_WRITE",
-              "READ_WRITE_DELETE"
-            ]
+  "paths" : {
+    "/bodymetrics/delete/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
           }
-        }
-      },
-      "Role": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
-          },
-          "permissions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Permission"
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "summary" : "Delete",
+        "tags" : [ "Body Metrics Controller" ]
+      }
+    },
+    "/bodymetrics/getById/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BodyMetrics"
+                }
+              }
             }
           }
-        }
-      },
-      "User": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "practitionerId": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "roles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Role"
-            }
-          }
-        }
-      },
-      "Address": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "use": {
-            "type": "string"
-          },
-          "street": {
-            "type": "string"
-          },
-          "city": {
-            "type": "string"
-          },
-          "postalCode": {
-            "type": "string"
-          },
-          "state": {
-            "type": "string"
-          },
-          "country": {
-            "type": "string"
-          }
-        }
-      },
-      "ContactPoint": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "use": {
-            "type": "string"
-          },
-          "system": {
-            "type": "string"
-          },
-          "value": {
-            "type": "string"
-          }
-        }
-      },
-      "Practitioner": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "givenName": {
-            "type": "string"
-          },
-          "familyName": {
-            "type": "string"
-          },
-          "gender": {
-            "type": "string"
-          },
-          "birthDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "lanr": {
-            "type": "string"
-          },
-          "address": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Address"
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Body Metrics Controller" ]
+      }
+    },
+    "/bodymetrics/save" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/BodyMetrics"
+              }
             }
           },
-          "contactPoint": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ContactPoint"
-            }
-          }
-        }
-      },
-      "Patient": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "givenName": {
-            "type": "string"
-          },
-          "familyName": {
-            "type": "string"
-          },
-          "gender": {
-            "type": "string"
-          },
-          "birthDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "address": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Address"
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MedicalRecord"
+                }
+              }
             }
           },
-          "contactPoint": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ContactPoint"
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Save",
+        "tags" : [ "Body Metrics Controller" ]
+      }
+    },
+    "/encounters/findByPatientIdAndDisplay" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "display",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        }, {
+          "name" : "patientId",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Encounter"
+                  }
+                }
+              }
             }
           }
-        }
-      },
-      "Organization": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "name": {
-            "type": "string"
-          },
-          "bsnr": {
-            "type": "string"
-          },
-          "address": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Address"
+        },
+        "summary" : "Find By Patient Id And Display",
+        "tags" : [ "Encounter Controller" ]
+      }
+    },
+    "/encounters/save" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Encounter"
+              }
             }
           },
-          "contactPoint": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ContactPoint"
-            }
-          }
-        }
-      },
-      "ObjectEntry": {
-        "type": "object",
-        "properties": {
-          "objectName": {
-            "type": "string"
-          },
-          "contentType": {
-            "type": "string"
-          },
-          "objectSize": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "data": {
-            "type": "string",
-            "format": "byte"
-          }
-        }
-      },
-      "MedicalRecord": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "encounterId": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "ANAMNESIS",
-              "CONDITION",
-              "CHARGEITEM",
-              "FINDING",
-              "THERAPY",
-              "BODY_METRICS"
-            ]
-          },
-          "display": {
-            "type": "string"
-          },
-          "code": {
-            "type": "string"
-          },
-          "specialization": {
-            "type": "string"
-          }
-        }
-      },
-      "Encounter": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "patientId": {
-            "type": "string"
-          },
-          "practitionerId": {
-            "type": "string"
-          },
-          "encounterDate": {
-            "type": "string",
-            "format": "date"
-          },
-          "encounterName": {
-            "type": "string"
-          },
-          "medicalRecords": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MedicalRecord"
-            }
-          }
-        }
-      },
-      "BodyMetrics": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "version": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "bodyHeight": {
-            "type": "string"
-          },
-          "bellyCircumference": {
-            "type": "string"
-          },
-          "headCircumference": {
-            "type": "string"
-          },
-          "bodyFat": {
-            "type": "string"
-          }
-        }
-      },
-      "UserInfo": {
-        "type": "object",
-        "properties": {
-          "userName": {
-            "type": "string"
-          },
-          "tenantId": {
-            "type": "string"
-          }
-        }
-      },
-      "PatientNamesOnly": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "givenName": {
-            "type": "string"
-          },
-          "familyName": {
-            "type": "string"
-          }
-        }
-      },
-      "Lock": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "isLocked": {
-            "type": "boolean"
-          },
-          "lockKey": {
-            "type": "string"
-          },
-          "lockTime": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "userName": {
-            "type": "string"
-          }
-        }
-      },
-      "MetaData": {
-        "type": "object",
-        "properties": {
-          "resourceType": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        }
-      },
-      "BundleEntryComponentPractitioner": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/Practitioner"
-          },
-          "fullUrl": {
-            "type": "string"
-          }
-        }
-      },
-      "BundlePractitioner": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "entry": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BundleEntryComponentPractitioner"
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Encounter"
+                }
+              }
             }
           },
-          "resourceType": {
-            "type": "string"
+          "400" : {
+            "description" : "Bad Request"
           }
-        }
-      },
-      "BundleEntryComponentPatient": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/Patient"
+        },
+        "summary" : "Save",
+        "tags" : [ "Encounter Controller" ]
+      }
+    },
+    "/fhir/r4/Organization" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
           },
-          "fullUrl": {
-            "type": "string"
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BundleOrganization"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BundleOrganization"
+                }
+              }
+            }
           }
-        }
+        },
+        "summary" : "Search",
+        "tags" : [ "Organization Fhir Controller" ]
       },
-      "BundlePatient": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "entry": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BundleEntryComponentPatient"
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Organization"
+              }
+            },
+            "application/fhir+json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Organization"
+              }
             }
           },
-          "resourceType": {
-            "type": "string"
-          }
-        }
-      },
-      "BundleEntryComponentOrganization": {
-        "type": "object",
-        "properties": {
-          "resource": {
-            "$ref": "#/components/schemas/Organization"
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
           },
-          "fullUrl": {
-            "type": "string"
+          "400" : {
+            "description" : "Bad Request"
           }
-        }
+        },
+        "summary" : "Create",
+        "tags" : [ "Organization Fhir Controller" ]
+      }
+    },
+    "/fhir/r4/Organization/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Organization"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Organization"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Organization Fhir Controller" ]
       },
-      "BundleOrganization": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Delete",
+        "tags" : [ "Organization Fhir Controller" ]
+      }
+    },
+    "/fhir/r4/Patient" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "family",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
           },
-          "entry": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/BundleEntryComponentOrganization"
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BundlePatient"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BundlePatient"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Search",
+        "tags" : [ "Patient Fhir Controller" ]
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Patient"
+              }
+            },
+            "application/fhir+json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Patient"
+              }
             }
           },
-          "resourceType": {
-            "type": "string"
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad Request"
           }
-        }
+        },
+        "summary" : "Create",
+        "tags" : [ "Patient Fhir Controller" ]
+      }
+    },
+    "/fhir/r4/Patient/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Patient"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Patient"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Patient Fhir Controller" ]
+      },
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Delete",
+        "tags" : [ "Patient Fhir Controller" ]
+      }
+    },
+    "/fhir/r4/Practitioner" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "family",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BundlePractitioner"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/BundlePractitioner"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Search",
+        "tags" : [ "Practitioner Fhir Controller" ]
+      },
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Practitioner"
+              }
+            },
+            "application/fhir+json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Practitioner"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "201" : {
+            "description" : "Created"
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Create",
+        "tags" : [ "Practitioner Fhir Controller" ]
+      }
+    },
+    "/fhir/r4/Practitioner/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Practitioner"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Practitioner"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Practitioner Fhir Controller" ]
+      },
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Delete",
+        "tags" : [ "Practitioner Fhir Controller" ]
+      }
+    },
+    "/fhir/r4/metadata" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MetaData"
+                }
+              },
+              "application/fhir+json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MetaData"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get Metadata",
+        "tags" : [ "Meta Data Controller" ]
+      }
+    },
+    "/locks/acquireLockByKey" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "lockKey",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Lock"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Acquire Lock By Key",
+        "tags" : [ "Lock Controller" ]
+      }
+    },
+    "/locks/removeLockById" : {
+      "delete" : {
+        "parameters" : [ {
+          "name" : "lockId",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Remove Lock By Id",
+        "tags" : [ "Lock Controller" ]
+      }
+    },
+    "/medicalrecords/delete/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "summary" : "Delete",
+        "tags" : [ "Medical Record Controller" ]
+      }
+    },
+    "/medicalrecords/getById/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MedicalRecord"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Medical Record Controller" ]
+      }
+    },
+    "/medicalrecords/save" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/MedicalRecord"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MedicalRecord"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Save",
+        "tags" : [ "Medical Record Controller" ]
+      }
+    },
+    "/organizations/deleteById/{id}" : {
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "summary" : "Delete By Id",
+        "tags" : [ "Organization Controller" ]
+      }
+    },
+    "/organizations/findByName" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Organization1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find By Name",
+        "tags" : [ "Organization Controller" ]
+      }
+    },
+    "/organizations/getById/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Organization1"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Organization Controller" ]
+      }
+    },
+    "/organizations/save" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Organization1"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Organization1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Save",
+        "tags" : [ "Organization Controller" ]
+      }
+    },
+    "/patients/deleteById/{id}" : {
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "summary" : "Delete By Id",
+        "tags" : [ "Patient Controller" ]
+      }
+    },
+    "/patients/findByFamilyName" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "familyName",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Patient1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find By Family Name",
+        "tags" : [ "Patient Controller" ]
+      }
+    },
+    "/patients/findByGivenName" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "givenName",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Patient1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find By Given Name",
+        "tags" : [ "Patient Controller" ]
+      }
+    },
+    "/patients/findPatientNamesByFamilyName" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "search",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Patient1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find Patient Names By Family Name",
+        "tags" : [ "Patient Controller" ]
+      }
+    },
+    "/patients/getById/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Patient1"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Patient Controller" ]
+      }
+    },
+    "/patients/save" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Patient1"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Patient1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Save",
+        "tags" : [ "Patient Controller" ]
+      }
+    },
+    "/practitioners/deleteById/{id}" : {
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "No Content"
+          }
+        },
+        "summary" : "Delete By Id",
+        "tags" : [ "Practitioner Controller" ]
+      }
+    },
+    "/practitioners/findByFamilyName" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "familyName",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Practitioner1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find By Family Name",
+        "tags" : [ "Practitioner Controller" ]
+      }
+    },
+    "/practitioners/findByGivenName" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "givenName",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Practitioner1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find By Given Name",
+        "tags" : [ "Practitioner Controller" ]
+      }
+    },
+    "/practitioners/getById/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Practitioner1"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Practitioner Controller" ]
+      }
+    },
+    "/practitioners/save" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Practitioner1"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Practitioner1"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Save",
+        "tags" : [ "Practitioner Controller" ]
+      }
+    },
+    "/roles/deleteById/{id}" : {
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Delete By Id",
+        "tags" : [ "Role Controller" ]
+      }
+    },
+    "/roles/findByName" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Role"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find By Name",
+        "tags" : [ "Role Controller" ]
+      }
+    },
+    "/roles/getById/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Role"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "Role Controller" ]
+      }
+    },
+    "/roles/save" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Role"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Role"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Save",
+        "tags" : [ "Role Controller" ]
+      }
+    },
+    "/users/deleteById/{id}" : {
+      "delete" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Delete By Id",
+        "tags" : [ "User Controller" ]
+      }
+    },
+    "/users/findByName" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : [ "string", "null" ]
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Find By Name",
+        "tags" : [ "User Controller" ]
+      }
+    },
+    "/users/getById/{id}" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get By Id",
+        "tags" : [ "User Controller" ]
+      }
+    },
+    "/users/getUserInfo" : {
+      "get" : {
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/UserInfo"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Get User Info",
+        "tags" : [ "User Controller" ]
+      }
+    },
+    "/users/hasPermission" : {
+      "get" : {
+        "parameters" : [ {
+          "name" : "category",
+          "in" : "query",
+          "schema" : {
+            "$ref" : "#/components/schemas/PermissionCategory"
+          },
+          "required" : true
+        }, {
+          "name" : "name",
+          "in" : "query",
+          "schema" : {
+            "type" : "string"
+          },
+          "required" : true
+        }, {
+          "name" : "type",
+          "in" : "query",
+          "schema" : {
+            "$ref" : "#/components/schemas/PermissionType"
+          },
+          "required" : true
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "boolean"
+                }
+              }
+            }
+          }
+        },
+        "summary" : "Has Permission",
+        "tags" : [ "User Controller" ]
+      }
+    },
+    "/users/save" : {
+      "post" : {
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad Request"
+          }
+        },
+        "summary" : "Save",
+        "tags" : [ "User Controller" ]
       }
     }
-  }
+  },
+  "info" : {
+    "title" : "core-service API",
+    "version" : "4.0.2-SNAPSHOT"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:50800",
+    "description" : "Auto generated value"
+  }, {
+    "url" : "http://0.0.0.0:50800",
+    "description" : "Auto generated value"
+  } ]
 }

@@ -1,134 +1,175 @@
-import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val version: String by project
 val javaVersion = "25"
 java.sourceCompatibility = JavaVersion.toVersion(javaVersion)
+tasks.withType<KotlinCompile>().all { compilerOptions { jvmTarget.set(JvmTarget.fromTarget(javaVersion)); javaParameters = true } }
 
 val dockerRegistry = "goafabric"
-val baseImage = "eclipse-temurin:25-jre@sha256:74d5c631e5db5a44e7f5a2dd49f93f0c6f7b8c22c1dc1b8e1caec7009872c5c3"
 
 plugins {
 	java
 	jacoco
-	id("org.springframework.boot") version "4.1.0"
-	id("io.spring.dependency-management") version "1.1.7"
-	id("org.graalvm.buildtools.native") version "0.11.5"
-
-	id("com.google.cloud.tools.jib") version "3.5.3"
+	id("io.quarkus") version "3.37.2"
 	id("net.researchgate.release") version "3.1.0"
-	id("org.sonarqube") version "7.3.0.8198"
+	id("org.sonarqube") version "7.3.1.8318"
 
-	id("org.springdoc.openapi-gradle-plugin") version "1.9.0"
+	kotlin("jvm") version "2.4.0"
+	kotlin("plugin.jpa") version "2.4.0"
+	kotlin("plugin.allopen") version "2.4.0"
+	kotlin("kapt") version "2.4.0"
 }
 
 repositories {
 	mavenCentral()
-	maven { url = uri("https://repo.spring.io/milestone") }
-	maven { url = uri("https://repo.spring.io/snapshot") }
 }
 
 dependencies {
 	constraints {
 		annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
 		implementation("org.mapstruct:mapstruct:1.6.3")
-        implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:3.0.3")
-		implementation("io.github.resilience4j:resilience4j-spring-boot4:2.4.0")
+		implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob:1.2.4")
+		implementation("io.quarkiverse.mcp:quarkus-mcp-server-http:1.13.1")
+
+		kapt("org.mapstruct:mapstruct-processor:1.6.3")
+
+		testImplementation("org.assertj:assertj-core:3.27.7")
+		testImplementation("com.tngtech.archunit:archunit-junit5:1.4.2")
+		testImplementation("org.mockito.kotlin:mockito-kotlin:6.3.0")
 	}
+
+	kapt(enforcedPlatform("io.quarkus:quarkus-bom:3.37.2"))
+	implementation(enforcedPlatform("io.quarkus:quarkus-bom:3.37.2"))
 }
-
-val hapiFhirVersion = "8.10.0"
-
 dependencies {
 	//web
-	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("io.quarkus:quarkus-arc")
+	implementation("io.quarkus:quarkus-rest-jackson")
+	implementation("org.jboss.logmanager:log4j2-jboss-logmanager")
 
 	//monitoring
-    implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("io.micrometer:micrometer-registry-prometheus")
+	implementation("io.quarkus:quarkus-smallrye-health")
+	implementation("io.quarkus:quarkus-micrometer-registry-prometheus")
+	implementation("io.quarkus:quarkus-smallrye-openapi")
+	implementation("io.quarkus:quarkus-opentelemetry")
+	implementation("io.opentelemetry.instrumentation:opentelemetry-jdbc")
 
-	//openapi
-	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui")
-
-	//crosscuting
-	implementation("org.springframework.boot:spring-boot-starter-aspectj")
+	//crosscutting
+	implementation("io.quarkus:quarkus-hibernate-validator")
 
 	//persistence
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa") {exclude("org.glassfish.jaxb", "jaxb-runtime")}
-	implementation("org.springframework.boot:spring-boot-starter-opentelemetry")
-    implementation("org.springframework.boot:spring-boot-starter-restclient")
-    implementation("com.h2database:h2")
-	implementation("org.postgresql:postgresql")
-	implementation("org.springframework.boot:spring-boot-starter-flyway")
+	implementation("io.quarkus:quarkus-jdbc-postgresql")
+	implementation("io.quarkus:quarkus-jdbc-h2")
+	implementation("io.quarkus:quarkus-flyway")
 	implementation("org.flywaydb:flyway-database-postgresql")
 
-	//kafka
-	implementation("org.springframework.boot:spring-boot-starter-kafka")
+	//jakarta data
+	implementation("io.quarkus:quarkus-data-hibernate")
+	implementation("jakarta.data:jakarta.data-api")
+	kapt("org.hibernate.orm:hibernate-processor")
 
-	//elastic
-	//implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
+	//adapter
+	implementation("io.quarkus:quarkus-resteasy-client-jackson")
+	implementation("io.quarkus:quarkus-smallrye-fault-tolerance")
 
-	//s3
-	implementation("am.ik.s3:simple-s3-client:0.2.2") {exclude("org.springframework", "spring-web")}
+	//jib
+	implementation("io.quarkus:quarkus-container-image-jib")
 
 	//code generation
-	implementation("net.datafaker:datafaker:2.5.4") { exclude("org.yaml", "snakeyaml") }
 	implementation("org.mapstruct:mapstruct")
-	annotationProcessor("org.mapstruct:mapstruct-processor")
+	kapt("org.mapstruct:mapstruct-processor")
 
-	//devtools
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	//kotlin
+	implementation("io.quarkus:quarkus-kotlin")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+
+	//kafka
+	implementation("io.quarkus:quarkus-messaging-kafka")
+	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
+
+	//blob
+	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
+
+	//mcp
+	implementation("io.quarkiverse.mcp:quarkus-mcp-server-http")
+
+	//datafaker for demo data
+	implementation("net.datafaker:datafaker:2.5.4")
+
+	//h2
+	runtimeOnly("com.h2database:h2")
 
 	//test
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-client-okhttp:$hapiFhirVersion")
-	testImplementation("ca.uhn.hapi.fhir:hapi-fhir-structures-r4:$hapiFhirVersion")
+	testImplementation("io.quarkus:quarkus-junit5")
+	testImplementation("io.rest-assured:rest-assured")
+	testImplementation("io.quarkus:quarkus-resteasy-client-jackson")
+	testImplementation("io.quarkus:quarkus-jacoco")
+	testImplementation("org.assertj:assertj-core")
+	testImplementation("com.tngtech.archunit:archunit-junit5")
 
+	testImplementation("org.mockito.kotlin:mockito-kotlin")
+	testImplementation("io.quarkus:quarkus-junit-mockito")
+
+	testImplementation("io.quarkus:quarkus-test-kafka-companion")
+
+	testImplementation("org.testcontainers:testcontainers-postgresql")
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
 	exclude("**/*NRIT*")
+	systemProperty("java.util.logging.manager", "org.jboss.logmanager.LogManager")
 	finalizedBy("jacocoTestReport")
 }
-tasks.jacocoTestReport { reports {csv.required.set(true); xml.required.set(true) } }
 
-jib {
-	val amd64 = com.google.cloud.tools.jib.gradle.PlatformParameters(); amd64.os = "linux"; amd64.architecture = "amd64"; val arm64 = com.google.cloud.tools.jib.gradle.PlatformParameters(); arm64.os = "linux"; arm64.architecture = "arm64"
-	from.image = baseImage
-	to.image = "${dockerRegistry}/${project.name}:${project.version}"
-	container.jvmFlags = listOf("-Xms256m", "-Xmx256m")
-	from.platforms.set(listOf(amd64, arm64))
+
+tasks.jacocoTestReport {
+	executionData.setFrom(
+		fileTree(layout.buildDirectory.get()).include("jacoco/test.exec", "jacoco-quarkus.exec")
+	)
+	reports { xml.required.set(true); csv.required.set(true); html.required.set(true) }
 }
 
-interface InjectedExecOps { @get:Inject val execOps: ExecOperations }
-tasks.register("dockerImageNative") { description= "Native Image"; group = "build"; dependsOn("bootBuildImage") }
-tasks.named<BootBuildImage>("bootBuildImage") {
-	val nativeImageName = "${dockerRegistry}/${project.name}-native:${project.version}"
-	imageName.set(nativeImageName)
-	builder.set("paketobuildpacks/builder-noble-java-tiny@sha256:c8b5f936e6d9af492af4a493b4a03eaf496fe51f206c5d53ccddab7871ed4ef5")
-	environment.set(mapOf("BP_NATIVE_IMAGE" to "true", "BP_JVM_VERSION" to javaVersion, "BP_NATIVE_IMAGE_BUILD_ARGUMENTS" to "-J-Xmx8000m -march=compatibility"))
-	doLast {
-		project.objects.newInstance<InjectedExecOps>().execOps.exec { commandLine("/bin/sh", "-c", "docker run --rm $nativeImageName -Dspring.context.exit=onRefresh") }
-		project.objects.newInstance<InjectedExecOps>().execOps.exec { commandLine("/bin/sh", "-c", "docker push $nativeImageName") }
+tasks.register<Exec>("dockerImageNative") { description = "native image"; group = "build" ; dependsOn("quarkusBuild", "testNative")
+	if (gradle.startParameter.taskNames.contains("dockerImageNative")) {
+		if (System.getProperty("os.arch").equals("aarch64")) {
+			System.setProperty("quarkus.jib.platforms", "linux/arm64/v8")
+		}
+
+		System.setProperty("quarkus.native.builder-image", "quay.io/quarkus/ubi-quarkus-mandrel-builder-image:jdk-25")
+		System.setProperty("quarkus.package.jar.enabled", "false")
+
+		System.setProperty("quarkus.native.enabled", "true")
+		System.setProperty("quarkus.native.container-build", "true")
+		System.setProperty("quarkus.container-image.build", "true")
+
+		System.setProperty("quarkus.native.native-image-xmx", "8000m")
+		System.setProperty("quarkus.container-image.image", "${dockerRegistry}/${project.name}:${project.version}")
+
+		commandLine("/bin/sh", "-c", "docker push ${dockerRegistry}/${project.name}:${project.version}")
 	}
 }
 
 configure<net.researchgate.release.ReleaseExtension> {
-	buildTasks.set(listOf("build", "test", "jib", "dockerImageNative"))
+	buildTasks.set(listOf("build", "test", "dockerImageNative"))
 	tagTemplate.set("v${version}".replace("-SNAPSHOT", ""))
 }
 
-openApi {
-	outputDir.set(file("doc/generated"))
-	customBootRun { args.set(listOf("--server.port=8080")) }
-	tasks.forkedSpringBootRun { dependsOn("compileAotJava", "processAotResources") }
+
+allOpen {
+	annotation("jakarta.ws.rs.Path")
+	annotation("jakarta.enterprise.context.ApplicationScoped")
+	annotation("jakarta.persistence.Entity")
+	annotation("io.quarkus.test.junit.QuarkusTest")
 }
 
 sonarqube {
 	properties {
-		property("sonar.exclusions", "**/*Cologne*.java")
+		property("sonar.exclusions", "**/.github/workflows/**")
 	}
 }
 
-sonar { properties { property("sonar.exclusions", "**/ApplicationBaseRuntimeHints.*") } }
+tasks.matching { it.name == "checkSnapshotDependencies" }.configureEach {
+	enabled = false
+}
