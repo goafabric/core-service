@@ -4,4 +4,4 @@ pluginManagement {
 		mavenCentral()
 	}
 }
-rootProject.name = "core-service"
+rootProject.name = "core-service-quarkus"
