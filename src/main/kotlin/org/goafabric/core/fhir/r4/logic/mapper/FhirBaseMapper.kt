@@ -19,7 +19,7 @@ interface FhirBaseMapper {
     fun mapToFhirAddress(value: OrgAddress): FhirAddress {
         return FhirAddress(
             id = value.id,
-            line = if (value.street != null) listOf(value.street) else emptyList(),
+            line = if (value.street != null) listOf(value.street!!) else emptyList(),
             city = value.city,
             postalCode = value.postalCode,
             state = value.state,

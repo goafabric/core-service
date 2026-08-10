@@ -1,9 +1,9 @@
 package org.goafabric.core.organization.controller.dto
 
 data class ContactPoint(
-    val id: String? = null,
-    val version: Long? = null,
-    val use: String? = null,
-    val system: String? = null,
-    val value: String? = null
+    var id: String? = null,
+    var version: Long? = null,
+    var use: String? = null,
+    var system: String? = null,
+    var value: String? = null
 )

@@ -1,12 +1,12 @@
 package org.goafabric.core.organization.controller.dto
 
 data class Address(
-    val id: String? = null,
-    val version: Long? = null,
-    val use: String? = null,
-    val street: String? = null,
-    val city: String? = null,
-    val postalCode: String? = null,
-    val state: String? = null,
-    val country: String? = null
+    var id: String? = null,
+    var version: Long? = null,
+    var use: String? = null,
+    var street: String? = null,
+    var city: String? = null,
+    var postalCode: String? = null,
+    var state: String? = null,
+    var country: String? = null
 )
