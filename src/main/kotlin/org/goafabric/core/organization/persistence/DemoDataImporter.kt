@@ -4,7 +4,6 @@ import io.quarkus.runtime.Quarkus
 import io.quarkus.runtime.StartupEvent
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.enterprise.event.Observes
-import net.datafaker.Faker
 import org.eclipse.microprofile.config.inject.ConfigProperty
 import org.goafabric.core.extensions.UserContext
 import org.goafabric.core.organization.controller.dto.*
@@ -65,6 +64,7 @@ class DemoDataImporter(
     }
 
     private fun createPatients() {
+        /*
         val faker = Faker()
         repeat(demoDataSize) {
             patientLogic.save(
@@ -75,6 +75,8 @@ class DemoDataImporter(
                 )
             )
         }
+
+         */
     }
 
     private fun createPractitioners() {

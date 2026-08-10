@@ -88,15 +88,9 @@ dependencies {
 	implementation("io.quarkus:quarkus-messaging-kafka")
 	implementation("io.smallrye.reactive:smallrye-reactive-messaging-kafka")
 
-	//blob
-	implementation("io.quarkiverse.azureservices:quarkus-azure-storage-blob")
-
 	//mcp
 	implementation("io.quarkiverse.mcp:quarkus-mcp-server-http")
-
-	//datafaker for demo data
-	implementation("net.datafaker:datafaker:2.5.4")
-
+	
 	//h2
 	runtimeOnly("com.h2database:h2")
 
