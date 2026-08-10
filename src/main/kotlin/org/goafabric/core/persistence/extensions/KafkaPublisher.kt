@@ -14,6 +14,7 @@ import org.eclipse.microprofile.reactive.messaging.Channel
 import org.eclipse.microprofile.reactive.messaging.Emitter
 import org.eclipse.microprofile.reactive.messaging.Message
 import org.goafabric.core.extensions.UserContext
+import org.goafabric.core.medicalrecords.persistence.jpa.entity.MedicalRecordEo
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.nio.charset.StandardCharsets
@@ -46,19 +47,10 @@ class KafkaPublisher(
     private fun publish(operation: DbOperation, entity: Any) {
         if (!kafkaEnabled) return
 
-        val topic = entity.javaClass.simpleName
-            .replace("Eo", "")
-            .lowercase()
-
-        val id = try {
-            val idField = entity.javaClass.getDeclaredField("id")
-            idField.isAccessible = true
-            idField.get(entity)?.toString() ?: "unknown"
-        } catch (e: Exception) {
-            "unknown"
+        if (entity is MedicalRecordEo) {
+            publishEvent("patient.core", entity.id!!, operation, entity)
         }
 
-        publishEvent(topic, id, operation, entity)
     }
 
     private fun publishEvent(topic: String, key: String, operation: DbOperation, payload: Any) {
